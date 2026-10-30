@@ -1,9 +1,79 @@
 [
   {
     "start": 0,
-    "end": 5,
-    "text": "Contoh teks subtitle awal",
-    "keyword": "mountain",
-    "image": "https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+    "end": 3.8,
+    "text": "Kita enggak pernah lihat Allah, tapi selalu dikasih.",
+    "keyword": "sunlight",
+    "image": "https://pixabay.com/get/g0096a14168b97f209343b0e6f596e450b3e4097164107bcb11f8a531ea4f07c128e5d5a933a9160ea1e01ffea7bf16753ed7eaa92ce793c5d40c52057a968c1f_1280.jpg"
+  },
+  {
+    "start": 3.9,
+    "end": 8.35,
+    "text": "Kita selalu menghitung yang belum dapat, enggak pernah menghitung yang sudah diberikan.",
+    "keyword": "fog",
+    "image": "https://pixabay.com/get/g7d8569a2357f5660da601278703e854fdd72cfe4387890d7ee82d9bd4ef3bf31bdd1edf875e1c1d8a8f4d7f5760c5a4841612cc777c4e9a799efa2030760f1ed_1280.jpg"
+  },
+  {
+    "start": 8.4,
+    "end": 12.6,
+    "text": "Yang sudah ada enggak pernah dilihat, sehingga enggak merasakan berapa banyak yang dikasih.",
+    "keyword": "desert",
+    "image": "https://pixabay.com/get/gd1aa15adea56830d742f836330cf1210a9733eb846d20a83dcd4e689e73eff5a58c643ef8e4d5f88e099121f2dd9a229ec33cac474fc619aecd3fa42df0ada19_1280.jpg"
+  },
+  {
+    "start": 12.65,
+    "end": 15.7,
+    "text": "Sehat, usia, kenyamanan.",
+    "keyword": "meadow",
+    "image": "https://pixabay.com/get/gec4af47b0bdbc4dcfbd127916d69d61f0bad60e0538897d092749409449e6c9ec04960f351e53dfd784a9b1c124e77e04f78e2383a42bace7963db5fb9025ea3_1280.jpg"
+  },
+  {
+    "start": 15.8,
+    "end": 22.8,
+    "text": "Baru ada masalah sedikit, kacau, padahal ribuan tahun sebelumnya, ribuan masalah sebelumnya sudah Allah selesaikan, ya kan?",
+    "keyword": "storm",
+    "image": "https://pixabay.com/get/g6f617f98bc2f9add8513bf486eb454598c01707c739d075230f440bbcf1e4c891079ecc55d1f0c0debfd6fa61573265086bb96d6d54e33be773492c25a623424_1280.jpg"
+  },
+  {
+    "start": 23,
+    "end": 29.4,
+    "text": "Jadi ketika melihat dengan itu, dan enggak pernah lihat Allah, kenapa enggak ada rasa kangen?",
+    "keyword": "twilight",
+    "image": "https://pixabay.com/get/g39995cbf2515e4bdd250e0ef56502ffb6261c020165dc239b394c3562c100b092bac03d97b2f01217d4fbe2bfd6578ee7853ed8d9c084fcbd881835de218ac87_1280.jpg"
+  },
+  {
+    "start": 29.5,
+    "end": 32.8,
+    "text": "Dan satu-satunya cara kita menghadap Allah dalam salat.",
+    "keyword": "dawn",
+    "image": "https://pixabay.com/get/g0d28dfd2f94f4f60cb2dcb9b7e0da9ed1a343124ab5b79000d7cd7eb69ae5273ea499d924c82af101dd360d723e61043bfbec16ceb65df96fa99dd86ab8a0257_1280.jpg"
+  },
+  {
+    "start": 32.9,
+    "end": 36.3,
+    "text": "Makanya Nabi mencontohkan saking bahagianya, rukuknya tuh panjang.",
+    "keyword": "ocean",
+    "image": "https://pixabay.com/get/gb93c32d22b336734ab06613f5e372349a557b2928404cb279891399232eae5d4d6ca06a4fdbbd4a1866a41a47226e8088e45e340b347eb7c90ccab8872f0c8bc_1280.jpg"
+  },
+  {
+    "start": 36.4,
+    "end": 41.2,
+    "text": "Tapi bukan diada-adakan mesti panjang, bukan, ya, poinnya adalah sampai kamu tenang rukuk.",
+    "keyword": "lake",
+    "image": "https://pixabay.com/get/g7a890fe8511f17c6e4a871a6a66e8d41e1e4dad9faf8a33ea1909fc0f0116d9ce95194115c419fdd7ef9f91e8dc059844ab8ac862a9db630dda0280fe87dd130_1280.jpg"
+  },
+  {
+    "start": 41.3,
+    "end": 48.2,
+    "text": "Ternyata di pertemuan lalu kita bicara, rukuk itu tempat curhat kita, tempat kita menengadah ke Allah sebelum sujud.",
+    "keyword": "forest",
+    "image": "https://pixabay.com/get/g446477c637afff604365172a9d05d7f81e0f921a536103ed9f5627f1f57610b2b9142d112c6224c883484c60b4d94a4e09b4ed726cbd25f2de6ade42407ccbf0_1280.jpg"
+  },
+  {
+    "start": 48.3,
+    "end": 55.4,
+    "text": "Nah, sampai kita curhatkan masalah kita, tenang kita, bacaan sudah keluar, darah mengalir dengan enak, baru naik.",
+    "keyword": "breeze",
+    "image": "https://pixabay.com/get/g1c0d8c7065e5ffc69d95972c24c5542c97dcd92e2892540d629656d46f18011e7d12068c92d3a965949653629079c19d32f0a3d16ab79d7d9b2c7fb6b278f9ca_1280.jpg"
   }
 ]
