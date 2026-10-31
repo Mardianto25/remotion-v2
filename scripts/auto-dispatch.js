@@ -10,33 +10,42 @@ dotenv.config();
 
 const execAsync = promisify(exec);
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const MODEL_NAME = 'gemini-3.8-flash';
 const publicDir = path.join(process.cwd(), 'public');
 
-// Daftar tautan cadangan (fallback) video YouTube Shorts ceramah/renungan yang aktif
-const BACKUP_SHORTS = [
+// Ambil daftar model dari ENV dan ubah menjadi Array
+const geminiModels = process.env.GEMINI_MODELS 
+  ? process.env.GEMINI_MODELS.split(',').map(m => m.trim())
+  : ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-3.5-flash-lite'];
+
+const backupShorts = [
   'https://www.youtube.com/shorts/58V3Pt07y80',
-  'https://www.youtube.com/shorts/dQw4w9WgXcQ' // Sesuaikan/tambahkan link shorts aktif lainnya jika diperlukan
+  'https://www.youtube.com/shorts/dQw4w9WgXcQ'
 ];
 
 async function fetchTopViralShortFromAI() {
-  console.log('🤖 Meminta Gemini AI mencari 1 tautan YouTube Shorts Renungan Islami dari channel populer...');
-  
-  try {
-    const prompt = `
-      Berikan HANYA 1 (satu) tautan video YouTube Shorts publik dari channel resmi atau populer yang bertema ceramah pendek, motivasi, atau renungan islami yang aktif dan tidak dihapus.
-      Kembalikan HANYA dalam bentuk JSON Array berisi tepat 1 string URL tanpa teks lain dan tanpa blok markdown:
-      ["https://www.youtube.com/shorts/ID_VIDEO_AKTIF"]
-    `;
+  const prompt = `
+    Berikan HANYA 1 (satu) tautan video YouTube Shorts publik dari channel resmi atau populer yang bertema ceramah pendek, motivasi, atau renungan islami yang aktif dan tidak dihapus.
+    Kembalikan HANYA dalam bentuk JSON Array berisi tepat 1 string URL tanpa teks lain dan tanpa blok markdown:
+    ["https://www.youtube.com/shorts/ID_VIDEO_AKTIF"]
+  `;
 
-    const response = await ai.models.generateContent({ model: MODEL_NAME, contents: prompt });
-    let raw = response.text.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
-    const list = JSON.parse(raw);
-    return list[0] || null;
-  } catch (err) {
-    console.warn('⚠️ AI gagal merespon tautan, beralih menggunakan link cadangan...');
-    return null;
+  // Iterasi model berdasarkan array dari ENV
+  for (const modelName of geminiModels) {
+    try {
+      console.log(`🤖 Mencoba Gemini AI menggunakan model: ${modelName}...`);
+      const response = await ai.models.generateContent({ model: modelName, contents: prompt });
+      let raw = response.text.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
+      const list = JSON.parse(raw);
+      if (list[0]) {
+        console.log(`✅ Berhasil mendapatkan link dari model ${modelName}`);
+        return list[0];
+      }
+    } catch (err) {
+      console.warn(`⚠️ Model ${modelName} gagal, beralih ke model Gemini berikutnya...`);
+    }
   }
+
+  throw new Error('Semua model Gemini di dalam konfigurasi ENV gagal merespon tautan.');
 }
 
 async function runAutoDispatcher() {
@@ -46,10 +55,15 @@ async function runAutoDispatcher() {
       fs.unlinkSync(audioPath);
     }
 
-    let videoUrl = await fetchTopViralShortFromAI();
+    let videoUrl = null;
     let downloaded = false;
 
-    // 1. Coba unduh dari link rekomendasi AI terlebih dahulu
+    try {
+      videoUrl = await fetchTopViralShortFromAI();
+    } catch (e) {
+      console.warn('⚠️ Gagal mendapatkan tautan dari semua model AI, menggunakan link cadangan...');
+    }
+
     if (videoUrl) {
       console.log(`📌 Tautan Pilihan AI: ${videoUrl}`);
       try {
@@ -59,13 +73,13 @@ async function runAutoDispatcher() {
           downloaded = true;
         }
       } catch (e) {
-        console.warn('⚠️ Gagal mendownload dari link AI (kemungkinan video unavailable). Beralih ke link cadangan...');
+        console.warn('⚠️ Gagal mendownload dari link AI (video unavailable). Beralih ke link cadangan...');
       }
     }
 
-    // 2. Jika link AI gagal atau kosong, gunakan daftar link cadangan (fallback) secara berurutan
+    // Fallback menggunakan link cadangan
     if (!downloaded) {
-      for (const backupUrl of BACKUP_SHORTS) {
+      for (const backupUrl of backupShorts) {
         console.log(`🔄 Mencoba link cadangan: ${backupUrl}`);
         try {
           await execAsync(`yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${backupUrl}"`);
@@ -81,12 +95,11 @@ async function runAutoDispatcher() {
     }
 
     if (!downloaded || !fs.existsSync(audioPath)) {
-      throw new Error('Semua tautan (baik dari AI maupun cadangan) gagal diunduh.');
+      throw new Error('Semua tautan gagal diunduh.');
     }
 
     console.log('✅ Audio berhasil disimpan di public/audio.mp3');
 
-    // 3. Jalankan pipeline utama (analisis AI & buat subtitle)
     console.log('🚀 Menjalankan executePipeline...');
     const result = await executePipeline(true, null);
 

@@ -14,7 +14,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const MODEL_NAME = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+
+// Ambil daftar model dari ENV dalam bentuk array, berikan default jika kosong
+const geminiModels = process.env.GEMINI_MODELS 
+  ? process.env.GEMINI_MODELS.split(',').map(m => m.trim())
+  : ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-flash'];
 
 const publicDir = path.join(process.cwd(), 'public');
 if (!fs.existsSync(publicDir)) {
@@ -62,11 +66,10 @@ async function fetchVerticalNatureImage(keyword, index) {
 }
 
 // -------------------------------------------------------------
-// FUNGSI UTAMA PIPELINE (Digunakan bersama oleh Upload File & IG Link)
+// FUNGSI UTAMA PIPELINE (Dengan Fallback Array Model Gemini)
 // -------------------------------------------------------------
 export async function executePipeline(autoPushGit, res) {
   const audioPath = path.join(publicDir, 'audio.mp3');
-  console.log(`[2/4] Menganalisis isi audio menggunakan ${MODEL_NAME}...`);
   const audioBase64 = fs.readFileSync(audioPath).toString('base64');
 
   const prompt = `
@@ -86,15 +89,37 @@ export async function executePipeline(autoPushGit, res) {
     ]
   `;
 
-  const aiResponse = await ai.models.generateContent({
-    model: MODEL_NAME,
-    contents: [
-      { inlineData: { mimeType: 'audio/mp3', data: audioBase64 } },
-      prompt
-    ]
-  });
+  let aiResponseText = null;
+  let successfulModel = '';
 
-  let rawJson = aiResponse.text.trim();
+  // Iterasi mencoba model Gemini secara berurutan dari array
+  for (const modelName of geminiModels) {
+    try {
+      console.log(`[2/4] Menganalisis isi audio menggunakan model Gemini: ${modelName}...`);
+      const aiResponse = await ai.models.generateContent({
+        model: modelName,
+        contents: [
+          { inlineData: { mimeType: 'audio/mp3', data: audioBase64 } },
+          prompt
+        ]
+      });
+
+      if (aiResponse && aiResponse.text) {
+        aiResponseText = aiResponse.text;
+        successfulModel = modelName;
+        console.log(`✅ Berhasil menganalisis audio menggunakan model: ${successfulModel}`);
+        break;
+      }
+    } catch (err) {
+      console.warn(`⚠️ Model ${modelName} gagal, mencoba model Gemini berikutnya...`);
+    }
+  }
+
+  if (!aiResponseText) {
+    throw new Error('Semua model Gemini di dalam array gagal memproses analisis audio.');
+  }
+
+  let rawJson = aiResponseText.trim();
   rawJson = rawJson.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
   const parsedSegments = JSON.parse(rawJson);
 
@@ -136,17 +161,21 @@ export async function executePipeline(autoPushGit, res) {
     }
   }
 
-  res.json({
-    success: true,
-    message: 'Pemrosesan audio & pembuatan data berhasil!',
-    gitStatus: gitStatusMessage,
-    transcript: fullTranscript,
-    subtitles: subtitlesData
-  });
+  // Jika res tidak null (dipanggil dari HTTP Express), kirim respons JSON
+  if (res) {
+    res.json({
+      success: true,
+      message: 'Pemrosesan audio & pembuatan data berhasil!',
+      modelUsed: successfulModel,
+      gitStatus: gitStatusMessage,
+      transcript: fullTranscript,
+      subtitles: subtitlesData
+    });
+  }
 }
 
 // -------------------------------------------------------------
-// ENDPOINT 1: Upload File Audio Manual (Existing)
+// ENDPOINT 1: Upload File Audio Manual
 // -------------------------------------------------------------
 app.post('/api/upload-audio', upload.single('audio'), async (req, res) => {
   try {
@@ -166,37 +195,37 @@ app.post('/api/upload-audio', upload.single('audio'), async (req, res) => {
 });
 
 // -------------------------------------------------------------
-// ENDPOINT 2: Terima Link Instagram, Download Audio, lalu Proses AI (Baru)
+// ENDPOINT 2: Terima Link, Download Audio, lalu Proses AI
 // -------------------------------------------------------------
-app.post('/api/process-ig-url', async (req, res) => {
+app.post('/api/process-url', async (req, res) => {
   try {
-    const { igUrl, autoPush } = req.body;
-    if (!igUrl) {
-      return res.status(400).json({ success: false, message: 'Parameter igUrl tidak boleh kosong.' });
+    const { videoUrl, autoPush } = req.body;
+    if (!videoUrl) {
+      return res.status(400).json({ success: false, message: 'Parameter videoUrl tidak boleh kosong.' });
     }
 
-    console.log('[IG Parameter] Mengunduh audio dari tautan:', igUrl);
+    console.log('[URL Parameter] Mengunduh audio dari tautan:', videoUrl);
     const audioPath = path.join(publicDir, 'audio.mp3');
 
     if (fs.existsSync(audioPath)) {
       fs.unlinkSync(audioPath);
     }
 
-    // Menggunakan yt-dlp untuk mengunduh dan mengekstrak audio langsung ke public/audio.mp3
-    const ytDlpCommand = `yt-dlp -x --audio-format mp3 -o "${audioPath}" "${igUrl}"`;
+    // Menggunakan yt-dlp dengan runtime node agar aman di cloud/runner
+    const ytDlpCommand = `yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${videoUrl}"`;
     await execAsync(ytDlpCommand);
 
     if (!fs.existsSync(audioPath)) {
-      throw new Error('Gagal mengekstrak audio dari tautan Instagram.');
+      throw new Error('Gagal mengekstrak audio dari tautan yang diberikan.');
     }
 
-    console.log('[1/4] Audio dari link Instagram berhasil disimpan di public/audio.mp3');
+    console.log('[1/4] Audio berhasil disimpan di public/audio.mp3');
 
     const autoPushGit = autoPush === true || autoPush === 'true';
     await executePipeline(autoPushGit, res);
 
   } catch (error) {
-    console.error('[IG Error]:', error);
+    console.error('[URL Error]:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
