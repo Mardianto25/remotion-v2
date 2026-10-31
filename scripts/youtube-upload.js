@@ -20,22 +20,24 @@ async function generateYouTubeMetadata() {
     ? fs.readFileSync(transcriptPath, 'utf8').trim()
     : 'Renungan kehidupan dan ketenangan alam.';
 
-  console.log('[Metadata] Merumuskan judul dan deskripsi dari transcript.txt...');
+  console.log('[Metadata] Merumuskan judul, deskripsi, dan tags dari transcript.txt...');
 
   const prompt = `
     Berikut adalah isi narasi suara dari sebuah video pendek:
     "${transcript}"
 
     Buatlah metadata YouTube Shorts berbahasa Indonesia yang menyentuh hati, reflektif, hangat, dan sangat manusiawi:
-    1. "title": Judul yang menyentuh perasaan dan membuat orang tertarik menonton (maksimal 75 karakter, sertakan #shorts di akhir).
-    2. "description": Deskripsi beberapa paragraf singkat yang relevan dengan isi narasi, diakhiri dengan 5 hingga 8 hashtag populer yang sesuai.
+    1. "title": Judul yang menyentuh perasaan dan menarik perhatian (panjang maksimal 60 karakter agar tidak terpotong).
+    2. "description": Deskripsi beberapa paragraf singkat yang relevan dengan isi narasi, diakhiri dengan hashtag pendukung.
+    3. "tags": Sebuah array berisi 8 hingga 12 kata kunci/tag penting (dalam bentuk string) yang sangat relevan dengan isi video ini untuk keperluan SEO YouTube.
     
-    ATURAN WAJIB: Dilarang keras menyebutkan kata teknis seperti AI, Remotion, Gemini, otomatis, atau pembuat video. Tulis seolah-olah dibuat langsung oleh kreator manusia.
+    ATURAN WAJIB: Dilarang keras menyebutkan kata teknis seperti AI, Remotion, Gemini, otomatis, atau pembuat video.
 
     Kembalikan HANYA format JSON murni tanpa blok markdown:
     {
       "title": "...",
-      "description": "..."
+      "description": "...",
+      "tags": ["tag1", "tag2", "tag3"]
     }
   `;
 
@@ -48,15 +50,22 @@ async function generateYouTubeMetadata() {
   raw = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
   const data = JSON.parse(raw);
 
+  // Pastikan judul ditambahkan hashtag #shorts secara otomatis di belakangnya
+  let cleanTitle = sanitizeContent(data.title);
+  if (!cleanTitle.toLowerCase().includes('#shorts')) {
+    cleanTitle = `${cleanTitle} #shorts`;
+  }
+
   return {
-    title: sanitizeContent(data.title).slice(0, 95),
-    description: sanitizeContent(data.description)
+    title: cleanTitle.slice(0, 95),
+    description: sanitizeContent(data.description),
+    tags: data.tags || ["shorts", "renungan", "inspirasi", "motivasi", "religi"]
   };
 }
 
 async function getFreshAccessToken() {
   console.log('[OAuth2] Memperbarui Access Token menggunakan Refresh Token...');
-  const response = await fetch('https://oauth2.googleapis.com/token', {
+  const response = await fetch('[https://oauth2.googleapis.com/token](https://oauth2.googleapis.com/token)', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
@@ -80,7 +89,7 @@ async function uploadVideoMultipart() {
     throw new Error(`File video tidak ditemukan di ${videoPath}. Pastikan proses render berhasil.`);
   }
 
-  const { title, description } = await generateYouTubeMetadata();
+  const { title, description, tags } = await generateYouTubeMetadata();
   const accessToken = await getFreshAccessToken();
 
   const publishDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
@@ -89,7 +98,8 @@ async function uploadVideoMultipart() {
     snippet: {
       title: title,
       description: description,
-      categoryId: '22'
+      categoryId: '22', // 22 = People & Blogs
+      tags: tags
     },
     status: {
       privacyStatus: 'private',
@@ -122,7 +132,7 @@ async function uploadVideoMultipart() {
   ]);
 
   console.log(`[Upload] Mengunggah video "${title}" ke YouTube...`);
-  const uploadUrl = 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status';
+  const uploadUrl = '[https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status](https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status)';
 
   const uploadRes = await fetch(uploadUrl, {
     method: 'POST',
@@ -142,6 +152,7 @@ async function uploadVideoMultipart() {
   console.log('✅ Video berhasil diunggah ke YouTube!');
   console.log(`📌 Video ID       : ${result.id}`);
   console.log(`📌 Judul          : ${result.snippet.title}`);
+  console.log(`📌 Tags           : ${result.snippet.tags?.join(', ')}`);
   console.log(`📌 Jadwal Tayang  : ${result.status.publishAt}`);
 }
 
