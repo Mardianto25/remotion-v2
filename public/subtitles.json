@@ -1,79 +1,86 @@
 [
   {
-    "start": 0,
-    "end": 4.2,
+    "start": 0.2,
+    "end": 4.3,
     "text": "Orang yang paling tenang hidupnya itu tukang parkir.",
     "keyword": "lake",
-    "image": "https://pixabay.com/get/g886795b78f9c82a02bef26a0c2967784b8af3853cbcf93c31a19b92fd416d5e945dcde2ce097fab45ad730d939195b45b2a9811cca22520556ca64f579b2d979_1280.jpg"
+    "image": "https://pixabay.com/get/g42cac4e4d0385c03cca61879bd1f9c572d9d6b2d5df63033933bd7f3afedf4355e56b8a4c8df267d60d3459818f1b433835abb3307b8f913b943bbdfa1d56484_1280.jpg"
   },
   {
-    "start": 4.8,
-    "end": 12.8,
-    "text": "Coba lihat tukang parkir, walaupun mobil banyak, mereknya bagus-bagus, ndak pernah sombong.",
-    "keyword": "valley",
-    "image": "https://pixabay.com/get/g33297c9999c44f4602af8f8879aecb61e811b78d360ac2b9f6f07eb7056bbcc2bfcb8ed28429cbbfba9261c8a3302ce8ff09c29c8deaec531b830db977a8d3f5_1280.jpg"
+    "start": 5.1,
+    "end": 12.7,
+    "text": "Coba lihat tukang parkir, walaupun mobil banyak, mereknya bagus-bagus, nggak pernah sombong.",
+    "keyword": "meadow",
+    "image": "https://pixabay.com/get/g0964863116a84176728ecd91dad84d4a345a7120afb7e7ac83c3364caa36d7d821e60ec5c7ea637d9dddba7566cf4d1c296b7a83248fe640520e75f50c773fb7_1280.jpg"
   },
   {
-    "start": 13.5,
-    "end": 17,
-    "text": "Bener ini, tenang hidupnya.",
-    "keyword": "river",
-    "image": "https://pixabay.com/get/g7bc6b32469d21d2902a099a18bf50d1f51c37d4bb64aa8e361720bb8049f4c80350a8d9998d0632478f8a553893095ae349a5e6ac0542150a00d3a29f9389576_1280.jpg"
+    "start": 13.2,
+    "end": 16.9,
+    "text": "Bener ini, tenang.",
+    "keyword": "breeze",
+    "image": "https://pixabay.com/get/g348766126eea9f5f8a6501f347aac879507ac144283a2df06c854f0655e9eca0675ec4b68252dbe932886f7cc099a5e7fc12f6d5e550e6ab15f99a25bcfa5621_1280.jpg"
   },
   {
-    "start": 17.3,
-    "end": 23,
-    "text": "Nanti mobil pergi satu demi satu, habis sama sekali, dia ndak sedih.",
+    "start": 17.4,
+    "end": 23.1,
+    "text": "Nanti mobil pergi satu demi satu, habis sama sekali, dia nggak sedih.",
     "keyword": "autumn",
-    "image": "https://pixabay.com/get/gc4a6f54bc572ce0f9a0104cd4a00e9935d03520d58a63745de04e10337f4ef41b240f5b4cf387bd8562c245b8dce457974179df78e2eda4a25c8c5d0f5272279_1280.jpg"
+    "image": "https://pixabay.com/get/g9a05bb8e9aa51a5a85e5b222890c91cda2c584cc1f2fc2a877c515ea4d593a4765abcc65e266fd8f3cdb5ad3989e9fd53fa2bd916c0410570af120d8311257ef_1280.jpg"
   },
   {
     "start": 24,
-    "end": 30,
-    "text": "Tenang hidupnya, mobil banyak ndak sombong, mobil habis ndak sedih.",
-    "keyword": "meadow",
-    "image": "https://pixabay.com/get/gd9e0c404aacc2580ae766889faf10d254a6fd45fb518912ba5c1cb73e608504f8ea26c8d0cd8d2670a643953a7ba783627e41253b583fc10428c02b3492d4211_1280.jpg"
+    "end": 29.8,
+    "text": "Tenang saja. Mobil banyak nggak sombong, mobil habis nggak sedih.",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g36692c150d849f7a9f71f765484c556bb01524028b463de9f2f20ba0f70490db6bf422f0c8a5037ea391197ad2654c2cd769015fc40a8b482e3f626a93ceb484_1280.jpg"
   },
   {
     "start": 31,
-    "end": 35.2,
+    "end": 35,
     "text": "Apa rahasianya? Ternyata, nih tasawufnya di sini,",
-    "keyword": "mountain",
-    "image": "https://pixabay.com/get/g188651de4685a9cd347a39e6bd07fc3d7cbb1b0ed8fe2beba846153bfb5c24ed69c9eb31644b3df2c7eb118964113bccaa6dea509f4915f1d758e0659c30a2b8_1280.jpg"
+    "keyword": "sunrise",
+    "image": "https://pixabay.com/get/g043b0582a4b4b077c13ee4b4c5bfef4b507c973a0b4d360b97c9cdca49c54c9320a468f57e1ab1c74401a99d4f00b8f74ba691f7387a7e90dd64cd712f6af70f_1280.jpg"
   },
   {
-    "start": 35.3,
-    "end": 43.2,
+    "start": 35.4,
+    "end": 43,
     "text": "tukang parkir tidak merasa memiliki, tapi merasa dititipi, nah itu.",
-    "keyword": "forest",
-    "image": "https://pixabay.com/get/g74d5b3354d2aca7739bb28a17e00f9440b602381954fc8584dd2f559e62023dfc468d6b6f3af00fde6832e122d85af9116f9915e79f5a4846a0d113dbbd94fc4_1280.jpg"
+    "keyword": "mountain",
+    "image": "https://pixabay.com/get/ga56b539f5ee7c25a8a043143e23bc02a6ae5b2aa7ba96088b0d62a9bd996a8c0b2f57062de86173428b594a7b454f864feb2badbe3389f9253fded6fc4b8bfa9_1280.jpg"
   },
   {
-    "start": 43.6,
-    "end": 50.2,
+    "start": 43.8,
+    "end": 50.5,
     "text": "Siapa saja yang merasa memiliki, bersiaplah kehilangan, dan itu menyakitkan.",
     "keyword": "storm",
-    "image": "https://pixabay.com/get/g15be1a80ffbdf8f6be8eae4538cb038855579555e0d200fab6f895db972b0cfdc86aecfce33de4d99c3f8c78b7d64897dc488dcd3ad06df9358b0bbf99ff06ab_1280.jpg"
+    "image": "https://pixabay.com/get/g93df12984389a7218fb53760a734b939b1ced224feed352b7d1941181d812fbf9528fb36f7576a2defcbcf5f0dd430424fa7c273d1c30dc043df7df895d5b3cd_1280.jpg"
   },
   {
-    "start": 51.8,
-    "end": 100.2,
+    "start": 51.3,
+    "end": 60,
     "text": "Tapi kalau merasa dititipi, jabatan, harta, anak, istri, semua titipan, hiduplah seperti tukang parkir.",
-    "keyword": "sunset",
-    "image": "https://pixabay.com/get/g40ecddb94a89a2675cc9cc1b617eb02d55f0d92fab12af0ee169888d4aecf60d018ab517017488f01eea917e7de402571751b533f03c63e48f115195f8624f14_1280.jpg"
+    "keyword": "forest",
+    "image": "https://pixabay.com/get/gedd4a97f451cde81b66ef4469431e50da091fd090dbfd4c227a5d3f281a38d976844006dcb871afa9b849d6738d9aa50f744e2b33969fbeedbee69d052162291_1280.jpg"
   },
   {
-    "start": 100.8,
-    "end": 105.5,
-    "text": "Pertama, titipan ndak boleh bikin kita sombong.",
-    "keyword": "sunrise",
-    "image": "https://pixabay.com/get/g3db12cdfdb608b3865c170df502eb64e3258a148bc5409dba51012d34aabd0939a5668f3497cb8cdd60ed3e86434e2ea27b4d5609365a069bc1de7a0321319c3_1280.jpg"
+    "start": 60.8,
+    "end": 65.3,
+    "text": "Pertama, titipan nggak boleh bikin kita sombong.",
+    "keyword": "ocean",
+    "image": "https://pixabay.com/get/gcfa8075422a86297c7e0588ac75b88451fa16f9670db68b27a4f4d7eadb1616ff78854e012543878f4d9786949b6fdf27312cc594584a14d1ac1624b06c653cc_1280.jpg"
   },
   {
-    "start": 105.8,
-    "end": 112.5,
-    "text": "Dititipi kok sombong, ndak pantas ah, iya.",
+    "start": 65.8,
+    "end": 71,
+    "text": "Dititipi kok sombong, nggak pantas ah.",
     "keyword": "desert",
-    "image": "https://pixabay.com/get/g72c346011cbc20eaef811fb4d4abec7b114d156d77388ea67088e2d3236a27cb4ebd70fc3aad5103f292d3a0689a1591f015d6c871638330a8ea4b1ea1fb0a9d_1280.jpg"
+    "image": "https://pixabay.com/get/g544d5f6f7c10b5ade58d61bdf8009ff4defb941c0a5c8a50346c27388a64b4e9055effe8fb25c323d1418a65b8fa565fd9c323d67b1fe39f60fccf9aa2a2b58c_1280.jpg"
+  },
+  {
+    "start": 71.7,
+    "end": 72.8,
+    "text": "Iya.",
+    "keyword": "sky",
+    "image": "https://pixabay.com/get/ga1a1ea30eafcaab9fe95259861992e0609daeb9ee96fcca3001e82221bff17e02392617d098dd1b581f9be5acd87907b3f56d0e52f43e0a1875a4f8743da8e02_1280.jpg"
   }
 ]
