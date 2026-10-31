@@ -61,6 +61,93 @@ async function fetchVerticalNatureImage(keyword, index) {
   }
 }
 
+// -------------------------------------------------------------
+// FUNGSI UTAMA PIPELINE (Digunakan bersama oleh Upload File & IG Link)
+// -------------------------------------------------------------
+async function executePipeline(autoPushGit, res) {
+  const audioPath = path.join(publicDir, 'audio.mp3');
+  console.log(`[2/4] Menganalisis isi audio menggunakan ${MODEL_NAME}...`);
+  const audioBase64 = fs.readFileSync(audioPath).toString('base64');
+
+  const prompt = `
+    Dengarkan berkas audio ini dengan saksama.
+    Tugas Anda:
+    1. Pecah isi audio menjadi per kalimat secara berurutan beserta waktu mulai (start) dan waktu selesai (end) dalam satuan detik (gunakan angka desimal yang akurat).
+    2. Untuk setiap kalimat, berikan SATU kata kunci (keyword) dalam bahasa Inggris yang spesifik mengenai suasana alam atau pemandangan yang paling relevan dengan emosi/isi kalimat tersebut (contoh: mountain, rain, forest, ocean, sunset, starry sky, river).
+
+    Kembalikan HANYA format JSON Array murni tanpa blok markdown:
+    [
+      {
+        "start": 0.0,
+        "end": 3.5,
+        "text": "Kalimat transkrip di sini",
+        "keyword": "mountain"
+      }
+    ]
+  `;
+
+  const aiResponse = await ai.models.generateContent({
+    model: MODEL_NAME,
+    contents: [
+      { inlineData: { mimeType: 'audio/mp3', data: audioBase64 } },
+      prompt
+    ]
+  });
+
+  let rawJson = aiResponse.text.trim();
+  rawJson = rawJson.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
+  const parsedSegments = JSON.parse(rawJson);
+
+  console.log('[3/4] Mencari gambar latar belakang vertikal dari Pixabay...');
+  const subtitlesData = [];
+
+  for (let i = 0; i < parsedSegments.length; i++) {
+    const seg = parsedSegments[i];
+    const imageUrl = await fetchVerticalNatureImage(seg.keyword, i);
+    subtitlesData.push({
+      start: Number(seg.start),
+      end: Number(seg.end),
+      text: seg.text.trim(),
+      keyword: seg.keyword.trim(),
+      image: imageUrl
+    });
+  }
+
+  const subtitlesPath = path.join(publicDir, 'subtitles.json');
+  fs.writeFileSync(subtitlesPath, JSON.stringify(subtitlesData, null, 2), 'utf8');
+
+  const fullTranscript = subtitlesData.map(item => item.text).join(' ');
+  const transcriptPath = path.join(publicDir, 'transcript.txt');
+  fs.writeFileSync(transcriptPath, fullTranscript, 'utf8');
+
+  console.log('[4/4] Berkas public/subtitles.json dan public/transcript.txt berhasil dibuat!');
+
+  let gitStatusMessage = 'Selesai tanpa Git Push.';
+  if (autoPushGit) {
+    console.log('[Git] Mengirim pembaruan berkas ke GitHub untuk memulai render Actions...');
+    try {
+      await execAsync('git add public/audio.mp3 public/subtitles.json public/transcript.txt');
+      await execAsync('git commit -m "chore: update audio and subtitles data for auto-render"');
+      await execAsync('git push');
+      gitStatusMessage = 'Berhasil push ke GitHub! GitHub Actions sedang merender & mengunggah video Anda.';
+    } catch (gitErr) {
+      console.warn('[Git Warning]:', gitErr.message);
+      gitStatusMessage = `Pemrosesan lokal berhasil, namun Git push terkendala: ${gitErr.message}`;
+    }
+  }
+
+  res.json({
+    success: true,
+    message: 'Pemrosesan audio & pembuatan data berhasil!',
+    gitStatus: gitStatusMessage,
+    transcript: fullTranscript,
+    subtitles: subtitlesData
+  });
+}
+
+// -------------------------------------------------------------
+// ENDPOINT 1: Upload File Audio Manual (Existing)
+// -------------------------------------------------------------
 app.post('/api/upload-audio', upload.single('audio'), async (req, res) => {
   try {
     if (!req.file) {
@@ -68,89 +155,48 @@ app.post('/api/upload-audio', upload.single('audio'), async (req, res) => {
     }
 
     const autoPushGit = req.body.autoPush === 'true';
-    const audioPath = path.join(publicDir, 'audio.mp3');
     console.log('[1/4] Audio berhasil disimpan di public/audio.mp3');
 
-    console.log(`[2/4] Menganalisis isi audio menggunakan ${MODEL_NAME}...`);
-    const audioBase64 = fs.readFileSync(audioPath).toString('base64');
-
-    const prompt = `
-      Dengarkan berkas audio ini dengan saksama.
-      Tugas Anda:
-      1. Pecah isi audio menjadi per kalimat secara berurutan beserta waktu mulai (start) dan waktu selesai (end) dalam satuan detik (gunakan angka desimal yang akurat).
-      2. Untuk setiap kalimat, berikan SATU kata kunci (keyword) dalam bahasa Inggris yang spesifik mengenai suasana alam atau pemandangan yang paling relevan dengan emosi/isi kalimat tersebut (contoh: mountain, rain, forest, ocean, sunset, starry sky, river).
-
-      Kembalikan HANYA format JSON Array murni tanpa blok markdown:
-      [
-        {
-          "start": 0.0,
-          "end": 3.5,
-          "text": "Kalimat transkrip di sini",
-          "keyword": "mountain"
-        }
-      ]
-    `;
-
-    const aiResponse = await ai.models.generateContent({
-      model: MODEL_NAME,
-      contents: [
-        { inlineData: { mimeType: 'audio/mp3', data: audioBase64 } },
-        prompt
-      ]
-    });
-
-    let rawJson = aiResponse.text.trim();
-    rawJson = rawJson.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
-    const parsedSegments = JSON.parse(rawJson);
-
-    console.log('[3/4] Mencari gambar latar belakang vertikal dari Pixabay...');
-    const subtitlesData = [];
-
-    for (let i = 0; i < parsedSegments.length; i++) {
-      const seg = parsedSegments[i];
-      const imageUrl = await fetchVerticalNatureImage(seg.keyword, i);
-      subtitlesData.push({
-        start: Number(seg.start),
-        end: Number(seg.end),
-        text: seg.text.trim(),
-        keyword: seg.keyword.trim(),
-        image: imageUrl
-      });
-    }
-
-    const subtitlesPath = path.join(publicDir, 'subtitles.json');
-    fs.writeFileSync(subtitlesPath, JSON.stringify(subtitlesData, null, 2), 'utf8');
-
-    const fullTranscript = subtitlesData.map(item => item.text).join(' ');
-    const transcriptPath = path.join(publicDir, 'transcript.txt');
-    fs.writeFileSync(transcriptPath, fullTranscript, 'utf8');
-
-    console.log('[4/4] Berkas public/subtitles.json dan public/transcript.txt berhasil dibuat!');
-
-    let gitStatusMessage = 'Selesai tanpa Git Push.';
-    if (autoPushGit) {
-      console.log('[Git] Mengirim pembaruan berkas ke GitHub untuk memulai render Actions...');
-      try {
-        await execAsync('git add public/audio.mp3 public/subtitles.json public/transcript.txt');
-        await execAsync('git commit -m "chore: update audio and subtitles data for auto-render"');
-        await execAsync('git push');
-        gitStatusMessage = 'Berhasil push ke GitHub! GitHub Actions sedang merender & mengunggah video Anda.';
-      } catch (gitErr) {
-        console.warn('[Git Warning]:', gitErr.message);
-        gitStatusMessage = `Pemrosesan lokal berhasil, namun Git push terkendala: ${gitErr.message}`;
-      }
-    }
-
-    res.json({
-      success: true,
-      message: 'Pemrosesan audio & pembuatan data berhasil!',
-      gitStatus: gitStatusMessage,
-      transcript: fullTranscript,
-      subtitles: subtitlesData
-    });
+    await executePipeline(autoPushGit, res);
 
   } catch (error) {
     console.error('[Error]:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// -------------------------------------------------------------
+// ENDPOINT 2: Terima Link Instagram, Download Audio, lalu Proses AI (Baru)
+// -------------------------------------------------------------
+app.post('/api/process-ig-url', async (req, res) => {
+  try {
+    const { igUrl, autoPush } = req.body;
+    if (!igUrl) {
+      return res.status(400).json({ success: false, message: 'Parameter igUrl tidak boleh kosong.' });
+    }
+
+    console.log('[IG Parameter] Mengunduh audio dari tautan:', igUrl);
+    const audioPath = path.join(publicDir, 'audio.mp3');
+
+    if (fs.existsSync(audioPath)) {
+      fs.unlinkSync(audioPath);
+    }
+
+    // Menggunakan yt-dlp untuk mengunduh dan mengekstrak audio langsung ke public/audio.mp3
+    const ytDlpCommand = `yt-dlp -x --audio-format mp3 -o "${audioPath}" "${igUrl}"`;
+    await execAsync(ytDlpCommand);
+
+    if (!fs.existsSync(audioPath)) {
+      throw new Error('Gagal mengekstrak audio dari tautan Instagram.');
+    }
+
+    console.log('[1/4] Audio dari link Instagram berhasil disimpan di public/audio.mp3');
+
+    const autoPushGit = autoPush === true || autoPush === 'true';
+    await executePipeline(autoPushGit, res);
+
+  } catch (error) {
+    console.error('[IG Error]:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
