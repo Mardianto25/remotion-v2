@@ -15,7 +15,7 @@ const publicDir = path.join(process.cwd(), 'public');
 // Ambil daftar model dari ENV (array) atau gunakan default sebagai cadangan
 const geminiModels = process.env.GEMINI_MODELS 
   ? process.env.GEMINI_MODELS.split(',').map(m => m.trim())
-  : ['gemini-3.8-flash', 'gemini-2.5-flash','gemini-3.5-flash-lite', 'gemini-flash'];
+  : ['gemini-2.5-flash', 'gemini-3.8-flash', 'gemini-flash'];
 
 // Daftar tautan cadangan (fallback) video YouTube Shorts ceramah/renungan yang aktif
 const backupShorts = [
@@ -29,7 +29,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function fetchTopViralShortFromAI() {
   const prompt = `
     Bertindaklah sebagai pengamat konten kreator YouTube Islami. 
-    Berikan HANYA 1 (satu) tautan video YouTube Shorts resmi yang valid dan aktif dari channel dakwah populer (seperti Yufid.TV, Al-Bahjah TV, atau Adi Hidayat Official, Ustad Abdul Somad Official) bertema renungan atau ceramah pendek.
+    Berikan HANYA 1 (satu) tautan video YouTube Shorts resmi yang valid dan aktif dari channel dakwah populer (seperti Yufid.TV, Al-Bahjah TV, atau Syafiq Riza Basalamah Official) bertema renungan atau ceramah pendek.
     PENTING: Pastikan URL benar-benar ada dan berformat https://www.youtube.com/shorts/ID_VIDEO. 
     Jangan membuat-buat ID video fiktif. 
     Kembalikan HANYA dalam bentuk JSON Array berisi tepat 1 string URL tanpa teks lain dan tanpa blok markdown:

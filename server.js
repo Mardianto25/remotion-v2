@@ -1,122 +1,235 @@
+import express from 'express';
+import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
-import { GoogleGenAI } from '@google/genai';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
-import { executePipeline } from '../server.js'; 
 
 dotenv.config();
 
 const execAsync = promisify(exec);
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const publicDir = path.join(process.cwd(), 'public');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Ambil daftar model dari ENV (array) atau gunakan default sebagai cadangan
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+// Ambil daftar model dari ENV dalam bentuk array, berikan default jika kosong
 const geminiModels = process.env.GEMINI_MODELS 
   ? process.env.GEMINI_MODELS.split(',').map(m => m.trim())
   : ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-flash'];
 
-// Daftar tautan cadangan (fallback) video YouTube Shorts ceramah/renungan yang aktif
-const backupShorts = [
-  'https://www.youtube.com/shorts/58V3Pt07y80',
-  'https://www.youtube.com/shorts/dQw4w9WgXcQ'
+const publicDir = path.join(process.cwd(), 'public');
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, publicDir),
+  filename: (req, file, cb) => cb(null, 'audio.mp3')
+});
+const upload = multer({ storage });
+
+app.use(express.json());
+app.use(express.static('public'));
+
+const PEXELS_FALLBACKS = [
+  'https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
+  'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
+  'https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
+  'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920'
 ];
 
-async function fetchTopViralShortFromAI() {
+async function fetchVerticalNatureImage(keyword, index) {
+  const apiKey = process.env.PIXABAY_API_KEY;
+  const fallbackUrl = PEXELS_FALLBACKS[index % PEXELS_FALLBACKS.length];
+
+  if (!apiKey) return fallbackUrl;
+
+  try {
+    const query = encodeURIComponent(`${keyword} nature`);
+    const url = `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=vertical&category=nature&safesearch=true&per_page=5`;
+    
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const data = await response.json();
+    if (data.hits && data.hits.length > 0) {
+      return data.hits[0].largeImageURL || data.hits[0].webformatURL;
+    }
+    return fallbackUrl;
+  } catch (err) {
+    console.warn(`[Pixabay Warning] Gagal memuat gambar untuk keyword "${keyword}". Menggunakan fallback Pexels.`);
+    return fallbackUrl;
+  }
+}
+
+// -------------------------------------------------------------
+// FUNGSI UTAMA PIPELINE (Dengan Fallback Array Model Gemini)
+// -------------------------------------------------------------
+export async function executePipeline(autoPushGit, res) {
+  const audioPath = path.join(publicDir, 'audio.mp3');
+  const audioBase64 = fs.readFileSync(audioPath).toString('base64');
+
   const prompt = `
-    Bertindaklah sebagai pengamat konten kreator YouTube Islami. 
-    Berikan HANYA 1 (satu) tautan video YouTube Shorts resmi yang valid dan aktif dari channel dakwah populer (seperti Yufid.TV, Al-Bahjah TV, atau Syafiq Riza Basalamah Official) bertema renungan atau ceramah pendek.
-    PENTING: Pastikan URL benar-benar ada dan berformat https://www.youtube.com/shorts/ID_VIDEO. 
-    Jangan membuat-buat ID video fiktif. 
-    Kembalikan HANYA dalam bentuk JSON Array berisi tepat 1 string URL tanpa teks lain dan tanpa blok markdown:
-    ["https://www.youtube.com/shorts/ID_VIDEO_AKTIF"]
+    Dengarkan berkas audio ini dengan saksama.
+    Tugas Anda:
+    1. Pecah isi audio menjadi per kalimat secara berurutan beserta waktu mulai (start) dan waktu selesai (end) dalam satuan detik (gunakan angka desimal yang akurat).
+    2. Untuk setiap kalimat, berikan SATU kata kunci (keyword) dalam bahasa Inggris yang spesifik mengenai suasana alam atau pemandangan yang paling relevan dengan emosi/isi kalimat tersebut (contoh: mountain, rain, forest, ocean, sunset, starry sky, river).
+
+    Kembalikan HANYA format JSON Array murni tanpa blok markdown:
+    [
+      {
+        "start": 0.0,
+        "end": 3.5,
+        "text": "Kalimat transkrip di sini",
+        "keyword": "mountain"
+      }
+    ]
   `;
+
+  let aiResponseText = null;
+  let successfulModel = '';
 
   // Iterasi mencoba model Gemini secara berurutan dari array
   for (const modelName of geminiModels) {
     try {
-      console.log(`🤖 Mencoba Gemini AI menggunakan model: ${modelName}...`);
-      const response = await ai.models.generateContent({ model: modelName, contents: prompt });
-      let raw = response.text.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
-      const list = JSON.parse(raw);
-      if (list[0]) {
-        console.log(`✅ Berhasil mendapatkan link dari model ${modelName}`);
-        return list[0];
+      console.log(`[2/4] Menganalisis isi audio menggunakan model Gemini: ${modelName}...`);
+      const aiResponse = await ai.models.generateContent({
+        model: modelName,
+        contents: [
+          { inlineData: { mimeType: 'audio/mp3', data: audioBase64 } },
+          prompt
+        ]
+      });
+
+      if (aiResponse && aiResponse.text) {
+        aiResponseText = aiResponse.text;
+        successfulModel = modelName;
+        console.log(`✅ Berhasil menganalisis audio menggunakan model: ${successfulModel}`);
+        break;
       }
     } catch (err) {
-      console.warn(`⚠️ Model ${modelName} gagal, beralih ke model Gemini berikutnya...`);
+      console.warn(`⚠️ Model ${modelName} gagal, mencoba model Gemini berikutnya...`);
     }
   }
 
-  throw new Error('Semua model Gemini di dalam array gagal merespon tautan.');
+  if (!aiResponseText) {
+    throw new Error('Semua model Gemini di dalam array gagal memproses analisis audio.');
+  }
+
+  let rawJson = aiResponseText.trim();
+  rawJson = rawJson.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
+  const parsedSegments = JSON.parse(rawJson);
+
+  console.log('[3/4] Mencari gambar latar belakang vertikal dari Pixabay...');
+  const subtitlesData = [];
+
+  for (let i = 0; i < parsedSegments.length; i++) {
+    const seg = parsedSegments[i];
+    const imageUrl = await fetchVerticalNatureImage(seg.keyword, i);
+    subtitlesData.push({
+      start: Number(seg.start),
+      end: Number(seg.end),
+      text: seg.text.trim(),
+      keyword: seg.keyword.trim(),
+      image: imageUrl
+    });
+  }
+
+  const subtitlesPath = path.join(publicDir, 'subtitles.json');
+  fs.writeFileSync(subtitlesPath, JSON.stringify(subtitlesData, null, 2), 'utf8');
+
+  const fullTranscript = subtitlesData.map(item => item.text).join(' ');
+  const transcriptPath = path.join(publicDir, 'transcript.txt');
+  fs.writeFileSync(transcriptPath, fullTranscript, 'utf8');
+
+  console.log('[4/4] Berkas public/subtitles.json dan public/transcript.txt berhasil dibuat!');
+
+  let gitStatusMessage = 'Selesai tanpa Git Push.';
+  if (autoPushGit) {
+    console.log('[Git] Mengirim pembaruan berkas ke GitHub untuk memulai render Actions...');
+    try {
+      await execAsync('git add public/audio.mp3 public/subtitles.json public/transcript.txt');
+      await execAsync('git commit -m "chore: update audio and subtitles data for auto-render"');
+      await execAsync('git push');
+      gitStatusMessage = 'Berhasil push ke GitHub! GitHub Actions sedang merender & mengunggah video Anda.';
+    } catch (gitErr) {
+      console.warn('[Git Warning]:', gitErr.message);
+      gitStatusMessage = `Pemrosesan lokal berhasil, namun Git push terkendala: ${gitErr.message}`;
+    }
+  }
+
+  // Jika res tidak null (dipanggil dari HTTP Express), kirim respons JSON
+  if (res) {
+    res.json({
+      success: true,
+      message: 'Pemrosesan audio & pembuatan data berhasil!',
+      modelUsed: successfulModel,
+      gitStatus: gitStatusMessage,
+      transcript: fullTranscript,
+      subtitles: subtitlesData
+    });
+  }
 }
 
-async function runAutoDispatcher() {
+// -------------------------------------------------------------
+// ENDPOINT 1: Upload File Audio Manual
+// -------------------------------------------------------------
+app.post('/api/upload-audio', upload.single('audio'), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: 'Tidak ada file audio yang diunggah.' });
+    }
+
+    const autoPushGit = req.body.autoPush === 'true';
+    console.log('[1/4] Audio berhasil disimpan di public/audio.mp3');
+
+    await executePipeline(autoPushGit, res);
+
+  } catch (error) {
+    console.error('[Error]:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// -------------------------------------------------------------
+// ENDPOINT 2: Terima Link, Download Audio, lalu Proses AI
+// -------------------------------------------------------------
+app.post('/api/process-url', async (req, res) => {
+  try {
+    const { videoUrl, autoPush } = req.body;
+    if (!videoUrl) {
+      return res.status(400).json({ success: false, message: 'Parameter videoUrl tidak boleh kosong.' });
+    }
+
+    console.log('[URL Parameter] Mengunduh audio dari tautan:', videoUrl);
     const audioPath = path.join(publicDir, 'audio.mp3');
+
     if (fs.existsSync(audioPath)) {
       fs.unlinkSync(audioPath);
     }
 
-    let videoUrl = null;
-    let downloaded = false;
+    // Menggunakan yt-dlp dengan runtime node agar aman di cloud/runner
+    const ytDlpCommand = `yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${videoUrl}"`;
+    await execAsync(ytDlpCommand);
 
-    // 1. Ambil link dari AI (menggunakan array model Gemini dengan prompt anti-halusinasi)
-    try {
-      videoUrl = await fetchTopViralShortFromAI();
-    } catch (e) {
-      console.warn('⚠️ Gagal mendapatkan tautan dari semua model AI, menggunakan link cadangan...');
+    if (!fs.existsSync(audioPath)) {
+      throw new Error('Gagal mengekstrak audio dari tautan yang diberikan.');
     }
 
-    // 2. Coba unduh dari link rekomendasi AI
-    if (videoUrl) {
-      console.log(`📌 Tautan Pilihan AI: ${videoUrl}`);
-      try {
-        console.log('📥 Mencoba mengunduh audio dari link AI...');
-        await execAsync(`yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${videoUrl}"`);
-        if (fs.existsSync(audioPath)) {
-          downloaded = true;
-        }
-      } catch (e) {
-        console.warn('⚠️ Gagal mendownload dari link AI (video unavailable). Beralih ke link cadangan...');
-      }
-    }
+    console.log('[1/4] Audio berhasil disimpan di public/audio.mp3');
 
-    // 3. Jika link AI gagal atau kosong, gunakan daftar link cadangan (fallback) secara berurutan
-    if (!downloaded) {
-      for (const backupUrl of backupShorts) {
-        console.log(`🔄 Mencoba link cadangan: ${backupUrl}`);
-        try {
-          await execAsync(`yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${backupUrl}"`);
-          if (fs.existsSync(audioPath)) {
-            downloaded = true;
-            console.log(`✅ Berhasil mengunduh dari link cadangan: ${backupUrl}`);
-            break;
-          }
-        } catch (errBackup) {
-          console.warn(`⚠️ Link cadangan ${backupUrl} gagal, mencoba berikutnya...`);
-        }
-      }
-    }
-
-    if (!downloaded || !fs.existsSync(audioPath)) {
-      throw new Error('Semua tautan (baik dari AI maupun cadangan) gagal diunduh.');
-    }
-
-    console.log('✅ Audio berhasil disimpan di public/audio.mp3');
-
-    // 4. Jalankan pipeline utama
-    console.log('🚀 Menjalankan executePipeline...');
-    const result = await executePipeline(true, null);
-
-    console.log('🎉 Selesai!');
-    console.log('📌 Status:', result.gitStatus);
+    const autoPushGit = autoPush === true || autoPush === 'true';
+    await executePipeline(autoPushGit, res);
 
   } catch (error) {
-    console.error('❌ Error Auto-Dispatcher:', error.message);
-    process.exit(1);
+    console.error('[URL Error]:', error);
+    res.status(500).json({ success: false, error: error.message });
   }
-}
+});
 
-runAutoDispatcher();
+app.listen(PORT, () => {
+  console.log(`Server Auto-Shorts berjalan di http://localhost:${PORT}`);
+});
