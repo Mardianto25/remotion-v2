@@ -1,0 +1,46 @@
+name: Auto Dispatch & Render
+
+on:
+  schedule:
+    # Berjalan otomatis setiap hari jam 06.00 Pagi UTC (sesuaikan jika perlu)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Memungkinkan tombol "Run workflow" manual di tab Actions GitHub
+
+jobs:
+  dispatch-and-render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 3. Install Python, yt-dlp & FFmpeg (Dibutuhkan untuk download audio IG)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip ffmpeg
+          pip install --upgrade yt-dlp --break-system-packages
+
+      - name: 4. Install Dependencies Proyek
+        run: npm install
+
+      - name: 5. Jalankan Auto Dispatcher (AI Cari Link & Jalankan Pipeline)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+        run: npm run dispatch
+
+      - name: 6. Konfigurasi Git Bot
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 7. Commit & Push Hasil ke Repo (Memicu Render Utama)
+        run: |
+          git add public/audio.mp3 public/subtitles.json public/transcript.txt
+          git commit -m "chore: auto-dispatch viral reel and update assets" || echo "No changes to commit"
+          git push

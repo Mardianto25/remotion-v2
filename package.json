@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server.js",
     "render": "remotion render src/index.js ShortsVideo out/video.mp4",
-    "upload": "node scripts/youtube-upload.js"
+    "upload": "node scripts/youtube-upload.js",
+    "dispatch": "node scripts/auto-dispatch.js"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
