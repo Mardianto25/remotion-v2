@@ -64,7 +64,7 @@ async function generateYouTubeMetadata() {
 }
 
 async function getFreshAccessToken() {
-  console.log('[OAuth2] Memperbarui Access Token menggunakan Refresh Token...');
+  console.log('[OAuth2] Memperbarui Access Token menggunakan Refresh Token New...');
   
   // Pastikan URL di bawah ini bersih tanpa kurung siku ganda
   const response = await fetch('https://oauth2.googleapis.com/token', {
