@@ -135,7 +135,7 @@ async function uploadVideoMultipart() {
   ]);
 
   console.log(`[Upload] Mengunggah video "${title}" ke YouTube...`);
-  const uploadUrl = '[https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status](https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status)';
+  const uploadUrl = 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status';
 
   const uploadRes = await fetch(uploadUrl, {
     method: 'POST',
