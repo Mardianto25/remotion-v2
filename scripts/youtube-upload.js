@@ -65,7 +65,9 @@ async function generateYouTubeMetadata() {
 
 async function getFreshAccessToken() {
   console.log('[OAuth2] Memperbarui Access Token menggunakan Refresh Token...');
-  const response = await fetch('[https://oauth2.googleapis.com/token](https://oauth2.googleapis.com/token)', {
+  
+  // Pastikan URL di bawah ini bersih tanpa kurung siku ganda
+  const response = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
@@ -82,6 +84,7 @@ async function getFreshAccessToken() {
   }
   return data.access_token;
 }
+
 
 async function uploadVideoMultipart() {
   const videoPath = path.join(process.cwd(), 'out', 'video.mp4');
