@@ -10,19 +10,13 @@ dotenv.config();
 
 const execAsync = promisify(exec);
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const MODEL_NAME = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 const publicDir = path.join(process.cwd(), 'public');
-
-// Gunakan daftar model yang benar-benar stabil dan didukung API
-const geminiModels = process.env.GEMINI_MODELS 
-  ? process.env.GEMINI_MODELS.split(',').map(m => m.trim())
-  : ['gemini-3.8-flash', 'gemini-2.5-flash'];
 
 const backupShorts = [
   'https://www.youtube.com/shorts/58V3Pt07y80',
   'https://www.youtube.com/shorts/dQw4w9WgXcQ'
 ];
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function fetchTopViralShortFromAI() {
   const prompt = `
@@ -34,27 +28,15 @@ async function fetchTopViralShortFromAI() {
     ["https://www.youtube.com/shorts/ID_VIDEO_AKTIF"]
   `;
 
-  for (let i = 0; i < geminiModels.length; i++) {
-    const modelName = geminiModels[i];
-    try {
-      console.log(`🤖 Mencoba Gemini AI menggunakan model: ${modelName}...`);
-      const response = await ai.models.generateContent({ model: modelName, contents: prompt });
-      let raw = response.text.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
-      const list = JSON.parse(raw);
-      if (list[0]) {
-        console.log(`✅ Berhasil mendapatkan link dari model ${modelName}`);
-        return list[0];
-      }
-    } catch (err) {
-      console.warn(`⚠️ Model ${modelName} gagal atau terkena limit.`);
-      if (i < geminiModels.length - 1) {
-        console.log(`⏳ Menunggu 3 detik sebelum mencoba model berikutnya...`);
-        await delay(3000);
-      }
-    }
+  console.log(`🤖 Mencoba Gemini AI menggunakan model: ${MODEL_NAME}...`);
+  const response = await ai.models.generateContent({ model: MODEL_NAME, contents: prompt });
+  let raw = response.text.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
+  const list = JSON.parse(raw);
+  
+  if (!list[0]) {
+    throw new Error('AI tidak mengembalikan tautan.');
   }
-
-  throw new Error('Semua model Gemini di dalam array gagal merespon tautan.');
+  return list[0];
 }
 
 async function runAutoDispatcher() {
@@ -70,7 +52,7 @@ async function runAutoDispatcher() {
     try {
       videoUrl = await fetchTopViralShortFromAI();
     } catch (e) {
-      console.warn('⚠️ Gagal mendapatkan tautan dari semua model AI, menggunakan link cadangan...');
+      console.warn('⚠️ Gagal mendapatkan tautan dari AI, menggunakan link cadangan...');
     }
 
     if (videoUrl) {
@@ -103,7 +85,7 @@ async function runAutoDispatcher() {
     }
 
     if (!downloaded || !fs.existsSync(audioPath)) {
-      throw new Error('Semua tautan (baik dari AI maupun cadangan) gagal diunduh.');
+      throw new Error('Semua tautan gagal diunduh.');
     }
 
     console.log('✅ Audio berhasil disimpan di public/audio.mp3');
