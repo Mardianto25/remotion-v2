@@ -1,86 +1,72 @@
 [
   {
-    "start": 0.6,
-    "end": 4.2,
-    "text": "Orang yang paling tenang hidupnya itu tukang parkir.",
-    "keyword": "lake",
-    "image": "https://pixabay.com/get/g3f0f2fb96ee79d47cdb9c4a2a22f178e705cfda00456f6cc7f6df90612f703aab0f7f75f78718b477ed14f533873e0dcb9cf9ac98124151c74d4037bddf5d743_1280.jpg"
-  },
-  {
-    "start": 5.1,
-    "end": 13,
-    "text": "Coba lihat tukang parkir, walaupun mobil banyak, mereknya bagus-bagus, ndak pernah sombong.",
-    "keyword": "meadow",
-    "image": "https://pixabay.com/get/gca1d5745f314825195d86d519701478bb3d93261a41971193571df935427a8ad6ddc389b399c327156c13008e1c321bb608432c6bbaa76bc1bf9d2da6780e22f_1280.jpg"
-  },
-  {
-    "start": 13.6,
-    "end": 17.3,
-    "text": "Bener ini, tenang.",
-    "keyword": "sunrise",
-    "image": "https://pixabay.com/get/g60d028c388eeead8cb2be327110740e45f935ad002b2deee2e7afddb8820546d84758d90d14464052d203fa03a30e6691b0f070bde6fcbbd312ee39ea75da857_1280.jpg"
-  },
-  {
-    "start": 17.4,
-    "end": 23.2,
-    "text": "Nanti mobil pergi satu demi satu, habis sama sekali, dia ndak sedih.",
-    "keyword": "autumn",
-    "image": "https://pixabay.com/get/gbf89372bab258c66c77b758faf3a6b59f8fed392178e517c0baca586e088be6540690e1cc3654cc407ecf5e70451e66041bd4e93c07923820b9f559462b7a375_1280.jpg"
-  },
-  {
-    "start": 23.5,
-    "end": 30.4,
-    "text": "Tenang sih. Mobil banyak ndak sombong, mobil habis ndak sedih.",
-    "keyword": "stream",
-    "image": "https://pixabay.com/get/g94aab41c0250e0f9cbc77f629e281a60d5a4e96a124608fa94ccb49de22a25d8a3e12780bebd60656ec1cd83017909d6e902ca32c1f2c6637ac368cbdb8e0e7c_1280.jpg"
-  },
-  {
-    "start": 31,
-    "end": 35.3,
-    "text": "Apa rahasianya? Ternyata, nah tasawufnya di sini.",
-    "keyword": "mountain",
-    "image": "https://pixabay.com/get/gea863202cb2abc20b09c5e840ad8f6da186ce77390ea41f434c669e97f399cc2155efb5fb973d44d9e8aeee784b6a1c44c31867794ba8012ac763f2598256744_1280.jpg"
-  },
-  {
-    "start": 35.4,
-    "end": 43.2,
-    "text": "Tukang parkir tidak merasa memiliki, tapi merasa dititipi, nah itu.",
-    "keyword": "forest",
-    "image": "https://pixabay.com/get/g8887cde86e20ae9bc78e307a48c58ba0f26c77f742c910eb3bb32286a7fff4901e6688f12f200551efe315c2144c211f00e6c59cc7a4c29af20fb43b9e47d749_1280.jpg"
-  },
-  {
-    "start": 43.9,
-    "end": 50.3,
-    "text": "Siapa saja yang merasa memiliki, bersiaplah kehilangan, dan itu menyakitkan.",
+    "start": 0,
+    "end": 5.6,
+    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
     "keyword": "storm",
-    "image": "https://pixabay.com/get/gce6cca7fc9b6bfcff28d3f548f469aff03684d2f00986ae64b683166927c809a7d26dd710d419da2fab2f45a4d2be640b6f29d6c0907c0e1d2893dd0668269cd_1280.jpg"
+    "image": "https://pixabay.com/get/ge140ff7a224c197e5d7ff47fd3e004a88dfe5e32da81d422ffad3e55e8ebac35d033867918a040a89a1f293a797482555b2fb11668c0b15e8c71faec06e834df_1280.jpg"
   },
   {
-    "start": 51.5,
-    "end": 60.6,
-    "text": "Tapi kalau merasa dititipi, jabatan, harta, anak, istri, semua titipan, hiduplah seperti tukang parkir.",
+    "start": 5.6,
+    "end": 9,
+    "text": "Bukankah dulu banyak ribuan masalah yang telah Kuselesaikan?",
     "keyword": "ocean",
-    "image": "https://pixabay.com/get/g19355b965a203f5780336cadfdd65ab82b1d2b3f7b1c4d53e19ef3489c93190cb0c713bea8e9fbabf5e8b0e3eef8898d34fef34507f71bae609cff72e0a08ad8_1280.jpg"
+    "image": "https://pixabay.com/get/ge2fc81eb97d1bc68431e299b310300beabb92c341860f3da549ab01c9c128bd1a5004016041edf3eb1f36bae761042c040926e054238eaeb61b49c7f784f449a_1280.jpg"
   },
   {
-    "start": 60.8,
-    "end": 65.3,
-    "text": "Pertama, titipan ndak boleh bikin kita sombong.",
-    "keyword": "valley",
-    "image": "https://pixabay.com/get/g1fd1dd9a43f479d4582e5b3246d398bc9f79fae942a6ddbce5f10fcd422c4d9fff1598b2a8e35d8c9f3552db7165a0b2032150c6d021cad09d0ae5eb72949525_1280.jpg"
+    "start": 9,
+    "end": 11.7,
+    "text": "Jangan sampai larut sedih dengan masalah yang sekarang.",
+    "keyword": "fog",
+    "image": "https://pixabay.com/get/gf90198765b3bdd9d23327a5aca501b438ad9d762dcfa503c443c9f373d5f36e901932da6b3fc77aa536ae327b1e17f6727b999602fadaa90cfc5c53f3334e227_1280.jpg"
   },
   {
-    "start": 65.8,
-    "end": 70.7,
-    "text": "Dititipi kok sombong, ndak pantas ah.",
-    "keyword": "desert",
-    "image": "https://pixabay.com/get/g68116470dbde6ed09ba2c83a9aa2bdb3eb4471b4ace1411130b0867f9e5ae7309ebbb2743b3799535996d21eaaac81641e03ffe61a811821c02018dc313cc924_1280.jpg"
+    "start": 11.7,
+    "end": 14.6,
+    "text": "Yakin, dulu pun banyak masalah selesai juga.",
+    "keyword": "sunrise",
+    "image": "https://pixabay.com/get/g334fbeb93a478cafc64ec17428587889dcc9c37d4980e67f15046d6d05eaab4e9a79d02a278808c6b2911cd0f44f02be88094f940f4e0a254040e267964d7d7f_1280.jpg"
   },
   {
-    "start": 71.5,
-    "end": 73,
-    "text": "Iya.",
-    "keyword": "sky",
-    "image": "https://pixabay.com/get/g0ba2ce68e000b7d9b20db63a264723380203758f4eb728a4b0a1702aa93c5244ff8796aeb80f51b49d7122c4586190b3c24862d70fc751dc0d6f285f1fb5b596_1280.jpg"
+    "start": 14.6,
+    "end": 16.8,
+    "text": "Lalu apa yang harus dilakukan?",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g8280926fff846215d1b72b8b35a8fde16cb0db2e52e9c2f694970dd52328cddce2a6da3fab265441bbf896a3d69fce56b4fd12b0968bea2f4d0c660fdfcebbdd_1280.jpg"
+  },
+  {
+    "start": 16.8,
+    "end": 19.3,
+    "text": "Kata Allah, seberat-beratnya beban,",
+    "keyword": "mountain",
+    "image": "https://pixabay.com/get/gf15a437bb230b229c8ee8a1d8183a348edb49f6f854e0e0174a0f15eb83edf517f7257689e8552c39d56401b26a0b2e6cae1ee5b88618be2e835653a90670808_1280.jpg"
+  },
+  {
+    "start": 19.3,
+    "end": 23.6,
+    "text": "tanamkan keyakinan pada jiwamu: inna ma'al-'usri...",
+    "keyword": "sunlight",
+    "image": "https://pixabay.com/get/g3692d9f5d3e4f41fe805208636d080763f693472755684073b0ce77c031c7ca7e872f1c69e394ef8c6d4c1c59efe400e45d44373e8450a03a1ba045b279862b8_1280.jpg"
+  },
+  {
+    "start": 23.6,
+    "end": 25.8,
+    "text": "Semua ini pasti selesai.",
+    "keyword": "horizon",
+    "image": "https://pixabay.com/get/gd393a1840f062836539f2b67748337c455c9fd4f98a8ac4ab6577e7e010e107fd9e663fd808e34ec1a149681385b74dc4231ba21bb5bdb8d72f10ae06f27011b_1280.jpg"
+  },
+  {
+    "start": 25.8,
+    "end": 27.5,
+    "text": "Pasti ada solusinya.",
+    "keyword": "waterfall",
+    "image": "https://pixabay.com/get/g971042ac4e18c7ca2a2cf0f90cb6415d4a9cecb749238365fb1b5d79dba95ec27df8a7d9b13c448fa77378d2aaa1d363507e591f6b000e9ee95c5c205bc6b8d2_1280.jpg"
+  },
+  {
+    "start": 27.5,
+    "end": 29.2,
+    "text": "Pasti selesai.",
+    "keyword": "lake",
+    "image": "https://pixabay.com/get/g1d45ce3877bbecf20b0be009851f7b5a349b9ed2f4d5229ee573c36d066566b24a3fc1aa24fae3782b1f865af9e34a1e8d2077ac45d5287584c0a045f8e16b75_1280.jpg"
   }
 ]
