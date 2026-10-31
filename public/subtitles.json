@@ -1,114 +1,37 @@
 [
   {
     "start": 0,
-    "end": 5,
-    "text": "Kalau engkau merasa beriman sama Allah dan yakin dihisab di hari kiamat, jaga lisanmu.",
-    "keyword": "river",
-    "image": "https://pixabay.com/get/gc0f4b7ce35800cd3eb7dd32fd477d81a43c53f2226ce553647f38a09b0571ff5889414aff8c7213b7218bd824f50bf6369739ec566c23b7f051aabd056285b5d_1280.jpg"
+    "end": 6.7,
+    "text": "Kalau sudah sukses, jangan tinggalkan shalat, berbagi dengan harta, dan niatkan ibadah kepada Allah Subhanahu wa taala.",
+    "keyword": "sunrise",
+    "image": "https://pixabay.com/get/gb01e7dc9be02a6f6622b00bd2fe049dfc26c89d6b95ef92f67c874a834b52d9a24918eaef16516693336f735b537561ce7828738e535a82657105b4d988e2c40_1280.jpg"
   },
   {
-    "start": 6,
-    "end": 9.9,
-    "text": "Katakan yang baik dengan bimbingan imanmu, tak mampu engkau diam.",
-    "keyword": "mountain",
-    "image": "https://pixabay.com/get/g454a1ff4102804f5232cab8cb51703164069994b97aa65febd051bb3418e1d277f1a673cb5a96b23034962ea4a94bee720083d35068cbd0c7f66a2759790ae92_1280.jpg"
+    "start": 6.7,
+    "end": 9.35,
+    "text": "dan akhirnya, semua kita akan pulang.",
+    "keyword": "horizon",
+    "image": "https://pixabay.com/get/gc8fdff88d5e57e60beae46c2601906f356b018fe3b48134235119c520bfce8c9eae67c78b83833ba310bdb35eb96a5c345bde840d818165885b9bfdb29c4b20e_1280.jpg"
   },
   {
-    "start": 10.4,
-    "end": 17,
-    "text": "Jadi cukuplah suami istri itu menggunakan satu hadis ini, pasti sakinah itu muncul dalam kehidupan rumah tangganya.",
+    "start": 9.35,
+    "end": 13.6,
+    "text": "Saya ulangi, semua kita akan pulang.",
     "keyword": "sunset",
-    "image": "https://pixabay.com/get/g9fc7d6611c6ac85ac93c63da3060e2e5e583b5ba3d290eccec852e96b18dd5b2f5fa2f1769f3174556eb488c8aec7872cf6ed4be55362f79344eef627233146c_1280.jpg"
+    "image": "https://pixabay.com/get/gd34884eb100a41353aaa75dade347af40020b39a59f08f64b00d79a12419958eeb4b6076fd9c6ca9f83979c960eccb6023ed34a3d94eecf25428a798c1e4d7bb_1280.jpg"
   },
   {
-    "start": 17.3,
-    "end": 21.3,
-    "text": "Ya, itulah sebabnya kenapa sakinah didahulukan dibanding mawaddah.",
-    "keyword": "forest",
-    "image": "https://pixabay.com/get/g7f0fd39d058169a74dc96dac6083b6facaa2a99592d02def0eedd01acc96439ee06a6462eda1dc2459b8e347a58006938b050109c663f535fbb3079d365bc8d1_1280.jpg"
+    "start": 13.6,
+    "end": 19.3,
+    "text": "Maka ketika Qur'an bertanya fa ayna tadzhabun, setelah engkau paham, akan engkau bawa ke mana misi hidupmu?",
+    "keyword": "path",
+    "image": "https://pixabay.com/get/gbd214369d0308cfe0344e87b6455e6a68de958bcd6006dc5def9fd691e74787fcee8e478cfb42c54834649d62c1631e291fd88dd2de09eab22d9ded79ff932f5_1280.jpg"
   },
   {
-    "start": 21.6,
-    "end": 26.6,
-    "text": "Hati-hati ya, Mbak walaupun namanya sakinah enggak ada ini enggak akan datang ketenangan tuh, ya.",
-    "keyword": "rain",
-    "image": "https://pixabay.com/get/gff0de8973460b2af266c87de8b22440adec98fee526bb2bb628b62f4121844c0e43a22766b7b6a7e7b7010cc534b9e232131834bf4dcd6009c62538d47b4445c_1280.jpg"
-  },
-  {
-    "start": 27.2,
-    "end": 30.6,
-    "text": "Ada yang tahu enggak rahasianya, kenapa sakinah duluan dibanding mawaddah?",
-    "keyword": "ocean",
-    "image": "https://pixabay.com/get/gb79c60be8298c583b9d2a102df1e68131c26e819f4ab76e163214f2ce76e105f21a90b614643a55e0cc0bc36cb01f029d39d1bc056ae0a3cfda1240c229fc782_1280.jpg"
-  },
-  {
-    "start": 31.3,
-    "end": 32.5,
-    "text": "Ya, 5 juta.",
-    "keyword": "mountain",
-    "image": "https://pixabay.com/get/g454a1ff4102804f5232cab8cb51703164069994b97aa65febd051bb3418e1d277f1a673cb5a96b23034962ea4a94bee720083d35068cbd0c7f66a2759790ae92_1280.jpg"
-  },
-  {
-    "start": 34.9,
+    "start": 19.3,
     "end": 35.8,
-    "text": "Ya, waktu habis.",
-    "keyword": "sunset",
-    "image": "https://pixabay.com/get/g9fc7d6611c6ac85ac93c63da3060e2e5e583b5ba3d290eccec852e96b18dd5b2f5fa2f1769f3174556eb488c8aec7872cf6ed4be55362f79344eef627233146c_1280.jpg"
-  },
-  {
-    "start": 35.8,
-    "end": 36.9,
-    "text": "Karena padat sekali.",
-    "keyword": "forest",
-    "image": "https://pixabay.com/get/g7f0fd39d058169a74dc96dac6083b6facaa2a99592d02def0eedd01acc96439ee06a6462eda1dc2459b8e347a58006938b050109c663f535fbb3079d365bc8d1_1280.jpg"
-  },
-  {
-    "start": 38.8,
-    "end": 44.4,
-    "text": "Maddah jamaknya mawaddah, rasa kasih yang tumbuh dari pemberian materi.",
-    "keyword": "river",
-    "image": "https://pixabay.com/get/gc0f4b7ce35800cd3eb7dd32fd477d81a43c53f2226ce553647f38a09b0571ff5889414aff8c7213b7218bd824f50bf6369739ec566c23b7f051aabd056285b5d_1280.jpg"
-  },
-  {
-    "start": 44.7,
-    "end": 49.3,
-    "text": "Jadi, kalau rumah tangga itu ingin cenderung pada kebahagiaan, boleh berbagi dengan materi.",
-    "keyword": "ocean",
-    "image": "https://pixabay.com/get/gb79c60be8298c583b9d2a102df1e68131c26e819f4ab76e163214f2ce76e105f21a90b614643a55e0cc0bc36cb01f029d39d1bc056ae0a3cfda1240c229fc782_1280.jpg"
-  },
-  {
-    "start": 49.6,
-    "end": 57.6,
-    "text": "Ya, istri cemberut, Anda datang dengan senyuman, \"Sayang, kenapa?\" Ya, ini emas 2 kilo misalkan. Nah, itu pasti sehat lagi tuh.",
-    "keyword": "sunset",
-    "image": "https://pixabay.com/get/g9fc7d6611c6ac85ac93c63da3060e2e5e583b5ba3d290eccec852e96b18dd5b2f5fa2f1769f3174556eb488c8aec7872cf6ed4be55362f79344eef627233146c_1280.jpg"
-  },
-  {
-    "start": 57.6,
-    "end": 58.7,
-    "text": "Ya, itu mawaddah.",
-    "keyword": "mountain",
-    "image": "https://pixabay.com/get/g454a1ff4102804f5232cab8cb51703164069994b97aa65febd051bb3418e1d277f1a673cb5a96b23034962ea4a94bee720083d35068cbd0c7f66a2759790ae92_1280.jpg"
-  },
-  {
-    "start": 58.9,
-    "end": 67.5,
-    "text": "Tapi maaf, walaupun Anda mapan bekerja, harta cukup melimpah, rumah, tapi tidak ada ketenangan di rumah tangga, tidak ada sakinah.",
-    "keyword": "rain",
-    "image": "https://pixabay.com/get/gff0de8973460b2af266c87de8b22440adec98fee526bb2bb628b62f4121844c0e43a22766b7b6a7e7b7010cc534b9e232131834bf4dcd6009c62538d47b4445c_1280.jpg"
-  },
-  {
-    "start": 67.5,
-    "end": 70.1,
-    "text": "Maka hampa kehidupan rumah tangga itu.",
-    "keyword": "forest",
-    "image": "https://pixabay.com/get/g7f0fd39d058169a74dc96dac6083b6facaa2a99592d02def0eedd01acc96439ee06a6462eda1dc2459b8e347a58006938b050109c663f535fbb3079d365bc8d1_1280.jpg"
-  },
-  {
-    "start": 70.1,
-    "end": 74.5,
-    "text": "Itulah sebabnya kenapa di Quran sakinah lebih dulu dibandingkan dengan mawaddah.",
-    "keyword": "river",
-    "image": "https://pixabay.com/get/gc0f4b7ce35800cd3eb7dd32fd477d81a43c53f2226ce553647f38a09b0571ff5889414aff8c7213b7218bd824f50bf6369739ec566c23b7f051aabd056285b5d_1280.jpg"
+    "text": "Maka turun jawaban di Qur'an, inni dzahibun ila rabbi sayhdin, sungguh aku tekadkan, aku akan menata hidupku lebih baik, untuk persiapan pulang menuju Tuhanku, supaya aku mendapatkan pencerahan dan kebaikan untuk dunia dan akhiratku.",
+    "keyword": "light",
+    "image": "https://pixabay.com/get/gf55f5fe501b8e23accf1a6ff4905df61b8aa85d9e9ffd6533fdf0268b4b76919922203eef5078337331110c6132de0a394e44bdeda30640d2920292890c8184c_1280.jpg"
   }
 ]
