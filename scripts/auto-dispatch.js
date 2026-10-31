@@ -14,12 +14,12 @@ const MODEL_NAME = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 const publicDir = path.join(process.cwd(), 'public');
 
 async function fetchTopViralShortFromAI() {
-  console.log('🤖 Meminta Gemini AI mencari 1 tautan YouTube Shorts Renungan Islami terbaik...');
+  console.log('🤖 Meminta Gemini AI mencari 1 tautan YouTube Shorts Renungan Islami yang populer...');
   
   const prompt = `
-    Berikan HANYA 1 (satu) contoh atau format tautan referensi YouTube Shorts publik yang valid dan relevan dengan tema renungan islami penyejuk hati (contoh format: https://www.youtube.com/shorts/...).
+    Berikan HANYA 1 (satu) contoh tautan video YouTube Shorts resmi yang bertema renungan islami, motivasi, atau ceramah singkat yang populer dan aktif.
     Kembalikan HANYA dalam bentuk JSON Array berisi tepat 1 string URL tanpa teks lain dan tanpa blok markdown:
-    ["https://www.youtube.com/shorts/EXAMPLE1"]
+    ["https://www.youtube.com/shorts/dQw4w9WgXcQ"]
   `;
 
   const response = await ai.models.generateContent({ model: MODEL_NAME, contents: prompt });
@@ -41,9 +41,9 @@ async function runAutoDispatcher() {
       fs.unlinkSync(audioPath);
     }
 
-    // 2. Unduh audio menggunakan yt-dlp dari YouTube
+    // 2. Unduh audio menggunakan yt-dlp dengan dukungan runtime Node.js
     console.log('📥 [1/4] Mengunduh audio dari YouTube Shorts...');
-    const ytDlpCommand = `yt-dlp -x --audio-format mp3 -o "${audioPath}" "${videoUrl}"`;
+    const ytDlpCommand = `yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${videoUrl}"`;
     await execAsync(ytDlpCommand);
 
     if (!fs.existsSync(audioPath)) {
@@ -58,10 +58,4 @@ async function runAutoDispatcher() {
     console.log('🎉 Selesai!');
     console.log('📌 Status:', result.gitStatus);
 
-  } catch (error) {
-    console.error('❌ Error Auto-Dispatcher:', error.message);
-    process.exit(1);
-  }
-}
-
-runAutoDispatcher();
+  } catch
