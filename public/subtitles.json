@@ -1,37 +1,44 @@
 [
   {
-    "start": 0.3,
-    "end": 6.2,
-    "text": "Seburuk apapun perbuatan tidak baik yang pernah kita kerjakan di masa lalu,",
-    "keyword": "rain",
-    "image": "https://pixabay.com/get/g4d0eb5d46ddb1251a10db2a6fe83130056f79af4e6603bbc8537524208b4c13b870cd673672dc1e18d5e7346d41ad5ba5e4c80235cc0b4cfb20de75a63543a62_1280.jpg"
+    "start": 0,
+    "end": 8,
+    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
+    "keyword": "storm",
+    "image": "https://pixabay.com/get/g781e7c6026e2f82ff32922a0a863618e9a4dba87657d743b93def02486ea4374ae584f0750db8cdede7d6c51b90360990c3895a39ea8a7e9f6e0a5e6f8cbb11f_1280.jpg"
   },
   {
-    "start": 6.6,
-    "end": 13.5,
-    "text": "Allah itu satu-satunya Tuhan yang melekatkan sifat sayang tanpa batas bagi zat-Nya.",
-    "keyword": "ocean",
-    "image": "https://pixabay.com/get/gc605bafd091baf4a172f723c8ce576e500740aac748eac8532e1291db6ff96eff3fb57021deb5cf11743d77e6b453a6af0c5b0da2a33e1fd7b9d57b69d93c84c_1280.jpg"
+    "start": 8,
+    "end": 14,
+    "text": "Bukankah dulu banyak ribuan masalah yang telah aku selesaikan? Janganlah melampau larut sedih dengan masalah yang sekarang.",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g8011c703cf95bffb572512393b0b98245afb1192f86f7a6296227d4456be6dde0fe9584d7b2a994f1a378d4d3d773ffb336107b6464986b7670e05742fe7ca09_1280.jpg"
   },
   {
-    "start": 14.2,
-    "end": 22.5,
-    "text": "Sepanjang kita mau kembali, Allah pasti memberikan kesempatan dan jalan untuk merubah diri kita menjadi lebih baik.",
-    "keyword": "sunrise",
-    "image": "https://pixabay.com/get/g6ca52ae0846072e276ecc8c5ce1aa302c3569022d41883006e9294cef3625c8398c8944626e026d17ea2fd724d07eafb38b95fb71cab65bbcf2d9e4a7099bc3d_1280.jpg"
+    "start": 14,
+    "end": 16.5,
+    "text": "Yakin dulu pun banyak masalah selesai juga.",
+    "keyword": "sunlight",
+    "image": "https://pixabay.com/get/gf4289e6e90421599878136fcf96ceab1c936d5925105ebe9809c12c655c92920c37c271d152e4a62d7f1036ebecd04a68987b259db737c5dfd211b4e30f2d81a_1280.jpg"
   },
   {
-    "start": 23,
-    "end": 25.8,
-    "text": "Maka temukanlah titik balik itu.",
+    "start": 16.5,
+    "end": 21.5,
+    "text": "Lalu, apa yang harus dilakukan? Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu.",
     "keyword": "mountain",
-    "image": "https://pixabay.com/get/gb9c0c54124cd0a4ba0fd244b203df818effab5a8c3b40aaceee6b7b8bb77359673ab6a1d65a0400861682887c4bca82bb55042d711151db9c6a37effbb827c53_1280.jpg"
+    "image": "https://pixabay.com/get/g4fbd5a0d633120765f43546eaf8413cdea545579f4c2312dd4a76e81490bccb5d86c883910d6e1b1624f0d9a818160206fe49e3189123d44ed068a17a6c9aee0_1280.jpg"
   },
   {
-    "start": 26.3,
-    "end": 41.2,
-    "text": "Karena kita punya Tuhan yang sangat berkasih sayang tanpa batas dan selalu memberikan sinyal pada setiap hamba yang bahkan menyimpulkan dirinya larut dalam maksiat, selalu diberikan titik yang mengingatkan dia untuk kembali.",
-    "keyword": "starry sky",
-    "image": "https://pixabay.com/get/ga8576f08ad915a46fa8602a2135c31e29470858c1ec86dc54286f9cbf38c7cee91c8814ff3adf684235596c8e6139bc747530551669b2244b93ddc0a4e19e660_1280.jpg"
+    "start": 21.5,
+    "end": 25.5,
+    "text": "Innama al-usri, semua ini pasti selesai.",
+    "keyword": "sunset",
+    "image": "https://pixabay.com/get/ga719b1ca5c32a7e6723fe96092abf759c7c6376e233a449d7a94a11b14a8126b04de03cd85eef2e879f89cd74eec73245061aa1d345845e5421ebe9addf34ca0_1280.jpg"
+  },
+  {
+    "start": 25.5,
+    "end": 29,
+    "text": "Pasti ada solusinya, pasti selesai.",
+    "keyword": "horizon",
+    "image": "https://pixabay.com/get/gf11b278d0c15da6c8680962af8a644f8916156df9c27e185a9ff5aca9654270702f54bff2ce0e19351dcd5743e23a27f2eb2cb3f3f8ab5ca2b4569f9751afa73_1280.jpg"
   }
 ]
