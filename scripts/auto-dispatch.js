@@ -10,7 +10,7 @@ dotenv.config();
 
 const execAsync = promisify(exec);
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const MODEL_NAME = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+const MODEL_NAME = process.env.GEMINI_MODEL || 'gemini-3.8  -flash';
 const publicDir = path.join(process.cwd(), 'public');
 
 async function fetchTopViralShortFromAI() {
@@ -58,4 +58,10 @@ async function runAutoDispatcher() {
     console.log('🎉 Selesai!');
     console.log('📌 Status:', result.gitStatus);
 
-  } catch
+  } catch (error) {
+    console.error('❌ Error Auto-Dispatcher:', error.message);
+    process.exit(1);
+  }
+}
+
+runAutoDispatcher();
