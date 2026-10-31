@@ -15,7 +15,7 @@ const publicDir = path.join(process.cwd(), 'public');
 // Ambil daftar model dari ENV (array) atau gunakan default sebagai cadangan
 const geminiModels = process.env.GEMINI_MODELS 
   ? process.env.GEMINI_MODELS.split(',').map(m => m.trim())
-  : ['gemini-2.5-flash', 'gemini-3.8-flash', 'gemini-flash'];
+  : ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-flash'];
 
 // Daftar tautan cadangan (fallback) video YouTube Shorts ceramah/renungan yang aktif
 const backupShorts = [
