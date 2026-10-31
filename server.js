@@ -68,7 +68,7 @@ async function fetchVerticalNatureImage(keyword, index) {
 // -------------------------------------------------------------
 // FUNGSI UTAMA PIPELINE (Dengan Fallback Array Model Gemini)
 // -------------------------------------------------------------
-export async function executePipeline(autoPushGit, res) {
+async function executePipeline(autoPushGit, res) {
   const audioPath = path.join(publicDir, 'audio.mp3');
   const audioBase64 = fs.readFileSync(audioPath).toString('base64');
 
@@ -229,6 +229,43 @@ app.post('/api/process-url', async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
+// -------------------------------------------------------------
+// ENDPOINT 2B: Khusus Link Instagram Reels
+// -------------------------------------------------------------
+app.post('/api/process-ig-url', async (req, res) => {
+  try {
+    const { igUrl, autoPush } = req.body;
+    if (!igUrl) {
+      return res.status(400).json({ success: false, message: 'Parameter igUrl tidak boleh kosong.' });
+    }
+
+    console.log('[IG URL] Mengunduh audio dari Instagram:', igUrl);
+    const audioPath = path.join(publicDir, 'audio.mp3');
+
+    if (fs.existsSync(audioPath)) {
+      fs.unlinkSync(audioPath);
+    }
+
+    // Menggunakan yt-dlp untuk mengunduh audio dari IG Reels
+    const ytDlpCommand = `yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${igUrl}"`;
+    await execAsync(ytDlpCommand);
+
+    if (!fs.existsSync(audioPath)) {
+      throw new Error('Gagal mengekstrak audio dari tautan Instagram yang diberikan.');
+    }
+
+    console.log('[1/4] Audio Instagram berhasil disimpan di public/audio.mp3');
+
+    const autoPushGit = autoPush === true || autoPush === 'true';
+    await executePipeline(autoPushGit, res);
+
+  } catch (error) {
+    console.error('[IG URL Error]:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server Auto-Shorts berjalan di http://localhost:${PORT}`);
