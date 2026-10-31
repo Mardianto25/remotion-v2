@@ -27,15 +27,17 @@ async function generateYouTubeMetadata() {
     "${transcript}"
 
     Buatlah metadata YouTube Shorts berbahasa Indonesia yang menyentuh hati, reflektif, hangat, dan sangat manusiawi:
-    1. "title": Judul yang menyentuh perasaan dan menarik perhatian (panjang maksimal 60 karakter agar tidak terpotong).
-    2. "description": Deskripsi beberapa paragraf singkat yang relevan dengan isi narasi, diakhiri dengan hashtag pendukung.
-    3. "tags": Sebuah array berisi 8 hingga 12 kata kunci/tag penting (dalam bentuk string) yang sangat relevan dengan isi video ini untuk keperluan SEO YouTube.
+    1. "title": Judul utama yang menyentuh perasaan dan menarik perhatian (panjang maksimal 50 karakter).
+    2. "hashtags": Sebuah string berisi 2 sampai 3 hashtag pendek yang sangat relevan (misalnya: #shorts #renungan #inspirasi).
+    3. "description": Deskripsi beberapa paragraf singkat yang relevan dengan isi narasi, diakhiri dengan hashtag pendukung.
+    4. "tags": Sebuah array berisi 8 hingga 12 kata kunci/tag penting (dalam bentuk string) untuk keperluan SEO YouTube.
     
     ATURAN WAJIB: Dilarang keras menyebutkan kata teknis seperti AI, Remotion, Gemini, otomatis, atau pembuat video.
 
     Kembalikan HANYA format JSON murni tanpa blok markdown:
     {
       "title": "...",
+      "hashtags": "#shorts #renungan",
       "description": "...",
       "tags": ["tag1", "tag2", "tag3"]
     }
@@ -50,39 +52,20 @@ async function generateYouTubeMetadata() {
   raw = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
   const data = JSON.parse(raw);
 
-  // Pastikan judul ditambahkan hashtag #shorts secara otomatis di belakangnya
+  // Gabungkan judul bersih dengan hashtag yang disediakan AI (pastikan #shorts selalu ada)
   let cleanTitle = sanitizeContent(data.title);
-  if (!cleanTitle.toLowerCase().includes('#shorts')) {
-    cleanTitle = `${cleanTitle} #shorts`;
+  let hashtags = data.hashtags || '#shorts';
+  if (!hashtags.toLowerCase().includes('#shorts')) {
+    hashtags = `#shorts ${hashtags}`;
   }
 
+  const finalTitle = `${cleanTitle} ${hashtags}`.slice(0, 95);
+
   return {
-    title: cleanTitle.slice(0, 95),
+    title: finalTitle,
     description: sanitizeContent(data.description),
     tags: data.tags || ["shorts", "renungan", "inspirasi", "motivasi", "religi"]
   };
-}
-
-async function getFreshAccessToken() {
-  console.log('[OAuth2] Memperbarui Access Token menggunakan Refresh Token New...');
-  
-  // Pastikan URL di bawah ini bersih tanpa kurung siku ganda
-  const response = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      client_id: process.env.YOUTUBE_CLIENT_ID,
-      client_secret: process.env.YOUTUBE_CLIENT_SECRET,
-      refresh_token: process.env.YOUTUBE_REFRESH_TOKEN,
-      grant_type: 'refresh_token'
-    })
-  });
-
-  const data = await response.json();
-  if (!response.ok || !data.access_token) {
-    throw new Error(`Gagal mendapatkan Access Token: ${JSON.stringify(data)}`);
-  }
-  return data.access_token;
 }
 
 
