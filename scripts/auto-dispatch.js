@@ -10,7 +10,7 @@ dotenv.config();
 
 const execAsync = promisify(exec);
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const MODEL_NAME = 'gemini-2.5-flash';
+const MODEL_NAME = 'gemini-3.8-flash';
 const publicDir = path.join(process.cwd(), 'public');
 
 // Daftar tautan cadangan (fallback) video YouTube Shorts ceramah/renungan yang aktif
