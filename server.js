@@ -64,7 +64,7 @@ async function fetchVerticalNatureImage(keyword, index) {
 // -------------------------------------------------------------
 // FUNGSI UTAMA PIPELINE (Digunakan bersama oleh Upload File & IG Link)
 // -------------------------------------------------------------
-async function executePipeline(autoPushGit, res) {
+export async function executePipeline(autoPushGit, res) {
   const audioPath = path.join(publicDir, 'audio.mp3');
   console.log(`[2/4] Menganalisis isi audio menggunakan ${MODEL_NAME}...`);
   const audioBase64 = fs.readFileSync(audioPath).toString('base64');
