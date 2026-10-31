@@ -1,37 +1,65 @@
 [
   {
     "start": 0,
-    "end": 6.7,
-    "text": "Kalau sudah sukses, jangan tinggalkan shalat, berbagi dengan harta, dan niatkan ibadah kepada Allah Subhanahu wa taala.",
-    "keyword": "sunrise",
-    "image": "https://pixabay.com/get/gb01e7dc9be02a6f6622b00bd2fe049dfc26c89d6b95ef92f67c874a834b52d9a24918eaef16516693336f735b537561ce7828738e535a82657105b4d988e2c40_1280.jpg"
+    "end": 8,
+    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
+    "keyword": "mountain",
+    "image": "https://pixabay.com/get/g6faea2f3bd2e4d4106748ad756ca0e7387749719cc3f50166ecdb1c890de16018c041e06c1d32e7458d2931cca19f7e6aa1e329026a0e8bac467348e0e5006d0_1280.jpg"
   },
   {
-    "start": 6.7,
-    "end": 9.35,
-    "text": "dan akhirnya, semua kita akan pulang.",
-    "keyword": "horizon",
-    "image": "https://pixabay.com/get/gc8fdff88d5e57e60beae46c2601906f356b018fe3b48134235119c520bfce8c9eae67c78b83833ba310bdb35eb96a5c345bde840d818165885b9bfdb29c4b20e_1280.jpg"
+    "start": 8,
+    "end": 9,
+    "text": "Bukankah dulu banyak ribuan masalah yang telah aku selesaikan?",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g4a8b228e18c59c4b5f47f36ad1e8bf86642941ea26448291460e177a15b620cde8b1983ebf13808a67d14ba20339e232ebee6d5f428307ff4a4d97834c7717f8_1280.jpg"
   },
   {
-    "start": 9.35,
-    "end": 13.6,
-    "text": "Saya ulangi, semua kita akan pulang.",
+    "start": 9,
+    "end": 14,
+    "text": "Jangan lampau larut sedih dengan masalah yang sekarang, yakin dulu pun banyak masalah selesai juga.",
+    "keyword": "rain",
+    "image": "https://pixabay.com/get/g266b116f32be7b812f29a8a4f1236c1198e7853b5d7b408281430040e2bc251518ba78273271177d25eb8efc0c0acd84dcd0c6db9054e60e210c8197d60e9b80_1280.jpg"
+  },
+  {
+    "start": 14,
+    "end": 17,
+    "text": "Lalu apa yang harus dilakukan?",
+    "keyword": "forest",
+    "image": "https://pixabay.com/get/ga7810eaebc64a1ced270e73b72001cfdf74b37ccc6e6a926abc7442649e83ebe27505457b574db863068f69fb21e22d9ffefed06424708f59d0730a8efa55e3c_1280.jpg"
+  },
+  {
+    "start": 17,
+    "end": 21,
+    "text": "Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu.",
     "keyword": "sunset",
-    "image": "https://pixabay.com/get/gd34884eb100a41353aaa75dade347af40020b39a59f08f64b00d79a12419958eeb4b6076fd9c6ca9f83979c960eccb6023ed34a3d94eecf25428a798c1e4d7bb_1280.jpg"
+    "image": "https://pixabay.com/get/gecda40b8f84eddb9f5ab722710b8b717fb38e50a301095a01a9d1d3ca971975edecba9c228ff4263c645388858afa5e213e87770b5d8411617454681f97ea2a0_1280.jpg"
   },
   {
-    "start": 13.6,
-    "end": 19.3,
-    "text": "Maka ketika Qur'an bertanya fa ayna tadzhabun, setelah engkau paham, akan engkau bawa ke mana misi hidupmu?",
-    "keyword": "path",
-    "image": "https://pixabay.com/get/gbd214369d0308cfe0344e87b6455e6a68de958bcd6006dc5def9fd691e74787fcee8e478cfb42c54834649d62c1631e291fd88dd2de09eab22d9ded79ff932f5_1280.jpg"
+    "start": 21,
+    "end": 23,
+    "text": "Innama'l-usri",
+    "keyword": "starry",
+    "image": "https://pixabay.com/get/g6e1c2f1711a7cb50baf82c81b399595b611fbd443497bb90e633d3d87653a91806c32d3f4c665971bd10af728873b188745ac0d5d01ab2093eafd1299f004f2a_1280.jpg"
   },
   {
-    "start": 19.3,
-    "end": 35.8,
-    "text": "Maka turun jawaban di Qur'an, inni dzahibun ila rabbi sayhdin, sungguh aku tekadkan, aku akan menata hidupku lebih baik, untuk persiapan pulang menuju Tuhanku, supaya aku mendapatkan pencerahan dan kebaikan untuk dunia dan akhiratku.",
-    "keyword": "light",
-    "image": "https://pixabay.com/get/gf55f5fe501b8e23accf1a6ff4905df61b8aa85d9e9ffd6533fdf0268b4b76919922203eef5078337331110c6132de0a394e44bdeda30640d2920292890c8184c_1280.jpg"
+    "start": 23,
+    "end": 25,
+    "text": "Semua ini pasti selesai.",
+    "keyword": "ocean",
+    "image": "https://pixabay.com/get/gcad718a0f4a15044cd0a1cc7af401ccae2933f914df11112274f15cb5a50e0dc2a413321cdbbef08c5315e08e347284ae78ffa8db4ad64f6ae12d4cc415946ff_1280.jpg"
+  },
+  {
+    "start": 25,
+    "end": 27,
+    "text": "Pasti ada solusinya.",
+    "keyword": "mountain",
+    "image": "https://pixabay.com/get/g6faea2f3bd2e4d4106748ad756ca0e7387749719cc3f50166ecdb1c890de16018c041e06c1d32e7458d2931cca19f7e6aa1e329026a0e8bac467348e0e5006d0_1280.jpg"
+  },
+  {
+    "start": 27,
+    "end": 29,
+    "text": "Pasti selesai.",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g4a8b228e18c59c4b5f47f36ad1e8bf86642941ea26448291460e177a15b620cde8b1983ebf13808a67d14ba20339e232ebee6d5f428307ff4a4d97834c7717f8_1280.jpg"
   }
 ]
