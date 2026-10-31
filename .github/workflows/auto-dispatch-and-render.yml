@@ -1,4 +1,4 @@
-Name: Auto Dispatch & Render
+name: Auto Dispatch & Render
 
 on:
   schedule:
@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: 3. Install Python, yt-dlp & FFmpeg (Dibutuhkan untuk download audio)
+      - name: 3. Install Python, yt-dlp & FFmpeg (Dibutuhkan untuk download audio IG)
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip ffmpeg
@@ -35,7 +35,6 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
-          GEMINI_MODELS: ${{ secrets.GEMINI_MODELS }}
         run: npm run dispatch
 
       - name: 7. Konfigurasi Git Bot
