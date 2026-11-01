@@ -58,35 +58,33 @@ export const ShortsVideo = ({ subtitles = [] }) => {
               transition: 'opacity 0.5s ease-in-out'
             }}
           />
-          {/* Gradasi gelap elegan agar teks sangat kontras dan mudah dibaca */}
-          <AbsoluteFill style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.65))' }} />
+          {/* Gradasi gelap tipis di latar belakang agar gambar tetap estetik */}
+          <AbsoluteFill style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4))' }} />
         </AbsoluteFill>
       )}
 
-      {/* Kontainer Subtitle dengan Efek Animasi Keren */}
+      {/* Kontainer Subtitle Dinamis (Tanpa background hitam / glassmorphism) */}
       <AbsoluteFill
         style={{
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '0 70px',
+          padding: '0 50px',
           textAlign: 'center'
         }}
       >
         <div
           style={{
             color: '#ffffff',
-            fontSize: '54px',
+            fontSize: '56px',
             fontWeight: '800',
             fontFamily: 'system-ui, sans-serif',
-            lineHeight: 1.4,
+            lineHeight: 1.3,
             opacity: textOpacity,
             transform: `translateY(${textTranslateY}px)`,
-            textShadow: '0 4px 25px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.9)',
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
-            backdropFilter: 'blur(6px)', // Efek kaca buram (glassmorphism) yang modern
-            padding: '30px 40px',
-            borderRadius: '28px',
-            border: '1px solid rgba(255, 255, 255, 0.15)'
+            // Mengandalkan bayangan teks yang kuat agar tetap sangat kontras terbaca di berbagai latar belakang
+            textShadow: '3px 3px 12px rgba(0,0,0,0.95), 0 0 25px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9)',
+            padding: '0 10px',
+            maxWidth: '90%'
           }}
         >
           {activeSegment.text}
@@ -94,7 +92,7 @@ export const ShortsVideo = ({ subtitles = [] }) => {
       </AbsoluteFill>
 
       {/* Audio Utama */}
-      <Audio src={staticFile('audio.mp3')} />
+      <Audio staticFile={staticFile('audio.mp3')} src={staticFile('audio.mp3')} />
     </AbsoluteFill>
   );
 };
