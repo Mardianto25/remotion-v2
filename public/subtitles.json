@@ -1,30 +1,65 @@
 [
   {
     "start": 0,
-    "end": 2.15,
-    "text": "cahaya menuntun",
-    "keyword": "glowing lantern",
-    "image": "https://pixabay.com/get/gcfee4d827058d26bd8dd0e86cb059349fec53766fb1bc82c59e6a14e069d771b84e2efdeed6c93e7cac0b02d619b166cfbad36cfa4081573ed04d53b58d6d343_1280.jpg"
+    "end": 4.9,
+    "text": "Belajar dari surat Al-Mulk, hidup ini singkat dan hanya akhlak lembutmu yang akan tinggal paling lama.",
+    "keyword": "peaceful sunset",
+    "image": "https://pixabay.com/get/g69984722ee803524b09c6af4d02f2a452d2ede1fe5d5155cd1d6b9aacbc93b3c833a58dbfd784411683f365e246c468e90ff9cde809269224767b3f2ffd47233_1280.jpg"
   },
   {
-    "start": 2.15,
-    "end": 7.37,
-    "text": "Ada satu kalimat yang sangat mahal yang kalau kita punya ini, tentram kehidupan dunia.",
+    "start": 5.1,
+    "end": 10.4,
+    "text": "Belajar dari surat Al-Qadr, Allah melihat seberapa tulus hatimu, bukan seberapa panjang perjalananmu.",
+    "keyword": "starry night",
+    "image": "https://pixabay.com/get/g3c281da2fc7dad67355b47eaec6bfc5464b7f22ec97d29166cca95ae5b965cd16263dc9a7ba74cc23949180c26dcd2c59a6aad6e467a94ef503455088a939a80_1280.jpg"
+  },
+  {
+    "start": 10.6,
+    "end": 17.5,
+    "text": "Belajar dari surat Al-Ikhlas, saat kamu menyerahkan segalanya, Allah tak pernah setengah-setengah menenangkanmu.",
     "keyword": "calm ocean",
-    "image": "https://pixabay.com/get/g214372410d329a171687a72931dd9784bff6a469af898240b4f23e6c5fabe0d2c8563356778acba0632fccdfd2edf940dcd4a10e0f2df5416c7eb64807f866cb_1280.jpg"
+    "image": "https://pixabay.com/get/gec1e6693b74ee4035f3d2788ac0a4e89c609d592de8168036f076a1a810f248de3e0e462c789313e709b673a483d4e8f35787118c0070725a3a4d4d3d54ed6b2_1280.jpg"
   },
   {
-    "start": 7.37,
-    "end": 15.35,
-    "text": "Kalimatnya singkat, cuma tiga kata: Aku punya Allah.",
-    "keyword": "peaceful road",
-    "image": "https://pixabay.com/get/gf665bf758c93c6ba662a71cbab5223df5ca3a0b40294faaea79f35dec1ca55947849c33b2116dd3fa6c112aacbc67aa8b2f9a752282273c56b9512a187a4271a_1280.jpg"
+    "start": 17.7,
+    "end": 23.7,
+    "text": "Belajar dari surat Al-Hasyr, kadang Allah mengambil sesuatu agar tanganmu kosong untuk menerima yang lebih baik.",
+    "keyword": "golden sunrise",
+    "image": "https://pixabay.com/get/gbde8829850b61dd9aaeab28cac58ee9a4289bd37a0476eb00cc72d817b3ca36aae05801e2209d1d3ce8a2e332c9bed04036b8136a97a49069e6b79c6aa2d09bd_1280.jpg"
   },
   {
-    "start": 15.35,
-    "end": 17.75,
-    "text": "Aku punya Allah.",
-    "keyword": "sunset horizon",
-    "image": "https://pixabay.com/get/g6b077755ae882cd1c14491ccad48ddc716c1d794c468a7ecfca9b78cc22e585e42887088d82cb430f037da192d1af4562f89f14809bafd61649a7bb58f258c8f_1280.jpg"
+    "start": 23.9,
+    "end": 27.6,
+    "text": "Belajar dari surat Maryam, air mata yang kamu sembunyikan justru paling Allah ingat.",
+    "keyword": "rain window",
+    "image": "https://pixabay.com/get/g2842da4db4f4f6ae0830dc402138f4cf9821e5c832b7624fe42b9f3b619566cbb38bb37b8f5ab05add93b23f77b7f0674cd4a54133cf7c6c5f527c61cffbfe93_1280.jpg"
+  },
+  {
+    "start": 27.7,
+    "end": 29.9,
+    "text": "Tak ada satu bisikan pun yang Dia lewatkan.",
+    "keyword": "glowing lantern",
+    "image": "https://pixabay.com/get/g2a5157c949da90e0014c3a4f896815bf6efdfb9ca7275d183c8e04ff567a181679d29808abdee07fa3ab35510b11dedb8436119b86a1a8df33351541c5d0bf13_1280.jpg"
+  },
+  {
+    "start": 30.1,
+    "end": 35.1,
+    "text": "Belajar dari surat Ali 'Imran, Allah izinkan hatimu patah agar kamu tahu siapa tempat bersandar.",
+    "keyword": "misty mountain",
+    "image": "https://pixabay.com/get/g8efb48fcd9f75f8fba8e152f3a1da9ea3c02fb261a9a1a4d1b2f0b7f5d1ba14a7fb12f506f0a8ea67d931921d99e9253d2adeddebdb9d1162096d685590baa21_1280.jpg"
+  },
+  {
+    "start": 35.3,
+    "end": 40.2,
+    "text": "Belajar dari surat Hud, kesabaran bukan tanpa rasa sakit, tapi memilih tetap taat di tengah badai.",
+    "keyword": "lighthouse storm",
+    "image": "https://pixabay.com/get/gdd6f1e8bc991fcd54a5fb9365f958f622e0002c62a88a2e26acf9aed14360bcd68c32c5a190867113cd2773d56a1c43cf0d8a3ff8bb6d926bfdb7b0e299344c9_1280.jpg"
+  },
+  {
+    "start": 40.4,
+    "end": 49,
+    "text": "Belajar dari surat Ibrahim, dalam hiruk-pikuk hidup, Allah mengajarkanmu berhenti sebentar, melihat apa saja yang masih kau punya.",
+    "keyword": "quiet forest",
+    "image": "https://pixabay.com/get/g2453611c77e822192a5cb11f70456927ea9c1eb4545176660a41c0f044324d10aaf157af2b6505c8f76ff3e46b81ea9021c8ec7ce0df14134690de44602dd985_1280.jpg"
   }
 ]
