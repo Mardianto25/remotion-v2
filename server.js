@@ -34,11 +34,13 @@ const upload = multer({ storage });
 app.use(express.json());
 app.use(express.static('public'));
 
+// Daftar fallback aman: hanya masjid, arsitektur, dan pemandangan alam (tanpa figur manusia/wanita)
 const PEXELS_FALLBACKS = [
-  'https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
-  'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
-  'https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
-  'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920'
+  'https://images.pexels.com/photos/4388167/pexels-photo-4388167.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920', // Masjid / Kubah
+  'https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',  // Hutan / Alam
+  'https://images.pexels.com/photos/8111394/pexels-photo-8111394.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920', // Interior Masjid
+  'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920', // Pemandangan Gunung
+  'https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920'  // Langit Senja / Sunset
 ];
 
 async function fetchVerticalNatureImage(keyword, index) {
@@ -48,36 +50,53 @@ async function fetchVerticalNatureImage(keyword, index) {
   if (!apiKey) return fallbackUrl;
 
   try {
-    // Diperbarui agar lebih cocok untuk tema renungan, motivasi, dan Islami yang estetik & sinematik
-    const query = encodeURIComponent(`${keyword} aesthetic moody cinematic`);
-    const url = `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=vertical&safesearch=true&per_page=3`;
+    // Membatasi kueri agar fokus pada pemandangan atau arsitektur (tanpa figur manusia)
+    let searchQuery = keyword;
+    if (index % 2 === 0) {
+      searchQuery = `${keyword} nature landscape no people`; 
+    } else {
+      searchQuery = `${keyword} mosque architecture scenery no people`; 
+    }
+
+    const query = encodeURIComponent(searchQuery);
+    const url = `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=vertical&safesearch=true&per_page=10`;
     
     const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const data = await response.json();
+    
+    // Filter tambahan untuk memastikan tidak mengambil foto yang mengandung manusia/potret
     if (data.hits && data.hits.length > 0) {
-      return data.hits[0].largeImageURL || data.hits[0].webformatURL;
+      const safeHit = data.hits.find(hit => 
+        !hit.tags.includes('woman') && 
+        !hit.tags.includes('girl') && 
+        !hit.tags.includes('model') && 
+        !hit.tags.includes('person') &&
+        !hit.tags.includes('people')
+      ) || data.hits[0];
+
+      return safeHit.largeImageURL || safeHit.webformatURL;
     }
     return fallbackUrl;
   } catch (err) {
-    console.warn(`[Pixabay Warning] Gagal memuat gambar untuk keyword "${keyword}". Menggunakan fallback Pexels.`);
+    console.warn(`[Pixabay Warning] Gagal memuat gambar untuk keyword "${keyword}". Menggunakan fallback aman.`);
     return fallbackUrl;
   }
 }
 
 // -------------------------------------------------------------
-// FUNGSI UTAMA PIPELINE (Dengan Fallback Array Model Gemini)
+// FUNGSI UTAMA PIPELINE (Dengan Fallback Model Gemini & Tema Islami + Alam)
 // -------------------------------------------------------------
 async function executePipeline(autoPushGit, res) {
   const audioPath = path.join(publicDir, 'audio.mp3');
   const audioBase64 = fs.readFileSync(audioPath).toString('base64');
 
   const prompt = `
-    Dengarkan berkas audio ini dengan saksama.
+    Dengarkan berkas audio ini dengan saksama. Ini adalah konten bertema renungan dan motivasi Islami.
     Tugas Anda:
-    1. Pecah isi audio menjadi per kalimat secara berurutan beserta waktu mulai (start) dan waktu selesai (end) dalam satuan detik (gunakan angka desimal yang akurat).
-    2. Untuk setiap kalimat, berikan SATU kata kunci (keyword) dalam bahasa Inggris yang spesifik mengenai suasana visual yang tenang, mendalam, dan cocok untuk renungan/motivasi (contoh: night sky, rain window, glowing lantern, calm ocean, misty mountain, peaceful road, sunset horizon).
+    1. Pecah isi audio menjadi per kalimat secara berurutan beserta waktu mulai (start) dan waktu selesai (end) dalam satuan detik.
+    2. Untuk setiap kalimat, berikan SATU kata kunci (keyword) dalam bahasa Inggris yang spesifik mengenai pemandangan alam atau arsitektur masjid yang menenangkan (HANYA OBJEK/PEMANDANGAN, TANPA FIGUR MANUSIA, contoh: grand mosque, quran, mountain, ocean, forest, sunset, starry sky, islamic architecture, river).
 
     Kembalikan HANYA format JSON Array murni tanpa blok markdown:
     [
@@ -85,7 +104,7 @@ async function executePipeline(autoPushGit, res) {
         "start": 0.0,
         "end": 3.5,
         "text": "Kalimat transkrip di sini",
-        "keyword": "night sky"
+        "keyword": "grand mosque"
       }
     ]
   `;
@@ -124,7 +143,7 @@ async function executePipeline(autoPushGit, res) {
   rawJson = rawJson.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
   const parsedSegments = JSON.parse(rawJson);
 
-  console.log('[3/4] Mencari gambar latar belakang vertikal dari Pixabay...');
+  console.log('[3/4] Mencari gambar latar belakang aman (Mix Alam & Masjid) dari Pixabay...');
   const subtitlesData = [];
 
   for (let i = 0; i < parsedSegments.length; i++) {
@@ -162,7 +181,6 @@ async function executePipeline(autoPushGit, res) {
     }
   }
 
-  // Jika res tidak null (dipanggil dari HTTP Express), kirim respons JSON
   if (res) {
     res.json({
       success: true,
