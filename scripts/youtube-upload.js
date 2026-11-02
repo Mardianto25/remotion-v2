@@ -113,10 +113,10 @@ async function uploadVideoMultipart() {
       privacyStatus: 'private',
       publishAt: publishDate,
       selfDeclaredMadeForKids: false
-    },
-    contentDetails: {
-      relatedVideoId: 'hWnuH6uVSLw'
     }
+    // contentDetails: {
+    //   relatedVideoId: 'hWnuH6uVSLw'
+    // }
   };
 
   console.log('[Upload] Menyiapkan konstruksi payload multipart/related...');
