@@ -100,8 +100,8 @@ async function uploadVideoMultipart() {
   const { title, description, tags } = await generateYouTubeMetadata();
   const accessToken = await getFreshAccessToken();
 
-  const publishDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-
+  // const publishDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+  const publishDate = getNextUploadSlot();
   const metadataObj = {
     snippet: {
       title: title,
@@ -113,6 +113,9 @@ async function uploadVideoMultipart() {
       privacyStatus: 'private',
       publishAt: publishDate,
       selfDeclaredMadeForKids: false
+    },
+    contentDetails: {
+      relatedVideoId: 'hWnuH6uVSLw'
     }
   };
 
@@ -162,6 +165,60 @@ async function uploadVideoMultipart() {
   console.log(`📌 Judul          : ${result.snippet.title}`);
   console.log(`📌 Tags           : ${result.snippet.tags?.join(', ')}`);
   console.log(`📌 Jadwal Tayang  : ${result.status.publishAt}`);
+}
+
+async function getNextUploadSlot() {
+  const now = new Date();
+  
+  // Daftar jam target penayangan dalam format 24 jam (Jam 05.30, 11.30, dan 18.30)
+  const targetTimes = [
+    { hour: 5, minute: 0 },
+    { hour: 11, minute: 30 },
+    { hour: 18, minute: 30 }
+  ];
+
+  // Cari slot jam pertama hari ini yang belum terlewat oleh waktu sekarang
+  for (const target of targetTimes) {
+    const slotDate = new Date(now);
+    slotDate.setHours(target.hour, target.minute, 0, 0);
+
+    // Jika waktu target hari ini masih di masa depan (belum terlewat), pilih jam ini!
+    if (slotDate.getTime() > now.getTime()) {
+      return slotDate.toISOString();
+    }
+  }
+
+  // Jika semua jam target hari ini (pagi, sore, malam) sudah terlewat, 
+  // otomatis masuk ke slot jam target pertama (pagi 05.30) di keesokan harinya.
+  const tomorrowSlot = new Date(now);
+  tomorrowSlot.setDate(tomorrowSlot.getDate() + 1);
+  tomorrowSlot.setHours(targetTimes[0].hour, targetTimes[0].minute, 0, 0);
+
+  return tomorrowSlot.toISOString();
+}
+
+// Contoh penggunaan saat melakukan penjadwalan:
+// const publishDate = getNextUploadSlot();
+
+// Fungsi untuk otomatis mengambil ID video terakhir dari channel Anda
+async function getLatestVideoId() {
+  try {
+    const response = await youtube.search.list({
+      part: 'snippet',
+      forMe: true, // atau menggunakan channelId Anda
+      maxResults: 1,
+      order: 'date', // Mengambil video berdasarkan yang paling baru
+      type: 'video'
+    });
+
+    if (response.data.items && response.data.items.length > 0) {
+      return response.data.items[0].id.videoId;
+    }
+    return null;
+  } catch (error) {
+    console.log('[Info] Gagal mengambil video otomatis, melanjutkan tanpa video terkait.');
+    return null;
+  }
 }
 
 uploadVideoMultipart().catch((err) => {
