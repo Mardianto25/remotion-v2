@@ -48,8 +48,9 @@ async function fetchVerticalNatureImage(keyword, index) {
   if (!apiKey) return fallbackUrl;
 
   try {
-    const query = encodeURIComponent(`${keyword} nature`);
-    const url = `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=vertical&category=nature&safesearch=true&per_page=5`;
+    // Diperbarui agar lebih cocok untuk tema renungan, motivasi, dan Islami yang estetik & sinematik
+    const query = encodeURIComponent(`${keyword} aesthetic moody cinematic`);
+    const url = `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=vertical&safesearch=true&per_page=3`;
     
     const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -76,7 +77,7 @@ async function executePipeline(autoPushGit, res) {
     Dengarkan berkas audio ini dengan saksama.
     Tugas Anda:
     1. Pecah isi audio menjadi per kalimat secara berurutan beserta waktu mulai (start) dan waktu selesai (end) dalam satuan detik (gunakan angka desimal yang akurat).
-    2. Untuk setiap kalimat, berikan SATU kata kunci (keyword) dalam bahasa Inggris yang spesifik mengenai suasana alam atau pemandangan yang paling relevan dengan emosi/isi kalimat tersebut (contoh: mountain, rain, forest, ocean, sunset, starry sky, river).
+    2. Untuk setiap kalimat, berikan SATU kata kunci (keyword) dalam bahasa Inggris yang spesifik mengenai suasana visual yang tenang, mendalam, dan cocok untuk renungan/motivasi (contoh: night sky, rain window, glowing lantern, calm ocean, misty mountain, peaceful road, sunset horizon).
 
     Kembalikan HANYA format JSON Array murni tanpa blok markdown:
     [
@@ -84,7 +85,7 @@ async function executePipeline(autoPushGit, res) {
         "start": 0.0,
         "end": 3.5,
         "text": "Kalimat transkrip di sini",
-        "keyword": "mountain"
+        "keyword": "night sky"
       }
     ]
   `;
@@ -211,7 +212,6 @@ app.post('/api/process-url', async (req, res) => {
       fs.unlinkSync(audioPath);
     }
 
-    // Menggunakan yt-dlp dengan runtime node agar aman di cloud/runner
     const ytDlpCommand = `yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${videoUrl}"`;
     await execAsync(ytDlpCommand);
 
@@ -247,7 +247,6 @@ app.post('/api/process-ig-url', async (req, res) => {
       fs.unlinkSync(audioPath);
     }
 
-    // Menggunakan yt-dlp untuk mengunduh audio dari IG Reels
     const ytDlpCommand = `yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${igUrl}"`;
     await execAsync(ytDlpCommand);
 
@@ -265,7 +264,6 @@ app.post('/api/process-ig-url', async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server Auto-Shorts berjalan di http://localhost:${PORT}`);
