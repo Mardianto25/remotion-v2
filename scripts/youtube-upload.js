@@ -101,7 +101,7 @@ async function uploadVideoMultipart() {
   const accessToken = await getFreshAccessToken();
 
   // const publishDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-  const publishDate = getNextUploadSlot();
+  const publishDate = await getNextUploadSlot();
   const metadataObj = {
     snippet: {
       title: title,
