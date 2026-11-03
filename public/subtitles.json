@@ -1,23 +1,58 @@
 [
   {
     "start": 0,
-    "end": 8.95,
-    "text": "Pada akhirnya kita akan sampai pada suatu masa di mana kita tidak lagi ingin membuktikan apa-apa kepada siapapun.",
+    "end": 8,
+    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
     "keyword": "mountain",
-    "image": "https://pixabay.com/get/gefe78fca951cebae41dc4c50d5b612a31abbcda7a29e41dc7a0ccbe920ea153cd31d735c69c3dcc8f5c1522f2eab9bef0c05b3aad5b5ef9229c2dacac42b6225_1280.jpg"
+    "image": "https://pixabay.com/get/g22117e12fdd160ea757e951e9f63f83fc479c09e593fc25cf52723b824d1d8ed7f9d741bd025a0ca1f2621387e2fecf397e748c1732eff42d597a22de047a6f0_1280.jpg"
   },
   {
-    "start": 9.45,
-    "end": 16.71,
-    "text": "Kita hanya ingin hidup tenang, memiliki hati yang damai, dan dikelilingi oleh orang-orang yang tulus.",
-    "keyword": "forest",
-    "image": "https://pixabay.com/get/g59d80f5feb7021cb3c056ba3cfbe311815207fb5359f58bb3230a645aa93b326136b4142eacf09a532237c645ee2b11e5ba360c9493e66727c752b3af48cb444_1280.jpg"
+    "start": 8,
+    "end": 9,
+    "text": "Bukankah dulu banyak ribuan masalah yang telah aku selesaikan?",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g55a10ccee27faf90b64e308667bd2b239bafabcd582c6b344b8f847f560ce503dadd78b4374fd48be65e859ffeff0a2c81187b5a18b1268e6530900c726ed05e_1280.jpg"
   },
   {
-    "start": 17.61,
-    "end": 28.51,
-    "text": "Karena ternyata semakin dewasa kita memahami bahwa ketenangan jauh lebih berharga daripada sekedar terlihat hebat di mata manusia.",
+    "start": 9,
+    "end": 14,
+    "text": "Jangan lampau larut sedih dengan masalah yang sekarang, yakin dulupun banyak masalah selesai juga.",
     "keyword": "sunset",
-    "image": "https://pixabay.com/get/g0c85603fd1b47583c560a4b8f642196151dfa9a2eabb90e547c303f190932f49aac801b8305b38b394c4495a8d8372fb357dcebc6008480fad630e592e462a79_1280.jpg"
+    "image": "https://pixabay.com/get/g68aff32f73f4022f08ba86be084c2afa989e2de1fac4ce29ea5d3c4cc44fa769d1a2ddda7c2a418745ff911f8d6c2dad21ef025a4f78303c799b3c9c9a0d0c48_1280.jpg"
+  },
+  {
+    "start": 14,
+    "end": 16.5,
+    "text": "Lalu apa yang harus dilakukan?",
+    "keyword": "forest",
+    "image": "https://pixabay.com/get/g410fd5264ff4a14c67cc6fe40c86e1842fdc1aaa66c794c87011e862de87cad94298bfa52ea429fdf52789277bcf1b1b56462b3393fbc482d0e5d3c2c8aa2fe8_1280.jpg"
+  },
+  {
+    "start": 16.5,
+    "end": 21,
+    "text": "Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu.",
+    "keyword": "ocean",
+    "image": "https://pixabay.com/get/g869c64b79a2d4ff416ddeaf2b9d1764a69884c49397972bc1c75b9496ee8e07c9fa252d9deff1fe37886074524ad5f34bf6b25b94126584c4f7e7acc5c1f6f10_1280.jpg"
+  },
+  {
+    "start": 21,
+    "end": 25.5,
+    "text": "Innama al-usri, semua ini pasti selesai.",
+    "keyword": "starry sky",
+    "image": "https://pixabay.com/get/gacea88e3a7a1198f953a60ebc07ff9a4330af26200bd6d0b4a39d3fb199c422d2c0815d0b71cd0a8299c56a50c5f889f40ee2ab41119af2aebfea10765dbcb57_1280.jpg"
+  },
+  {
+    "start": 25.5,
+    "end": 27.5,
+    "text": "Pasti ada solusinya.",
+    "keyword": "islamic architecture",
+    "image": "https://pixabay.com/get/gc1384cb5c3a5c3ee59e22ab4c1309a7cf0e526f43f75a614b559c799991fd0e92a78d81657ffc10b39cc6fbe4ac9f0b029c2135851a94a9da67da970f6f0ae91_1280.jpg"
+  },
+  {
+    "start": 27.5,
+    "end": 29,
+    "text": "Pasti selesai.",
+    "keyword": "grand mosque",
+    "image": "https://pixabay.com/get/g51b4d162be879a9918791e36f0bfbf3896bdd0a192440b94706ed124ba0c12a162f560b5b8a6068896c204fd8d6863d058fe6c0cc3aa73567de22d4bff6abd4c_1280.jpg"
   }
 ]
