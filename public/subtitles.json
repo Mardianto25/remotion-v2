@@ -1,36 +1,50 @@
 [
   {
     "start": 0,
-    "end": 8,
-    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
-    "keyword": "starry sky",
-    "image": "https://pixabay.com/get/g4ca6ffefb720bc24c7693760a2057e8a1b16372afb2fd867add0d7770196a531d534947eff52c9bc6450f3d3ba077b156566ff82dcb1d6d833824388a8b440f6_1280.jpg"
+    "end": 2.5,
+    "text": "Tidak ada kamus gagal dalam Al-Qur'an.",
+    "keyword": "quran",
+    "image": "https://pixabay.com/get/g59e5da5ec974e997a4d0267c3d98031e0cf63f5f2f3ccd1f04acb77e92c2e20db875d9cdf92813be6f4e66d1fcd13e0f8887d8b7761ce85763c8be84155bd596_1280.jpg"
   },
   {
-    "start": 8,
-    "end": 14,
-    "text": "Bukankah dulu banyak ribuan masalah yang telah aku selesaikan?",
+    "start": 2.5,
+    "end": 5.5,
+    "text": "Tidak ada istilah gagal dalam Al-Qur'an.",
+    "keyword": "quran",
+    "image": "https://pixabay.com/get/g01e02380422ee250090ef50f7085d03533c8921ebe9421091274cd6f99e344b23bc3d3ae4ff99b0d254b16c3b0eb3b271d69cad1c543f20c2515429cf6335063_1280.jpg"
+  },
+  {
+    "start": 5.5,
+    "end": 15,
+    "text": "Yang ada adalah kasih sayang Allah yang ingin membangkitkan, menghadirkan kemampuan istimewa dalam diri kita yang belum tampak sebelumnya.",
     "keyword": "sunset",
-    "image": "https://pixabay.com/get/g4f61a5a92f1c7151dd0423a519a25009edbe2e946b682f4dee0292e96970fa135aabd0fba59cca5f291fcddaf26f8624775ee26f0b775a07360d28cc3fdafd90_1280.jpg"
+    "image": "https://pixabay.com/get/g0b9625f823507e9984a785064511f1e28e7e99494907383490d8cb0fca6b300bf275e0a1613cecfbc368441d9e23c7c998f7befb2c20e7e59c8677eda2d6e5f0_1280.jpg"
   },
   {
-    "start": 14,
-    "end": 16.5,
-    "text": "Lalu apa yang harus dilakukan?",
+    "start": 15,
+    "end": 18,
+    "text": "Kalau tidak dibuat gagal, enggak keluar semangat kita.",
     "keyword": "mountain",
-    "image": "https://pixabay.com/get/gd0ea0f6b33570497adef02fe78c4bdfc10928e651cd5dc6fb7341fe73d2686b1b3d337b5f6904e80c9f63c7e74b6f449284e06053c3ec346dd8264abaa1e2550_1280.jpg"
+    "image": "https://pixabay.com/get/gd3d1515915eac2f147c77a1095cd1268870a28653e0b3415cfc03e65b66a1da193faa748e591a2d13a1e5e6dc257a3add085b7d763da13cff48d820c188b29fe_1280.jpg"
   },
   {
-    "start": 16.5,
-    "end": 21,
-    "text": "Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu.",
+    "start": 18,
+    "end": 23.5,
+    "text": "Kalau tidak dibikin gagal menurut bahasa kita, tidak keluar kemampuan kita yang sesungguhnya.",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g23161992dc9a91916ba70edcca7b5b5efb33a18689d4ae08a6f54172fc021d223ae1804c8ccfd0b60efe228364ef1bd9abaa30f0b0145c644b3f230e7c1a3499_1280.jpg"
+  },
+  {
+    "start": 23.5,
+    "end": 36,
+    "text": "Hanya istilah yang disebutkan manusia seringkali disisipi ditunggangi oleh setan memberikan pesimis dalam diri kita sehingga memvonis ah ini saya enggak mampu mengerjakan ini.",
     "keyword": "islamic architecture",
     "image": "https://pixabay.com/get/g8f119895dc2d6ee7eb8945ea192b8dbeae4136ebb6902c43a0495ed3f8c3a475c3fe7b1a632f9942b323e9742e55cee18e6aeea4a9e3bfc89be668b536a34bfc_1280.jpg"
   },
   {
-    "start": 21,
-    "end": 28.9,
-    "text": "Innama al-usri, semua ini pasti selesai, pasti ada solusinya, pasti selesai.",
+    "start": 36,
+    "end": 37.5,
+    "text": "Padahal bukan itu maksudnya.",
     "keyword": "grand mosque",
     "image": "https://pixabay.com/get/ge80c33e31588158c93175629e427a9899e284c60f1014e92c82474e216f3054fa9aa4222e1784875c26407edefbdd899b97929266c55455ddf9d747be1a9d817_1280.jpg"
   }
