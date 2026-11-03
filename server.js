@@ -294,7 +294,8 @@ import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
+import { google } from 'googleapis';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -305,7 +306,27 @@ const PORT = process.env.PORT || 3000;
 
 // Inisialisasi Google GenAI SDK
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const agentModel = 'gemini-3.5-flash-lite';
+
+// Ambil daftar model dari ENV dalam bentuk array, berikan default jika kosong
+const geminiModels = process.env.GEMINI_MODELS 
+  ? process.env.GEMINI_MODELS.split(',').map(m => m.trim())
+  : ['gemini-2.5-flash', 'gemini-flash'];
+
+// Konfigurasi YouTube OAuth2 Client
+const oauth2Client = new google.auth.OAuth2(
+  process.env.YOUTUBE_CLIENT_ID,
+  process.env.YOUTUBE_CLIENT_SECRET,
+  process.env.YOUTUBE_REDIRECT_URI
+);
+
+oauth2Client.setCredentials({
+  refresh_token: process.env.YOUTUBE_REFRESH_TOKEN
+});
+
+const youtube = google.youtube({
+  version: 'v3',
+  auth: oauth2Client
+});
 
 const publicDir = path.join(process.cwd(), 'public');
 if (!fs.existsSync(publicDir)) {
@@ -321,46 +342,40 @@ const upload = multer({ storage });
 app.use(express.json());
 app.use(express.static('public'));
 
-// Daftar fallback gambar aman (Arsitektur Islam & Alam, tanpa figur manusia)
-const SAFE_FALLBACKS = [
-  'https://images.pexels.com/photos/4388167/pexels-photo-4388167.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
-  'https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
-  'https://images.pexels.com/photos/8111394/pexels-photo-8111394.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',
-  'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920'
+// Daftar fallback aman: hanya masjid, arsitektur, dan pemandangan alam (tanpa figur manusia/wanita)
+const PEXELS_FALLBACKS = [
+  'https://images.pexels.com/photos/4388167/pexels-photo-4388167.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920', // Masjid / Kubah
+  'https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920',  // Hutan / Alam
+  'https://images.pexels.com/photos/8111394/pexels-photo-8111394.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920', // Interior Masjid
+  'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920', // Pemandangan Gunung
+  'https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920'  // Langit Senja / Sunset
 ];
 
-// --- 1. TOOL DEFINITION UNTUK AGENT ---
-const visualSearchTool = {
-  name: 'searchVisualAsset',
-  description: 'Mencari aset gambar vertikal yang aman dari Pixabay berdasarkan keyword, STRICTLY TANPA FIGUR MANUSIA (hanya pemandangan alam atau arsitektur masjid).',
-  parameters: {
-    type: Type.OBJECT,
-    properties: {
-      keyword: {
-        type: Type.STRING,
-        description: 'Kata kunci bahasa Inggris untuk objek pemandangan atau arsitektur (contoh: grand mosque, mountain, starry sky, river, quran).'
-      }
-    },
-    required: ['keyword']
-  }
-};
-
-// Fungsi eksekusi tool pencarian visual dengan filter keamanan ketat
-async function executeVisualSearch(keyword, index) {
+// Agent Tool: Pencarian visual cerdas & aman dari figur manusia
+async function executeAgentVisualSearch(keyword, index) {
   const apiKey = process.env.PIXABAY_API_KEY;
-  const fallbackUrl = SAFE_FALLBACKS[index % SAFE_FALLBACKS.length];
+  const fallbackUrl = PEXELS_FALLBACKS[index % PEXELS_FALLBACKS.length];
+
   if (!apiKey) return fallbackUrl;
 
   try {
-    const searchQuery = `${keyword} scenery architecture no people`;
+    let searchQuery = keyword;
+    if (index % 2 === 0) {
+      searchQuery = `${keyword} nature landscape no people`; 
+    } else {
+      searchQuery = `${keyword} mosque architecture scenery no people`; 
+    }
+
     const query = encodeURIComponent(searchQuery);
     const url = `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=vertical&safesearch=true&per_page=10`;
     
     const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
     const data = await response.json();
     
+    // Filter agen untuk memastikan tidak ada figur manusia/wanita
     if (data.hits && data.hits.length > 0) {
-      // Filter ketat memastikan tidak ada figur manusia/wanita
       const safeHit = data.hits.find(hit => 
         !hit.tags.includes('woman') && 
         !hit.tags.includes('girl') && 
@@ -378,50 +393,96 @@ async function executeVisualSearch(keyword, index) {
   }
 }
 
-// --- 2. AGENTIC WORKFLOW PIPELINE ---
-async function runContentAgent(audioPath, autoPushGit, res) {
-  console.log('[Agent AI] Memulai siklus otonom Content Director Agent...');
+// Fungsi Agen untuk menentukan slot waktu upload otomatis (Prime Time Islami: 05.00, 12.30, 19.30 WIB)
+function getNextUploadSlot() {
+  const now = new Date();
+  const targetTimes = [
+    { hour: 5, minute: 0 },   // Pagi (05.00 WIB)
+    { hour: 12, minute: 30 }, // Siang (12.30 WIB)
+    { hour: 19, minute: 30 }  // Malam (19.30 WIB)
+  ];
+
+  for (const target of targetTimes) {
+    const slotDate = new Date(now);
+    slotDate.setHours(target.hour, target.minute, 0, 0);
+
+    if (slotDate.getTime() > now.getTime()) {
+      return slotDate.toISOString();
+    }
+  }
+
+  const tomorrowSlot = new Date(now);
+  tomorrowSlot.setDate(tomorrowSlot.getDate() + 1);
+  tomorrowSlot.setHours(targetTimes[0].hour, targetTimes[0].minute, 0, 0);
+
+  return tomorrowSlot.toISOString();
+}
+
+// -------------------------------------------------------------
+// AGENTIC PIPELINE UTAMA
+// -------------------------------------------------------------
+async function runContentAgent(autoPushGit, res) {
+  const audioPath = path.join(publicDir, 'audio.mp3');
   const audioBase64 = fs.readFileSync(audioPath).toString('base64');
 
-  const systemInstruction = `
+  const agentPrompt = `
     Anda adalah Autonomous Content Director Agent untuk channel YouTube Shorts Islami.
     Tugas Anda:
-    1. Analisis audio yang diberikan secara saksama.
-    2. Pecah isi audio menjadi segmen kalimat berurutan dalam format JSON array yang berisi: start (angka), end (angka), text (string), dan keyword (string bahasa Inggris untuk visual alam/masjid yang tenang dan TANPA FIGUR MANUSIA).
-    3. Kembalikan HANYA format JSON Array murni tanpa blok markdown dengan struktur:
+    1. Dengarkan berkas audio ini dengan saksama dan analisis isinya.
+    2. Pecah isi audio menjadi per kalimat secara berurutan beserta waktu mulai (start) dan waktu selesai (end) dalam satuan detik.
+    3. Untuk setiap kalimat, tentukan SATU kata kunci (keyword) dalam bahasa Inggris yang spesifik mengenai pemandangan alam atau arsitektur masjid yang menenangkan (HANYA OBJEK/PEMANDANGAN, TANPA FIGUR MANUSIA, contoh: grand mosque, quran, mountain, ocean, forest, sunset, starry sky, islamic architecture, river).
+
+    Kembalikan HANYA format JSON Array murni tanpa blok markdown:
     [
       {
         "start": 0.0,
         "end": 3.5,
-        "text": "Teks kalimat",
+        "text": "Kalimat transkrip di sini",
         "keyword": "grand mosque"
       }
     ]
   `;
 
-  // Menggunakan Gemini untuk menghasilkan struktur transkrip & keyword
-  console.log('[Agent AI] Menganalisis transkrip dan merencanakan visual...');
-  const response = await ai.models.generateContent({
-    model: agentModel,
-    contents: [
-      { inlineData: { mimeType: 'audio/mp3', data: audioBase64 } },
-      systemInstruction
-    ]
-  });
+  let aiResponseText = null;
+  let successfulModel = '';
 
-  let rawText = response.text.trim();
-  rawText = rawText.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
-  const parsedSegments = JSON.parse(rawText);
+  // Agen mengevaluasi model Gemini secara bergantian (Fallback Model)
+  for (const modelName of geminiModels) {
+    try {
+      console.log(`[Agent AI] Menganalisis audio menggunakan model Gemini: ${modelName}...`);
+      const aiResponse = await ai.models.generateContent({
+        model: modelName,
+        contents: [
+          { inlineData: { mimeType: 'audio/mp3', data: audioBase64 } },
+          agentPrompt
+        ]
+      });
 
-  console.log('[Agent AI] Menjalankan otonom tool pencarian aset visual...');
+      if (aiResponse && aiResponse.text) {
+        aiResponseText = aiResponse.text;
+        successfulModel = modelName;
+        console.log(`✅ [Agent AI] Berhasil menganalisis audio menggunakan model: ${successfulModel}`);
+        break;
+      }
+    } catch (err) {
+      console.warn(`⚠️ Model ${modelName} gagal, agen mencoba model Gemini berikutnya...`);
+    }
+  }
+
+  if (!aiResponseText) {
+    throw new Error('Semua model Gemini di dalam array agen gagal memproses analisis audio.');
+  }
+
+  let rawJson = aiResponseText.trim();
+  rawJson = rawJson.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
+  const parsedSegments = JSON.parse(rawJson);
+
+  console.log('[Agent Tool] Menjalankan otonom pencarian aset visual (Mix Alam & Masjid)...');
   const subtitlesData = [];
 
-  // Agent mengeksekusi pencarian visual untuk setiap segmen secara terstruktur
   for (let i = 0; i < parsedSegments.length; i++) {
     const seg = parsedSegments[i];
-    console.log(`[Agent Tool] Mencari gambar untuk segmen ${i+1}: "${seg.keyword}"`);
-    const imageUrl = await executeVisualSearch(seg.keyword, i);
-    
+    const imageUrl = await executeAgentVisualSearch(seg.keyword, i);
     subtitlesData.push({
       start: Number(seg.start),
       end: Number(seg.end),
@@ -431,7 +492,6 @@ async function runContentAgent(audioPath, autoPushGit, res) {
     });
   }
 
-  // Simpan hasil akhir ke file publik untuk Remotion
   const subtitlesPath = path.join(publicDir, 'subtitles.json');
   fs.writeFileSync(subtitlesPath, JSON.stringify(subtitlesData, null, 2), 'utf8');
 
@@ -439,14 +499,14 @@ async function runContentAgent(audioPath, autoPushGit, res) {
   const transcriptPath = path.join(publicDir, 'transcript.txt');
   fs.writeFileSync(transcriptPath, fullTranscript, 'utf8');
 
-  console.log('[Agent AI] Seluruh proses penyiapan aset video selesai dengan sukses!');
+  console.log('[Agent AI] Berkas public/subtitles.json dan public/transcript.txt berhasil disusun!');
 
   let gitStatusMessage = 'Selesai tanpa Git Push.';
   if (autoPushGit) {
-    console.log('[Git Agent] Mengirim pembaruan berkas ke GitHub untuk memicu render Actions...');
+    console.log('[Git Agent] Mengirim pembaruan berkas ke GitHub untuk memulai render Actions...');
     try {
       await execAsync('git add public/audio.mp3 public/subtitles.json public/transcript.txt');
-      await execAsync('git commit -m "chore(agent): autonomous update audio and subtitles for rendering"');
+      await execAsync('git commit -m "chore(agent): autonomous update audio and subtitles data for auto-render"');
       await execAsync('git push');
       gitStatusMessage = 'Berhasil push ke GitHub secara otonom! GitHub Actions sedang merender video.';
     } catch (gitErr) {
@@ -458,31 +518,38 @@ async function runContentAgent(audioPath, autoPushGit, res) {
   if (res) {
     res.json({
       success: true,
-      message: 'Agentic pipeline berhasil mengeksekusi pembuatan konten!',
+      message: 'Agentic pipeline berhasil memproses audio & data visual!',
+      modelUsed: successfulModel,
+      gitStatus: gitStatusMessage,
       transcript: fullTranscript,
-      subtitles: subtitlesData,
-      gitStatus: gitStatusMessage
+      subtitles: subtitlesData
     });
   }
 }
 
 // -------------------------------------------------------------
-// ENDPOINTS API
+// ENDPOINT 1: Upload File Audio Manual (Agent Driven)
 // -------------------------------------------------------------
 app.post('/api/upload-audio', upload.single('audio'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, message: 'Tidak ada file audio yang diunggah.' });
     }
+
     const autoPushGit = req.body.autoPush === 'true';
-    const audioPath = path.join(publicDir, 'audio.mp3');
-    await runContentAgent(audioPath, autoPushGit, res);
+    console.log('[1/4] Audio berhasil disimpan di public/audio.mp3');
+
+    await runContentAgent(autoPushGit, res);
+
   } catch (error) {
     console.error('[Agent Error]:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
+// -------------------------------------------------------------
+// ENDPOINT 2: Terima Link Umum, Download Audio, lalu Proses Agent
+// -------------------------------------------------------------
 app.post('/api/process-url', async (req, res) => {
   try {
     const { videoUrl, autoPush } = req.body;
@@ -490,21 +557,157 @@ app.post('/api/process-url', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Parameter videoUrl tidak boleh kosong.' });
     }
 
+    console.log('[URL Parameter] Mengunduh audio dari tautan:', videoUrl);
     const audioPath = path.join(publicDir, 'audio.mp3');
-    if (fs.existsSync(audioPath)) fs.unlinkSync(audioPath);
 
-    console.log('[Agent URL] Mengunduh audio via yt-dlp:', videoUrl);
+    if (fs.existsSync(audioPath)) {
+      fs.unlinkSync(audioPath);
+    }
+
     const ytDlpCommand = `yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${videoUrl}"`;
     await execAsync(ytDlpCommand);
 
     if (!fs.existsSync(audioPath)) {
-      throw new Error('Gagal mengekstrak audio dari tautan.');
+      throw new Error('Gagal mengekstrak audio dari tautan yang diberikan.');
     }
 
+    console.log('[1/4] Audio berhasil disimpan di public/audio.mp3');
+
     const autoPushGit = autoPush === true || autoPush === 'true';
-    await runContentAgent(audioPath, autoPushGit, res);
+    await runContentAgent(autoPushGit, res);
+
   } catch (error) {
-    console.error('[Agent URL Error]:', error);
+    console.error('[URL Error]:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// -------------------------------------------------------------
+// ENDPOINT 2B: Khusus Link Instagram Reels
+// -------------------------------------------------------------
+app.post('/api/process-ig-url', async (req, res) => {
+  try {
+    const { igUrl, autoPush } = req.body;
+    if (!igUrl) {
+      return res.status(400).json({ success: false, message: 'Parameter igUrl tidak boleh kosong.' });
+    }
+
+    console.log('[IG URL] Mengunduh audio dari Instagram:', igUrl);
+    const audioPath = path.join(publicDir, 'audio.mp3');
+
+    if (fs.existsSync(audioPath)) {
+      fs.unlinkSync(audioPath);
+    }
+
+    const ytDlpCommand = `yt-dlp --js-runtimes node -x --audio-format mp3 -o "${audioPath}" "${igUrl}"`;
+    await execAsync(ytDlpCommand);
+
+    if (!fs.existsSync(audioPath)) {
+      throw new Error('Gagal mengekstrak audio dari tautan Instagram yang diberikan.');
+    }
+
+    console.log('[1/4] Audio Instagram berhasil disimpan di public/audio.mp3');
+
+    const autoPushGit = autoPush === true || autoPush === 'true';
+    await runContentAgent(autoPushGit, res);
+
+  } catch (error) {
+    console.error('[IG URL Error]:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// -------------------------------------------------------------
+// ENDPOINT 3: Upload & Jadwalkan Otomatis ke YouTube (Prime Time & Related Video)
+// -------------------------------------------------------------
+app.post('/api/upload-youtube', async (req, res) => {
+  try {
+    const videoPath = path.join(process.cwd(), 'out', 'output.mp4');
+    
+    if (!fs.existsSync(videoPath)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'File video output.mp4 belum ditemukan. Pastikan video sudah dirender terlebih dahulu.' 
+      });
+    }
+
+    const publishDate = getNextUploadSlot();
+    console.log(`[YouTube Agent] Menjadwalkan video pada: ${publishDate}`);
+
+    const metadataPath = path.join(publicDir, 'metadata.json');
+    let title = "Renungan Harian #shorts";
+    let description = "Kumpulan renungan dan motivasi Islami penyejuk hati. #shorts #islamic";
+    let tags = ["shorts", "islamic", "motivasi", "renungan"];
+
+    if (fs.existsSync(metadataPath)) {
+      const metaData = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+      title = metaData.title || title;
+      description = metaData.description || description;
+      if (metaData.tags) tags = metaData.tags;
+    }
+
+    const metadataObj = {
+      snippet: {
+        title: title,
+        description: description,
+        categoryId: '22',
+        tags: tags
+      },
+      status: {
+        privacyStatus: 'private',
+        publishAt: publishDate,
+        selfDeclaredMadeForKids: false
+      },
+      contentDetails: {
+        relatedVideoId: 'hWnuH6uVSLw' // ID Video terkait
+      }
+    };
+
+    const boundary = 'foo_bar_baz';
+    let multipartBody = '';
+
+    multipartBody += `--${boundary}\r\n`;
+    multipartBody += `Content-Type: application/json; charset=UTF-8\r\n\r\n`;
+    multipartBody += JSON.stringify(metadataObj) + `\r\n`;
+
+    multipartBody += `--${boundary}\r\n`;
+    multipartBody += `Content-Type: video/mp4\r\n\r\n`;
+
+    const videoBuffer = fs.readFileSync(videoPath);
+    const fullBody = Buffer.concat([
+      Buffer.from(multipartBody, 'utf8'),
+      videoBuffer,
+      Buffer.from(`\r\n--${boundary}--`, 'utf8')
+    ]);
+
+    const uploadUrl = 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status,contentDetails';
+    
+    const { token } = await oauth2Client.getAccessToken();
+
+    const uploadRes = await fetch(uploadUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': `multipart/related; boundary="${boundary}"`,
+        'Content-Length': fullBody.length.toString()
+      },
+      body: fullBody
+    });
+
+    const result = await uploadRes.json();
+    if (!uploadRes.ok) {
+      throw new Error(`YouTube API Upload Error: ${JSON.stringify(result)}`);
+    }
+
+    console.log(`[YouTube Berhasil] Video berhasil dijadwalkan dengan ID: ${result.id}`);
+    res.json({
+      success: true,
+      message: 'Video berhasil dijadwalkan ke YouTube oleh agen!',
+      youtubeData: result
+    });
+
+  } catch (error) {
+    console.error('[YouTube Endpoint Error]:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -512,3 +715,4 @@ app.post('/api/process-url', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Autonomous Agent Server berjalan di http://localhost:${PORT}`);
 });
+

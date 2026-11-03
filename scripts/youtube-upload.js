@@ -113,10 +113,10 @@ async function uploadVideoMultipart() {
       privacyStatus: 'private',
       publishAt: publishDate,
       selfDeclaredMadeForKids: false
+    },
+    contentDetails: {
+      relatedVideoId: 'hWnuH6uVSLw'
     }
-    // contentDetails: {
-    //   relatedVideoId: 'hWnuH6uVSLw'
-    // }
   };
 
   console.log('[Upload] Menyiapkan konstruksi payload multipart/related...');
@@ -143,7 +143,7 @@ async function uploadVideoMultipart() {
   ]);
 
   console.log(`[Upload] Mengunggah video "${title}" ke YouTube...`);
-  const uploadUrl = 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status';
+  const uploadUrl = 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status,contentDetails';
 
   const uploadRes = await fetch(uploadUrl, {
     method: 'POST',
