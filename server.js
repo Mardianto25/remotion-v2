@@ -45,7 +45,7 @@ const PEXELS_FALLBACKS = [
 
 async function fetchVerticalNatureImage(keyword, index) {
   const apiKey = process.env.PIXABAY_API_KEY;
-  const fallbackUrl = PEXELS_FALLBACKS[index % PEXELS_FALLBACKS.length];
+  const fallbackUrl = PEXELS_FALLBACKS[(index + Math.floor(Math.random() * 10)) % PEXELS_FALLBACKS.length];
 
   if (!apiKey) return fallbackUrl;
 
@@ -59,7 +59,8 @@ async function fetchVerticalNatureImage(keyword, index) {
     }
 
     const query = encodeURIComponent(searchQuery);
-    const url = `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=vertical&safesearch=true&per_page=10`;
+    // Mengambil hingga 20 hasil agar memiliki banyak pilihan (pool)
+    const url = `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=vertical&safesearch=true&per_page=20`;
     
     const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -68,15 +69,20 @@ async function fetchVerticalNatureImage(keyword, index) {
     
     // Filter tambahan untuk memastikan tidak mengambil foto yang mengandung manusia/potret
     if (data.hits && data.hits.length > 0) {
-      const safeHit = data.hits.find(hit => 
+      const safeHits = data.hits.filter(hit => 
         !hit.tags.includes('woman') && 
         !hit.tags.includes('girl') && 
         !hit.tags.includes('model') && 
         !hit.tags.includes('person') &&
         !hit.tags.includes('people')
-      ) || data.hits[0];
+      );
 
-      return safeHit.largeImageURL || safeHit.webformatURL;
+      const poolToChoose = safeHits.length > 0 ? safeHits : data.hits;
+      
+      // Pilih secara ACAK dari daftar yang aman agar antar video tidak monoton/sama persis
+      const randomHit = poolToChoose[Math.floor(Math.random() * poolToChoose.length)];
+
+      return randomHit.largeImageURL || randomHit.webformatURL;
     }
     return fallbackUrl;
   } catch (err) {
@@ -143,7 +149,7 @@ async function executePipeline(autoPushGit, res) {
   rawJson = rawJson.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
   const parsedSegments = JSON.parse(rawJson);
 
-  console.log('[3/4] Mencari gambar latar belakang aman (Mix Alam & Masjid) dari Pixabay...');
+  console.log('[3/4] Mencari gambar latar belakang aman secara acak (Mix Alam & Masjid) dari Pixabay...');
   const subtitlesData = [];
 
   for (let i = 0; i < parsedSegments.length; i++) {
@@ -286,6 +292,7 @@ app.post('/api/process-ig-url', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server Auto-Shorts berjalan di http://localhost:${PORT}`);
 });
+
 
 
 // import express from 'express';
