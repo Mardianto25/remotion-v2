@@ -1,37 +1,58 @@
 [
   {
     "start": 0,
-    "end": 4.5,
-    "text": "Ya Allah, Engkau maha mengetahui apa yang aku mohonkan kepadamu.",
+    "end": 8,
+    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
     "keyword": "mosque",
-    "image": "https://pixabay.com/get/gb5efeb2b712fbcf92d2e96a0bdc5fe2483a7372b315188a0cdd4fce5d5d75de706e2090a395abe118ab39e018fd7544c185213db30a69db42b847915b2c8ffff_1280.jpg"
+    "image": "https://pixabay.com/get/g39f388747e8efd039c0982711daa14760e8860ea28f2065610f7357fc8c10ef98231b61b39dcacdb5ac02fbfbb4788eb81d86f73d41ff35d32d0becedbfa7f2c_1280.jpg"
   },
   {
-    "start": 4.5,
-    "end": 7.8,
-    "text": "Maka aku sangat memuji apa yang kau kabulkan kepadaku.",
+    "start": 8,
+    "end": 14,
+    "text": "Bukankah dulu banyak ribuan masalah yang telah aku selesaikan?",
     "keyword": "minaret",
-    "image": "https://pixabay.com/get/g48eb25e13d2121c67ccd8488606ca3d10c74705dd4bc5f410697655d3e2c952af1d9d9e44462602777442020ac8cc4eefc01ad6e3c9fb165942bb5d94626ca3f_1280.jpg"
+    "image": "https://pixabay.com/get/g26ffaac5abd700501154ece1fc64b314924a84de249b1d3c299a51f10f6d274651eae9ae75f4c52c8d0b57f9d837df04e5b109f3cf285cae495dd87bc78c62ee_1280.jpg"
   },
   {
-    "start": 7.8,
-    "end": 18,
-    "text": "Ampuni aku ya Allah, bila selama ini doa-doa yang aku panjatkan kepadamu belum terkabulkan bukan karena kurangnya rahmatmu, tapi kurangnya kemampuanku untuk mensyukuri semua nikmat yang kau berikan kepadaku.",
+    "start": 14,
+    "end": 16,
+    "text": "Jangan lampau larut bersedih dengan masalah yang sekarang.",
     "keyword": "dome",
-    "image": "https://pixabay.com/get/g219406881ceade94cd016f971ee63e6a0b9f05085e6bbf880e1cba8dd8a1298526ed73ed763d0a98313ed6eb24087b0f295c5405be5fbab76f9bf7348069093a_1280.jpg"
+    "image": "https://pixabay.com/get/gfc18c5a3cfb4359df9abf569ab8baa701dd9110bc3220188e004be50dd558ee8dbfd5b79d695686c45906afe5ade004c73cd1068826f07e2355f8a634ddceb81_1280.jpg"
   },
   {
-    "start": 18,
-    "end": 20.7,
-    "text": "Ya Allah, Engkau maha mengetahui tentang hambamu ini.",
+    "start": 16,
+    "end": 19,
+    "text": "Yakin dulu pun banyak masalah selesai juga.",
+    "keyword": "islamic architecture",
+    "image": "https://pixabay.com/get/g6af633a375141771bde86782782e1d7ac3c369741a7768a48c79cb451f62f961b4d5355887c89bd9f56d53bc84f8ab2cddd600e61520439f9a6d546f0ee54518_1280.jpg"
+  },
+  {
+    "start": 19,
+    "end": 21,
+    "text": "Lalu apa yang harus dilakukan?",
+    "keyword": "courtyard",
+    "image": "https://pixabay.com/get/gefe49a83cf102c916b46129e7627d587b2124cfeede04b704c2699ea29d3ee87c9d89a1689334bfc83906bd086d5ed71daf578612563c3b9dafae72b536b4e80_1280.jpg"
+  },
+  {
+    "start": 21,
+    "end": 28,
+    "text": "Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu, inna ma'al 'usri, semua ini pasti selesai.",
+    "keyword": "quran",
+    "image": "https://pixabay.com/get/geecbf928804324bbc2d9a48da06b48e078bb2739bfe062ae515f1bb44afbf3a96a5a7d8f3e508d9f83fc7f1a0c424b3172c191cf9fd94e9ed841be0896105a72_1280.jpg"
+  },
+  {
+    "start": 28,
+    "end": 29,
+    "text": "Pasti ada solusinya.",
     "keyword": "arch",
-    "image": "https://pixabay.com/get/g2d21611e7863e53aa76b04f8fcd941e9de0f1d0a3c535ca9fdc237402d87a426be2a0e80bdba3b6dc6bc6ef8e2df2698692ad565405d60c601847d8a5f82ae53_1280.jpg"
+    "image": "https://pixabay.com/get/g4de10bd2eae31938cd30bce70c9e5264bbd1f2cd79310470d50f2f76f0f2bc95b9ed022739adc4c32eb2674f29ed1542d155e23d61b1bc22c113c19b050431f1_1280.jpg"
   },
   {
-    "start": 20.7,
-    "end": 28.5,
-    "text": "Hamba mohon ampun, banyak yang kurang mampu hamba syukuri dari segala nikmat yang kau berikan dan kurang tobat kepadamu dari kesalahan yang hamba perbuat.",
-    "keyword": "lantern",
-    "image": "https://pixabay.com/get/ga774e1df3de762e5df2587df10977c3048b3be2bd8504b3345b2ea612540eb24c0cb998d4fc5bcaf1d57680a8404e4c75b6161ff98b996fb59b8f43ddf0d9d50_1280.jpg"
+    "start": 29,
+    "end": 29,
+    "text": "Pasti selesai.",
+    "keyword": "lamp",
+    "image": "https://pixabay.com/get/g8220503da05753a42cc1c95e8085bbcd36e89be6366102fb92b38ca3b6d7546db168198c97f706ba0561006337a77d7442752ac5c075c6f62c07e8a4fb121943_1280.jpg"
   }
 ]
