@@ -169,6 +169,10 @@ async function uploadVideoMultipart() {
 
 async function getNextUploadSlot() {
   const now = new Date();
+
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const wibTime = new Date(utc + (3600000 * 7));
+
   
   // Daftar jam target penayangan dalam format 24 jam (Jam 05.30, 11.30, dan 18.30)
   const targetTimes = [
@@ -179,18 +183,18 @@ async function getNextUploadSlot() {
 
   // Cari slot jam pertama hari ini yang belum terlewat oleh waktu sekarang
   for (const target of targetTimes) {
-    const slotDate = new Date(now);
+    const slotDate = new Date(wibTime);
     slotDate.setHours(target.hour, target.minute, 0, 0);
 
     // Jika waktu target hari ini masih di masa depan (belum terlewat), pilih jam ini!
-    if (slotDate.getTime() > now.getTime()) {
+    if (slotDate.getTime() > wibTime.getTime()) {
       return slotDate.toISOString();
     }
   }
 
   // Jika semua jam target hari ini (pagi, sore, malam) sudah terlewat, 
   // otomatis masuk ke slot jam target pertama (pagi 05.30) di keesokan harinya.
-  const tomorrowSlot = new Date(now);
+  const tomorrowSlot = new Date(wibTime);
   tomorrowSlot.setDate(tomorrowSlot.getDate() + 1);
   tomorrowSlot.setHours(targetTimes[0].hour, targetTimes[0].minute, 0, 0);
 
