@@ -1,44 +1,72 @@
 [
   {
     "start": 0,
-    "end": 3,
-    "text": "Saba'lah mengendalikan keadaan hatimu, Dul.",
-    "keyword": "mountain",
-    "image": "https://pixabay.com/get/gf079377f7be2f97bd91c4cda802ae79762b49423bf55138e6a0765af387c66442d375a8674d18c8b221e5eb6a5daba10e2444a7c7fe4b827393b1d7677da5957_1280.jpg"
-  },
-  {
-    "start": 3,
-    "end": 12,
-    "text": "Asaa an takrohu syai'an wa huwa khoirullakum, boleh jadi yang anda tidak sukai itu di balik itu sebetulnya ada yang lebih baik yang Allah siapkan untuk anda.",
-    "keyword": "river",
-    "image": "https://pixabay.com/get/ge2e870bea3326fb6545aa620a5d2c5744da3c0c239796fc06557f59a6da2c6920355ef1e491cb39a94ff76bb8647edc565115dff9e4c1131003e574b337ef2fb_1280.jpg"
-  },
-  {
-    "start": 12,
-    "end": 20,
-    "text": "Wa asaa an tuhibbu syai'an wa huwa syarrullakum, boleh jadi anda mengidamkan sesuatu tapi di balik itu ada yang enggak bagus buat anda.",
-    "keyword": "forest",
-    "image": "https://pixabay.com/get/gaadee72d2e363dd9e106444c1c89ad65f0def9d239490b77a12db3446d1d414d5453ae7c4ebe6cc3f788420394518e5ec8f6cdcab24abe68cad49d8635d2fc6e_1280.jpg"
-  },
-  {
-    "start": 20,
-    "end": 23,
-    "text": "Karena anda mintanya dengan doa kepada Allah.",
-    "keyword": "sunset",
-    "image": "https://pixabay.com/get/g63b2205f2bf106fa8581d255ea5dab9b573f28e97932069f6c13dada4352a8121e913e6c90547a03deaa7b8bc4fa393359078bd8aa59c131c74352f13e6c4ed8_1280.jpg"
-  },
-  {
-    "start": 23,
-    "end": 30,
-    "text": "Anda minta kepada Allah, anda minta kepada yang maha baik, karena Allah maha baik, Allah hanya memberikan yang terbaik untuk anda.",
-    "keyword": "starry sky",
-    "image": "https://pixabay.com/get/g0b3abcd95a12a4c12aa48505e5c40c7819141275b0ad3e5a1350c39c30d32feecdc0d8f339848612fa38a5ed04a7696f103dba5cce149fc39f1f3840b9a7285a_1280.jpg"
-  },
-  {
-    "start": 30,
-    "end": 34,
-    "text": "Karena itu yang terbaik, harus sesuai dengan kebutuhan anda.",
+    "end": 2.55,
+    "text": "Tetaplah shalat meski kamu pendosa berat.",
     "keyword": "islamic architecture",
-    "image": "https://pixabay.com/get/gb4f553c6009702261f6a50908f4ae6a74b2d42f439bc9dc7b1fc36aa96110d140fa146c486a6413d72dc775c5dd1499d9bbd3e2cefef2f36e597ed7ba42ff4fb_1280.jpg"
+    "image": "https://pixabay.com/get/gd66986512db35b50c67822332b42562784c6d127d891d4831ecd4c9b3a3e6f81a8792a5debd943785d653165d7f87df85c28f2c53246755a396aa1f9e48a76f8_1280.jpg"
+  },
+  {
+    "start": 2.55,
+    "end": 6.13,
+    "text": "Tetaplah shalat meski ribuan doamu belum terjawab.",
+    "keyword": "starry sky",
+    "image": "https://pixabay.com/get/g83c15bdeea56d90a7dc24a96a075197b6fb157fc882f2e0646f9b80b16019ec760df8d8d9f902178866f2049e168181091face3e8ce487b8b31cf24775ab0383_1280.jpg"
+  },
+  {
+    "start": 6.13,
+    "end": 8.76,
+    "text": "Tetaplah shalat meski dunia begitu jahat.",
+    "keyword": "mountain",
+    "image": "https://pixabay.com/get/ged39b68877185a067f06e656c550512360d09103c25908cb93420544bf9f4802b8c5a4f42ca7ac121dc9a3d82a4b7165256d970cf9721a498710fc8cf73d027d_1280.jpg"
+  },
+  {
+    "start": 8.76,
+    "end": 11.23,
+    "text": "Tetaplah shalat meski rezekimu terlambat.",
+    "keyword": "sunset",
+    "image": "https://pixabay.com/get/ga3d13f375053717e4c4d13e26442651c6c73308c35072efcd3deef0a35fafa2998e0535364e09d6abf234a59b41273d68f44138e2d0aa107f6ce61a701cf83bb_1280.jpg"
+  },
+  {
+    "start": 11.23,
+    "end": 13.56,
+    "text": "Kita rela begadang ngejar pekerjaan,",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g8f7c430a63c153fb8ffc67a6e14b5b91ec23238270d34ddc01cfb52fbe00b61ebd59166ce8c728de6fd797f4b754ab4a49ac0ee38ef74098bd3476be46c3e575_1280.jpg"
+  },
+  {
+    "start": 13.56,
+    "end": 15.65,
+    "text": "rela antri demi makanan,",
+    "keyword": "forest",
+    "image": "https://pixabay.com/get/ge3afcc0c97ef1802d6d8e8aaec18ad26bf7deca7332b8e1f1ef555492bba34b838ed633dccb65691d804186f362ef55ac27062fec836ad57cc82313400554810_1280.jpg"
+  },
+  {
+    "start": 15.65,
+    "end": 18.57,
+    "text": "bahkan rela menempuh jauh demi perjalanan.",
+    "keyword": "ocean",
+    "image": "https://pixabay.com/get/g13bfcd1a9c4c855e29ee54d733705b9339e1f494870b007d64ceda296c48e30426c51e1d88745f10176f143deda66ef9c19c58a0df601c7ff91b82857b8b577d_1280.jpg"
+  },
+  {
+    "start": 18.57,
+    "end": 21.65,
+    "text": "Tapi meluangkan waktu untuk shalat terasa seperti beban.",
+    "keyword": "grand mosque",
+    "image": "https://pixabay.com/get/g2db870e8dc8cfdf677adf385f52ad48115805bc72c30598a2677c338f68430a04803faed7fc46290628d869368669104b604825e423ef73ea1ea8171107f4bd3_1280.jpg"
+  },
+  {
+    "start": 21.65,
+    "end": 26.24,
+    "text": "Barangkali kita terlalu sibuk minta Tuhan memberi kemudahan.",
+    "keyword": "quran",
+    "image": "https://pixabay.com/get/gec61db6d162f491b37e9e4df5934d772d0becc46b3f27949355834e2719122b7bdf65f1f3283d8d8611fac0f6626a9a8a532366d8015fca5638812ddf685f0ea_1280.jpg"
+  },
+  {
+    "start": 26.24,
+    "end": 32.22,
+    "text": "Sampai lupa bahwa Tuhan lebih dulu minta kita menjalankan kewajiban.",
+    "keyword": "islamic architecture",
+    "image": "https://pixabay.com/get/g5113f32b5336d8926d6f9872be55ba338153727237b8883863eff914a5d0d07ee2679796906e1010fa679e5b0ad4cad7695431cdc68051cb6adb9d5a65b6be41_1280.jpg"
   }
 ]
