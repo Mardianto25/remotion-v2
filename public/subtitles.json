@@ -1,128 +1,58 @@
 [
   {
     "start": 0,
-    "end": 2.2,
-    "text": "Nih, saya nih, Zainuddin nih,",
-    "keyword": "grand mosque",
-    "image": "https://pixabay.com/get/g786ea06ecc01aeaa62fac80a2b3b85b1973457559713e3e26cc2cdb8185f7b3f01cef8ea38f5cda9e664739df920f528192f8076c7b71d27efd0bedd9fd816f3_1280.jpg"
+    "end": 2.1,
+    "text": "Jangan bersedih ketika kau didustakan.",
+    "keyword": "misty mountain",
+    "image": "https://pixabay.com/get/gad6cd9024c98f77abfc76729049dc10977d8aaedbb40bfc5ffbf1578831e310a9a8a84eccb2854a001189a7946adf51367c88e64fcf151ea0a375719895ae59c_1280.jpg"
   },
   {
-    "start": 2.2,
-    "end": 10,
-    "text": "kalau mengharap masuk surga pakai amal yang saya kerjakan sendiri, roman-romannya tipis harapan.",
-    "keyword": "sunset sky",
-    "image": "https://pixabay.com/get/gb4a467ca945f3943c5665611e479192ce024116fbed93e4460b59c4fffa67d22b8fc168d6924a99707499c34a91044fd4aaf779ce1fa4b8ea00e456fb5e20bf3_1280.jpg"
+    "start": 2.1,
+    "end": 4.9,
+    "text": "Jangan bersedih ketika kau dibunuh karaktermu.",
+    "keyword": "peaceful forest",
+    "image": "https://pixabay.com/get/g8d0e9304887b1f3665bc52613fa01150aa61fb9bb24f0aff7b51e92dc9a4ff0c9b1d0c3d3419761274ad2e31f22a915185ef871198ebdb53db67fec79305af3b_1280.jpg"
   },
   {
-    "start": 10,
-    "end": 12.4,
-    "text": "Bener.",
-    "keyword": "quiet desert",
-    "image": "https://pixabay.com/get/g20b25bc677892537ee405315d53de4af03f1f96972453b2a20bbdfd977ca775e0e112be7791ff24e6d4cc0520c103230c2802324c17a90c274c50f904beb87c1_1280.jpg"
-  },
-  {
-    "start": 12.4,
-    "end": 15.3,
-    "text": "Salat saya berapa banyak, saya tahu.",
-    "keyword": "islamic architecture",
-    "image": "https://pixabay.com/get/g4efdb9507c49332dfe1524c973c65a5fd9d0ba0f224aa3c03a1048b73b3dd940dc1c77ccbe35fd39ed43776f31ec80cfb07a034e91e06b057c954f95761bc97f_1280.jpg"
-  },
-  {
-    "start": 15.3,
-    "end": 18,
-    "text": "Sedekah saya berapa duit, saya tahu.",
-    "keyword": "quran on wooden stand",
-    "image": "https://pixabay.com/get/g137b2c852b0f77e9eff99e252c7fbfe99cadaf641d53e10ccd55e2455ee7415bb13cbee3ba008064b86bfd335a87826f602f9f5c187097cf5f2b84f94d6872cb_1280.jpg"
-  },
-  {
-    "start": 18,
-    "end": 20.8,
-    "text": "Salat saya berapa banyak, saya tahu.",
-    "keyword": "mosque archway",
-    "image": "https://pixabay.com/get/gb420d2a1d334714d4b9a8a352faa23a7ed5f6c76a6fee1c7743e17674280afb4b2d29dfad43475a32c73e5c5b5fe1e2e4618e173b05d6d9580e298b60bc75673_1280.jpg"
-  },
-  {
-    "start": 20.8,
-    "end": 26.6,
-    "text": "Terus saya baca sejarah: Nabi Adam dosanya satu, makan buah khuldi, Nabi Adam dosanya satu,",
-    "keyword": "ancient desert mountain",
-    "image": "https://pixabay.com/get/gc56466fd1d45cd93de11b0d2b147a477e8262c849c99eda38d1463ea2bfa2eb9e9b5d958fdf76b0ebfefabe7a0ecd57d0997c1b0c4aabd8049740b2649b888e3_1280.jpg"
-  },
-  {
-    "start": 26.6,
-    "end": 30.5,
-    "text": "dikeluarin dari surga.",
-    "keyword": "foggy forest",
-    "image": "https://pixabay.com/get/g9f3ac6a6cb02f4ceebd96b0869c27ded922a839f5f3a60e974e1150e0261c60ec5a9d399dc970953627992048fe26a02149f5bb90d16198fdaa5720afa23d6c3_1280.jpg"
-  },
-  {
-    "start": 30.5,
-    "end": 33.6,
-    "text": "Kita dosa banyak, pengin masuk.",
-    "keyword": "cloudy sky",
-    "image": "https://pixabay.com/get/g3f53a592fc69d73dc92c471b393fe63a90075922635ce3562265d5fed49da6962ab7bcd9696c4197e96ec10ab9c21a1c76a5f8b3106a9971dbbae3b1b2a3364b_1280.jpg"
-  },
-  {
-    "start": 33.6,
-    "end": 38.8,
-    "text": "Kan kagak nyambung nih, enggak nyetel nih.",
+    "start": 4.9,
+    "end": 8.8,
+    "text": "Jangan berduka cita ketika tidak ada manusia yang menerimamu.",
     "keyword": "calm ocean",
-    "image": "https://pixabay.com/get/ge29ad9b7023b6c571e7d0699613e9058ac1548b926a2db33dab991a663913f174869d43014f548a0ed5f1640e9866ad32d3a9dfe408678cd5fe9237d67971921_1280.jpg"
+    "image": "https://pixabay.com/get/g0f29475a83667256866916d30ebbdb75c7714075ec6371da72cf10083ed9b91c834959c60c54e0de544bd49021b4ddb37d1e49b4e29213add357d2e8b673cdf3_1280.jpg"
   },
   {
-    "start": 38.8,
-    "end": 42.4,
-    "text": "Untung Allah itu bukan Tuhan pendendam.",
-    "keyword": "peaceful lake",
-    "image": "https://pixabay.com/get/ge5143b67375fcc718ce646567a419f9c0f2f58ecc14eecbba696b0ca4620a8427c45ab82d51a9d007ee10934c64728e6189c804538c586c8056bc5d8d1498e7c_1280.jpg"
+    "start": 8.8,
+    "end": 13.5,
+    "text": "Karena sesungguhnya itu hanyalah cara Allah menguatkan hatimu,",
+    "keyword": "golden sunrise",
+    "image": "https://pixabay.com/get/gb447c9e377a3500171ccc0580ff87db22f76faef77c564500f16b1f3e698997ebef14b6663320d946c6e552a2d585f558745385513223d6309f4d0236ec75927_1280.jpg"
   },
   {
-    "start": 42.4,
-    "end": 46,
-    "text": "Allah itu ramah dan penuh rahmat.",
-    "keyword": "sunrise over mountains",
-    "image": "https://pixabay.com/get/g4668b3abebdece2faf473c36676c880c1df8789162e21c2b328e39c14701aa86a3f48d67ec1ede585c316cf309bb2845cd32fc37d83b53e40e6dcfad0b0808de_1280.jpg"
+    "start": 13.5,
+    "end": 18.8,
+    "text": "karena Dia ingin mengangkat derajatmu, menempatkan di tempat yang terpuji,",
+    "keyword": "mountain peak",
+    "image": "https://pixabay.com/get/gc14b4e786b7ec9b4dfd54b57c0449161a214bd5454cb64a95d5deb7cb86f9942c197640c984b543641d119579397bebe419e53a0454a862451cc08f0e5ceded8_1280.jpg"
   },
   {
-    "start": 46,
-    "end": 52.5,
-    "text": "Hai manusia, dosamu banyak, coba kau lihat rahmat-Ku jauh lebih banyak.",
-    "keyword": "dramatic sunset clouds",
-    "image": "https://pixabay.com/get/gac065435a8644d35fe1eed0ae1005465975e5b916f8c5901496c843d107fe2f9ae6f14ebf1e492b8f21bbc95e4a05c2bc4e0899835cd840e78f0227b4cab7454_1280.jpg"
+    "start": 18.8,
+    "end": 23.2,
+    "text": "memperlihatkanmu sesuatu yang tidak pernah Dia perlihatkan kepada manusia yang lain.",
+    "keyword": "starry sky",
+    "image": "https://pixabay.com/get/g2be5ec44b603b5fdc4a5366628ff21c8a262aa62bbf94fec70ba15a6b145602034c6db4fb4a44c72707338b0ed9ba6088d71764f0dfa494bb8096276c88ae9bb_1280.jpg"
   },
   {
-    "start": 52.5,
-    "end": 58,
-    "text": "Hai manusia, dosamu besar, lihat ampunan-Ku jauh lebih besar.",
-    "keyword": "vast starry night sky",
-    "image": "https://pixabay.com/get/g37a04f2e2f45329f0ebca08028d02cebc9ebed3790b2af035edc23e2d1a109b353024f80466cc451e56367a9a7df8ffd43e1edf964b4608842628c538833a873_1280.jpg"
+    "start": 23.2,
+    "end": 29.3,
+    "text": "Dia buat hatimu hancur berkeping agar tidak lagi ada tempat makhluk dalam hatimu,",
+    "keyword": "flowing river",
+    "image": "https://pixabay.com/get/gbd794900239478f77f7ceec9c7678a749ce1095140020f899ce61e8d8ed686383e8ebbe7a33841a4bcaa2e1e8e98f60bb030a441894fe63d4407638673c1a20f_1280.jpg"
   },
   {
-    "start": 58,
-    "end": 62,
-    "text": "Kau menangis di hadapan-Ku, Aku senyum melihatmu.",
-    "keyword": "rain on green leaves",
-    "image": "https://pixabay.com/get/g1bb962f2602e877eb9a6f501f55f3d7410dc3675f9443b1f2c35942bae52c78cff74c76dc3d412d5e06a4921db40b7130a6fb03a8b6b98ed5936dbf5b1a48cc4_1280.jpg"
-  },
-  {
-    "start": 62,
-    "end": 65.5,
-    "text": "Kau berjalan menuju-Ku, Aku lari menyambutmu.",
-    "keyword": "flowing river in forest",
-    "image": "https://pixabay.com/get/gfa9f149622f04b00abbcd72e9a17490568abd825208bbc614ddae59d731364b8072f95c545c7b1894d2974361bdecb950fc1509193cd90a6250002796e6674d5_1280.jpg"
-  },
-  {
-    "start": 65.5,
-    "end": 67.8,
-    "text": "Sini manusia, sini.",
-    "keyword": "golden sunrise light",
-    "image": "https://pixabay.com/get/g5780716b2935f26880bb4abb9cc814fb7df353800b83974e6b4030d999a1d18ef2887dd0c753af826793c05ae85661a35f3df3e15d850c34840603940a62d797_1280.jpg"
-  },
-  {
-    "start": 67.8,
-    "end": 75,
-    "text": "Itu yang bikin kita optimistis: Allah ramah dan penuh rahmat, Tuhan kita bukan Tuhan pendendam.",
-    "keyword": "beautiful grand mosque dome",
-    "image": "https://pixabay.com/get/g284021ddfa68e352f65dc8a8b7e1a40497f5b61dcd19973d3d6333a419e2076d3155b8a05dfc123d0cd33fb7a380bf3d33740c6d37136f45f6b69ceb72a09c85_1280.jpg"
+    "start": 29.3,
+    "end": 35.5,
+    "text": "yang ada hanya Allah semata. Ma fi qalbi ghairullah.",
+    "keyword": "grand mosque",
+    "image": "https://pixabay.com/get/g7da8f173359370a243b3726d97d5c213b0378ad75c6b563f1f83939d2bb879fdff31c6618a15252296a09b0d7c4c7576f84bef9420e91b7ac0217800dfcc6736_1280.jpg"
   }
 ]
