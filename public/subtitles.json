@@ -1,100 +1,128 @@
 [
   {
     "start": 0,
-    "end": 2.5,
-    "text": "Apapun yang kau lakukan, sholatlah.",
-    "keyword": "grand mosque minaret",
-    "image": "https://pixabay.com/get/g4e9b2c6111de55bb9734bbd8356704571e4320d1551534483e5a9f60cf90167fcd7ca757072c3876805e08881f0adb29877627f7755d646fc636e9b72786d596_1280.jpg"
+    "end": 2.2,
+    "text": "Nih, saya nih, Zainuddin nih,",
+    "keyword": "grand mosque",
+    "image": "https://pixabay.com/get/g786ea06ecc01aeaa62fac80a2b3b85b1973457559713e3e26cc2cdb8185f7b3f01cef8ea38f5cda9e664739df920f528192f8076c7b71d27efd0bedd9fd816f3_1280.jpg"
   },
   {
-    "start": 2.5,
-    "end": 6.8,
-    "text": "Tapi saya kerjanya masih riba, Ustadz. Sholat!",
+    "start": 2.2,
+    "end": 10,
+    "text": "kalau mengharap masuk surga pakai amal yang saya kerjakan sendiri, roman-romannya tipis harapan.",
+    "keyword": "sunset sky",
+    "image": "https://pixabay.com/get/gb4a467ca945f3943c5665611e479192ce024116fbed93e4460b59c4fffa67d22b8fc168d6924a99707499c34a91044fd4aaf779ce1fa4b8ea00e456fb5e20bf3_1280.jpg"
+  },
+  {
+    "start": 10,
+    "end": 12.4,
+    "text": "Bener.",
+    "keyword": "quiet desert",
+    "image": "https://pixabay.com/get/g20b25bc677892537ee405315d53de4af03f1f96972453b2a20bbdfd977ca775e0e112be7791ff24e6d4cc0520c103230c2802324c17a90c274c50f904beb87c1_1280.jpg"
+  },
+  {
+    "start": 12.4,
+    "end": 15.3,
+    "text": "Salat saya berapa banyak, saya tahu.",
+    "keyword": "islamic architecture",
+    "image": "https://pixabay.com/get/g4efdb9507c49332dfe1524c973c65a5fd9d0ba0f224aa3c03a1048b73b3dd940dc1c77ccbe35fd39ed43776f31ec80cfb07a034e91e06b057c954f95761bc97f_1280.jpg"
+  },
+  {
+    "start": 15.3,
+    "end": 18,
+    "text": "Sedekah saya berapa duit, saya tahu.",
+    "keyword": "quran on wooden stand",
+    "image": "https://pixabay.com/get/g137b2c852b0f77e9eff99e252c7fbfe99cadaf641d53e10ccd55e2455ee7415bb13cbee3ba008064b86bfd335a87826f602f9f5c187097cf5f2b84f94d6872cb_1280.jpg"
+  },
+  {
+    "start": 18,
+    "end": 20.8,
+    "text": "Salat saya berapa banyak, saya tahu.",
+    "keyword": "mosque archway",
+    "image": "https://pixabay.com/get/gb420d2a1d334714d4b9a8a352faa23a7ed5f6c76a6fee1c7743e17674280afb4b2d29dfad43475a32c73e5c5b5fe1e2e4618e173b05d6d9580e298b60bc75673_1280.jpg"
+  },
+  {
+    "start": 20.8,
+    "end": 26.6,
+    "text": "Terus saya baca sejarah: Nabi Adam dosanya satu, makan buah khuldi, Nabi Adam dosanya satu,",
+    "keyword": "ancient desert mountain",
+    "image": "https://pixabay.com/get/gc56466fd1d45cd93de11b0d2b147a477e8262c849c99eda38d1463ea2bfa2eb9e9b5d958fdf76b0ebfefabe7a0ecd57d0997c1b0c4aabd8049740b2649b888e3_1280.jpg"
+  },
+  {
+    "start": 26.6,
+    "end": 30.5,
+    "text": "dikeluarin dari surga.",
+    "keyword": "foggy forest",
+    "image": "https://pixabay.com/get/g9f3ac6a6cb02f4ceebd96b0869c27ded922a839f5f3a60e974e1150e0261c60ec5a9d399dc970953627992048fe26a02149f5bb90d16198fdaa5720afa23d6c3_1280.jpg"
+  },
+  {
+    "start": 30.5,
+    "end": 33.6,
+    "text": "Kita dosa banyak, pengin masuk.",
+    "keyword": "cloudy sky",
+    "image": "https://pixabay.com/get/g3f53a592fc69d73dc92c471b393fe63a90075922635ce3562265d5fed49da6962ab7bcd9696c4197e96ec10ab9c21a1c76a5f8b3106a9971dbbae3b1b2a3364b_1280.jpg"
+  },
+  {
+    "start": 33.6,
+    "end": 38.8,
+    "text": "Kan kagak nyambung nih, enggak nyetel nih.",
     "keyword": "calm ocean",
-    "image": "https://pixabay.com/get/ge05cd478bd0d409d4df3810ba4a887aa3c20ee0f8137b3fa686576ba4f287cad77b370a80e04793b892557fd5c08ba7eaebc27abe5c5e343b97b42c9f064dc9e_1280.jpg"
+    "image": "https://pixabay.com/get/ge29ad9b7023b6c571e7d0699613e9058ac1548b926a2db33dab991a663913f174869d43014f548a0ed5f1640e9866ad32d3a9dfe408678cd5fe9237d67971921_1280.jpg"
   },
   {
-    "start": 6.8,
-    "end": 10.5,
-    "text": "Tapi saya masih gemar narkoba. Sholat!",
-    "keyword": "pine forest",
-    "image": "https://pixabay.com/get/g2b499f8f8f32446bd2aac0490fa3e7234ce056330c5bfb86e0c8c6b495b9b02cfc4b0e89bcfed89259bd3d327fde5b7e90c2f938747864173559a7e2478faa56_1280.jpg"
+    "start": 38.8,
+    "end": 42.4,
+    "text": "Untung Allah itu bukan Tuhan pendendam.",
+    "keyword": "peaceful lake",
+    "image": "https://pixabay.com/get/ge5143b67375fcc718ce646567a419f9c0f2f58ecc14eecbba696b0ca4620a8427c45ab82d51a9d007ee10934c64728e6189c804538c586c8056bc5d8d1498e7c_1280.jpg"
   },
   {
-    "start": 10.5,
-    "end": 13.8,
-    "text": "Tapi saya masih suka jahat. Sholat!",
-    "keyword": "foggy mountains",
-    "image": "https://pixabay.com/get/g9a7061f7e7121b3d725be2568a7d7d221c2ad5893660a18d497641461b788d36f47d52f61abd3b7a31736a380c3ee7648026aac3184bd43cb4d2ea6a15f87f61_1280.jpg"
+    "start": 42.4,
+    "end": 46,
+    "text": "Allah itu ramah dan penuh rahmat.",
+    "keyword": "sunrise over mountains",
+    "image": "https://pixabay.com/get/g4668b3abebdece2faf473c36676c880c1df8789162e21c2b328e39c14701aa86a3f48d67ec1ede585c316cf309bb2845cd32fc37d83b53e40e6dcfad0b0808de_1280.jpg"
   },
   {
-    "start": 13.8,
-    "end": 17.5,
-    "text": "Tapi saya tukang oplos bir, Ustadz. Sholat!",
-    "keyword": "river stream",
-    "image": "https://pixabay.com/get/g46d503cd51490cbc470f70a2256c2724664c628fe5f04acf898de42245eb40f565471f3ce01b45e16d55e42421f82cf18d5712a5506cf24ee0f1d25231aa6962_1280.jpg"
-  },
-  {
-    "start": 17.5,
-    "end": 21,
-    "text": "Tapi saya kumpul kebo. Sholat!",
-    "keyword": "desert dunes",
-    "image": "https://pixabay.com/get/g44e5dd5c00226ddf671ffcdb35dc939e3c5734ef84f111791bb9a3f49819423bf8994113e280b7d0aab5a617d621d9db_1280.jpg"
-  },
-  {
-    "start": 21,
-    "end": 25.5,
-    "text": "Tapi saya penari telanjang, Ustadz. Sholat!",
-    "keyword": "islamic dome",
-    "image": "https://pixabay.com/get/ge18c95db86ca4c49bc664a3ca0548f70787479934377d0bb5df78151ae3d324a7d66a87a0d3ae2720fbfab5b05fd0a793a7ef3e0e90a67ace0562e9c6cc01298_1280.jpg"
-  },
-  {
-    "start": 25.5,
-    "end": 31.5,
-    "text": "Justru sholat itu yang bisa menghentikan itu semua.",
-    "keyword": "majestic grand mosque",
-    "image": "https://pixabay.com/get/g6af44f56768e41a6a0a08fe4f5dcb91e921710fbde732bd7d64e1abd1e55979bd4fc9c1d87eda472805983373dcf9f9e0726bbd4034389b391545e69f912d04e_1280.jpg"
-  },
-  {
-    "start": 31.5,
-    "end": 34,
-    "text": "Jangan dengarkan rayuan setan.",
+    "start": 46,
+    "end": 52.5,
+    "text": "Hai manusia, dosamu banyak, coba kau lihat rahmat-Ku jauh lebih banyak.",
     "keyword": "dramatic sunset clouds",
-    "image": "https://pixabay.com/get/g11e7a121527d2739f6c7afebea99e2291b4be7edf77837e061e66d976e38f1859e327a423bb3c397a97d0d6226e931669081a0db543e947165877a51791275db_1280.jpg"
+    "image": "https://pixabay.com/get/gac065435a8644d35fe1eed0ae1005465975e5b916f8c5901496c843d107fe2f9ae6f14ebf1e492b8f21bbc95e4a05c2bc4e0899835cd840e78f0227b4cab7454_1280.jpg"
   },
   {
-    "start": 34,
-    "end": 36.6,
-    "text": "Udah, kamu bersih dulu baru sholat.",
-    "keyword": "serene lake",
-    "image": "https://pixabay.com/get/gc4fc98353dad7a143254ecfbb960f760b6679d03b0eb7615d03cfb569f87a229786128f3ecfb733e80d99069329e57e1d0b95f194e6af69a1611a304f169d78c_1280.jpg"
+    "start": 52.5,
+    "end": 58,
+    "text": "Hai manusia, dosamu besar, lihat ampunan-Ku jauh lebih besar.",
+    "keyword": "vast starry night sky",
+    "image": "https://pixabay.com/get/g37a04f2e2f45329f0ebca08028d02cebc9ebed3790b2af035edc23e2d1a109b353024f80466cc451e56367a9a7df8ffd43e1edf964b4608842628c538833a873_1280.jpg"
   },
   {
-    "start": 36.6,
-    "end": 39.5,
-    "text": "Kamu bersih dulu baru ngaji.",
-    "keyword": "open holy quran",
-    "image": "https://pixabay.com/get/gf5a55825e6431536af5fececdc60a96e2d8dd295f4c85fe2a2f7490045803b1274fc8d5b0fa21005e91db9449429268dca656dd3e0bdea761beb64df05a8c0ed_1280.jpg"
+    "start": 58,
+    "end": 62,
+    "text": "Kau menangis di hadapan-Ku, Aku senyum melihatmu.",
+    "keyword": "rain on green leaves",
+    "image": "https://pixabay.com/get/g1bb962f2602e877eb9a6f501f55f3d7410dc3675f9443b1f2c35942bae52c78cff74c76dc3d412d5e06a4921db40b7130a6fb03a8b6b98ed5936dbf5b1a48cc4_1280.jpg"
   },
   {
-    "start": 39.5,
-    "end": 41.5,
-    "text": "Iringi semua kejahatan.",
-    "keyword": "green hills sunrise",
-    "image": "https://pixabay.com/get/gf13e3b73b13ee12d23d99d76f1ab23a88f5653dcf0e94a8f6289e47f6e362c223c4e76549600645e72f817f19044b5b5334a84b3d617dd9567665799ea690785_1280.jpg"
+    "start": 62,
+    "end": 65.5,
+    "text": "Kau berjalan menuju-Ku, Aku lari menyambutmu.",
+    "keyword": "flowing river in forest",
+    "image": "https://pixabay.com/get/gfa9f149622f04b00abbcd72e9a17490568abd825208bbc614ddae59d731364b8072f95c545c7b1894d2974361bdecb950fc1509193cd90a6250002796e6674d5_1280.jpg"
   },
   {
-    "start": 41.5,
-    "end": 44,
-    "text": "Insya Allah itu yang akan menyelamatkanmu.",
-    "keyword": "starry night sky",
-    "image": "https://pixabay.com/get/g631796fd2398cebdcc5111b98269d344d49249614926749332ed33d13a0c7f733f8a3e5686351e1ed8f5f08310ce50248a05a1fcfaf946c7e04ac0fac0d8fd1f_1280.jpg"
+    "start": 65.5,
+    "end": 67.8,
+    "text": "Sini manusia, sini.",
+    "keyword": "golden sunrise light",
+    "image": "https://pixabay.com/get/g5780716b2935f26880bb4abb9cc814fb7df353800b83974e6b4030d999a1d18ef2887dd0c753af826793c05ae85661a35f3df3e15d850c34840603940a62d797_1280.jpg"
   },
   {
-    "start": 44,
-    "end": 46.4,
-    "text": "Aamiin ya Allah ya Rabbal 'Alamin.",
-    "keyword": "peaceful mosque courtyard",
-    "image": "https://pixabay.com/get/g3a59ea22bb87b1d716023af980650a3ebe3aa0bab40e928638b3fb92c42315b8d870f96eb1ab764e77a2f46c6949434eaa4950d377df60d4efc5e4b722171f89_1280.jpg"
+    "start": 67.8,
+    "end": 75,
+    "text": "Itu yang bikin kita optimistis: Allah ramah dan penuh rahmat, Tuhan kita bukan Tuhan pendendam.",
+    "keyword": "beautiful grand mosque dome",
+    "image": "https://pixabay.com/get/g284021ddfa68e352f65dc8a8b7e1a40497f5b61dcd19973d3d6333a419e2076d3155b8a05dfc123d0cd33fb7a380bf3d33740c6d37136f45f6b69ceb72a09c85_1280.jpg"
   }
 ]
