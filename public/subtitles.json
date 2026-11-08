@@ -1,58 +1,58 @@
 [
   {
-    "start": 0,
-    "end": 2.1,
-    "text": "Jangan bersedih ketika kau didustakan.",
-    "keyword": "misty mountain",
-    "image": "https://pixabay.com/get/gad6cd9024c98f77abfc76729049dc10977d8aaedbb40bfc5ffbf1578831e310a9a8a84eccb2854a001189a7946adf51367c88e64fcf151ea0a375719895ae59c_1280.jpg"
-  },
-  {
-    "start": 2.1,
-    "end": 4.9,
-    "text": "Jangan bersedih ketika kau dibunuh karaktermu.",
-    "keyword": "peaceful forest",
-    "image": "https://pixabay.com/get/g8d0e9304887b1f3665bc52613fa01150aa61fb9bb24f0aff7b51e92dc9a4ff0c9b1d0c3d3419761274ad2e31f22a915185ef871198ebdb53db67fec79305af3b_1280.jpg"
-  },
-  {
-    "start": 4.9,
-    "end": 8.8,
-    "text": "Jangan berduka cita ketika tidak ada manusia yang menerimamu.",
-    "keyword": "calm ocean",
-    "image": "https://pixabay.com/get/g0f29475a83667256866916d30ebbdb75c7714075ec6371da72cf10083ed9b91c834959c60c54e0de544bd49021b4ddb37d1e49b4e29213add357d2e8b673cdf3_1280.jpg"
-  },
-  {
-    "start": 8.8,
-    "end": 13.5,
-    "text": "Karena sesungguhnya itu hanyalah cara Allah menguatkan hatimu,",
-    "keyword": "golden sunrise",
-    "image": "https://pixabay.com/get/gb447c9e377a3500171ccc0580ff87db22f76faef77c564500f16b1f3e698997ebef14b6663320d946c6e552a2d585f558745385513223d6309f4d0236ec75927_1280.jpg"
-  },
-  {
-    "start": 13.5,
-    "end": 18.8,
-    "text": "karena Dia ingin mengangkat derajatmu, menempatkan di tempat yang terpuji,",
-    "keyword": "mountain peak",
-    "image": "https://pixabay.com/get/gc14b4e786b7ec9b4dfd54b57c0449161a214bd5454cb64a95d5deb7cb86f9942c197640c984b543641d119579397bebe419e53a0454a862451cc08f0e5ceded8_1280.jpg"
-  },
-  {
-    "start": 18.8,
-    "end": 23.2,
-    "text": "memperlihatkanmu sesuatu yang tidak pernah Dia perlihatkan kepada manusia yang lain.",
+    "start": 0.8,
+    "end": 4.5,
+    "text": "Kalau stres karena dunia, maka ucapkan laa ilaha illallah.",
     "keyword": "starry sky",
-    "image": "https://pixabay.com/get/g2be5ec44b603b5fdc4a5366628ff21c8a262aa62bbf94fec70ba15a6b145602034c6db4fb4a44c72707338b0ed9ba6088d71764f0dfa494bb8096276c88ae9bb_1280.jpg"
+    "image": "https://pixabay.com/get/g065ccfea766044c98261a9a25e988846544d1c2b53d6d046949a90faabf91cab7dae5066cf121ea6d6ed2d06fe75d3af1d8aa6a5f46406700705f9f92731f1d8_1280.jpg"
   },
   {
-    "start": 23.2,
-    "end": 29.3,
-    "text": "Dia buat hatimu hancur berkeping agar tidak lagi ada tempat makhluk dalam hatimu,",
-    "keyword": "flowing river",
-    "image": "https://pixabay.com/get/gbd794900239478f77f7ceec9c7678a749ce1095140020f899ce61e8d8ed686383e8ebbe7a33841a4bcaa2e1e8e98f60bb030a441894fe63d4407638673c1a20f_1280.jpg"
+    "start": 4.5,
+    "end": 7.2,
+    "text": "Agar kita sadar nggak ada yang berhak disembah,",
+    "keyword": "islamic architecture",
+    "image": "https://pixabay.com/get/g07a186b1692eef8ee147e4b4507e3359d3c3a2d07070d6d64f293698f8da2d6bba262e17705ccf2562d2c0bc49aac8a3db6a018d801ef3a39e16ad138b1269ad_1280.jpg"
   },
   {
-    "start": 29.3,
-    "end": 35.5,
-    "text": "yang ada hanya Allah semata. Ma fi qalbi ghairullah.",
-    "keyword": "grand mosque",
-    "image": "https://pixabay.com/get/g7da8f173359370a243b3726d97d5c213b0378ad75c6b563f1f83939d2bb879fdff31c6618a15252296a09b0d7c4c7576f84bef9420e91b7ac0217800dfcc6736_1280.jpg"
+    "start": 7.2,
+    "end": 10.4,
+    "text": "nggak ada yang perlu kita takuti kecuali Allah.",
+    "keyword": "mountain peak",
+    "image": "https://pixabay.com/get/gc3d385e35c47ff3f03d0384c684b9852d392919d02e2ed7821bbe2b6969cb1b43125144d9d89448a9a9f58c3f1cd9b47a904eb5381cd1f54d8c0b8162543c192_1280.jpg"
+  },
+  {
+    "start": 10.4,
+    "end": 15.5,
+    "text": "Kalau kita stresnya karena orang lain, ucap laa hawla wa laa quwwata illa billah.",
+    "keyword": "calm ocean",
+    "image": "https://pixabay.com/get/g2d3cd97dfa42ac1c2e4fff15e2161c262cec8341597e618f4559108745b0be2be8400ec6909c1da2e028a378032cfbcd652614c6f5bfb92011a5578722487090_1280.jpg"
+  },
+  {
+    "start": 15.5,
+    "end": 21,
+    "text": "Supaya kita sadar betul bahwa memang nggak ada kekuatan dari diri kita kecuali semua kekuatan dari Allah Azza wa Jalla.",
+    "keyword": "sunset clouds",
+    "image": "https://pixabay.com/get/g63c1d5414016c3ac03faf226f4e38d8df3c9bb384c9e4b9563efc22c9d9bca2e7897b52426796fdeae54be09ad45937b49fdbce36045e40400ac180b559dbefd_1280.jpg"
+  },
+  {
+    "start": 21,
+    "end": 27.2,
+    "text": "Dan kalau stresnya itu berasal dari diri kita sendiri, ucapkan astaghfirullah wa atubu ilaih.",
+    "keyword": "serene forest",
+    "image": "https://pixabay.com/get/gfaaa5ff3ab6c2dcacf3aeeecf56ae4260baeebdcca67ca4b6e07d28a5133489087694ec69bfdce46554281c63086fd45dc11ef39a1e2ea9f3d1a27fc1e6ee467_1280.jpg"
+  },
+  {
+    "start": 27.2,
+    "end": 31.6,
+    "text": "Karena kita tahu bahwa kita banyak dosa, kita banyak salahnya, banyak kelirunya.",
+    "keyword": "foggy landscape",
+    "image": "https://pixabay.com/get/g950958b293f4e2aa1426ba825709fa7471ae7c47c26e96f6ed415465d55cb7e81ab1366e87ebbb0a4cb7a8804913eec6b6052a1092bd4067cb621dbc0b4c2f3f_1280.jpg"
+  },
+  {
+    "start": 31.6,
+    "end": 35,
+    "text": "Maka dengan istighfar, semoga Allah mudahkan segala urusan.",
+    "keyword": "sunrise mountain",
+    "image": "https://pixabay.com/get/g3f66695db20e6cca5770e78254992739f6ca7b997366b112aae80d676af2bf5769b9b9f903a929f50e183a21db8737facaea048907ad68a2ed83f60a3ad8351f_1280.jpg"
   }
 ]
