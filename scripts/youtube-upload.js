@@ -245,7 +245,7 @@ async function getLatestVideoId() {
 
 
 async function uploadYouTubeThumbnail(videoId, accessToken) {
-  const thumbnailPath = path.join(process.cwd(), 'out', 'thumbnail.jpg');
+  const thumbnailPath = path.join(process.cwd(), 'public', 'thumbnail.jpg');
 
   if (!fs.existsSync(thumbnailPath)) {
     throw new Error(`Thumbnail tidak ditemukan: ${thumbnailPath}`);

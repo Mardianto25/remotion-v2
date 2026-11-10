@@ -237,7 +237,7 @@ async function main() {
     throw new Error('GEMINI_API_KEY belum diatur.');
   }
 
-  fs.mkdirSync(PUBLIC_DIR_DIR, { recursive: true });
+  fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 
   const transcript = fs.readFileSync(TRANSCRIPT_PATH, 'utf8').trim();
   const subtitles = JSON.parse(
