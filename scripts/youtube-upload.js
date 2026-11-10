@@ -161,9 +161,22 @@ async function uploadVideoMultipart() {
   }
 
   const videoId = result.id;
+
+  await waitForVideoProcessing(videoId, accessToken);
   
   // Upload thumbnail
-  await uploadYouTubeThumbnail(videoId, accessToken);
+  const thumbnailResult = await uploadYouTubeThumbnail(
+  videoId,
+  accessToken
+);
+
+console.log(
+  'Thumbnail response:',
+  JSON.stringify(thumbnailResult, null, 2)
+);
+
+console.log('Upload video dan thumbnail selesai!');
+
 
   console.log('✅ Video berhasil diunggah ke YouTube!');
   console.log(`📌 Video ID       : ${result.id}`);
@@ -260,6 +273,56 @@ async function uploadYouTubeThumbnail(videoId, accessToken) {
 
   console.log('Thumbnail berhasil dipasang:', videoId);
   return result;
+}
+
+
+
+async function waitForVideoProcessing(videoId, accessToken) {
+  const maxAttempts = 30;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?part=processingDetails&id=${videoId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        `Gagal cek processing video: ${JSON.stringify(data)}`
+      );
+    }
+
+    const video = data.items?.[0];
+
+    if (!video) {
+      throw new Error(`Video ${videoId} tidak ditemukan`);
+    }
+
+    const status = video.processingDetails.processingStatus;
+
+    console.log(`Video processing status: ${status}`);
+
+    if (status === 'succeeded') {
+      console.log('Video selesai diproses!');
+      return true;
+    }
+
+    if (status === 'failed' || status === 'terminated') {
+      throw new Error(`Video processing gagal: ${status}`);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 10000));
+  }
+
+  throw new Error(
+    'Video belum selesai diproses setelah 5 menit. Thumbnail belum dipasang.'
+  );
 }
 
 

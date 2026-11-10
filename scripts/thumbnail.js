@@ -15,6 +15,8 @@ const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const OUTPUT_DIR = path.join(ROOT, 'out');
 
+const OUTPUT_PATH = path.join(PUBLIC_DIR, 'thumbnail.jpg');
+
 const TRANSCRIPT_PATH = path.join(PUBLIC_DIR, 'transcript.txt');
 const SUBTITLES_PATH = path.join(PUBLIC_DIR, 'subtitles.json');
 const OUTPUT_PATH = path.join(OUTPUT_DIR, 'thumbnail.jpg');
@@ -235,7 +237,7 @@ async function main() {
     throw new Error('GEMINI_API_KEY belum diatur.');
   }
 
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  fs.mkdirSync(PUBLIC_DIR_DIR, { recursive: true });
 
   const transcript = fs.readFileSync(TRANSCRIPT_PATH, 'utf8').trim();
   const subtitles = JSON.parse(
