@@ -1,58 +1,79 @@
 [
   {
     "start": 0,
-    "end": 2.2,
-    "text": "Yang dibenerin ekonominya.",
-    "keyword": "cityscape",
-    "image": "https://pixabay.com/get/g3418e67774d0cf261ae7decf245ec57e8010c70e045af650007849e0cfb99141ae1d19060111d189eda3f551046ec13a54aa33901c1d097ed25de05a17355c7e_1280.jpg"
-  },
-  {
-    "start": 2.2,
-    "end": 4.8,
-    "text": "Padahal mah yang rusak salatnya.",
-    "keyword": "minaret",
-    "image": "https://pixabay.com/get/ga6de4f4995f643fd0a0404e9ceabf4d434649db4581dfa66d1b3f95a5eae4f030af27e19a335e205ac323b8111a02d8f228f855404267038c0184b40f9324e1f_1280.jpg"
-  },
-  {
-    "start": 4.8,
-    "end": 8,
-    "text": "Kalau impiannya tinggi, salatnya jangan dinanti-nanti.",
-    "keyword": "sunset",
-    "image": "https://pixabay.com/get/g86e16f0a369308e7ff3fb79560f037b80306b6780e8e8b07725ccdbd0888860065c3940ecf3523733759d1ec4fe1a632f5693ce580455482f47ae4f9a27908cb_1280.jpg"
-  },
-  {
-    "start": 8,
-    "end": 13,
-    "text": "Kalau impiannya lebih dari satu, salatnya jangan di akhir waktu.",
-    "keyword": "islamic architecture",
-    "image": "https://pixabay.com/get/g7a5560adeb41d7048845ef6950fb69485f60319e10d0a62c0fd650d29a05ee29e09e1f89c01b705357f356cbe87a861c74472f851629ab8359838304f2ca49bd_1280.jpg"
-  },
-  {
-    "start": 13,
-    "end": 17.5,
-    "text": "Kalau impiannya mahal, ya salatnya jangan ditinggal.",
+    "end": 4.1,
+    "text": "Allah itu menjawab doa hambanya dengan tiga jawaban.",
     "keyword": "grand mosque",
-    "image": "https://pixabay.com/get/g9ece002a6f0b1e51a41ea28b7dddd97de1e3c23959890dcfb597e8870cbe0873b3e49593506d295a6bc21b6d865c9a6e62ee55e4f10ea1377b7965f8a2a77923_1280.jpg"
+    "image": "https://pixabay.com/get/g00cee6d62035c0d0eaa770888086bfceb63a21c176592c96319d3273f5888bdf6881b0ad0ae33315006056149f46aaf5e0fe181123f143077bf7c5b0b1b9c33c_1280.jpg"
   },
   {
-    "start": 17.5,
-    "end": 21,
-    "text": "Maksimalin usahanya, perbaiki salatnya.",
-    "keyword": "dome",
-    "image": "https://pixabay.com/get/gab87ab7d6149d4e00779e4811dd7d6ee70f84d0bb0b84a9db42f06602063ea0290f3cca99cd1904c2b0bbaa8b88c7a7fc0eea2f9b3687174f12ff6b7e22fca38_1280.jpg"
+    "start": 4.1,
+    "end": 6.3,
+    "text": "Satu memberinya,",
+    "keyword": "sunset",
+    "image": "https://pixabay.com/get/g9c697111668ab2a5815aac41a7c5696c0b25f90d1b36d789ee3a6a09ccc3c06781137eaa81b9132b9b1f561f18ae32df17f1c602a99418b3c6343ec4f069eec7_1280.jpg"
   },
   {
-    "start": 21,
-    "end": 23.5,
-    "text": "Soal hasil tenang aja.",
+    "start": 6.3,
+    "end": 8.5,
+    "text": "dua menundanya,",
     "keyword": "mountain",
-    "image": "https://pixabay.com/get/g1fa662fccc3f975ffce4ca847006eb5f40f76d17555dbcc66ef5fbde62d1c8adb52faed210ec40a28beebc77a5cfbf8041fa9d55f5ca8e9e191a5c7625ca75c6_1280.jpg"
+    "image": "https://pixabay.com/get/g43d8a1ac4a8b4a668a0ce6c44b243c6d0249d678e522987b8455f81a1580df0120990a874e90815c873e545a1a3a762d1bf7901d9956db88b084fed7fc4de975_1280.jpg"
   },
   {
-    "start": 23.5,
-    "end": 25.5,
-    "text": "Allah bisa segalanya.",
+    "start": 8.5,
+    "end": 10.9,
+    "text": "tiga menggantikannya.",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/gef295634147da6203691fcc294b9abf207addde361b47db1e823ee9493d2126c6fb0525c3a154b8d7f4f43a0ceea8b16972ce2fbf3e6759618f82d8f8738d023_1280.jpg"
+  },
+  {
+    "start": 10.9,
+    "end": 18.5,
+    "text": "Satu, kita berdoa, Allah jawab, yes, Allah berikan sesuai dengan apa yang kita minta.",
+    "keyword": "islamic architecture",
+    "image": "https://pixabay.com/get/gf7d8ead9e716eba04981bada7b98035f7ed81186e7b8af81b6cd8ffc64653ae97c17b306e1f89192f7b7aa462e997bb3ae5edfe629e814a0022a370321708160_1280.jpg"
+  },
+  {
+    "start": 18.5,
+    "end": 25,
+    "text": "U'duuni astajib lakum, berdoalah kepadaku, niscaya aku akan jawab setiap doa-doamu.",
+    "keyword": "quran",
+    "image": "https://pixabay.com/get/g0d28c0d4ce9526e5070848ad1bf6dbdbd73302aa42c96f8c2b03da660039c54db96be6c26b8164e30845143f45db2c905254fa1a9a880fe2ceefa222fd6c1e94_1280.jpg"
+  },
+  {
+    "start": 25,
+    "end": 30,
+    "text": "Ada yang kedua, boleh jadi jawabannya Allah menundanya.",
     "keyword": "starry sky",
-    "image": "https://pixabay.com/get/g78641ee153ff6d78f8de6cfafcd190ca4ef3ac2a7248bb416b78aa71678c472b25b4a6af0b6e245282abe8fbd346fb360cbd9fd93e52d3e9eff090078b234f1a_1280.jpg"
+    "image": "https://pixabay.com/get/g869a0891450a83a690ddb2b7d9eaa6f0f25f4969fb7984556dc943118d378788bdb6ec2e79fd72e5abfd4f000dca636b83db701c383de340cd8595f586cb4bfc_1280.jpg"
+  },
+  {
+    "start": 30,
+    "end": 33.6,
+    "text": "Mungkin tidak cepat, tapi pasti tepat.",
+    "keyword": "ocean",
+    "image": "https://pixabay.com/get/g7d9640c14df1eb7493a77784441ece77e06ece20cd59bb73c4e03d5c829d4e2d298fdecc62e76e61c80e38a01acb92a9ac28521a595e06238d15273bf50020d2_1280.jpg"
+  },
+  {
+    "start": 33.6,
+    "end": 36.8,
+    "text": "Mungkin bukan dunia, tapi pasti akhirat.",
+    "keyword": "forest",
+    "image": "https://pixabay.com/get/gc7e17751a57c6b05d03179810664e1cd6d9d10717bd149599f421944a8f88b4aa4b70bb3f39f7648a6e2cd9c770b3d72d6a08c6a0a6e78ffad56a58b9797bbf4_1280.jpg"
+  },
+  {
+    "start": 36.8,
+    "end": 39.7,
+    "text": "Ketiga, Allah menggantikannya.",
+    "keyword": "grand mosque",
+    "image": "https://pixabay.com/get/g5fdc85d43b9405181d1d679887c6523beb238213fb45a9e8228980e7fc85f9e3af3865bf81bdea5703a91c0372ed73de614edc8fae530e6d2cbb1bdda7253ce0_1280.jpg"
+  },
+  {
+    "start": 39.7,
+    "end": 50.7,
+    "text": "Maksudnya apa? Mungkin Allah tidak menghancurkan orang yang menyakitimu, tapi Allah membahagiakanmu dengan part yang lain yang mungkin tidak pernah kamu sangkakan.",
+    "keyword": "sunset",
+    "image": "https://pixabay.com/get/gbfc4be4c9228912159959a51cfb162dfbf82b672fa34f5654de86bf63adab1cc6eb93065c705f21434b2a0c534ea9d1ae19211c6adccf58cc1071bb137957f4d_1280.jpg"
   }
 ]
