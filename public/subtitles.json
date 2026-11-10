@@ -1,44 +1,86 @@
 [
   {
     "start": 0,
-    "end": 3.7,
-    "text": "Ini Teteh kadang-kadang PD, terlalu lewat PD-nya.",
-    "keyword": "islamic architecture",
-    "image": "https://pixabay.com/get/g4d7018cb0a0e4a5ae197ae3451e33e87e031066f1e107ad7c8b7f92a4c537f3c7bb1e610ee3d89cd10a3956be37dec688760fd6c11b5a53a6883f3b806703bee_1280.jpg"
-  },
-  {
-    "start": 3.7,
-    "end": 11.45,
-    "text": "Sujud enggak pernah sama ulama, jauh, sama habaib jauh, ke taklim enggak pernah datang tiap hari bergelimang dosa.",
-    "keyword": "minaret",
-    "image": "https://pixabay.com/get/g46ac14ca9018dc7761be8a6bb61086e65904eb894c4d99172f2c48ba18fb1b81dbd44152f4bc0095f8286042e6877219501f634514a231c9dd37ba8e9f416ff6_1280.jpg"
-  },
-  {
-    "start": 11.45,
-    "end": 15.65,
-    "text": "Begitu kena musibah, nyohor, gua lagi diuji nih.",
-    "keyword": "dome",
-    "image": "https://pixabay.com/get/g95e18b4c16da7f1b069574a71fb66edca28d2093cb5e1e53f1c70573aca8079e117c0e93edd24744e8483d14064b6fa5c0aa9e105c40df189ab4ce58970a45e7_1280.jpg"
-  },
-  {
-    "start": 15.65,
-    "end": 19.35,
-    "text": "Siapa yang nguji? Lo.",
-    "keyword": "courtyard",
-    "image": "https://pixabay.com/get/g7a31e0207f1f17bbc7cf43cda78bf2b746a777402d2d6764dbbb96a6bfff215025f7a42d3a898e29f3aac3efff150a6db0f7c95cd9841f5b62ac21ad5d7c99b5_1280.jpg"
-  },
-  {
-    "start": 19.35,
-    "end": 24.25,
-    "text": "Lah kaga sekolah, ulangan.",
-    "keyword": "archway",
-    "image": "https://pixabay.com/get/ge7bbafe4221783311e7be70e516279de60ea4eef6e0a0391fa9e41426da478b0b44090b66b72a2bdb658cbeb2726fbde7b8954bd4e493ed4fc064fe3ab7b2c00_1280.jpg"
-  },
-  {
-    "start": 24.25,
-    "end": 27.25,
-    "text": "Mau naik kelas berapa nantinya?",
+    "end": 2.5,
+    "text": "Kata Allah, nikmati.",
     "keyword": "grand mosque",
-    "image": "https://pixabay.com/get/g6b7d0c54f269f5d948de7143d79bee54216ae6e43395884d2cfbd89b82c8fb8af7adc9cdb53cc1dbe0d2452c1ed574a79d4b981114fb141fa9bb829d143fa9cd_1280.jpg"
+    "image": "https://pixabay.com/get/g1e25b555576e48fdb66bf730426804ad301a90ec3e13429e4e8f9c9cfca4ed31f8cbc38f127db5ef2eb8dd63a51256ecff380f1696f9b917412413a727e6bc9b_1280.jpg"
+  },
+  {
+    "start": 2.5,
+    "end": 5,
+    "text": "Sayang, silakan nikmat kata Nabi, nikmati dunia.",
+    "keyword": "sunset",
+    "image": "https://pixabay.com/get/gdde5962043772b707688255f153c8649eeb55f6608c3fef2b58a4edd2904ee3a04ba6e4bd11f47f63b11e2624ca616b8dadacea7a1abf1e68feff2b149d8f183_1280.jpg"
+  },
+  {
+    "start": 5,
+    "end": 7.5,
+    "text": "Senikmat-nikmatnya, senyamannya hidup yang enak.",
+    "keyword": "ocean",
+    "image": "https://pixabay.com/get/g9e560de9b43da48775b2d42c46d149bc5fce2339898275fdca26f459a9a4d880b7e3ba4987fcb28000e16c87b6abb2e5aa33b36acbccf6650a628b0492e70e85_1280.jpg"
+  },
+  {
+    "start": 7.5,
+    "end": 10.5,
+    "text": "Rumah yang nyaman, keturunan yang baik, tapi salat.",
+    "keyword": "islamic architecture",
+    "image": "https://pixabay.com/get/g3d660683d89ef7ce2e4b15f100873d0f9b17c9a58922bbde2f503f83436798047dc91ce2a71015010b35aa7b66efba4e5f16e0eb5ee3debf2742957665ded8d6_1280.jpg"
+  },
+  {
+    "start": 10.5,
+    "end": 12.8,
+    "text": "Baca Quran, nanti kita pulang.",
+    "keyword": "quran",
+    "image": "https://pixabay.com/get/g5b59ee38f86507c70326d8063c481c3554fe4e25726ec824c13f3499f95e496d0472cf768d8b2be6625efdabfc585c8511d329e9c31e470468d02d3b97bf69d0_1280.jpg"
+  },
+  {
+    "start": 12.8,
+    "end": 16,
+    "text": "Dan amal kita yang kita bawa bukan rumah kita.",
+    "keyword": "forest",
+    "image": "https://pixabay.com/get/gcbeb489b809fc099acf429ebc8121930ce2bd6d4b61c6f20200adad21fcc13d950229235267ab9d21b9272e2e00c0d01de569f5472b2a6120389d85ce99efc28_1280.jpg"
+  },
+  {
+    "start": 16,
+    "end": 19,
+    "text": "Tunjukkan pada saya, mana orang wafat yang bawa rumahnya?",
+    "keyword": "mountain",
+    "image": "https://pixabay.com/get/gbd8956e2f621f369be32c8754a9c08f2bb37eddfa6754fee95dce6e661b818de2ef9d173b576b0945f97da446e253f978fd50358715cb26456f0f5ab833093cc_1280.jpg"
+  },
+  {
+    "start": 19,
+    "end": 21,
+    "text": "Tunjukkan.",
+    "keyword": "river",
+    "image": "https://pixabay.com/get/g429d5bb524e360aaaba3688fe9f23776a000d04abe286d4b74c7d827aeab2b3cf56bbf3ebe337acff70af20229d889428642b3d0dd187b8cf71423accdcc4929_1280.jpg"
+  },
+  {
+    "start": 21,
+    "end": 22.5,
+    "text": "Mana orang wafat yang bawa handphone-nya?",
+    "keyword": "starry sky",
+    "image": "https://pixabay.com/get/gab9106b0355e4976a5b899083c29d07e7c8b97c8e9977191e998b3e7f3aed06f4895b6a1a0c929c54181d6699039570e07aaa13a62d2246b37567cbe88060278_1280.jpg"
+  },
+  {
+    "start": 22.5,
+    "end": 24.5,
+    "text": "Mana orang wafat bawa kerudungnya?",
+    "keyword": "grand mosque",
+    "image": "https://pixabay.com/get/gdbdd34b279e0a4c2caabaf572705bf943a2e3ad672f9c0cbfdaa92b0edc72a4c9263286cf81d201123ee5efc0f1e20dd34c9f72103810536a44499e4e09c5aa7_1280.jpg"
+  },
+  {
+    "start": 24.5,
+    "end": 27.5,
+    "text": "Mana orang wafat bawa koleksi pakaiannya?",
+    "keyword": "sunset",
+    "image": "https://pixabay.com/get/g95ff32f6e1c3d4fdc812ff492c4be1a8ac2d15e7e3db4a11f60d57a9d2205d6e109d66678ebad3fa2207061e73045976de87f9f3010acdc9fba233390117d87d_1280.jpg"
+  },
+  {
+    "start": 27.5,
+    "end": 29.5,
+    "text": "Tetap pulang membawa amal kita.",
+    "keyword": "islamic architecture",
+    "image": "https://pixabay.com/get/g129ab654e3986a0f29bdf6c97d208b9d20369e69d6776ab027eb281f2739810635ba4740715123b423b6992eb4e346d76a0559a5c48a0827cb77f8d8ee8575e9_1280.jpg"
   }
 ]
