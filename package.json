@@ -6,7 +6,8 @@
     "start": "node server.js",
     "render": "remotion render src/index.js ShortsVideo out/video.mp4",
     "upload": "node scripts/youtube-upload.js",
-    "dispatch": "node scripts/auto-dispatch.js"
+    "dispatch": "node scripts/auto-dispatch.js",
+    "generate:thumbnail": "node scripts/thumbnail.js"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
@@ -17,6 +18,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remotion": "^4.0.539",
+    "sharp": "^0.35.5",
     "yt-dlp-wrap": "^2.3.12"
   }
 }

@@ -160,6 +160,11 @@ async function uploadVideoMultipart() {
     throw new Error(`YouTube API Upload Error: ${JSON.stringify(result)}`);
   }
 
+  const videoId = result.id;
+  
+  // Upload thumbnail
+  await uploadYouTubeThumbnail(videoId, accessToken);
+
   console.log('✅ Video berhasil diunggah ke YouTube!');
   console.log(`📌 Video ID       : ${result.id}`);
   console.log(`📌 Judul          : ${result.snippet.title}`);
@@ -224,6 +229,39 @@ async function getLatestVideoId() {
     return null;
   }
 }
+
+
+async function uploadYouTubeThumbnail(videoId, accessToken) {
+  const thumbnailPath = path.join(process.cwd(), 'out', 'thumbnail.jpg');
+
+  if (!fs.existsSync(thumbnailPath)) {
+    throw new Error(`Thumbnail tidak ditemukan: ${thumbnailPath}`);
+  }
+
+  const response = await fetch(
+    `https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${videoId}`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'image/jpeg'
+      },
+      body: fs.readFileSync(thumbnailPath)
+    }
+  );
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      `Gagal upload thumbnail: ${JSON.stringify(result)}`
+    );
+  }
+
+  console.log('Thumbnail berhasil dipasang:', videoId);
+  return result;
+}
+
 
 uploadVideoMultipart().catch((err) => {
   console.error('❌ Gagal menjalankan pipeline unggah YouTube:', err);
