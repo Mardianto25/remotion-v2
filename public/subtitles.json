@@ -1,58 +1,44 @@
 [
   {
     "start": 0,
-    "end": 7,
-    "text": "digni, orang itu kalau biasa susah, ketemu susah, ndak kaget, Pak.",
-    "keyword": "mountain",
-    "image": "https://pixabay.com/get/g5214dd5d99b23dbbd7490b7797926a7a0ccd6fdcf4433e0cd304ec9b3fbc0d8e0e35c706ef8439d825577f95339a8b46417fd513c81d6cbb34ca816fe4c1253c_1280.jpg"
-  },
-  {
-    "start": 7,
-    "end": 10,
-    "text": "Mentalnya kuat.",
-    "keyword": "desert",
-    "image": "https://pixabay.com/get/g965aa86cecefacd658499838169f5c014105608dd7b2be58c2fdc52d620d411cc4ae9c838fd0ca5a6cff696bacafbf71bb8d6e932bd9a9fca163859a283f35a6_1280.jpg"
-  },
-  {
-    "start": 10,
-    "end": 18,
-    "text": "Saya santri, biasa makan kangkung, datang ke rumah teman dikasih kangkung, loh makanan saya ini.",
-    "keyword": "forest",
-    "image": "https://pixabay.com/get/g7e3db572a143d86dffd763be9a7f33fe1f80f715a97019b849393ed669abc61fe2f24d8912514f20b36306f9454109004a35aa48b1919492d9595c9ae9a0da54_1280.jpg"
-  },
-  {
-    "start": 18,
-    "end": 22,
-    "text": "Dikasih daging ayam, nambah.",
-    "keyword": "river",
-    "image": "https://pixabay.com/get/g5c4d7e885eef7d622b778b181c9254f21b1df7b5e558cd6262278d6352dc7752841f4af5c610919c513213f806277c0d8df91bae6750776cbdbf870f4a6940d1_1280.jpg"
-  },
-  {
-    "start": 22,
-    "end": 25,
-    "text": "Orang tu kalau biasa susah, enak.",
-    "keyword": "sunset",
-    "image": "https://pixabay.com/get/gbdd9b355c69d6408c88d9806210d3f7111f7b189b1bf88d88aaba38664d7d9c93d2f1d691d9117eb20f8266ca81124640205125b0514a5602dff14891e81e736_1280.jpg"
-  },
-  {
-    "start": 25,
-    "end": 32,
-    "text": "Saya santri, biasa tidur di masjid, disuruh nginap di hotel, pules, Pak.",
+    "end": 3.7,
+    "text": "Ini Teteh kadang-kadang PD, terlalu lewat PD-nya.",
     "keyword": "islamic architecture",
-    "image": "https://pixabay.com/get/gc4d0546282a8196b7184a5f0ed30ccca57456bd7b7ffa727bce2deda8fe7e7c52b1d43e048872e1022dc7e6aea4583b6302365c6d3589299713efb4878220acd_1280.jpg"
+    "image": "https://pixabay.com/get/g4d7018cb0a0e4a5ae197ae3451e33e87e031066f1e107ad7c8b7f92a4c537f3c7bb1e610ee3d89cd10a3956be37dec688760fd6c11b5a53a6883f3b806703bee_1280.jpg"
   },
   {
-    "start": 32,
-    "end": 39,
-    "text": "Tapi yang biasa tidur di hotel, suruh nginap di masjid, encok.",
+    "start": 3.7,
+    "end": 11.45,
+    "text": "Sujud enggak pernah sama ulama, jauh, sama habaib jauh, ke taklim enggak pernah datang tiap hari bergelimang dosa.",
+    "keyword": "minaret",
+    "image": "https://pixabay.com/get/g46ac14ca9018dc7761be8a6bb61086e65904eb894c4d99172f2c48ba18fb1b81dbd44152f4bc0095f8286042e6877219501f634514a231c9dd37ba8e9f416ff6_1280.jpg"
+  },
+  {
+    "start": 11.45,
+    "end": 15.65,
+    "text": "Begitu kena musibah, nyohor, gua lagi diuji nih.",
+    "keyword": "dome",
+    "image": "https://pixabay.com/get/g95e18b4c16da7f1b069574a71fb66edca28d2093cb5e1e53f1c70573aca8079e117c0e93edd24744e8483d14064b6fa5c0aa9e105c40df189ab4ce58970a45e7_1280.jpg"
+  },
+  {
+    "start": 15.65,
+    "end": 19.35,
+    "text": "Siapa yang nguji? Lo.",
+    "keyword": "courtyard",
+    "image": "https://pixabay.com/get/g7a31e0207f1f17bbc7cf43cda78bf2b746a777402d2d6764dbbb96a6bfff215025f7a42d3a898e29f3aac3efff150a6db0f7c95cd9841f5b62ac21ad5d7c99b5_1280.jpg"
+  },
+  {
+    "start": 19.35,
+    "end": 24.25,
+    "text": "Lah kaga sekolah, ulangan.",
+    "keyword": "archway",
+    "image": "https://pixabay.com/get/ge7bbafe4221783311e7be70e516279de60ea4eef6e0a0391fa9e41426da478b0b44090b66b72a2bdb658cbeb2726fbde7b8954bd4e493ed4fc064fe3ab7b2c00_1280.jpg"
+  },
+  {
+    "start": 24.25,
+    "end": 27.25,
+    "text": "Mau naik kelas berapa nantinya?",
     "keyword": "grand mosque",
-    "image": "https://pixabay.com/get/g9a831bd97448f19663d957666195e0263b388b40c9721ae6dbde68bca80e944de19c5e80f79c468de707ffb3e1d0a1cf5ec78614f4eeff3638b6ca21a3639304_1280.jpg"
-  },
-  {
-    "start": 39,
-    "end": 47,
-    "text": "Hidup ini perjuangan, mau sukses harus berani susah.",
-    "keyword": "starry sky",
-    "image": "https://pixabay.com/get/g1711e271223bdc8e0586ec722572fbbd975ac2ea73298c90a63f181a7c021a627a95d8ea4c34c682091c90c88119ab5dc6a45d6643cbc2caa1f8dbe54c3fba71_1280.jpg"
+    "image": "https://pixabay.com/get/g6b7d0c54f269f5d948de7143d79bee54216ae6e43395884d2cfbd89b82c8fb8af7adc9cdb53cc1dbe0d2452c1ed574a79d4b981114fb141fa9bb829d143fa9cd_1280.jpg"
   }
 ]
