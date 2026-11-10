@@ -19,7 +19,7 @@ const OUTPUT_PATH = path.join(PUBLIC_DIR, 'thumbnail.jpg');
 
 const TRANSCRIPT_PATH = path.join(PUBLIC_DIR, 'transcript.txt');
 const SUBTITLES_PATH = path.join(PUBLIC_DIR, 'subtitles.json');
-const OUTPUT_PATH = path.join(OUTPUT_DIR, 'thumbnail.jpg');
+// const OUTPUT_PATH = path.join(OUTPUT_DIR, 'thumbnail.jpg');
 
 const TEXT_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 const IMAGE_MODEL = process.env.GEMINI_IMAGE_MODEL || 'gemini-3.1-flash-image';
