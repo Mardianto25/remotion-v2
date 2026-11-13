@@ -1,3 +1,5 @@
 node_modules/
 out/
 .env
+.wwebjs_auth
+.wwebjs_cache
