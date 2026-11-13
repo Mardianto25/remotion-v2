@@ -104,89 +104,50 @@ async function generateFluxImage(prompt, filename) {
     '/ai/run/@cf/black-forest-labs/flux-1-schnell';
 
   const visualRules = `
-    Cinematic photorealistic photography.
+    Cinematic photorealistic photography,
+    vertical 9:16 composition,
+    highly detailed and realistic human expressions,
+    accurate human anatomy,
+    natural body proportions,
+    highly detailed and realistic actions and activities,
+    accurate depiction of events and situations,
+    realistic human interactions and body movements,
+    detailed objects and environmental elements relevant to the scene,
+    accurate representation of the story and its context,
+    every visual detail must match the described scene,
+    dramatic cinematic lighting,
+    realistic environment,
+    visually accurate and detailed representation of the entire described scene.
 
-    Create a visually accurate and realistic scene that directly represents the described situation, actions, events, and story.
-    
-    SCENE ACCURACY:
-    
-    - Focus on depicting the actual events and activities, not merely facial expressions.
-    - Show what people are physically doing, not just how they feel.
-    - Clearly represent interactions between people, objects, and their surroundings.
-    - Include relevant characters, objects, locations, and environmental details.
-    - Preserve realistic cause-and-effect relationships within the scene.
-    - Make the main activity or event immediately understandable from the image.
-    - Use appropriate camera angles and framing to capture the complete situation.
-    - Facial expressions should support the scene, not replace the actual action.
-    - If multiple people are involved, show their relevant interactions.
-    - If the scene involves a specific activity, depict that activity accurately.
-    
-    VISUAL STORYTELLING:
-    
-    - Do not generate generic portraits.
-    - Do not focus exclusively on facial expressions.
-    - Do not replace meaningful human activities with landscapes.
-    - Do not invent unrelated actions, people, or objects.
-    - Do not create generic emotional scenes.
-    - Prioritize clear physical actions and contextual storytelling.
-    - Every important visual element must contribute to the scene's meaning.
-    
-    HUMAN REALISM:
-    
-    - Highly detailed realistic human expressions.
-    - Realistic human anatomy.
-    - Natural body proportions.
-    - Believable body posture and hand movements.
-    - Natural human interactions.
-    - Realistic clothing, textures, and environments.
-    
     ISLAMIC VISUAL GUIDELINES:
-    
-    - If a woman appears, portray her wearing a modest Islamic hijab covering her hair and neck.
-    - Women should wear loose and modest Islamic clothing.
-    - Muslim men should wear modest clothing.
-    - Use respectful Islamic atmosphere and visual context when relevant.
-    - Never depict Allah or Islamic prophets.
-    - Represent prophets or sacred figures only through respectful symbolic environmental storytelling, without depicting their bodies or faces.
-    
+
+    If a woman appears, portray her wearing a modest
+    Islamic hijab covering her hair and neck,
+    with modest loose Islamic clothing.
+
+    Muslim men should wear modest clothing.
+
+    Use respectful Islamic atmosphere and visual context.
+
     STRICT RELIGIOUS RESTRICTIONS:
-    
-    - No Jesus.
-    - No crosses.
-    - No crucifixes.
-    - No churches.
-    - No Christian iconography.
-    - No unrelated religious symbols.
-    
-    CINEMATIC IMAGE QUALITY:
-    
-    - Professional cinematic photorealistic photography.
-    - Vertical 9:16 composition.
-    - Highly detailed realistic environments.
-    - Dramatic but natural cinematic lighting.
-    - Realistic shadows and depth.
-    - Natural colors and realistic textures.
-    - Professional film production quality.
-    - Strong visual composition.
-    - Realistic perspective and camera framing.
-    
-    COMPOSITION:
-    
-    - Main subject and important activities should be clearly visible.
-    - Use a medium shot or wide shot when necessary to show the complete activity.
-    - Avoid unnecessary close-up portraits.
-    - Keep the bottom 35-40 percent relatively dark and uncluttered for headline placement.
-    - Do not crop important people, objects, or actions.
-    
-    STRICT FINAL REQUIREMENTS:
-    
-    - Depict the actual situation, not just its emotional atmosphere.
-    - Actions and events are more important than facial expressions.
-    - The image must tell a clear visual story.
-    - No text.
-    - No captions.
-    - No logos.
-    - No watermarks.
+
+    No Jesus.
+    No crosses.
+    No crucifixes.
+    No churches.
+    No Christian iconography.
+    No unrelated religious symbols.
+
+    Never depict Allah or Islamic prophets.
+
+    No text, captions, logos, or watermarks.
+
+    IMPORTANT:
+
+    Follow the actual scene description.
+    Do not replace people with landscapes.
+    Do not generate empty nature scenery unless
+    the description specifically requests it.
   `;
 
   const response = await fetch(endpoint, {

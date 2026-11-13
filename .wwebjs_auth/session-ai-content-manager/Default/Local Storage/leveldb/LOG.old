@@ -1,3 +1,6 @@
-2026/11/13-14:49:22.417 220d Reusing MANIFEST /data/data/com.termux/files/home/project/remotion-shorts-automation/.wwebjs_auth/session-ai-content-manager/Default/Local Storage/leveldb/MANIFEST-000001
-2026/11/13-14:49:22.418 220d Recovering log #10
-2026/11/13-14:49:22.418 220d Reusing old log /data/data/com.termux/files/home/project/remotion-shorts-automation/.wwebjs_auth/session-ai-content-manager/Default/Local Storage/leveldb/000010.log 
+2026/11/13-15:59:12.443 8e6 Reusing MANIFEST /data/data/com.termux/files/home/project/remotion-shorts-automation/.wwebjs_auth/session-ai-content-manager/Default/Local Storage/leveldb/MANIFEST-000001
+2026/11/13-15:59:12.446 8e6 Recovering log #10
+2026/11/13-15:59:12.448 8e6 Reusing old log /data/data/com.termux/files/home/project/remotion-shorts-automation/.wwebjs_auth/session-ai-content-manager/Default/Local Storage/leveldb/000010.log 
+2026/11/13-18:46:58.110 92e Level-0 table #14: started
+2026/11/13-18:46:58.120 92e Level-0 table #14: 14958 bytes OK
+2026/11/13-18:46:58.132 92e Delete type=0 #10
