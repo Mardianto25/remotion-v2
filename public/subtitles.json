@@ -1,163 +1,74 @@
 [
   {
     "start": 0,
-    "end": 3.8,
-    "text": "Lihat mata Anda di cermin yang penuh dengan dosa.",
-    "keyword": "dusty mirror reflection",
-    "image": "images/scene-001-1794556722358-2694.jpg"
+    "end": 4.5,
+    "text": "Setelah menikah, kalau lu lebih nyaman di rumah daripada pergi sama teman, itu sakinah.",
+    "keyword": "Muslim married couple relaxing at home",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim couple relaxing comfortably together inside a cozy living room, warm lighting, modest Islamic clothing, hijab-wearing wife smiling at her husband, vertical 9:16 composition.",
+    "image": "images/scene-001-1794560412976-9717.png"
   },
   {
-    "start": 4.1,
-    "end": 6.8,
-    "text": "Tatap wajah Anda yang penuh dengan dosa.",
-    "keyword": "shadowy silhouette",
-    "image": "images/scene-002-1794556723658-9962.jpg"
+    "start": 4.5,
+    "end": 7.5,
+    "text": "Kalau lu dan pasangan lu saling pengen bahagiain, enggak mau lepas, itu mawaddah.",
+    "keyword": "Muslim couple sharing happy moment",
+    "imagePrompt": "A cinematic photorealistic scene of a loving Muslim couple sharing a warm, affectionate moment, holding hands and smiling deeply, modest Islamic clothing, hijab, soft indoor lighting, vertical 9:16 composition.",
+    "image": "images/scene-002-1794560414790-8029.png"
   },
   {
-    "start": 7,
-    "end": 9.2,
-    "text": "Tatap lisan kita yang banyak maksiat.",
-    "keyword": "silent locked door",
-    "image": "images/scene-003-1794556724503-6989.jpg"
+    "start": 7.5,
+    "end": 14.5,
+    "text": "Kalau lu merasa dicintai, diterima, dihargai apa adanya, saling melengkapi pas ada kurang, saling maafin pas ada salah, itu rahmah.",
+    "keyword": "Muslim couple comforting each other",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim husband gently comforting his hijab-wearing wife with a compassionate smile, expressing deep understanding and emotional support, warm home interior, vertical 9:16 composition.",
+    "image": "images/scene-003-1794560416309-882.png"
   },
   {
-    "start": 9.4,
-    "end": 11.5,
-    "text": "Tatap tangan kita yang pernah berbuat buruk.",
-    "keyword": "dark old hands",
-    "image": "images/scene-004-1794556725598-9736.jpg"
+    "start": 14.5,
+    "end": 18,
+    "text": "Kalau lu punya ketiganya, lu udah dapat pernikahan yang paling mahal.",
+    "keyword": "happy Muslim family smiling",
+    "imagePrompt": "A cinematic photorealistic portrait of a happy Muslim family smiling together, father and mother in modest Islamic clothing with hijab, peaceful and joyous atmosphere, warm golden hour lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1794560417893-3277.png"
   },
   {
-    "start": 11.5,
-    "end": 13.7,
-    "text": "Tatap kaki kita yang melangkah pada maksiat.",
-    "keyword": "dusty path winding",
-    "image": "images/scene-005-1794556726687-9829.jpg"
+    "start": 18,
+    "end": 20.5,
+    "text": "Banyak yang nikah tapi enggak dapat tiga hal ini.",
+    "keyword": "sad Muslim couple sitting apart",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim husband and his hijab-wearing wife sitting on opposite sides of a couch, looking sad and disconnected, emotional distance, dim lighting, vertical 9:16 composition.",
+    "image": "images/scene-005-1794560419387-3120.png"
   },
   {
-    "start": 13.7,
-    "end": 15.9,
-    "text": "Apakah layak antum menjadi ahli surga?",
-    "keyword": "closed golden gate",
-    "image": "images/scene-006-1794556727688-3432.jpg"
+    "start": 20.5,
+    "end": 23.5,
+    "text": "Nikah tapi enggak betah di rumah, itu enggak ada sakinahnya.",
+    "keyword": "stressed Muslim man leaving house",
+    "imagePrompt": "A cinematic photorealistic scene of a stressed Muslim man opening the front door to leave his home, looking frustrated, while his hijab-wearing wife watches sadly from a distance, vertical 9:16 composition.",
+    "image": "images/scene-006-1794560421849-2764.png"
   },
   {
-    "start": 17.1,
-    "end": 20.3,
-    "text": "Kenapa Anda begitu ringan meminta kepada Allah Firdaus?",
-    "keyword": "distant bright light",
-    "image": "images/scene-007-1794556728737-2020.jpg"
+    "start": 23.5,
+    "end": 28,
+    "text": "Nikah tapi pengennya menang sendiri, enggak pengen bahagiain pasangan, itu enggak ada mawaddahnya.",
+    "keyword": "argumentative Muslim couple",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim husband and wife having a tense disagreement, looking away from each other in stubbornness, modest clothing, indoor setting, dramatic shadows, vertical 9:16 composition.",
+    "image": "images/scene-007-1794560423839-5801.png"
   },
   {
-    "start": 20.3,
-    "end": 22.8,
-    "text": "Sementara Anda tidak buktikan dengan ikhtiar.",
-    "keyword": "open empty road",
-    "image": "images/scene-008-1794556729711-5171.jpg"
+    "start": 28,
+    "end": 32.5,
+    "text": "Nikah tapi enggak bisa memaafkan, dikit-dikit ngungkit salah, itu enggak ada rahmahnya.",
+    "keyword": "angry Muslim couple arguing",
+    "imagePrompt": "A cinematic photorealistic close-up of a frustrated Muslim husband and his hijab-wearing wife arguing indoors, intense facial expressions, emotional distress, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-008-1794560427770-893.png"
   },
   {
-    "start": 23.4,
-    "end": 25.5,
-    "text": "Dan itu baru Anda, belum anak kanda.",
-    "keyword": "lonely tree in field",
-    "image": "images/scene-009-1794556730679-5271.jpg"
-  },
-  {
-    "start": 25.5,
-    "end": 30.8,
-    "text": "Apa Anda rida masuk surga sementara anak-anak Anda berteriak masuk neraka? Tolong saya, tolong saya.",
-    "keyword": "dark stormy ocean",
-    "image": "images/scene-010-1794556731649-6645.jpg"
-  },
-  {
-    "start": 31,
-    "end": 41.5,
-    "text": "Yawmal yafirru almarru min akhihi wa ummihi wa abihi wa sohibatihi wa bani, likulli imriin minhum yawma-idin sha-n yughnuh.",
-    "keyword": "glowing holy book",
-    "image": "images/scene-011-1794556732621-8829.jpg"
-  },
-  {
-    "start": 42.1,
-    "end": 44.9,
-    "text": "Maka ketika di akhirat nanti masa semua orang setengah peduli, pengin saya, saya, saya.",
-    "keyword": "burning fire sparks",
-    "image": "images/scene-012-1794556733761-188.jpg"
-  },
-  {
-    "start": 46.2,
-    "end": 47.9,
-    "text": "Lupa dengan anak,",
-    "keyword": "foggy autumn forest",
-    "image": "images/scene-013-1794556735476-6767.jpg"
-  },
-  {
-    "start": 48,
-    "end": 49,
-    "text": "lupa dengan suami,",
-    "keyword": "stormy sea waves",
-    "image": "images/scene-014-1794556736393-5591.jpg"
-  },
-  {
-    "start": 49.1,
-    "end": 50.1,
-    "text": "lupa dengan istri,",
-    "keyword": "dark empty hallway",
-    "image": "images/scene-015-1794556737321-3394.jpg"
-  },
-  {
-    "start": 50.1,
-    "end": 51.1,
-    "text": "lupa dengan ibu,",
-    "keyword": "fading sunset light",
-    "image": "images/scene-016-1794556738236-4603.jpg"
-  },
-  {
-    "start": 51.1,
-    "end": 52.3,
-    "text": "lupa dengan ayah.",
-    "keyword": "cold winter mountain",
-    "image": "images/scene-017-1794556739254-8759.jpg"
-  },
-  {
-    "start": 52.9,
-    "end": 57,
-    "text": "Dan mereka teriak minta tolong, tolong saya, tolong saya, apa yang Anda bisa kerjakan?",
-    "keyword": "crashing ocean waves",
-    "image": "images/scene-018-1794556740223-5580.png"
-  },
-  {
-    "start": 58.6,
-    "end": 59.9,
-    "text": "Karena itu dia nggak usaha.",
-    "keyword": "closed iron door",
-    "image": "images/scene-019-1794556752133-3946.jpg"
-  },
-  {
-    "start": 60.9,
-    "end": 62.4,
-    "text": "Ayo berubah!",
-    "keyword": "bright sunrise horizon",
-    "image": "images/scene-020-1794556755381-7407.jpg"
-  },
-  {
-    "start": 62.9,
-    "end": 64.6,
-    "text": "Kenapa yang anak kumpulin itu dunia?",
-    "keyword": "piles of old coins",
-    "image": "images/scene-021-1794556756306-6887.jpg"
-  },
-  {
-    "start": 65.5,
-    "end": 67.5,
-    "text": "Dunia itu mudah, kecil.",
-    "keyword": "small green leaf",
-    "image": "images/scene-022-1794556757443-7323.jpg"
-  },
-  {
-    "start": 67.9,
-    "end": 72.1,
-    "text": "Kalau ada nilainya hanya sebesar sayap nyamuk saja, Allah nggak akan berikan kepada orang yang nggak beriman.",
-    "keyword": "empty desert sand",
-    "image": "images/scene-023-1794556758492-2216.jpg"
+    "start": 32.5,
+    "end": 37.5,
+    "text": "Nikah itu bukan cuma soal sah, tapi soal lu merasa tenang kalau di rumah, merasa dicintai dan saling memilih.",
+    "keyword": "peaceful Muslim couple at home",
+    "imagePrompt": "A cinematic photorealistic scene of a peaceful Muslim couple sitting together on a living room couch, reading and smiling warmly at each other, modest Islamic attire, hijab, serene atmosphere, vertical 9:16 composition.",
+    "image": "images/scene-009-1794560429229-3130.png"
   }
 ]
