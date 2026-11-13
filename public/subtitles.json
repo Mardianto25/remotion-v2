@@ -1,18 +1,58 @@
 [
   {
     "start": 0,
-    "end": 3,
-    "text": "Orang yang sedang memperbaiki shalatnya,",
-    "keyword": "Muslim man praying focus",
-    "imagePrompt": "A cinematic photorealistic scene of a focused Muslim man performing salah on a prayer rug in a serene room, modest clothing, soft dramatic lighting, vertical 9:16 composition.",
-    "image": "images/scene-001-1794577579437-4882.png"
+    "end": 5.918,
+    "text": "Reminder today is membuat langit tanpa tiang saja Allah mampu.",
+    "keyword": "vast open sky",
+    "imagePrompt": "A cinematic photorealistic scene of a vast open sky with intricate swirling clouds, dramatic golden hour lighting, no pillars or structures, vertical 9:16 composition.",
+    "image": "images/scene-001-1794578495338-5755.png"
   },
   {
-    "start": 3,
-    "end": 7,
-    "text": "hakikatnya dia juga sedang memperbaiki jalan hidupnya.",
-    "keyword": "person walking forward light",
-    "imagePrompt": "A cinematic photorealistic scene of a person walking forward along a peaceful pathway illuminated by warm morning light, hopeful atmosphere, modest clothing, vertical 9:16 composition.",
-    "image": "images/scene-002-1794577581403-7718.png"
+    "start": 5.918,
+    "end": 9.458,
+    "text": "Mengubah siang menjadi malam saja Allah mampu.",
+    "keyword": "day turning into night",
+    "imagePrompt": "A cinematic photorealistic scene of a sky transitioning from bright daylight to a deep starry night, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-002-1794578499247-6164.png"
+  },
+  {
+    "start": 9.458,
+    "end": 12.598,
+    "text": "Apalagi hanya mengubah nasibmu menjadi lebih baik.",
+    "keyword": "person praying with hope",
+    "imagePrompt": "A cinematic photorealistic close-up of a hopeful person praying with hands raised, soft hopeful lighting, emotional expression, vertical 9:16 composition.",
+    "image": "images/scene-003-1794578503621-7805.png"
+  },
+  {
+    "start": 12.598,
+    "end": 16.278,
+    "text": "Yakin dan berprasangka baiklah kepada Allah.",
+    "keyword": "person trusting god",
+    "imagePrompt": "A cinematic photorealistic portrait of a peaceful person looking upward with a serene and trusting expression, warm gentle lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1794578505930-6106.png"
+  },
+  {
+    "start": 16.278,
+    "end": 22.428,
+    "text": "Ana baina zoni abbibi, aku bersama persangka hambaku kepadaku.",
+    "keyword": "muslim praying sincerely",
+    "imagePrompt": "A cinematic photorealistic scene of a devoted Muslim in sincere prayer, modest clothing, serene facial expression, soft atmospheric lighting, vertical 9:16 composition.",
+    "image": "images/scene-005-1794578508168-9504.png"
+  },
+  {
+    "start": 22.428,
+    "end": 29.568,
+    "text": "Karena innama amruhu irodan an yaku lahu kun fayakun.",
+    "keyword": "divine light creation",
+    "imagePrompt": "A cinematic photorealistic abstract scene of powerful radiant light emerging from darkness, symbolizing divine will and creation, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-006-1794578509926-5883.png"
+  },
+  {
+    "start": 29.568,
+    "end": 37.198,
+    "text": "Ketika Allah sudah menghendaki, maka tak ada satupun yang mampu menghalangi. Barakallahu fik.",
+    "keyword": "blessed peaceful moment",
+    "imagePrompt": "A cinematic photorealistic scene of a peaceful person receiving blessings with a grateful smile, soft divine lighting, vertical 9:16 composition.",
+    "image": "images/scene-007-1794578512491-7753.png"
   }
 ]
