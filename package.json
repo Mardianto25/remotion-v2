@@ -10,15 +10,18 @@
     "generate:thumbnail": "node scripts/thumbnail.js"
   },
   "dependencies": {
+    "@composio/core": "^0.29.0",
     "@google/genai": "^2.32.0",
     "@remotion/cli": "^4.0.539",
     "dotenv": "^16.6.1",
     "express": "^4.22.3",
     "multer": "^1.4.5-lts.2",
+    "qrcode-terminal": "^0.12.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remotion": "^4.0.539",
     "sharp": "^0.35.5",
+    "whatsapp-web.js": "^1.34.7",
     "yt-dlp-wrap": "^2.3.12"
   }
 }

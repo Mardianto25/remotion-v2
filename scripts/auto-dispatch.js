@@ -91,10 +91,12 @@ async function runAutoDispatcher() {
     console.log('✅ Audio berhasil disimpan di public/audio.mp3');
 
     console.log('🚀 Menjalankan executePipeline...');
-    const result = await executePipeline(true, null);
-
+    const result = await executePipeline(true);
+    
     console.log('🎉 Selesai!');
     console.log('📌 Status:', result.gitStatus);
+
+    return res.json(result);
 
   } catch (error) {
     console.error('❌ Error Auto-Dispatcher:', error.message);

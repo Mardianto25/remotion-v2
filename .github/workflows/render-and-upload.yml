@@ -41,16 +41,16 @@ jobs:
           THUMBNAIL_SOURCE: auto
         run: npm run generate:thumbnail
 
-      - name: 7. Generate Metadata & Upload to YouTube
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: gemini-3.5-flash-lite
-          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
-          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
-          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-        run: npm run upload
+      # - name: 7. Generate Metadata & Upload to YouTube
+      #   env:
+      #     GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      #     GEMINI_MODEL: gemini-3.5-flash-lite
+      #     YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      #     YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      #     YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+      #   run: npm run upload
 
-      - name: 8. Simpan Video Hasil Render sebagai Artifact
+      - name: 7. Simpan Video Hasil Render sebagai Artifact
         uses: actions/upload-artifact@v4
         with:
           name: rendered-shorts-video
