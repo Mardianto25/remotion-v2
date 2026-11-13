@@ -17,39 +17,50 @@ export const ShortsVideo = ({ subtitles = [] }) => {
   const { fps } = useVideoConfig();
 
   const currentTime = frame / fps;
+  const fadeDuration = 0.45;
 
-  // ACTIVE SCENE
+  // Cari scene yang sedang aktif
   const activeIndex = subtitles.findIndex(
     (s) => currentTime >= s.start && currentTime < s.end
   );
 
-  const safeIndex = activeIndex >= 0
-    ? activeIndex
-    : subtitles.length > 0
-      ? currentTime < subtitles[0].start
-        ? 0
-        : subtitles.length - 1
-      : -1;
+  // Cari scene terakhir yang sudah dimulai.
+  // Ini menjaga gambar tetap tampil saat jeda antar-subtitle.
+  let sceneIndex = -1;
 
-  const activeSegment = safeIndex >= 0
-    ? subtitles[safeIndex]
-    : { text: '', image: '', start: 0, end: 5 };
+  for (let i = 0; i < subtitles.length; i++) {
+    if (currentTime >= subtitles[i].start) {
+      sceneIndex = i;
+    } else {
+      break;
+    }
+  }
 
-  // TIMING
-  const segmentDurationFrames = Math.max(
-    (activeSegment.end - activeSegment.start) * fps,
-    1
-  );
+  const activeSegment = sceneIndex >= 0
+    ? subtitles[sceneIndex]
+    : subtitles[0];
 
+  if (!activeSegment) {
+    return (
+      <AbsoluteFill style={{ backgroundColor: '#111' }}>
+        <Audio src={staticFile('audio.mp3')} />
+      </AbsoluteFill>
+    );
+  }
+
+  // Durasi scene
   const frameInSegment = Math.max(
-    frame - activeSegment.start * fps,
-    0
+    0,
+    frame - activeSegment.start * fps
   );
 
-  // KEN BURNS
-  const isEvenIndex = safeIndex % 2 === 0;
+  const segmentDurationFrames = Math.max(
+    1,
+    (activeSegment.end - activeSegment.start) * fps
+  );
 
-  const scale = isEvenIndex
+  // Ken Burns
+  const scale = sceneIndex % 2 === 0
     ? interpolate(
         frameInSegment,
         [0, segmentDurationFrames],
@@ -63,42 +74,7 @@ export const ShortsVideo = ({ subtitles = [] }) => {
         { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
       );
 
-  // CROSSFADE
-  const fadeDuration = Math.max(Math.round(fps * 0.45), 1);
-
-  const imageOpacity = interpolate(
-    frameInSegment,
-    [0, fadeDuration],
-    [0, 1],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-  );
-
-  // SUBTITLE ANIMATION
-  const textSpring = spring({
-    frame: frameInSegment,
-    fps,
-    config: {
-      damping: 14,
-      mass: 0.6,
-      stiffness: 120
-    }
-  });
-
-  const textOpacity = interpolate(
-    textSpring,
-    [0, 1],
-    [0, 1],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-  );
-
-  const textTranslateY = interpolate(
-    textSpring,
-    [0, 1],
-    [40, 0],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-  );
-
-  // IMAGE SOURCE
+  // Image source
   const getImageSrc = (segment) => {
     if (!segment?.image) return null;
 
@@ -107,21 +83,51 @@ export const ShortsVideo = ({ subtitles = [] }) => {
       : staticFile(segment.image);
   };
 
-  const currentImage = getImageSrc(activeSegment);
-
-  // PREVIOUS IMAGE
-  const previousSegment = safeIndex > 0
-    ? subtitles[safeIndex - 1]
+  // Scene sebelumnya dan sekarang
+  const previousSegment = sceneIndex > 0
+    ? subtitles[sceneIndex - 1]
     : null;
 
+  const currentImage = getImageSrc(activeSegment);
   const previousImage = getImageSrc(previousSegment);
 
-  // RENDER
+  // Transisi hanya di awal scene baru
+  const transitionProgress = interpolate(
+    frameInSegment,
+    [0, Math.max(1, fadeDuration * fps)],
+    [0, 1],
+    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+  );
+
+  // Subtitle hanya tampil ketika berada dalam rentang waktunya
+  const hasActiveSubtitle = activeIndex >= 0;
+
+  const textFrame = hasActiveSubtitle
+    ? Math.max(0, frame - activeSegment.start * fps)
+    : 0;
+
+  const textSpring = spring({
+    frame: textFrame,
+    fps,
+    config: {
+      damping: 14,
+      mass: 0.6,
+      stiffness: 120
+    }
+  });
+
+  const textTranslateY = interpolate(
+    textSpring,
+    [0, 1],
+    [40, 0],
+    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+  );
+
   return (
     <AbsoluteFill style={{ backgroundColor: '#111' }}>
 
-      {/* PREVIOUS IMAGE - BASE LAYER */}
-      {previousImage && frameInSegment < fadeDuration && (
+      {/* GAMBAR SEBELUMNYA */}
+      {previousImage && frameInSegment < fadeDuration * fps && (
         <AbsoluteFill style={{ overflow: 'hidden' }}>
           <Img
             src={previousImage}
@@ -129,13 +135,13 @@ export const ShortsVideo = ({ subtitles = [] }) => {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              transform: 'scale(1.08)'
+              opacity: 1 - transitionProgress
             }}
           />
         </AbsoluteFill>
       )}
 
-      {/* CURRENT IMAGE - CROSSFADE LAYER */}
+      {/* GAMBAR SEKARANG */}
       {currentImage && (
         <AbsoluteFill style={{ overflow: 'hidden' }}>
           <Img
@@ -145,15 +151,13 @@ export const ShortsVideo = ({ subtitles = [] }) => {
               height: '100%',
               objectFit: 'cover',
               transform: `scale(${scale})`,
-              opacity: previousImage
-                ? imageOpacity
-                : 1
+              opacity: previousImage ? transitionProgress : 1
             }}
           />
         </AbsoluteFill>
       )}
 
-      {/* DARK GRADIENT */}
+      {/* GRADIENT */}
       <AbsoluteFill
         style={{
           background:
@@ -162,34 +166,35 @@ export const ShortsVideo = ({ subtitles = [] }) => {
       />
 
       {/* SUBTITLE */}
-      <AbsoluteFill
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '0 60px',
-          textAlign: 'center'
-        }}
-      >
-        <div
+      {hasActiveSubtitle && (
+        <AbsoluteFill
           style={{
-            color: '#ffffff',
-            fontSize: 52,
-            fontWeight: 800,
-            fontFamily: 'system-ui, sans-serif',
-            lineHeight: 1.35,
-            opacity: textOpacity,
-            transform: `translateY(${textTranslateY}px)`,
-            textShadow:
-              '3px 3px 12px rgba(0,0,0,0.95), 0 0 25px rgba(0,0,0,0.8)',
-            padding: '0 15px',
-            maxWidth: '90%'
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '0 60px',
+            textAlign: 'center'
           }}
         >
-          {activeSegment.text}
-        </div>
-      </AbsoluteFill>
+          <div
+            style={{
+              color: '#fff',
+              fontSize: 52,
+              fontWeight: 800,
+              fontFamily: 'system-ui, sans-serif',
+              lineHeight: 1.35,
+              opacity: textSpring,
+              transform: `translateY(${textTranslateY}px)`,
+              textShadow:
+                '3px 3px 12px rgba(0,0,0,0.95), 0 0 25px rgba(0,0,0,0.8)',
+              padding: '0 15px',
+              maxWidth: '90%'
+            }}
+          >
+            {activeSegment.text}
+          </div>
+        </AbsoluteFill>
+      )}
 
-      {/* AUDIO */}
       <Audio src={staticFile('audio.mp3')} />
 
     </AbsoluteFill>
