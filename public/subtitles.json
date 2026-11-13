@@ -1,79 +1,163 @@
 [
   {
     "start": 0,
-    "end": 4.5,
-    "text": "Anda sudah minta motor, sepeda aja belum bisa membawa Anda ke masjid.",
-    "keyword": "mosque courtyard",
-    "image": "https://pixabay.com/get/g79e9d646f6624221484fb2c147ab9dd6af9abca905c7fa05cd9975083d6f209b68efc448ae49975704fad0deb2e497f3abbdaf3972865d6e05526a4f7b1a46b6_1280.jpg"
+    "end": 3.8,
+    "text": "Lihat mata Anda di cermin yang penuh dengan dosa.",
+    "keyword": "dusty mirror reflection",
+    "image": "images/scene-001-1794556722358-2694.jpg"
   },
   {
-    "start": 5.5,
-    "end": 10,
-    "text": "Ya Allah aku pengen motor. Kamu ini gimana, minta motor? Beban kamu akan berat.",
-    "keyword": "misty mountain",
-    "image": "https://pixabay.com/get/gc5b7d06194c09fe5b51a32cd924b3f3e523aa90950e58a127bf3fb6072735e3c8ca4eaf06fc78dac2e99403e045ebf7b90d7a10d9d57809bdb8aea543ea5faa4_1280.jpg"
+    "start": 4.1,
+    "end": 6.8,
+    "text": "Tatap wajah Anda yang penuh dengan dosa.",
+    "keyword": "shadowy silhouette",
+    "image": "images/scene-002-1794556723658-9962.jpg"
   },
   {
-    "start": 10,
-    "end": 13.5,
-    "text": "Sepeda aja belum mampu mengantarkan kau ke masjid.",
-    "keyword": "minaret",
-    "image": "https://pixabay.com/get/gbeaabdaeeadfd963d8f99dba8e4c3b5ff85c5614adc18efb4b9573784794ad5700c0cac0b7966762edc0d8748a14985a243a4313fec6df8438deb2d75e94c942_1280.jpg"
+    "start": 7,
+    "end": 9.2,
+    "text": "Tatap lisan kita yang banyak maksiat.",
+    "keyword": "silent locked door",
+    "image": "images/scene-003-1794556724503-6989.jpg"
   },
   {
-    "start": 13.5,
-    "end": 21.5,
-    "text": "Itu si fulan, sepeda dia enggak punya, motor enggak pernah mimpi, mobil enggak pernah berharap, kakinya bisa dipakai mengantarkan dia ke masjid.",
-    "keyword": "ancient stone path",
-    "image": "https://pixabay.com/get/gbefd1ab6004d8dfd446e07833c2bc49f44a60da6be08a357acce7b8afbb4abd2f2fa8817b59e955138d4764a2897e7936871d320a03bb86782544a684401a64e_1280.jpg"
+    "start": 9.4,
+    "end": 11.5,
+    "text": "Tatap tangan kita yang pernah berbuat buruk.",
+    "keyword": "dark old hands",
+    "image": "images/scene-004-1794556725598-9736.jpg"
   },
   {
-    "start": 21.5,
-    "end": 26,
-    "text": "Jarak dia ke masjid dua kilo, kamu cuman 20 meter ke masjid.",
-    "keyword": "grand mosque exterior",
-    "image": "https://pixabay.com/get/g4b965120857bbc2d6886c8a0bddef19e9dfc95b2560ad9221c48ec2ff4792603503c5620ebd46acebd9ce525d31ebff60a81d483215c306d8173941feac07cc1_1280.jpg"
+    "start": 11.5,
+    "end": 13.7,
+    "text": "Tatap kaki kita yang melangkah pada maksiat.",
+    "keyword": "dusty path winding",
+    "image": "images/scene-005-1794556726687-9829.jpg"
   },
   {
-    "start": 26,
-    "end": 33,
-    "text": "Sepeda sudah Saya berikan, motor sudah Saya limpahkan, mobil Saya anugerahkan mereknya bermacam-macam, belum mengantarkan kau juga.",
-    "keyword": "majestic mosque dome",
-    "image": "https://pixabay.com/get/g0a09f2eadd3327126751253dc84cde76958a0ddafd7a9f8872c8d2b31af6aa39a508f8ca1dc0c2b83a6dfcfe41e909bb0fb18552b362b65d29485134dbbcce35_1280.jpg"
+    "start": 13.7,
+    "end": 15.9,
+    "text": "Apakah layak antum menjadi ahli surga?",
+    "keyword": "closed golden gate",
+    "image": "images/scene-006-1794556727688-3432.jpg"
   },
   {
-    "start": 33,
-    "end": 37.5,
-    "text": "Maka nikmat apa lagi yang harus Aku berikan kepadamu supaya engkau mau berangkat ke masjid itu?",
-    "keyword": "sunset sky",
-    "image": "https://pixabay.com/get/gaab7b25aa8a2a12ccf575d78c73355b1febf85570065889156f6b19f5213e6120dd5976745fd26292e1a3c6631835fb6b5177995f20911cb550c35f34daa06c9_1280.jpg"
+    "start": 17.1,
+    "end": 20.3,
+    "text": "Kenapa Anda begitu ringan meminta kepada Allah Firdaus?",
+    "keyword": "distant bright light",
+    "image": "images/scene-007-1794556728737-2020.jpg"
   },
   {
-    "start": 37.5,
+    "start": 20.3,
+    "end": 22.8,
+    "text": "Sementara Anda tidak buktikan dengan ikhtiar.",
+    "keyword": "open empty road",
+    "image": "images/scene-008-1794556729711-5171.jpg"
+  },
+  {
+    "start": 23.4,
+    "end": 25.5,
+    "text": "Dan itu baru Anda, belum anak kanda.",
+    "keyword": "lonely tree in field",
+    "image": "images/scene-009-1794556730679-5271.jpg"
+  },
+  {
+    "start": 25.5,
+    "end": 30.8,
+    "text": "Apa Anda rida masuk surga sementara anak-anak Anda berteriak masuk neraka? Tolong saya, tolong saya.",
+    "keyword": "dark stormy ocean",
+    "image": "images/scene-010-1794556731649-6645.jpg"
+  },
+  {
+    "start": 31,
     "end": 41.5,
-    "text": "Jikalau ada teman-teman mengatakan warzuqni, ini hati-hati ya.",
-    "keyword": "open quran",
-    "image": "https://pixabay.com/get/g3f44186eb4cae3515b4446bf6bd1745280dbc4691170b2366f514b4efab95411151f2a0a9437196b446cc3fc5ecb61f7d6379bfffae0d9fc13ca707619da82cd_1280.jpg"
+    "text": "Yawmal yafirru almarru min akhihi wa ummihi wa abihi wa sohibatihi wa bani, likulli imriin minhum yawma-idin sha-n yughnuh.",
+    "keyword": "glowing holy book",
+    "image": "images/scene-011-1794556732621-8829.jpg"
   },
   {
-    "start": 41.5,
+    "start": 42.1,
+    "end": 44.9,
+    "text": "Maka ketika di akhirat nanti masa semua orang setengah peduli, pengin saya, saya, saya.",
+    "keyword": "burning fire sparks",
+    "image": "images/scene-012-1794556733761-188.jpg"
+  },
+  {
+    "start": 46.2,
+    "end": 47.9,
+    "text": "Lupa dengan anak,",
+    "keyword": "foggy autumn forest",
+    "image": "images/scene-013-1794556735476-6767.jpg"
+  },
+  {
+    "start": 48,
     "end": 49,
-    "text": "Anda meminta dalam salat 'warzuqni' ya Allah berikan aku rezeki, dan sudah Allah limpahkan, tapi rezeki itu belum mampu mendekatkan Anda kepada Allah, maka mesti berhati-hati.",
-    "keyword": "peaceful islamic architecture",
-    "image": "https://pixabay.com/get/gb4accd6ab36d933e690007c2d9aedec97a6231b0a58bf8a6de139cc4913f1993798e83337d2a77df3a12cea572550cd7543e5877b6a3dbec401619d4c7ef92c0_1280.jpg"
+    "text": "lupa dengan suami,",
+    "keyword": "stormy sea waves",
+    "image": "images/scene-014-1794556736393-5591.jpg"
   },
   {
-    "start": 49,
-    "end": 53.5,
-    "text": "Jangan-jangan ada istidraj di dalamnya. Istidraj.",
-    "keyword": "dark stormy clouds",
-    "image": "https://pixabay.com/get/g70a2f5aacd04fb032e79149151f87b0cd8a1b5f3a6b648c45dcf64f95dadad64c49922dcc6835b04160ecdb6f5a5133c69731af26246780d88e9b8fa9fda91e0_1280.jpg"
+    "start": 49.1,
+    "end": 50.1,
+    "text": "lupa dengan istri,",
+    "keyword": "dark empty hallway",
+    "image": "images/scene-015-1794556737321-3394.jpg"
   },
   {
-    "start": 53.5,
-    "end": 59.8,
-    "text": "Limpahan-limpahan yang terasa nikmat, tapi di balik itu ada kumpulan azab yang sedang menunggu.",
-    "keyword": "dramatic desert sunset",
-    "image": "https://pixabay.com/get/gfaa3ecfb745c7ff941eab6c05dd51f91a066b73d628f6aedf7ec8bcf346dea7bfc6f1466b6e323cd03b03dba7a8483d193b7d1e5973728222d686fd081cb5f37_1280.jpg"
+    "start": 50.1,
+    "end": 51.1,
+    "text": "lupa dengan ibu,",
+    "keyword": "fading sunset light",
+    "image": "images/scene-016-1794556738236-4603.jpg"
+  },
+  {
+    "start": 51.1,
+    "end": 52.3,
+    "text": "lupa dengan ayah.",
+    "keyword": "cold winter mountain",
+    "image": "images/scene-017-1794556739254-8759.jpg"
+  },
+  {
+    "start": 52.9,
+    "end": 57,
+    "text": "Dan mereka teriak minta tolong, tolong saya, tolong saya, apa yang Anda bisa kerjakan?",
+    "keyword": "crashing ocean waves",
+    "image": "images/scene-018-1794556740223-5580.png"
+  },
+  {
+    "start": 58.6,
+    "end": 59.9,
+    "text": "Karena itu dia nggak usaha.",
+    "keyword": "closed iron door",
+    "image": "images/scene-019-1794556752133-3946.jpg"
+  },
+  {
+    "start": 60.9,
+    "end": 62.4,
+    "text": "Ayo berubah!",
+    "keyword": "bright sunrise horizon",
+    "image": "images/scene-020-1794556755381-7407.jpg"
+  },
+  {
+    "start": 62.9,
+    "end": 64.6,
+    "text": "Kenapa yang anak kumpulin itu dunia?",
+    "keyword": "piles of old coins",
+    "image": "images/scene-021-1794556756306-6887.jpg"
+  },
+  {
+    "start": 65.5,
+    "end": 67.5,
+    "text": "Dunia itu mudah, kecil.",
+    "keyword": "small green leaf",
+    "image": "images/scene-022-1794556757443-7323.jpg"
+  },
+  {
+    "start": 67.9,
+    "end": 72.1,
+    "text": "Kalau ada nilainya hanya sebesar sayap nyamuk saja, Allah nggak akan berikan kepada orang yang nggak beriman.",
+    "keyword": "empty desert sand",
+    "image": "images/scene-023-1794556758492-2216.jpg"
   }
 ]
