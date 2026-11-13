@@ -45,7 +45,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.static(publicDir));
 
 // ============================================================
-// FALLBACK PEXELS
+// PEXELS FALLBACK
 // ============================================================
 
 const PEXELS_FALLBACKS = [
@@ -88,6 +88,7 @@ async function downloadImage(imageUrl, filename) {
 
 // ============================================================
 // CLOUDFLARE FLUX IMAGE GENERATOR
+// PRIORITAS UTAMA
 // ============================================================
 
 async function generateFluxImage(prompt, filename) {
@@ -102,6 +103,47 @@ async function generateFluxImage(prompt, filename) {
     `https://api.cloudflare.com/client/v4/accounts/${accountId}` +
     '/ai/run/@cf/black-forest-labs/flux-1-schnell';
 
+  const visualRules = `
+    Cinematic photorealistic photography,
+    vertical 9:16 composition,
+    highly detailed realistic human expressions,
+    realistic human anatomy,
+    natural body proportions,
+    dramatic cinematic lighting,
+    realistic environment,
+    visually accurate representation of the described scene.
+
+    ISLAMIC VISUAL GUIDELINES:
+
+    If a woman appears, portray her wearing a modest
+    Islamic hijab covering her hair and neck,
+    with modest loose Islamic clothing.
+
+    Muslim men should wear modest clothing.
+
+    Use respectful Islamic atmosphere and visual context.
+
+    STRICT RELIGIOUS RESTRICTIONS:
+
+    No Jesus.
+    No crosses.
+    No crucifixes.
+    No churches.
+    No Christian iconography.
+    No unrelated religious symbols.
+
+    Never depict Allah or Islamic prophets.
+
+    No text, captions, logos, or watermarks.
+
+    IMPORTANT:
+
+    Follow the actual scene description.
+    Do not replace people with landscapes.
+    Do not generate empty nature scenery unless
+    the description specifically requests it.
+  `;
+
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -109,16 +151,7 @@ async function generateFluxImage(prompt, filename) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      prompt: [
-        prompt,
-        'cinematic photography',
-        'vertical 9:16 composition',
-        'realistic detailed environment',
-        'beautiful natural lighting',
-        'no people',
-        'no text',
-        'no watermark'
-      ].join(', '),
+      prompt: `${prompt}. ${visualRules}`,
       steps: 4
     })
   });
@@ -152,24 +185,52 @@ async function generateFluxImage(prompt, filename) {
 }
 
 // ============================================================
-// PIXABAY + FLUX + PEXELS FALLBACK
+// FLUX -> PIXABAY -> PEXELS FALLBACK
 // ============================================================
 
-async function fetchVerticalNatureImage(keyword, index) {
+async function fetchVerticalNatureImage(imagePrompt, keyword, index) {
   const timestamp = Date.now();
   const randomId = Math.floor(Math.random() * 10000);
 
-  const pixabayFilename =
-    `scene-${String(index + 1).padStart(3, '0')}-${timestamp}-${randomId}.jpg`;
+  const filename =
+    `scene-${String(index + 1).padStart(3, '0')}-${timestamp}-${randomId}`;
 
-  const fluxFilename =
-    `scene-${String(index + 1).padStart(3, '0')}-${timestamp}-${randomId}.png`;
+  const fluxFilename = `${filename}.png`;
+  const pixabayFilename = `${filename}.jpg`;
 
   const fallbackUrl =
     PEXELS_FALLBACKS[index % PEXELS_FALLBACKS.length];
 
   // ----------------------------------------------------------
-  // 1. PIXABAY
+  // 1. FLUX - PRIORITAS UTAMA
+  // ----------------------------------------------------------
+
+  if (
+    process.env.CF_ACCOUNT_ID &&
+    process.env.CF_API_TOKEN
+  ) {
+    try {
+      console.log(`[FLUX] Membuat gambar scene ${index + 1}`);
+      console.log(`[FLUX Prompt]: ${imagePrompt}`);
+
+      const imagePath = await generateFluxImage(
+        imagePrompt,
+        fluxFilename
+      );
+
+      console.log(`[FLUX] Berhasil: ${imagePath}`);
+
+      return imagePath;
+
+    } catch (error) {
+      console.error('[FLUX Error]:', error.message);
+    }
+  } else {
+    console.log('[FLUX] Credentials tidak tersedia.');
+  }
+
+  // ----------------------------------------------------------
+  // 2. PIXABAY - FALLBACK
   // ----------------------------------------------------------
 
   const apiKey = process.env.PIXABAY_API_KEY;
@@ -178,10 +239,7 @@ async function fetchVerticalNatureImage(keyword, index) {
     try {
       console.log(`[Pixabay] Mencari gambar: ${keyword}`);
 
-      const searchQuery =
-        `${keyword} landscape architecture scenery no people`;
-
-      const query = encodeURIComponent(searchQuery);
+      const query = encodeURIComponent(keyword);
 
       const url =
         `https://pixabay.com/api/?key=${apiKey}` +
@@ -198,28 +256,11 @@ async function fetchVerticalNatureImage(keyword, index) {
       }
 
       const data = await response.json();
+      const hits = data.hits || [];
 
-      const unsafeWords = [
-        'woman',
-        'girl',
-        'model',
-        'person',
-        'people',
-        'portrait'
-      ];
-
-      const safeHits = (data.hits || []).filter(hit => {
-        const tags = (hit.tags || '')
-          .toLowerCase()
-          .split(',')
-          .map(tag => tag.trim());
-
-        return !unsafeWords.some(word => tags.includes(word));
-      });
-
-      if (safeHits.length > 0) {
+      if (hits.length > 0) {
         const selected =
-          safeHits[Math.floor(Math.random() * safeHits.length)];
+          hits[Math.floor(Math.random() * hits.length)];
 
         const imageUrl =
           selected.largeImageURL || selected.webformatURL;
@@ -234,7 +275,7 @@ async function fetchVerticalNatureImage(keyword, index) {
         return imagePath;
       }
 
-      console.log('[Pixabay] Tidak menemukan gambar yang sesuai.');
+      console.log('[Pixabay] Tidak menemukan gambar.');
 
     } catch (error) {
       console.warn('[Pixabay Warning]:', error.message);
@@ -244,39 +285,7 @@ async function fetchVerticalNatureImage(keyword, index) {
   }
 
   // ----------------------------------------------------------
-  // 2. CLOUDFLARE FLUX
-  // ----------------------------------------------------------
-
-  if (
-    process.env.CF_ACCOUNT_ID &&
-    process.env.CF_API_TOKEN
-  ) {
-    try {
-      console.log(`[FLUX] Membuat gambar: ${keyword}`);
-
-      const prompt =
-        `A beautiful peaceful cinematic scene representing ${keyword}, ` +
-        'Islamic inspirational atmosphere, realistic photography, ' +
-        'high detail, natural composition';
-
-      const imagePath = await generateFluxImage(
-        prompt,
-        fluxFilename
-      );
-
-      console.log(`[FLUX] Berhasil: ${imagePath}`);
-
-      return imagePath;
-
-    } catch (error) {
-      console.error('[FLUX Error]:', error.message);
-    }
-  } else {
-    console.log('[FLUX] Credentials tidak tersedia.');
-  }
-
-  // ----------------------------------------------------------
-  // 3. PEXELS FALLBACK
+  // 3. PEXELS - FALLBACK TERAKHIR
   // ----------------------------------------------------------
 
   console.log(`[Pexels] Menggunakan fallback untuk: ${keyword}`);
@@ -300,43 +309,140 @@ export async function executePipeline(autoPushGit = true) {
     .toString('base64');
 
   const prompt = `
-    Dengarkan berkas audio ini dengan saksama.
+    Dengarkan audio ini dengan saksama.
 
-    Ini adalah konten bertema renungan dan motivasi Islami.
+    Konten merupakan renungan dan motivasi Islami.
 
-    Tugas Anda:
+    TUGAS:
 
-    1. Pecah isi audio menjadi per kalimat secara berurutan.
-    2. Tentukan waktu mulai (start) dan selesai (end) setiap kalimat
-       dalam satuan detik.
-    3. Buat satu keyword visual dalam bahasa Inggris yang spesifik
-       sesuai dengan makna kalimat.
-    4. Keyword harus menggambarkan objek, pemandangan, atau suasana
-       yang relevan dengan kalimat.
-    5. Hindari manusia, wanita, potret, dan figur manusia.
-    6. Gunakan visual seperti masjid, Al-Quran, cahaya matahari,
-       gunung, laut, hutan, langit, bintang, hujan, jalan,
-       arsitektur Islam, dan pemandangan alam.
+    Bagi audio menjadi beberapa scene berdasarkan perubahan
+    makna kalimat. Setiap scene memiliki satu gambar yang
+    menggambarkan isi narasi secara langsung.
 
-    Contoh:
-    Kalimat: Jangan pernah menyerah dalam berdoa kepada Allah.
-    Keyword: peaceful mosque at sunrise
+    HASILKAN FIELD:
 
-    Kalimat: Allah selalu memberikan jalan bagi hamba-Nya.
-    Keyword: beautiful mountain sunrise landscape
+    1. start: waktu mulai dalam detik.
+    2. end: waktu selesai dalam detik.
+    3. text: transkrip asli sesuai audio.
+    4. keyword: keyword singkat dalam bahasa Inggris untuk Pixabay.
+    5. imagePrompt: deskripsi visual detail dalam bahasa Inggris
+       untuk AI image generator FLUX.
 
-    Kalimat: Jangan takut menghadapi masa depan.
-    Keyword: golden sunlight through forest
+    ATURAN IMAGE PROMPT:
 
-    Kembalikan HANYA JSON Array murni tanpa markdown.
+    - Visual harus sesuai dengan makna kalimat,
+      bukan sekadar suasana atau pemandangan umum.
+    - Utamakan manusia, ekspresi, aktivitas,
+      hubungan keluarga, dan objek yang disebutkan.
+    - Jika menyebut anak, gambarkan anak.
+    - Jika menyebut ibu atau ayah, gambarkan orang tua.
+    - Jika menyebut suami dan istri, gambarkan pasangan.
+    - Jika menyebut perempuan Muslim, gambarkan perempuan
+      menggunakan hijab yang menutup rambut dan leher
+      serta pakaian Muslimah yang sopan.
+    - Jika menyebut laki-laki Muslim, gambarkan dengan
+      pakaian yang sopan.
+    - Jangan otomatis menggunakan pemandangan alam
+      untuk menggantikan karakter manusia.
+    - Jika membahas neraka atau hari penghakiman,
+      gambarkan suasana simbolis yang dramatis:
+      kobaran api, kegelapan, kerumunan manusia ketakutan,
+      dan cahaya dramatis. Tidak perlu gore.
+    - Jika membahas akhirat, gunakan visual yang menghormati
+      keyakinan Islam.
+    - Jangan menggambarkan Allah atau para nabi.
+    - Jangan membuat Yesus, salib, gereja, crucifix,
+      atau simbol agama Kristen.
+    - Jangan menambahkan simbol agama lain yang tidak relevan.
+    - Jangan membuat tulisan, subtitle, logo, atau watermark.
+    - Gunakan cinematic photorealistic photography,
+      dramatic lighting, vertical 9:16 composition,
+      highly detailed.
 
-    Format:
+    CONTOH PERTAMA:
+
+    Narasi:
+    "Dan mereka teriak minta tolong, tolong saya."
+
+    Keyword:
+    "crying child asking for help"
+
+    ImagePrompt:
+    "A cinematic photorealistic scene of a frightened young
+    child crying and reaching out for help, emotional facial
+    expression, dramatic dark atmosphere, realistic human
+    anatomy, vertical 9:16 composition."
+
+    CONTOH KEDUA:
+
+    Narasi:
+    "Lupa dengan suami."
+
+    Keyword:
+    "Muslim married couple emotional separation"
+
+    ImagePrompt:
+    "A cinematic photorealistic scene of a Muslim husband
+    and his hijab-wearing wife standing apart, emotional
+    distance, modest Islamic clothing, dramatic lighting,
+    vertical 9:16 composition."
+
+    CONTOH KETIGA:
+
+    Narasi:
+    "Apa Anda rida masuk surga sementara anak-anak Anda
+    berteriak masuk neraka?"
+
+    Keyword:
+    "frightened children dramatic fire"
+
+    ImagePrompt:
+    "A symbolic cinematic scene of frightened children
+    reaching out for help in a dark dramatic environment
+    with distant flames and intense atmospheric lighting,
+    no gore, vertical 9:16 composition."
+
+    CONTOH KEEMPAT:
+
+    Narasi:
+    "Lihat mata Anda di cermin yang penuh dengan dosa."
+
+    Keyword:
+    "person looking at mirror emotional reflection"
+
+    ImagePrompt:
+    "A cinematic photorealistic close-up of a person
+    looking into a dusty mirror with a regretful expression,
+    dramatic shadows, emotional atmosphere,
+    vertical 9:16 composition."
+
+    ATURAN KEYWORD:
+
+    - Keyword harus spesifik dan sesuai adegan.
+    - Jangan selalu menggunakan keyword landscape.
+    - Jangan menambahkan kata landscape atau scenery
+      jika narasi tidak membahas pemandangan.
+
+    ATURAN WAKTU:
+
+    - Tentukan start dan end sesuai waktu audio.
+    - Jangan mengubah urutan kalimat.
+    - Jangan menghilangkan bagian narasi.
+    - Pastikan end lebih besar daripada start.
+
+    KELUARAN:
+
+    Hanya JSON array valid tanpa markdown.
+
+    FORMAT:
+
     [
       {
         "start": 0.0,
         "end": 3.5,
-        "text": "Kalimat transkrip di sini",
-        "keyword": "peaceful mosque at sunrise"
+        "text": "Kalimat asli dari audio",
+        "keyword": "specific visual keyword",
+        "imagePrompt": "Detailed cinematic image description"
       }
     ]
   `;
@@ -404,12 +510,18 @@ export async function executePipeline(autoPushGit = true) {
 
   const parsedSegments = JSON.parse(rawJson);
 
-  if (!Array.isArray(parsedSegments) || parsedSegments.length === 0) {
-    throw new Error('Gemini tidak menghasilkan segment audio yang valid.');
+  if (
+    !Array.isArray(parsedSegments) ||
+    parsedSegments.length === 0
+  ) {
+    throw new Error(
+      'Gemini tidak menghasilkan segment audio yang valid.'
+    );
   }
 
   // ----------------------------------------------------------
   // IMAGE GENERATION
+  // FLUX -> PIXABAY -> PEXELS
   // ----------------------------------------------------------
 
   console.log('[3/4] Memproses gambar setiap scene...');
@@ -427,18 +539,30 @@ export async function executePipeline(autoPushGit = true) {
       !Number.isFinite(end) ||
       end <= start
     ) {
-      throw new Error(`Waktu segment ke-${i + 1} tidak valid.`);
+      throw new Error(
+        `Waktu segment ke-${i + 1} tidak valid.`
+      );
     }
 
-    const keyword = (
-      seg.keyword || 'peaceful nature landscape'
+    const keyword = String(
+      seg.keyword || seg.text || 'cinematic Islamic scene'
+    ).trim();
+
+    const imagePrompt = String(
+      seg.imagePrompt ||
+      `Cinematic photorealistic visual representing: ${seg.text}. ` +
+      'Respectful Islamic atmosphere, vertical 9:16 composition.'
     ).trim();
 
     console.log(
-      `[Image ${i + 1}/${parsedSegments.length}] ${keyword}`
+      `[Image ${i + 1}/${parsedSegments.length}] ${seg.text}`
     );
 
+    console.log(`[Keyword]: ${keyword}`);
+    console.log(`[Image Prompt]: ${imagePrompt}`);
+
     const imagePath = await fetchVerticalNatureImage(
+      imagePrompt,
       keyword,
       i
     );
@@ -448,6 +572,7 @@ export async function executePipeline(autoPushGit = true) {
       end,
       text: String(seg.text || '').trim(),
       keyword,
+      imagePrompt,
       image: imagePath
     });
   }
