@@ -13,23 +13,26 @@ const ai = new GoogleGenAI({
 
 const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
-const OUTPUT_DIR = path.join(ROOT, 'out');
-
 const OUTPUT_PATH = path.join(PUBLIC_DIR, 'thumbnail.jpg');
-
 const TRANSCRIPT_PATH = path.join(PUBLIC_DIR, 'transcript.txt');
 const SUBTITLES_PATH = path.join(PUBLIC_DIR, 'subtitles.json');
-// const OUTPUT_PATH = path.join(OUTPUT_DIR, 'thumbnail.jpg');
-
-const TEXT_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
-const IMAGE_MODEL = process.env.GEMINI_IMAGE_MODEL || 'gemini-3.1-flash-image';
-const SOURCE = (process.env.THUMBNAIL_SOURCE || 'auto').toLowerCase();
 
 const WIDTH = 1080;
 const HEIGHT = 1920;
 
-function escapeXml(text) {
-  return text
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+
+const CF_ACCOUNT_ID = process.env.CF_ACCOUNT_ID;
+const CF_API_TOKEN = process.env.CF_API_TOKEN;
+
+const SOURCE = (process.env.THUMBNAIL_SOURCE || 'auto').toLowerCase();
+
+// ======================================================
+// UTILITIES
+// ======================================================
+
+function escapeXml(value) {
+  return String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -37,359 +40,458 @@ function escapeXml(text) {
     .replace(/'/g, '&apos;');
 }
 
-function wrapText(text, maxLength = 18) {
-  const words = text.split(/\s+/);
-  const lines = [];
-  let current = '';
-
-  for (const word of words) {
-    const next = current ? `${current} ${word}` : word;
-
-    if (next.length > maxLength && current) {
-      lines.push(current);
-      current = word;
-    } else {
-      current = next;
-    }
-  }
-
-  if (current) lines.push(current);
-
-  return lines.slice(0, 3);
-}
-
-
-async function generateHeadline(transcript) {
-  console.log('[Thumbnail] Membuat headline thumbnail...');
-
-  const response = await ai.models.generateContent({
-    model: TEXT_MODEL,
-    contents: `
-Bertindaklah sebagai copywriter thumbnail YouTube profesional
-untuk channel renungan Islam dan motivasi.
-
-Buat headline berdasarkan inti pesan narasi berikut.
-
-Kriteria:
-- Maksimal 5 kata.
-- Mengandung emosi, refleksi, atau rasa penasaran.
-- Gunakan bahasa Indonesia yang natural.
-- Pilih kata yang kuat dan mudah dipahami.
-- Jangan membuat klaim berlebihan.
-- Jangan menggunakan kalimat terlalu panjang.
-- Hindari judul generik seperti "Renungan Hari Ini".
-- Jangan menggunakan hashtag atau tanda kutip.
-- Kembalikan hanya headline.
-
-Contoh gaya:
-- JANGAN TUNDA TAUBATMU
-- ALLAH TAHU LELAHMU
-- MUNGKIN INI TEGURAN-NYA
-- JANGAN SAMPAI TERLAMBAT
-- KETIKA HATI MULAI JAUH
-
-Narasi:
-${transcript.slice(0, 5000)}
-`
-  });
-
-  const headline = (response.text || '')
-    .replace(/["'\`*]/g, '')
+function cleanText(value) {
+  return String(value || '')
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/[\r\n]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-
-  if (!headline) return 'JANGAN LUPA BERSYUKUR';
-
-  return headline.split(/\s+/).slice(0, 5).join(' ').toUpperCase();
 }
 
+// ======================================================
+// 1. GENERATE HEADLINE USING GEMINI
+// ======================================================
 
-async function generateGeminiBackground(transcript) {
-  console.log('[Thumbnail] Membuat background menggunakan Gemini Image...');
+async function generateHeadline(transcript) {
+  console.log('Membuat judul thumbnail menggunakan Gemini...');
 
   const prompt = `
-Create a premium cinematic vertical 9:16 background image
-for an Indonesian Islamic reflection YouTube Shorts thumbnail.
+Buatkan judul thumbnail YouTube Shorts berdasarkan narasi berikut.
 
-Narrative theme:
-${transcript.slice(0, 2000)}
+ATURAN:
+- Bahasa Indonesia.
+- Maksimal 5 kata.
+- Menarik, kuat, dan membuat penasaran.
+- Sesuai dengan isi narasi.
+- Jangan membuat judul yang menyesatkan.
+- Jangan gunakan tanda kutip.
+- Hanya keluarkan judulnya saja.
 
-Visual direction:
-- Beautiful peaceful Islamic atmosphere.
-- Cinematic lighting and rich contrast.
-- Choose a relevant scene such as a beautiful mosque,
-  mosque architecture, sunset, mountains, sky, ocean,
-  forest or peaceful nature.
-- No people, no human figures, no faces.
-- No text, no letters, no typography, no watermark.
-- Leave the central and lower-middle area visually clean
-  for a large headline overlay.
-- Professional photography, realistic details.
-- Portrait composition, 9:16.
+NARASI:
+${transcript.slice(0, 12000)}
 `;
 
   const response = await ai.models.generateContent({
-    model: IMAGE_MODEL,
-    contents: prompt,
-    config: {
-      responseModalities: ['IMAGE']
-    }
+    model: GEMINI_MODEL,
+    contents: prompt
   });
 
-  const parts = response.candidates?.[0]?.content?.parts || [];
+  const headline = cleanText(response.text)
+    .replace(/^["']|["']$/g, '')
+    .replace(/^judul\s*:\s*/i, '');
 
-  const imagePart = parts.find(part => part.inlineData?.data);
-
-  if (!imagePart) {
-    throw new Error('Gemini tidak menghasilkan gambar.');
+  if (!headline) {
+    throw new Error('Gemini tidak menghasilkan judul thumbnail.');
   }
 
-  return Buffer.from(imagePart.inlineData.data, 'base64');
+  console.log('Headline:', headline);
+
+  return headline;
 }
 
-function selectExistingImage(subtitles) {
-  // Pilih segmen dengan narasi paling panjang sebagai representasi tema.
-  const sorted = [...subtitles]
-    .filter(item => item.image)
-    .sort((a, b) => (b.text?.length || 0) - (a.text?.length || 0));
+// ======================================================
+// 2. GENERATE BACKGROUND USING CLOUDFLARE FLUX
+// ======================================================
 
-  if (!sorted.length) {
-    throw new Error('Tidak ada URL gambar pada subtitles.json.');
+async function generateCloudflareBackground(transcript) {
+  if (!CF_ACCOUNT_ID || !CF_API_TOKEN) {
+    throw new Error('CF_ACCOUNT_ID atau CF_API_TOKEN belum diatur.');
   }
 
-  return sorted[0].image;
-}
+  console.log('Membuat gambar thumbnail menggunakan Cloudflare FLUX...');
 
-async function downloadExistingImage(subtitles) {
-  const imageUrl = selectExistingImage(subtitles);
-  const parsedUrl = new URL(imageUrl);
+  const endpoint =
+    `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}` +
+    `/ai/run/@cf/black-forest-labs/flux-1-schnell`;
 
-  if (parsedUrl.protocol !== 'https:') {
-    throw new Error('URL gambar harus menggunakan HTTPS.');
-  }
+  const prompt = `
+Create a premium cinematic YouTube Shorts thumbnail background.
 
-  console.log('[Thumbnail] Menggunakan gambar dari subtitles.json...');
+STORY CONTEXT:
+${transcript.slice(0, 7000)}
 
-  const response = await fetch(imageUrl);
+VISUAL REQUIREMENTS:
+- Understand the story and visualize its most emotional and important moment.
+- Create a realistic, cinematic, professional photograph.
+- Strong visual storytelling and emotional atmosphere.
+- Dramatic cinematic lighting.
+- Beautiful composition and high detail.
+- Vertical 9:16 composition.
+- Main subject should be in the upper and middle portions.
+- Keep the bottom 40 percent darker and relatively uncluttered for headline text.
+- Use colors and atmosphere appropriate to the story.
+- If the story mentions a family, show the relevant family members.
+- If the story mentions a child, show a child when appropriate.
+- If the story mentions a Muslim woman, depict her wearing a modest hijab that covers her hair and neck.
+- Use modest clothing for Muslim characters.
+- Never depict Allah or Islamic prophets.
+- Do not include Jesus, crosses, crucifixes, churches, or Christian religious symbols.
+- No text, letters, captions, logos, or watermarks.
+- Do not create a generic landscape unrelated to the story.
+
+The image must communicate the meaning of the narration visually.
+`;
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${CF_API_TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      prompt,
+      steps: 4
+    })
+  });
 
   if (!response.ok) {
-    throw new Error(`Gagal mengunduh gambar: HTTP ${response.status}`);
+    const errorText = await response.text();
+
+    throw new Error(
+      `Cloudflare error ${response.status}: ${errorText.slice(0, 1000)}`
+    );
   }
 
   const contentType = response.headers.get('content-type') || '';
 
-  if (!contentType.startsWith('image/')) {
-    throw new Error('URL yang dipilih bukan file gambar.');
+  // Beberapa response Cloudflare mengembalikan image secara langsung.
+  if (contentType.includes('image/')) {
+    const arrayBuffer = await response.arrayBuffer();
+    const imageBuffer = Buffer.from(arrayBuffer);
+
+    if (!imageBuffer.length) {
+      throw new Error('Cloudflare mengembalikan gambar kosong.');
+    }
+
+    return imageBuffer;
   }
 
-  return Buffer.from(await response.arrayBuffer());
+  // Response JSON dapat berisi gambar dalam format base64.
+  const result = await response.json();
+
+  const base64Image =
+    result?.result?.image ||
+    result?.result?.data?.[0] ||
+    result?.image;
+
+  if (!result.success || !base64Image) {
+    throw new Error(
+      `Cloudflare gagal membuat gambar: ${JSON.stringify(result.errors || result).slice(0, 1000)}`
+    );
+  }
+
+  const imageBuffer = Buffer.from(base64Image, 'base64');
+
+  if (!imageBuffer.length) {
+    throw new Error('Hasil gambar Cloudflare kosong.');
+  }
+
+  return imageBuffer;
 }
 
+// ======================================================
+// 3. SELECT EXISTING SCENE IMAGE AS FALLBACK
+// ======================================================
 
-function createHeadlineSvg(headline) {
-  const words = headline.split(/\s+/).filter(Boolean);
-
-  // Maksimal 5 kata, dibagi menjadi baris yang proporsional.
-  let lines = [];
-
-  if (words.length <= 2) {
-    lines = [words.join(' ')];
-  } else if (words.length === 3) {
-    lines = [words[0], words.slice(1).join(' ')];
-  } else {
-    const middle = Math.ceil(words.length / 2);
-    lines = [
-      words.slice(0, middle).join(' '),
-      words.slice(middle).join(' ')
-    ];
+function selectExistingImage(subtitles) {
+  if (!Array.isArray(subtitles)) {
+    return null;
   }
 
-  const fontSize = lines.some(line => line.length > 16) ? 82 : 100;
+  const candidates = subtitles
+    .filter(item => {
+      return item && (
+        item.image ||
+        item.imageUrl ||
+        item.imagePath
+      );
+    })
+    .sort((a, b) => {
+      return String(b.text || '').length -
+        String(a.text || '').length;
+    });
+
+  return candidates[0] || null;
+}
+
+async function downloadExistingImage(subtitles) {
+  const selected = selectExistingImage(subtitles);
+
+  if (!selected) {
+    throw new Error('Tidak ada gambar scene di subtitles.json.');
+  }
+
+  const imagePath =
+    selected.image ||
+    selected.imageUrl ||
+    selected.imagePath;
+
+  console.log('Menggunakan gambar scene sebagai fallback:', imagePath);
+
+  if (/^https:\/\//i.test(imagePath)) {
+    const response = await fetch(imagePath);
+
+    if (!response.ok) {
+      throw new Error(`Gagal download gambar: ${response.status}`);
+    }
+
+    const contentType = response.headers.get('content-type') || '';
+
+    if (!contentType.startsWith('image/')) {
+      throw new Error('URL scene tidak mengembalikan file gambar.');
+    }
+
+    return Buffer.from(await response.arrayBuffer());
+  }
+
+  if (/^http:\/\//i.test(imagePath)) {
+    throw new Error('URL gambar harus menggunakan HTTPS.');
+  }
+
+  const normalizedPath = imagePath.replace(/^[/\\]+/, '');
+
+  const absolutePath = path.resolve(PUBLIC_DIR, normalizedPath);
+  const publicRoot = path.resolve(PUBLIC_DIR) + path.sep;
+
+  if (!absolutePath.startsWith(publicRoot)) {
+    throw new Error('Path gambar tidak valid.');
+  }
+
+  if (!fs.existsSync(absolutePath)) {
+    throw new Error(`File gambar tidak ditemukan: ${absolutePath}`);
+  }
+
+  return fs.readFileSync(absolutePath);
+}
+
+// ======================================================
+// 4. WRAP HEADLINE
+// ======================================================
+
+function wrapHeadline(text, maxChars = 17) {
+  const words = cleanText(text).split(' ');
+  const lines = [];
+
+  let currentLine = '';
+
+  for (const word of words) {
+    const candidate = currentLine
+      ? `${currentLine} ${word}`
+      : word;
+
+    if (candidate.length > maxChars && currentLine) {
+      lines.push(currentLine);
+      currentLine = word;
+    } else {
+      currentLine = candidate;
+    }
+  }
+
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  return lines.slice(0, 3);
+}
+
+// ======================================================
+// 5. CREATE PREMIUM HEADLINE SVG
+// ======================================================
+
+function createHeadlineSvg(headline) {
+  let lines = wrapHeadline(headline, 17);
+
+  if (lines.length > 3) {
+    lines = wrapHeadline(headline, 22).slice(0, 3);
+  }
+
+  const fontSize =
+    lines.some(line => line.length > 20) ? 82 :
+    lines.some(line => line.length > 15) ? 94 :
+    108;
+
   const lineHeight = fontSize * 1.2;
-  const startY = 1050 - ((lines.length - 1) * lineHeight) / 2;
 
-  const headlineElements = lines.map((line, index) => {
-    const y = startY + index * lineHeight;
+  const totalTextHeight = lines.length * lineHeight;
 
-    // Baris terakhir menggunakan warna emas.
-    const isHighlight = index === lines.length - 1;
-    const fill = isHighlight ? '#FFD166' : '#FFFFFF';
+  const startY = 1390 - totalTextHeight / 2;
+
+  const headlineText = lines.map((line, index) => {
+    const y = startY + (index * lineHeight);
+
+    const fill = index === lines.length - 1
+      ? '#FFD76A'
+      : '#FFFFFF';
 
     return `
       <text
-        x="85"
+        x="540"
         y="${y}"
-        text-anchor="start"
-        font-family="DejaVu Sans, Arial, sans-serif"
+        text-anchor="middle"
+        fill="${fill}"
+        font-family="Arial, Helvetica, sans-serif"
         font-size="${fontSize}"
         font-weight="900"
-        letter-spacing="-3"
-        fill="${fill}"
-        stroke="#101522"
-        stroke-width="8"
-        stroke-linejoin="round"
+        letter-spacing="-2"
+        stroke="#000000"
+        stroke-width="5"
         paint-order="stroke"
-        filter="url(#shadow)"
       >${escapeXml(line)}</text>
     `;
   }).join('');
 
-  return Buffer.from(`
-  <svg width="${WIDTH}" height="${HEIGHT}"
-       viewBox="0 0 ${WIDTH} ${HEIGHT}"
-       xmlns="http://www.w3.org/2000/svg">
+  return `
+  <svg width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
 
     <defs>
-      <linearGradient id="darkOverlay" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#050814" stop-opacity="0.15"/>
-        <stop offset="35%" stop-color="#050814" stop-opacity="0.10"/>
-        <stop offset="55%" stop-color="#050814" stop-opacity="0.72"/>
-        <stop offset="100%" stop-color="#050814" stop-opacity="0.90"/>
+      <linearGradient id="bottomGradient"
+        x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+        <stop offset="35%" stop-color="#000000" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.92"/>
       </linearGradient>
 
-      <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#FFE29A"/>
-        <stop offset="100%" stop-color="#D99B35"/>
+      <linearGradient id="topGradient"
+        x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#000000" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
       </linearGradient>
-
-      <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-        <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
-        <feOffset dx="3" dy="8"/>
-        <feComponentTransfer>
-          <feFuncA type="linear" slope="0.8"/>
-        </feComponentTransfer>
-        <feMerge>
-          <feMergeNode/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
     </defs>
 
-    <!-- Dark cinematic overlay -->
-    <rect width="100%" height="100%" fill="url(#darkOverlay)"/>
+    <rect
+      x="0"
+      y="0"
+      width="${WIDTH}"
+      height="${HEIGHT}"
+      fill="url(#topGradient)"
+    />
 
-    <!-- Top branding -->
-    <rect x="85" y="190" width="12" height="65"
-          rx="6" fill="url(#gold)"/>
+    <rect
+      x="0"
+      y="900"
+      width="${WIDTH}"
+      height="1020"
+      fill="url(#bottomGradient)"
+    />
 
-    <text x="125" y="235"
-          font-family="DejaVu Sans, Arial, sans-serif"
-          font-size="34"
-          font-weight="700"
-          letter-spacing="5"
-          fill="#FFFFFF">
-      RENUNGAN ISLAMI
-    </text>
+    <text
+      x="70"
+      y="110"
+      fill="#FFFFFF"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="34"
+      font-weight="700"
+      letter-spacing="4"
+      opacity="0.9"
+    >CERITA HARI INI</text>
 
-    <!-- Gold divider -->
-    <rect x="85" y="285" width="180" height="5"
-          rx="3" fill="url(#gold)"/>
+    ${headlineText}
 
-    <!-- Headline background panel -->
-    <rect x="55" y="820" width="970" height="480"
-          rx="28" fill="#080D18" opacity="0.28"/>
-
-    <!-- Gold accent -->
-    <rect x="85" y="875" width="10" height="300"
-          rx="5" fill="url(#gold)"/>
-
-    <!-- Main headline -->
-    ${headlineElements}
-
-    <!-- Bottom label -->
-    <text x="85" y="1390"
-          font-family="DejaVu Sans, Arial, sans-serif"
-          font-size="30"
-          font-weight="600"
-          letter-spacing="3"
-          fill="#FFFFFF"
-          opacity="0.90">
-      SEBUAH PENGINGAT UNTUK HATI
-    </text>
-
-    <rect x="85" y="1440" width="910" height="3"
-          fill="#FFD166" opacity="0.65"/>
+    <rect
+      x="440"
+      y="1575"
+      width="200"
+      height="7"
+      rx="4"
+      fill="#FFD76A"
+    />
 
   </svg>
-  `);
+  `;
 }
 
+// ======================================================
+// 6. MAIN
+// ======================================================
+
 async function main() {
+  console.log('================================');
+  console.log('THUMBNAIL GENERATOR');
+  console.log('================================');
+
+  if (!fs.existsSync(PUBLIC_DIR)) {
+    throw new Error('Folder public tidak ditemukan.');
+  }
+
   if (!fs.existsSync(TRANSCRIPT_PATH)) {
-    throw new Error('public/transcript.txt tidak ditemukan.');
+    throw new Error('transcript.txt tidak ditemukan.');
   }
 
   if (!fs.existsSync(SUBTITLES_PATH)) {
-    throw new Error('public/subtitles.json tidak ditemukan.');
+    throw new Error('subtitles.json tidak ditemukan.');
   }
 
-  if (!process.env.GEMINI_API_KEY) {
-    throw new Error('GEMINI_API_KEY belum diatur.');
-  }
+  const transcript = fs.readFileSync(
+    TRANSCRIPT_PATH,
+    'utf8'
+  ).trim();
 
-  fs.mkdirSync(PUBLIC_DIR, { recursive: true });
-
-  const transcript = fs.readFileSync(TRANSCRIPT_PATH, 'utf8').trim();
   const subtitles = JSON.parse(
     fs.readFileSync(SUBTITLES_PATH, 'utf8')
   );
 
-  if (!transcript || !Array.isArray(subtitles) || !subtitles.length) {
-    throw new Error('Transcript atau data subtitle kosong.');
+  if (!transcript) {
+    throw new Error('Transcript kosong.');
   }
 
+  // Gemini hanya membuat headline, bukan gambar.
   const headline = await generateHeadline(transcript);
 
-  let background;
+  let backgroundBuffer;
 
-  if (SOURCE === 'pixabay') {
-    background = await downloadExistingImage(subtitles);
-  } else if (SOURCE === 'gemini') {
-    background = await generateGeminiBackground(transcript);
-  } else if (SOURCE === 'auto') {
-    try {
-      background = await generateGeminiBackground(transcript);
-    } catch (error) {
-      console.warn(
-        '[Thumbnail] Gemini gagal, menggunakan gambar yang sudah ada:',
-        error.message
-      );
-
-      background = await downloadExistingImage(subtitles);
-    }
+  if (SOURCE === 'existing') {
+    backgroundBuffer = await downloadExistingImage(subtitles);
+  } else if (SOURCE === 'cloudflare') {
+    backgroundBuffer = await generateCloudflareBackground(transcript);
   } else {
-    throw new Error(
-      'THUMBNAIL_SOURCE harus pixabay, gemini, atau auto.'
-    );
+    // AUTO: Cloudflare terlebih dahulu, lalu fallback ke scene.
+    try {
+      backgroundBuffer = await generateCloudflareBackground(transcript);
+    } catch (error) {
+      console.error('Cloudflare gagal:', error.message);
+      console.log('Menggunakan gambar scene sebagai fallback...');
+
+      backgroundBuffer = await downloadExistingImage(subtitles);
+    }
   }
 
-  const overlay = createHeadlineSvg(headline);
+  console.log('Menggabungkan gambar dan headline...');
 
-  await sharp(background)
+  const background = await sharp(backgroundBuffer)
     .rotate()
     .resize(WIDTH, HEIGHT, {
       fit: 'cover',
-      position: 'attention'
+      position: 'centre'
     })
+    .jpeg({
+      quality: 95
+    })
+    .toBuffer();
+
+  const svg = createHeadlineSvg(headline);
+
+  await sharp(background)
     .composite([
       {
-        input: overlay,
-        blend: 'over'
+        input: Buffer.from(svg),
+        top: 0,
+        left: 0
       }
     ])
     .jpeg({
-      quality: 90,
+      quality: 95,
       mozjpeg: true
     })
     .toFile(OUTPUT_PATH);
 
-  console.log('✅ Thumbnail berhasil dibuat!');
-  console.log(`📌 Headline: ${headline}`);
-  console.log(`📌 Sumber: ${SOURCE}`);
-  console.log(`📌 Output: ${OUTPUT_PATH}`);
+  console.log('================================');
+  console.log('THUMBNAIL BERHASIL DIBUAT');
+  console.log('Output:', OUTPUT_PATH);
+  console.log('Headline:', headline);
+  console.log('================================');
 }
 
 main().catch(error => {
-  console.error('❌ Gagal membuat thumbnail:', error);
+  console.error('THUMBNAIL ERROR:', error);
   process.exit(1);
 });
