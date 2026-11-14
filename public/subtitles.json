@@ -1,26 +1,58 @@
 [
   {
     "start": 0,
-    "end": 8.5,
-    "text": "Hei! Masa engkau merasa cemas, gelisa dan berlebihan hanya karena masalah yang sekarang kau hadapi? Bukankah dulu banyak ribuan masalah yang telah aku selesaikan?",
-    "keyword": "worried Muslim man",
-    "imagePrompt": "A cinematic photorealistic close-up of a worried Muslim man with an anxious facial expression, sitting alone in a dimly lit room, modest clothing, dramatic lighting, vertical 9:16 composition.",
-    "image": "images/scene-001-1794581980137-4394.png"
+    "end": 4.5,
+    "text": "5 detik aku menatap matamu, 1.000 tahun aku mencintaimu.",
+    "keyword": "couple eye contact romantic gaze",
+    "imagePrompt": "Cinematic close-up of a Muslim couple gazing deeply into each other's eyes, woman wearing a soft hijab, tender romantic expression, warm golden light, vertical 9:16 composition.",
+    "image": "images/scene-001-1794623175171-9301.jpg"
   },
   {
-    "start": 8.5,
-    "end": 14.7,
-    "text": "Jangan lampelah atau bersedih dengan masalah yang sekarang, yakin dulu pun banyak masalah selesai juga.",
-    "keyword": "sad Muslim person thinking",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim person sitting by a window, looking down with a sad and thoughtful expression, warm soft light, modest clothing, vertical 9:16 composition.",
-    "image": "images/scene-002-1794581982076-1257.png"
+    "start": 4.5,
+    "end": 9.3,
+    "text": "5 menit aku mendengar suaramu, sejuta puisi bermekaran di jantungku.",
+    "keyword": "couple listening smiling talking",
+    "imagePrompt": "Cinematic shot of a Muslim man listening affectionately to his smiling wife in elegant hijab, cozy indoor ambiance, blooming flowers in blurred background, vertical 9:16 composition.",
+    "image": "images/scene-002-1794623177965-8182.jpg"
   },
   {
-    "start": 14.7,
-    "end": 28.5,
-    "text": "Lalu apa yang harus dilakukan? Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu. Inna maal usri, semua ini pasti selesai, pasti ada solusinya, pasti selesai.",
-    "keyword": "Muslim person praying with hope",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim man praying with hands raised in supplication, sincere and hopeful facial expression, soft warm glow illuminating his face, modest clothing, vertical 9:16 composition.",
-    "image": "images/scene-003-1794581984467-7514.png"
+    "start": 9.3,
+    "end": 14.2,
+    "text": "5 purnama aku berjalan di sampingmu, selamanya aku ingin hidup bersamamu.",
+    "keyword": "couple walking full moon night",
+    "imagePrompt": "Cinematic night scene of a Muslim couple walking side by side under a bright full moon, modest clothing, serene romantic atmosphere, vertical 9:16 composition.",
+    "image": "images/scene-003-1794623178957-9061.jpg"
+  },
+  {
+    "start": 14.2,
+    "end": 21.5,
+    "text": "Di sudut bumi manapun, aku ingin selalu menemukanmu. Di bait-bait puisi, kedai-kedai kopi, atau rintik hujan sore hari.",
+    "keyword": "couple coffee shop rainy window",
+    "imagePrompt": "Cinematic view of a Muslim couple sitting inside a warm coffee shop by a rain-streaked window, holding warm mugs, vertical 9:16 composition.",
+    "image": "images/scene-004-1794623180363-7056.jpg"
+  },
+  {
+    "start": 21.5,
+    "end": 27.2,
+    "text": "Ketika kutatap jauh ke dalam matamu, ingin sekali aku menumpahkan seluruh perasaanku.",
+    "keyword": "emotional intimate couple portrait",
+    "imagePrompt": "Intimate cinematic portrait of a Muslim husband gently looking at his wife wearing a hijab, deep emotional connection, soft lighting, vertical 9:16 composition.",
+    "image": "images/scene-005-1794623181665-7989.jpg"
+  },
+  {
+    "start": 27.2,
+    "end": 33.5,
+    "text": "Namun aku khawatir, lautan tak mampu menampungnya, atau bahkan semesta tak lagi lebih luas.",
+    "keyword": "couple vast ocean starry night",
+    "imagePrompt": "Cinematic scene of a Muslim couple standing near an expansive calm ocean under a starry cosmic twilight sky, vertical 9:16 composition.",
+    "image": "images/scene-006-1794623182762-24.jpg"
+  },
+  {
+    "start": 33.5,
+    "end": 38.5,
+    "text": "Karena rasaku, makin hari, makin tak terbatas.",
+    "keyword": "happy couple golden hour horizon",
+    "imagePrompt": "Cinematic golden hour portrait of a joyful Muslim couple standing together looking toward an endless horizon, radiant warm sunlight, vertical 9:16 composition.",
+    "image": "images/scene-007-1794623184186-1991.jpg"
   }
 ]
