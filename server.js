@@ -128,6 +128,37 @@ async function generateFluxImage(prompt, filename) {
     Muslim men should wear modest clothing.
 
     Use respectful Islamic atmosphere and visual context.
+    
+    MANDATORY HIJAB REQUIREMENT:
+    
+    Every woman appearing in any scene MUST wear
+    a proper Islamic hijab.
+    
+    - Hair must be completely covered.
+    - No visible hair strands.
+    - No exposed forehead hair or bangs.
+    - Ears must be completely covered.
+    - Neck must be completely covered.
+    - Hijab must cover the head, hair, ears, and neck.
+    - Hijab must be properly worn and securely fitted.
+    
+    NEVER generate:
+    - Women without hijab.
+    - Women with uncovered hair.
+    - Women with partially covered hair.
+    - Women wearing only headbands or scarves that
+    leave their hair visible.
+    - Women with loose hair or ponytails.
+    - Women with exposed necks.
+    
+    All women must wear modest Islamic clothing
+    in every scene without exception.
+    
+    If a scene requires a woman, always depict her
+    as a Muslim woman wearing a complete hijab.
+    
+    This requirement overrides any conflicting
+    visual interpretation of the scene.
 
     STRICT RELIGIOUS RESTRICTIONS:
 
