@@ -142,6 +142,35 @@ async function generateFluxImage(prompt, filename) {
 
     No text, captions, logos, or watermarks.
 
+    SCENE COMPOSITION AND SUBJECT SELECTION:
+
+    Choose the visual subject based on the actual scene description.
+    
+    Do not automatically include human faces or characters
+    in every scene.
+    
+    Include people only when they are relevant to the
+    described event or activity.
+    
+    When appropriate, focus on:
+    - Specific human activities and interactions.
+    - Hands performing meaningful actions.
+    - Relevant objects and important details.
+    - Buildings, rooms, and locations.
+    - Environmental or symbolic elements.
+    
+    Use close-up, medium, and wide shots depending
+    on the actual scene.
+    
+    Do not use generic portraits or emotional facial
+    expressions as a substitute for depicting the event.
+    
+    Do not replace important people, activities, or events
+    with unrelated landscapes.
+    
+    Every image must communicate the actual event
+    described in its corresponding narration.
+
     IMPORTANT:
 
     Follow the actual scene description.
