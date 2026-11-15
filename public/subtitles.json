@@ -1,50 +1,66 @@
 [
   {
     "start": 0,
-    "end": 5.2,
-    "text": "Jangan lihat ke belakang atas sesuatu yang sudah Allah jauhkan, jangan.",
-    "keyword": "man looking back regret path",
-    "imagePrompt": "Cinematic photorealistic shot of a Muslim man standing on a path, resisting glancing back toward shadowy ruins, dramatic lighting, vertical 9:16 composition.",
-    "image": "images/scene-001-1794761822445-887.jpg"
+    "end": 4.1,
+    "text": "Tiap pagi, Rasulullah sallallahu alaihi wasallam berdoa.",
+    "keyword": "Muslim man making supplication",
+    "imagePrompt": "A cinematic photorealistic portrait of a Muslim man in traditional Islamic clothing raising his hands in sincere supplication, soft morning light, emotional spiritual atmosphere, vertical 9:16 composition.",
+    "image": "images/scene-001-1794761982822-9958.jpg"
   },
   {
-    "start": 5.2,
-    "end": 10.8,
-    "text": "Sekarang fokus ke depan. Waltanzur nafsum ma qaddamat lighad wattaqullah.",
-    "keyword": "determined Muslim man looking forward",
-    "imagePrompt": "Cinematic vertical 9:16 portrait of a determined Muslim man looking straight ahead toward warm morning light, modest clothing, highly detailed, dramatic lighting.",
-    "image": "images/scene-002-1794761823918-978.jpg"
+    "start": 4.1,
+    "end": 14.1,
+    "text": "Beliau mengatakan, 'Allahumma inni as-aluka ilman nafi'an, wa rizqan tayyiban, wa 'amalan mutaqabbalan.'",
+    "keyword": "pious Muslim man praying indoors",
+    "imagePrompt": "A cinematic photorealistic scene of a pious Muslim man sitting humbly on a prayer rug indoors, eyes closed in deep concentration while praying, gentle natural light, vertical 9:16 composition.",
+    "image": "images/scene-002-1794761984003-3657.jpg"
   },
   {
-    "start": 10.8,
-    "end": 19.3,
-    "text": "Kita melihat ke belakang hanya sesekali saja, untuk muhasabah dan mengingat bahwa kita dulu pernah ada di posisi itu.",
-    "keyword": "person contemplating self reflection window",
-    "imagePrompt": "Cinematic photorealistic scene of a contemplative person sitting by a window in thoughtful self-reflection, soft melancholic lighting, vertical 9:16 composition.",
-    "image": "images/scene-003-1794761824971-7897.jpg"
+    "start": 14.1,
+    "end": 19.9,
+    "text": "Beliau minta tiga perkara, tiap hari, tiap pagi, 'Ya Allah, aku memohon kepadamu...",
+    "keyword": "devout Muslim praying with hands raised",
+    "imagePrompt": "A cinematic photorealistic close-up of a devout Muslim man with hands raised in earnest prayer, hopeful and humble facial expression, soft ambient lighting, vertical 9:16 composition.",
+    "image": "images/scene-003-1794761985797-1396.jpg"
   },
   {
-    "start": 19.3,
-    "end": 29.8,
-    "text": "Tapi kalau Allah sudah jauhkan sesuatu itu dari diri kita, fokus kita sekarang lihatlah ke depan, tataplah masa depan, beramal saleh sebanyak-banyaknya, berikhtiar sebaik dan semaksimal yang kita bisa,",
-    "keyword": "Muslim man giving charity act of kindness",
-    "imagePrompt": "Cinematic vertical 9:16 scene of a Muslim man doing good deeds, humbly offering aid to another person outdoors, bright inspiring atmosphere, photorealistic.",
-    "image": "images/scene-004-1794761826151-537.jpg"
+    "start": 19.9,
+    "end": 27.7,
+    "text": "yang pertama, 'ilman nafi'an,' ilmu yang bermanfaat, ilmu yang mendekatkan diri kepada Allah.",
+    "keyword": "Muslim man studying Islamic books",
+    "imagePrompt": "A cinematic photorealistic scene of a focused Muslim man studying sacred books in a quiet room, thoughtful expression, warm lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1794761986720-7396.jpg"
   },
   {
-    "start": 29.8,
-    "end": 36.2,
-    "text": "lalu biarkan takdir terbaik yang Allah tuliskan untuk kita akan hadir menyapa perlahan-lahan.",
-    "keyword": "peaceful person morning light open arms",
-    "imagePrompt": "Cinematic vertical 9:16 shot of a serene person walking toward a golden sunrise with a peaceful expression, accepting divine destiny, soft volumetric light.",
-    "image": "images/scene-005-1794761827097-2769.jpg"
+    "start": 31.3,
+    "end": 37.9,
+    "text": "Yang kedua, 'wa rizqan tayyiban,' minta rezeki yang baik, bukan yang banyak.",
+    "keyword": "honest Muslim worker receiving sustenance",
+    "imagePrompt": "A cinematic photorealistic scene of a humble Muslim worker receiving halal sustenance with gratitude, modest clothing, warm natural light, vertical 9:16 composition.",
+    "image": "images/scene-005-1794761987722-6757.jpg"
   },
   {
-    "start": 36.2,
-    "end": 44,
-    "text": "Baik sangka sama Allah. Allah pasti beri yang terbaik untuk kita dari semua yang kita pinta kepada-Nya.",
-    "keyword": "Muslim man praying dua sincere gratitude",
-    "imagePrompt": "Cinematic close-up of a devout Muslim man raising his hands in heartfelt prayer with an expression of deep hope and trust, warm lighting, vertical 9:16 composition.",
-    "image": "images/scene-006-1794761828009-9236.jpg"
+    "start": 41.2,
+    "end": 46.9,
+    "text": "Yang ketiga beliau minta 'amalan mutaqabbalan,' amalan yang diterima.",
+    "keyword": "Muslim man performing righteous deeds",
+    "imagePrompt": "A cinematic photorealistic scene of a dedicated Muslim man performing good deeds with sincerity, peaceful expression, soft divine-like lighting, vertical 9:16 composition.",
+    "image": "images/scene-006-1794761988669-4049.jpg"
+  },
+  {
+    "start": 46.9,
+    "end": 52.8,
+    "text": "Karena tidak semua orang salat, salatnya diterima, tidak semua orang puasa, puasanya diterima.",
+    "keyword": "Muslim praying with sincere devotion",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim worshipper bowing in prayer with utmost humility and sincere devotion, peaceful mosque interior, dramatic soft lighting, vertical 9:16 composition.",
+    "image": "images/scene-007-1794761989652-8663.jpg"
+  },
+  {
+    "start": 52.8,
+    "end": 57.8,
+    "text": "Apa semua yang berkorban diterima korbannya? Apakah semua yang haji, mabrur hajinya?",
+    "keyword": "contemplative Muslim praying in reflection",
+    "imagePrompt": "A cinematic photorealistic scene of a contemplative Muslim man reflecting deeply during worship, emotional spiritual introspection, warm lighting, vertical 9:16 composition.",
+    "image": "images/scene-008-1794761990524-3717.jpg"
   }
 ]
