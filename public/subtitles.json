@@ -1,66 +1,50 @@
 [
   {
     "start": 0,
-    "end": 6.5,
-    "text": "Hidup ini anginnya kencang, ombaknya keras, karangnya tajam.",
-    "keyword": "stormy sea violent waves sharp rocks",
-    "imagePrompt": "A cinematic shot of a stormy ocean with massive turbulent waves crashing against sharp, jagged dark rocks, overcast dark skies, dramatic lighting, vertical 9:16 composition.",
-    "image": "images/scene-001-1794710542605-7478.jpg"
+    "end": 5.2,
+    "text": "Jangan lihat ke belakang atas sesuatu yang sudah Allah jauhkan, jangan.",
+    "keyword": "man looking back regret path",
+    "imagePrompt": "Cinematic photorealistic shot of a Muslim man standing on a path, resisting glancing back toward shadowy ruins, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-001-1794761822445-887.jpg"
   },
   {
-    "start": 6.5,
-    "end": 10.5,
-    "text": "Kalau kapal kita tidak kuat kita akan terombang-ambing.",
-    "keyword": "wooden boat tossed in stormy sea",
-    "imagePrompt": "A sturdy traditional wooden boat struggling amidst violent towering waves in a dark stormy sea, dramatic atmosphere, vertical 9:16 composition.",
-    "image": "images/scene-002-1794710544143-9249.jpg"
+    "start": 5.2,
+    "end": 10.8,
+    "text": "Sekarang fokus ke depan. Waltanzur nafsum ma qaddamat lighad wattaqullah.",
+    "keyword": "determined Muslim man looking forward",
+    "imagePrompt": "Cinematic vertical 9:16 portrait of a determined Muslim man looking straight ahead toward warm morning light, modest clothing, highly detailed, dramatic lighting.",
+    "image": "images/scene-002-1794761823918-978.jpg"
   },
   {
-    "start": 10.5,
-    "end": 13.5,
-    "text": "Fitnah akhir zaman luar biasa.",
-    "keyword": "confused crowd dark chaotic atmosphere",
-    "imagePrompt": "A crowd of people in a dark, hazy, chaotic urban setting looking bewildered and distressed, moody lighting, symbolic of end times confusion, vertical 9:16 composition.",
-    "image": "images/scene-003-1794710545427-1612.jpg"
+    "start": 10.8,
+    "end": 19.3,
+    "text": "Kita melihat ke belakang hanya sesekali saja, untuk muhasabah dan mengingat bahwa kita dulu pernah ada di posisi itu.",
+    "keyword": "person contemplating self reflection window",
+    "imagePrompt": "Cinematic photorealistic scene of a contemplative person sitting by a window in thoughtful self-reflection, soft melancholic lighting, vertical 9:16 composition.",
+    "image": "images/scene-003-1794761824971-7897.jpg"
   },
   {
-    "start": 13.5,
-    "end": 16.5,
-    "text": "Maka pegangan utama adalah akidah.",
-    "keyword": "muslim man holding Quran firmly",
-    "imagePrompt": "Close-up of a devout Muslim man's hands firmly holding an Quran close to his chest, glowing soft light, serene and steadfast demeanor, vertical 9:16 composition.",
-    "image": "images/scene-004-1794710546612-7488.jpg"
+    "start": 19.3,
+    "end": 29.8,
+    "text": "Tapi kalau Allah sudah jauhkan sesuatu itu dari diri kita, fokus kita sekarang lihatlah ke depan, tataplah masa depan, beramal saleh sebanyak-banyaknya, berikhtiar sebaik dan semaksimal yang kita bisa,",
+    "keyword": "Muslim man giving charity act of kindness",
+    "imagePrompt": "Cinematic vertical 9:16 scene of a Muslim man doing good deeds, humbly offering aid to another person outdoors, bright inspiring atmosphere, photorealistic.",
+    "image": "images/scene-004-1794761826151-537.jpg"
   },
   {
-    "start": 16.5,
-    "end": 23.5,
-    "text": "Akidah kita adalah saat senang Allah, saat susah pun Allah.",
-    "keyword": "muslim man praying sujud tearful",
-    "imagePrompt": "A Muslim man in modest clothing prostrating in Sujud in a quiet mosque, emotional tearful devotion, soft rays of light falling on him, vertical 9:16 composition.",
-    "image": "images/scene-005-1794710547686-9445.jpg"
+    "start": 29.8,
+    "end": 36.2,
+    "text": "lalu biarkan takdir terbaik yang Allah tuliskan untuk kita akan hadir menyapa perlahan-lahan.",
+    "keyword": "peaceful person morning light open arms",
+    "imagePrompt": "Cinematic vertical 9:16 shot of a serene person walking toward a golden sunrise with a peaceful expression, accepting divine destiny, soft volumetric light.",
+    "image": "images/scene-005-1794761827097-2769.jpg"
   },
   {
-    "start": 23.5,
-    "end": 32.5,
-    "text": "Sampai kita merasakan mampu, pujian tidak membuat kita melambung, hinaan pun tidak membuat murung.",
-    "keyword": "calm peaceful muslim man portrait",
-    "imagePrompt": "Portrait of a mature Muslim man with a peaceful, unshakable expression amidst bustling blurred crowds around him, stoic emotional balance, vertical 9:16 composition.",
-    "image": "images/scene-006-1794710548742-1023.jpg"
-  },
-  {
-    "start": 32.5,
-    "end": 38.5,
-    "text": "Karena yang memuji dan menyanjung adalah manusia, dan yang menghina pun juga manusia.",
-    "keyword": "people whispering praising criticizing gesture",
-    "imagePrompt": "A person standing composed in the center while blurred figures around point, whisper, and react, dramatic moody chiaroscuro lighting, vertical 9:16 composition.",
-    "image": "images/scene-007-1794710550551-1421.jpg"
-  },
-  {
-    "start": 38.5,
-    "end": 47,
-    "text": "Sedangkan kita selalu berada bukan di hadapan manusia, tapi di hadapan Allah yang menciptakan manusia.",
-    "keyword": "humble muslim worshipper looking up reverently",
-    "imagePrompt": "A solitary Muslim man standing humbly with hands folded in prayer, looking reverently upward toward divine volumetric light from an arched ceiling, vertical 9:16 composition.",
-    "image": "images/scene-008-1794710552274-6843.jpg"
+    "start": 36.2,
+    "end": 44,
+    "text": "Baik sangka sama Allah. Allah pasti beri yang terbaik untuk kita dari semua yang kita pinta kepada-Nya.",
+    "keyword": "Muslim man praying dua sincere gratitude",
+    "imagePrompt": "Cinematic close-up of a devout Muslim man raising his hands in heartfelt prayer with an expression of deep hope and trust, warm lighting, vertical 9:16 composition.",
+    "image": "images/scene-006-1794761828009-9236.jpg"
   }
 ]
