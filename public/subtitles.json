@@ -1,58 +1,66 @@
 [
   {
     "start": 0,
-    "end": 4.5,
-    "text": "Lima detik aku menatap matamu, seribu tahun aku mencintaimu.",
-    "keyword": "couple eye contact romance",
-    "imagePrompt": "Cinematic photorealistic close-up of a modest Muslim couple exchanging an emotional and tender gaze, warm soft golden hour lighting, vertical 9:16 composition.",
-    "image": "images/scene-001-1794625711064-4213.jpg"
+    "end": 6.5,
+    "text": "Hidup ini anginnya kencang, ombaknya keras, karangnya tajam.",
+    "keyword": "stormy sea violent waves sharp rocks",
+    "imagePrompt": "A cinematic shot of a stormy ocean with massive turbulent waves crashing against sharp, jagged dark rocks, overcast dark skies, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-001-1794710542605-7478.jpg"
   },
   {
-    "start": 4.5,
-    "end": 9.2,
-    "text": "Lima menit aku mendengar suaramu, sejuta puisi bermekaran di jantungku.",
-    "keyword": "woman listening smiling poetic",
-    "imagePrompt": "Cinematic portrait of a young Muslim woman wearing a soft-toned hijab listening fondly, blooming petals subtly illuminated around her, gentle bokeh, vertical 9:16 composition.",
-    "image": "images/scene-002-1794625712675-2966.jpg"
+    "start": 6.5,
+    "end": 10.5,
+    "text": "Kalau kapal kita tidak kuat kita akan terombang-ambing.",
+    "keyword": "wooden boat tossed in stormy sea",
+    "imagePrompt": "A sturdy traditional wooden boat struggling amidst violent towering waves in a dark stormy sea, dramatic atmosphere, vertical 9:16 composition.",
+    "image": "images/scene-002-1794710544143-9249.jpg"
   },
   {
-    "start": 9.2,
-    "end": 14.1,
-    "text": "Lima purnama aku berjalan di sampingmu, selamanya aku ingin hidup bersamamu.",
-    "keyword": "couple walking under full moon",
-    "imagePrompt": "Cinematic night scene of a Muslim couple walking side by side under a bright glowing full moon, atmospheric soft moonlight, vertical 9:16 composition.",
-    "image": "images/scene-003-1794625716241-3892.jpg"
+    "start": 10.5,
+    "end": 13.5,
+    "text": "Fitnah akhir zaman luar biasa.",
+    "keyword": "confused crowd dark chaotic atmosphere",
+    "imagePrompt": "A crowd of people in a dark, hazy, chaotic urban setting looking bewildered and distressed, moody lighting, symbolic of end times confusion, vertical 9:16 composition.",
+    "image": "images/scene-003-1794710545427-1612.jpg"
   },
   {
-    "start": 14.1,
-    "end": 21.8,
-    "text": "Di sudut bumi mana pun, aku ingin selalu menemukanmu. Di bait-bait puisi, kedai-kedai kopi, atau rintik hujan sore hari.",
-    "keyword": "rainy coffee shop window couple",
-    "imagePrompt": "Cinematic view of a cozy coffee shop interior during afternoon rain, droplets on window glass, steaming cup of coffee with a warm intimate vibe, vertical 9:16 composition.",
-    "image": "images/scene-004-1794625719162-3484.jpg"
+    "start": 13.5,
+    "end": 16.5,
+    "text": "Maka pegangan utama adalah akidah.",
+    "keyword": "muslim man holding Quran firmly",
+    "imagePrompt": "Close-up of a devout Muslim man's hands firmly holding an Quran close to his chest, glowing soft light, serene and steadfast demeanor, vertical 9:16 composition.",
+    "image": "images/scene-004-1794710546612-7488.jpg"
   },
   {
-    "start": 21.8,
-    "end": 26.8,
-    "text": "Ketika kutatap jauh ke dalam matamu, ingin sekali aku menumpahkan seluruh perasaanku.",
-    "keyword": "emotional eyes close up reflection",
-    "imagePrompt": "Cinematic extreme close-up of deeply expressive eyes filled with genuine love and unspoken emotion, moody dramatic lighting, vertical 9:16 composition.",
-    "image": "images/scene-005-1794625720372-3396.jpg"
+    "start": 16.5,
+    "end": 23.5,
+    "text": "Akidah kita adalah saat senang Allah, saat susah pun Allah.",
+    "keyword": "muslim man praying sujud tearful",
+    "imagePrompt": "A Muslim man in modest clothing prostrating in Sujud in a quiet mosque, emotional tearful devotion, soft rays of light falling on him, vertical 9:16 composition.",
+    "image": "images/scene-005-1794710547686-9445.jpg"
   },
   {
-    "start": 26.8,
-    "end": 33.2,
-    "text": "Namun aku khawatir lautan tak mampu menampungnya, atau bahkan semesta tak lagi lebih luas.",
-    "keyword": "vast ocean starry cosmos night",
-    "imagePrompt": "Cinematic photorealistic view of a tranquil boundless ocean meeting a deep starry cosmic night sky, ethereal and infinite atmosphere, vertical 9:16 composition.",
-    "image": "images/scene-006-1794625721503-7336.jpg"
+    "start": 23.5,
+    "end": 32.5,
+    "text": "Sampai kita merasakan mampu, pujian tidak membuat kita melambung, hinaan pun tidak membuat murung.",
+    "keyword": "calm peaceful muslim man portrait",
+    "imagePrompt": "Portrait of a mature Muslim man with a peaceful, unshakable expression amidst bustling blurred crowds around him, stoic emotional balance, vertical 9:16 composition.",
+    "image": "images/scene-006-1794710548742-1023.jpg"
   },
   {
-    "start": 33.2,
-    "end": 39,
-    "text": "Karena rasaku makin hari makin tak terbatas.",
-    "keyword": "silhouette couple sunset horizon",
-    "imagePrompt": "Cinematic wide shot of a Muslim couple standing together looking out over an endless horizon at golden sunset, warm radiant sky, vertical 9:16 composition.",
-    "image": "images/scene-007-1794625722687-9720.jpg"
+    "start": 32.5,
+    "end": 38.5,
+    "text": "Karena yang memuji dan menyanjung adalah manusia, dan yang menghina pun juga manusia.",
+    "keyword": "people whispering praising criticizing gesture",
+    "imagePrompt": "A person standing composed in the center while blurred figures around point, whisper, and react, dramatic moody chiaroscuro lighting, vertical 9:16 composition.",
+    "image": "images/scene-007-1794710550551-1421.jpg"
+  },
+  {
+    "start": 38.5,
+    "end": 47,
+    "text": "Sedangkan kita selalu berada bukan di hadapan manusia, tapi di hadapan Allah yang menciptakan manusia.",
+    "keyword": "humble muslim worshipper looking up reverently",
+    "imagePrompt": "A solitary Muslim man standing humbly with hands folded in prayer, looking reverently upward toward divine volumetric light from an arched ceiling, vertical 9:16 composition.",
+    "image": "images/scene-008-1794710552274-6843.jpg"
   }
 ]
