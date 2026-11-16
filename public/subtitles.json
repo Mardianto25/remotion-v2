@@ -1,34 +1,58 @@
 [
   {
     "start": 0,
-    "end": 8.9,
-    "text": "Setan bersumpah laan aku akan goda mereka, laan aku akan bengkokkan jalanmu yang lurus.",
-    "keyword": "dark shadow tempting a person",
-    "imagePrompt": "A cinematic photorealistic scene of a dark sinister shadow whispering beside a worried Muslim man in modest clothing, dramatic lighting, intense emotional atmosphere, vertical 9:16 composition.",
-    "image": "images/scene-001-1794844102627-7691.jpg"
+    "end": 5.5,
+    "text": "Untuk engkau laki-laki jadilah seorang pria yang ucapannya bisa dipegang,",
+    "keyword": "honest Muslim man talking",
+    "imagePrompt": "A cinematic photorealistic portrait of an honest Muslim man in modest clothing speaking earnestly, expressive facial features, dramatic indoor lighting, vertical 9:16 composition.",
+    "image": "https://images.pexels.com/photos/4388167/pexels-photo-4388167.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
   },
   {
-    "start": 8.9,
-    "end": 16.7,
-    "text": "Laan aku akan datangi mereka dari depan dan dari belakang, dan dari kanan, dan dari kiri.",
-    "keyword": "person surrounded by darkness",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim person sitting in deep contemplation with shadows closing in from all directions, dramatic moody lighting, vertical 9:16 composition.",
-    "image": "images/scene-002-1794844104525-7548.jpg"
+    "start": 5.5,
+    "end": 11.5,
+    "text": "yang ucapannya penuh bukti, yang ucapannya penuh akan kata ditepati.",
+    "keyword": "Muslim man keeping promise",
+    "imagePrompt": "A cinematic photorealistic scene of a reliable Muslim man keeping his word, confident and trustworthy expression, modest clothing, dramatic soft lighting, vertical 9:16 composition.",
+    "image": "images/scene-002-1794844472282-7764.jpg"
+  },
+  {
+    "start": 11.5,
+    "end": 17,
+    "text": "Jadilah pria yang hebat yang selalu menempati janji yang telah kamu ucap.",
+    "keyword": "dependable Muslim man",
+    "imagePrompt": "A cinematic photorealistic scene of a dependable Muslim man standing firm and true to his word, respectful posture, warm dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-003-1794844474230-7419.jpg"
   },
   {
     "start": 17,
-    "end": 22.9,
-    "text": "Sampai kapan kita melawan godaan ini selama arwahukum fi ajmihim selama roh di kandung badan.",
-    "keyword": "person struggling with temptation",
-    "imagePrompt": "A cinematic photorealistic close-up of a Muslim man holding his head in distress and spiritual struggle, dramatic lighting, emotional expression, vertical 9:16 composition.",
-    "image": "images/scene-003-1794844105596-390.jpg"
+    "end": 28,
+    "text": "Jadilah pria yang mampu membuat wanita beruntung memilikimu karena selalu setia untuknya dan menemani wanitaku di kala apapun.",
+    "keyword": "loyal Muslim husband supporting wife",
+    "imagePrompt": "A cinematic photorealistic scene of a loyal Muslim husband supporting his hijab-wearing wife with care and devotion, modest Islamic clothing, warm emotional lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1794844475278-5153.jpg"
   },
   {
-    "start": 22.9,
-    "end": 29.9,
-    "text": "Selama jantung masih berdetak, selama paru-paru masih berhembus, di situlah kita terus berjuang.",
-    "keyword": "person breathing deeply in prayer",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim man praying with deep focus and determination, chest breathing, dramatic warm lighting, vertical 9:16 composition.",
-    "image": "images/scene-004-1794844106652-7135.jpg"
+    "start": 28,
+    "end": 36,
+    "text": "Jangan pernah menjadi laki-laki mudah berucap tapi selalu lalai dalam kata menepati.",
+    "keyword": "regretful Muslim man breaking promise",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim man looking thoughtful and regretful about broken promises, expressive face, dramatic shadows, vertical 9:16 composition.",
+    "image": "images/scene-005-1794844476267-3003.jpg"
+  },
+  {
+    "start": 36,
+    "end": 42.5,
+    "text": "Wanita itu sifatnya si penunggu. Dia bisa terlihat biasa denganmu,",
+    "keyword": "patient Muslim woman waiting",
+    "imagePrompt": "A cinematic photorealistic portrait of a patient Muslim woman wearing a hijab, calm and observant expression, modest clothing, soft dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-006-1794844477292-6977.jpg"
+  },
+  {
+    "start": 42.5,
+    "end": 54,
+    "text": "dia terlihat bisa tanpamu, tapi jauh di dalam hatinya dia menunggu apa yang kamu ucapkan untuknya dulu.",
+    "keyword": "Muslim woman waiting patiently with longing",
+    "imagePrompt": "A cinematic photorealistic scene of a hijab-wearing Muslim woman looking out a window with a longing and patient expression, emotional atmosphere, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-007-1794844478392-2048.jpg"
   }
 ]
