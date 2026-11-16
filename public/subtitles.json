@@ -1,34 +1,34 @@
 [
   {
     "start": 0,
-    "end": 8.865,
-    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi? Bukankah dulu banyak ribuan masalah yang telah ku selesaikan?",
-    "keyword": "stressed Muslim woman sitting alone",
-    "imagePrompt": "A cinematic photorealistic scene of a worried Muslim woman wearing a hijab, sitting alone with a stressed expression holding her head in her hands, dim indoor lighting, emotional atmosphere, vertical 9:16 composition.",
-    "image": "images/scene-001-1794842921173-1253.jpg"
+    "end": 8.9,
+    "text": "Setan bersumpah laan aku akan goda mereka, laan aku akan bengkokkan jalanmu yang lurus.",
+    "keyword": "dark shadow tempting a person",
+    "imagePrompt": "A cinematic photorealistic scene of a dark sinister shadow whispering beside a worried Muslim man in modest clothing, dramatic lighting, intense emotional atmosphere, vertical 9:16 composition.",
+    "image": "images/scene-001-1794844102627-7691.jpg"
   },
   {
-    "start": 8.865,
-    "end": 14.805,
-    "text": "Jangan nampel larut sedih dengan masalah yang sekarang. Yakin dulu pun banyak masalah selesai juga.",
-    "keyword": "thoughtful Muslim woman looking down",
-    "imagePrompt": "A cinematic photorealistic close-up of a Muslim woman wearing a hijab, looking down thoughtfully with a feeling of worry, soft dramatic indoor lighting, emotional depth, vertical 9:16 composition.",
-    "image": "images/scene-002-1794842922689-8519.jpg"
+    "start": 8.9,
+    "end": 16.7,
+    "text": "Laan aku akan datangi mereka dari depan dan dari belakang, dan dari kanan, dan dari kiri.",
+    "keyword": "person surrounded by darkness",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim person sitting in deep contemplation with shadows closing in from all directions, dramatic moody lighting, vertical 9:16 composition.",
+    "image": "images/scene-002-1794844104525-7548.jpg"
   },
   {
-    "start": 14.805,
-    "end": 21.685,
-    "text": "Lalu apa yang harus dilakukan? Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu.",
-    "keyword": "Muslim woman praying with hands raised",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman wearing a hijab, holding her hands up in prayer with a hopeful and devoted facial expression, soft warm divine lighting, vertical 9:16 composition.",
-    "image": "images/scene-003-1794842924022-7375.jpg"
+    "start": 17,
+    "end": 22.9,
+    "text": "Sampai kapan kita melawan godaan ini selama arwahukum fi ajmihim selama roh di kandung badan.",
+    "keyword": "person struggling with temptation",
+    "imagePrompt": "A cinematic photorealistic close-up of a Muslim man holding his head in distress and spiritual struggle, dramatic lighting, emotional expression, vertical 9:16 composition.",
+    "image": "images/scene-003-1794844105596-390.jpg"
   },
   {
-    "start": 21.685,
-    "end": 28.985,
-    "text": "Innama al-usri, semua ini pasti selesai, pasti ada solusinya, pasti selesai.",
-    "keyword": "peaceful Muslim woman smiling with relief",
-    "imagePrompt": "A cinematic photorealistic portrait of a Muslim woman wearing a hijab, showing a peaceful expression of relief and quiet confidence, soft hopeful lighting, vertical 9:16 composition.",
-    "image": "images/scene-004-1794842925123-5741.jpg"
+    "start": 22.9,
+    "end": 29.9,
+    "text": "Selama jantung masih berdetak, selama paru-paru masih berhembus, di situlah kita terus berjuang.",
+    "keyword": "person breathing deeply in prayer",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim man praying with deep focus and determination, chest breathing, dramatic warm lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1794844106652-7135.jpg"
   }
 ]
