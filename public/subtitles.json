@@ -1,66 +1,34 @@
 [
   {
     "start": 0,
-    "end": 4.1,
-    "text": "Tiap pagi, Rasulullah sallallahu alaihi wasallam berdoa.",
-    "keyword": "Muslim man making supplication",
-    "imagePrompt": "A cinematic photorealistic portrait of a Muslim man in traditional Islamic clothing raising his hands in sincere supplication, soft morning light, emotional spiritual atmosphere, vertical 9:16 composition.",
-    "image": "images/scene-001-1794761982822-9958.jpg"
+    "end": 8.865,
+    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi? Bukankah dulu banyak ribuan masalah yang telah ku selesaikan?",
+    "keyword": "stressed Muslim woman sitting alone",
+    "imagePrompt": "A cinematic photorealistic scene of a worried Muslim woman wearing a hijab, sitting alone with a stressed expression holding her head in her hands, dim indoor lighting, emotional atmosphere, vertical 9:16 composition.",
+    "image": "images/scene-001-1794842921173-1253.jpg"
   },
   {
-    "start": 4.1,
-    "end": 14.1,
-    "text": "Beliau mengatakan, 'Allahumma inni as-aluka ilman nafi'an, wa rizqan tayyiban, wa 'amalan mutaqabbalan.'",
-    "keyword": "pious Muslim man praying indoors",
-    "imagePrompt": "A cinematic photorealistic scene of a pious Muslim man sitting humbly on a prayer rug indoors, eyes closed in deep concentration while praying, gentle natural light, vertical 9:16 composition.",
-    "image": "images/scene-002-1794761984003-3657.jpg"
+    "start": 8.865,
+    "end": 14.805,
+    "text": "Jangan nampel larut sedih dengan masalah yang sekarang. Yakin dulu pun banyak masalah selesai juga.",
+    "keyword": "thoughtful Muslim woman looking down",
+    "imagePrompt": "A cinematic photorealistic close-up of a Muslim woman wearing a hijab, looking down thoughtfully with a feeling of worry, soft dramatic indoor lighting, emotional depth, vertical 9:16 composition.",
+    "image": "images/scene-002-1794842922689-8519.jpg"
   },
   {
-    "start": 14.1,
-    "end": 19.9,
-    "text": "Beliau minta tiga perkara, tiap hari, tiap pagi, 'Ya Allah, aku memohon kepadamu...",
-    "keyword": "devout Muslim praying with hands raised",
-    "imagePrompt": "A cinematic photorealistic close-up of a devout Muslim man with hands raised in earnest prayer, hopeful and humble facial expression, soft ambient lighting, vertical 9:16 composition.",
-    "image": "images/scene-003-1794761985797-1396.jpg"
+    "start": 14.805,
+    "end": 21.685,
+    "text": "Lalu apa yang harus dilakukan? Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu.",
+    "keyword": "Muslim woman praying with hands raised",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman wearing a hijab, holding her hands up in prayer with a hopeful and devoted facial expression, soft warm divine lighting, vertical 9:16 composition.",
+    "image": "images/scene-003-1794842924022-7375.jpg"
   },
   {
-    "start": 19.9,
-    "end": 27.7,
-    "text": "yang pertama, 'ilman nafi'an,' ilmu yang bermanfaat, ilmu yang mendekatkan diri kepada Allah.",
-    "keyword": "Muslim man studying Islamic books",
-    "imagePrompt": "A cinematic photorealistic scene of a focused Muslim man studying sacred books in a quiet room, thoughtful expression, warm lighting, vertical 9:16 composition.",
-    "image": "images/scene-004-1794761986720-7396.jpg"
-  },
-  {
-    "start": 31.3,
-    "end": 37.9,
-    "text": "Yang kedua, 'wa rizqan tayyiban,' minta rezeki yang baik, bukan yang banyak.",
-    "keyword": "honest Muslim worker receiving sustenance",
-    "imagePrompt": "A cinematic photorealistic scene of a humble Muslim worker receiving halal sustenance with gratitude, modest clothing, warm natural light, vertical 9:16 composition.",
-    "image": "images/scene-005-1794761987722-6757.jpg"
-  },
-  {
-    "start": 41.2,
-    "end": 46.9,
-    "text": "Yang ketiga beliau minta 'amalan mutaqabbalan,' amalan yang diterima.",
-    "keyword": "Muslim man performing righteous deeds",
-    "imagePrompt": "A cinematic photorealistic scene of a dedicated Muslim man performing good deeds with sincerity, peaceful expression, soft divine-like lighting, vertical 9:16 composition.",
-    "image": "images/scene-006-1794761988669-4049.jpg"
-  },
-  {
-    "start": 46.9,
-    "end": 52.8,
-    "text": "Karena tidak semua orang salat, salatnya diterima, tidak semua orang puasa, puasanya diterima.",
-    "keyword": "Muslim praying with sincere devotion",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim worshipper bowing in prayer with utmost humility and sincere devotion, peaceful mosque interior, dramatic soft lighting, vertical 9:16 composition.",
-    "image": "images/scene-007-1794761989652-8663.jpg"
-  },
-  {
-    "start": 52.8,
-    "end": 57.8,
-    "text": "Apa semua yang berkorban diterima korbannya? Apakah semua yang haji, mabrur hajinya?",
-    "keyword": "contemplative Muslim praying in reflection",
-    "imagePrompt": "A cinematic photorealistic scene of a contemplative Muslim man reflecting deeply during worship, emotional spiritual introspection, warm lighting, vertical 9:16 composition.",
-    "image": "images/scene-008-1794761990524-3717.jpg"
+    "start": 21.685,
+    "end": 28.985,
+    "text": "Innama al-usri, semua ini pasti selesai, pasti ada solusinya, pasti selesai.",
+    "keyword": "peaceful Muslim woman smiling with relief",
+    "imagePrompt": "A cinematic photorealistic portrait of a Muslim woman wearing a hijab, showing a peaceful expression of relief and quiet confidence, soft hopeful lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1794842925123-5741.jpg"
   }
 ]
