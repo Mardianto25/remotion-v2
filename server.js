@@ -104,110 +104,52 @@ async function generateFluxImage(prompt, filename) {
     '/ai/run/@cf/black-forest-labs/flux-1-schnell';
 
   const visualRules = `
-    Cinematic photorealistic photography,
-    vertical 9:16 composition,
-    highly detailed and realistic human expressions,
-    accurate human anatomy,
-    natural body proportions,
-    highly detailed and realistic actions and activities,
-    accurate depiction of events and situations,
-    realistic human interactions and body movements,
-    detailed objects and environmental elements relevant to the scene,
-    accurate representation of the story and its context,
-    every visual detail must match the described scene,
-    dramatic cinematic lighting,
-    realistic environment,
-    visually accurate and detailed representation of the entire described scene.
+    VISUAL SCENE INTERPRETATION — HIGHEST PRIORITY
 
-    ISLAMIC VISUAL GUIDELINES:
+Analyze the meaning and context of the provided narration before generating an image.
 
-    If a woman appears, portray her wearing a modest
-    Islamic hijab covering her hair and neck,
-    with modest loose Islamic clothing.
+The image MUST visually represent the actual meaning of the narration, not simply generate a generic cinematic scene.
 
-    Muslim men should wear modest clothing.
+VISUAL SELECTION RULES:
 
-    Use respectful Islamic atmosphere and visual context.
-    
-    MANDATORY HIJAB REQUIREMENT:
-    
-    Every woman appearing in any scene MUST wear
-    a proper Islamic hijab.
-    
-    - Hair must be completely covered.
-    - No visible hair strands.
-    - No exposed forehead hair or bangs.
-    - Ears must be completely covered.
-    - Neck must be completely covered.
-    - Hijab must cover the head, hair, ears, and neck.
-    - Hijab must be properly worn and securely fitted.
-    
-    NEVER generate:
-    - Women without hijab.
-    - Women with uncovered hair.
-    - Women with partially covered hair.
-    - Women wearing only headbands or scarves that
-    leave their hair visible.
-    - Women with loose hair or ponytails.
-    - Women with exposed necks.
-    
-    All women must wear modest Islamic clothing
-    in every scene without exception.
-    
-    If a scene requires a woman, always depict her
-    as a Muslim woman wearing a complete hijab.
-    
-    This requirement overrides any conflicting
-    visual interpretation of the scene.
+1. Identify the main subject, event, action, and environment described in the narration.
 
-    STRICT RELIGIOUS RESTRICTIONS:
+2. Select the most relevant visual representation:
+   
+   - Hell and punishment: terrifying inferno, massive flames, fire, darkness, smoke, and apocalyptic atmosphere.
+   - Volcanic eruption: erupting volcano, flowing lava, explosions, ash clouds, and volcanic destruction.
+   - Earthquake: collapsing buildings, cracked ground, and destruction.
+   - Flood: massive waves, overflowing water, and submerged environments.
+   - Prayer: Muslims praying in appropriate Islamic clothing.
+   - Repentance: relevant human actions showing remorse and seeking forgiveness.
+   - Death: appropriate symbolic or contextual imagery.
+   - Paradise: beautiful gardens, rivers, peaceful atmosphere, and magnificent natural surroundings.
 
-    No Jesus.
-    No crosses.
-    No crucifixes.
-    No churches.
-    No Christian iconography.
-    No unrelated religious symbols.
+3. DO NOT automatically generate women, men, or human faces.
 
-    Never depict Allah or Islamic prophets.
+4. If the narration describes a natural disaster, supernatural event, environmental condition, or specific object, prioritize that actual subject.
 
-    No text, captions, logos, or watermarks.
+5. Only include humans when they are essential to communicating the narration.
 
-    SCENE COMPOSITION AND SUBJECT SELECTION:
+STRICT ISLAMIC VISUAL REQUIREMENTS:
 
-    Choose the visual subject based on the actual scene description.
-    
-    Do not automatically include human faces or characters
-    in every scene.
-    
-    Include people only when they are relevant to the
-    described event or activity.
-    
-    When appropriate, focus on:
-    - Specific human activities and interactions.
-    - Hands performing meaningful actions.
-    - Relevant objects and important details.
-    - Buildings, rooms, and locations.
-    - Environmental or symbolic elements.
-    
-    Use close-up, medium, and wide shots depending
-    on the actual scene.
-    
-    Do not use generic portraits or emotional facial
-    expressions as a substitute for depicting the event.
-    
-    Do not replace important people, activities, or events
-    with unrelated landscapes.
-    
-    Every image must communicate the actual event
-    described in its corresponding narration.
+Whenever a woman is depicted, she MUST wear a complete Islamic hijab covering all hair, ears, and neck, with modest loose clothing.
 
-    IMPORTANT:
+Never show uncovered hair, partially covered hair, exposed necks, or immodest clothing.
 
-    Follow the actual scene description.
-    Do not replace people with landscapes.
-    Do not generate empty nature scenery unless
-    the description specifically requests it.
+Do not introduce unrelated people or objects.
+
+VISUAL ACCURACY:
+
+Every image must directly correspond to its narration segment.
+
+Do not substitute generic portraits, random people, or unrelated landscapes for the actual narrated event.
+
+CINEMATIC QUALITY:
+
+Photorealistic, cinematic lighting, realistic anatomy, detailed environments, dramatic composition, vertical 9:16.
+
+No text, captions, logos, or watermarks.
   `;
 
   const response = await fetch(endpoint, {
