@@ -1,82 +1,50 @@
 [
   {
     "start": 0,
-    "end": 2.1,
-    "text": "Sujud.",
-    "keyword": "Muslim man prostrating in prayer",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim man performing sujud, prostrating humbly on a prayer rug in a serene mosque, soft warm lighting, vertical 9:16 composition.",
-    "image": "https://images.pexels.com/photos/4388167/pexels-photo-4388167.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+    "end": 3.7,
+    "text": "Lucky-lucky yang tulus itu nggak gila perempuan,",
+    "keyword": "loyal Muslim man thoughtful expression",
+    "imagePrompt": "A cinematic photorealistic close-up portrait of a loyal Muslim man with a thoughtful, sincere expression, modest clothing, soft natural lighting, vertical 9:16 composition.",
+    "image": "images/scene-001-1794881124038-8026.jpg"
   },
   {
-    "start": 2.1,
-    "end": 5.1,
-    "text": "Posisi paling rendah, jarak paling dekat.",
-    "keyword": "humble prayer position",
-    "imagePrompt": "A cinematic photorealistic close-up of a Muslim man in deep humble prostration, forehead touching the ground, focusing on spiritual closeness, dramatic lighting, vertical 9:16 composition.",
+    "start": 3.7,
+    "end": 7.8,
+    "text": "tapi dia bisa gila pada satu perempuan yang benar-benar dia cintai.",
+    "keyword": "Muslim man looking at his hijab-wearing wife with deep love",
+    "imagePrompt": "A cinematic photorealistic scene of a devoted Muslim man looking at his smiling hijab-wearing wife with deep affection and love, modest Islamic clothing, warm emotional lighting, vertical 9:16 composition.",
     "image": "https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
   },
   {
-    "start": 5.1,
-    "end": 9,
-    "text": "Berbisik ke tanah terdengar sampai ke langit.",
-    "keyword": "whispering prayer to the earth",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim man softly whispering a prayer with head bowed close to the ground, spiritual atmosphere, soft divine rays from above, vertical 9:16 composition.",
-    "image": "https://images.pexels.com/photos/8111394/pexels-photo-8111394.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+    "start": 7.8,
+    "end": 12.8,
+    "text": "Dia nggak sibuk mencari yang lain, bukan karena dia nggak mampu,",
+    "keyword": "devoted Muslim husband focused on wife",
+    "imagePrompt": "A cinematic photorealistic scene of a devoted Muslim husband sitting quietly at home, showing total commitment and focus, modest clothing, warm cozy indoor lighting, vertical 9:16 composition.",
+    "image": "images/scene-003-1794881126935-9804.jpg"
   },
   {
-    "start": 9,
-    "end": 13,
-    "text": "Sujud itu bukan kalah, Kawan, siapa yang bilang?",
-    "keyword": "humble submission in prayer",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim man sitting in tashahhud position during prayer, calm and dignified facial expression, modest Islamic clothing, vertical 9:16 composition.",
-    "image": "images/scene-004-1794879618384-314.jpg"
+    "start": 12.8,
+    "end": 17.5,
+    "text": "tapi karena baginya, satu perempuan yang tulus mencintainya sudah lebih dari cukup.",
+    "keyword": "happy Muslim couple sharing a warm moment",
+    "imagePrompt": "A cinematic photorealistic scene of a happy Muslim couple sharing a warm, peaceful moment together, the wife wearing a modest hijab, gentle affectionate interaction, soft lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1794881128023-3745.jpg"
   },
   {
-    "start": 13,
-    "end": 18,
-    "text": "Sujud adalah bukti paling jujur bahwa kita adalah hamba, bukan tuan.",
-    "keyword": "servant bowing in humility",
-    "imagePrompt": "A cinematic photorealistic scene showing the back of a Muslim man bowing in deep humility, representing complete submission to the Creator, moody dramatic lighting, vertical 9:16 composition.",
-    "image": "images/scene-005-1794879619607-3546.jpg"
+    "start": 17.5,
+    "end": 25.5,
+    "text": "Kalau kamu menemukan laki-laki seperti itu, jangan cuma menikmati ketulusannya, tapi belajarlah menghargai dan memperjuangkannya.",
+    "keyword": "woman holding her husband's hands with gratitude",
+    "imagePrompt": "A cinematic photorealistic close-up scene of a woman gratefully holding her husband's hands with a warm, appreciative expression, modest clothing, emotional dramatic lighting, vertical 9:16 composition.",
+    "image": "https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
   },
   {
-    "start": 18,
-    "end": 23.9,
-    "text": "Inget, inget peran kita di sini cuma sebatas hamba.",
-    "keyword": "Muslim person reflecting humbly",
-    "imagePrompt": "A cinematic photorealistic portrait of a Muslim man with a thoughtful and humble expression, looking down with deep self-reflection, soft natural lighting, vertical 9:16 composition.",
-    "image": "images/scene-006-1794879621744-883.jpg"
-  },
-  {
-    "start": 23.9,
-    "end": 28.7,
-    "text": "Tapi tingkah laku kita seolah-olah yang punya dunia, sombong amat.",
-    "keyword": "arrogant human behavior reflection",
-    "imagePrompt": "A cinematic photorealistic scene of a person standing with a proud and arrogant posture in a dimly lit room, dramatic shadows emphasizing emotional flaw, vertical 9:16 composition.",
-    "image": "images/scene-007-1794879622986-9408.jpg"
-  },
-  {
-    "start": 28.7,
-    "end": 33.7,
-    "text": "Jadi jangan nunggu terwujud baru bersujud, bersujudlah agar semuanya terwujud.",
-    "keyword": "devoted Muslim praying faithfully",
-    "imagePrompt": "A cinematic photorealistic scene of a devout Muslim man raising his hands in heartfelt dua, sincere facial expression, warm spiritual lighting, vertical 9:16 composition.",
-    "image": "images/scene-008-1794879624999-1716.jpg"
-  },
-  {
-    "start": 33.7,
-    "end": 38,
-    "text": "Cuma, terwujud enggak terwujud tetaplah bersujud, kan gitu.",
-    "keyword": "consistent daily Islamic prayer",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim man steadfastly engaged in daily prayer on a clean prayer mat, peaceful and devoted expression, vertical 9:16 composition.",
-    "image": "images/scene-009-1794879626289-911.jpg"
-  },
-  {
-    "start": 38,
-    "end": 40.8,
-    "text": "Salat, yuk, salat, yuk.",
-    "keyword": "invitation to Islamic prayer",
-    "imagePrompt": "A cinematic photorealistic scene of a peaceful home interior with a prayer rug neatly laid out, inviting atmosphere, soft warm lighting, vertical 9:16 composition.",
-    "image": "images/scene-010-1794879627378-5741.jpg"
+    "start": 25.5,
+    "end": 32.5,
+    "text": "Jangan sampai kamu baru sadar betapa berharganya dia, saat dia sudah lelah dan memilih pergi.",
+    "keyword": "regretful woman watching her husband leave",
+    "imagePrompt": "A cinematic photorealistic scene of a regretful woman watching her husband walk away with a suitcase, emotional heartbreak, dramatic shadows and melancholic lighting, vertical 9:16 composition.",
+    "image": "images/scene-006-1794881131092-8446.jpg"
   }
 ]
