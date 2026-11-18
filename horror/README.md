@@ -9,7 +9,7 @@ Pipeline produksi video misteri/horor Indonesia untuk channel YouTube **Semesta 
 4. Edge-TTS membuat narasi dan subtitle VTT.
 5. Cloudflare FLUX membuat gambar thumbnail, lalu Sharp menambahkan teks judul dan identitas channel.
 6. Remotion merender video landscape.
-7. GitHub Actions mengunggah video dan thumbnail ke channel Semesta Kisah jika opsi upload aktif.
+7. GitHub Actions mengunggah video dan thumbnail ke channel Semesta Kisah jika opsi upload aktif. Secara default video dijadwalkan tayang Jumat atau Minggu pukul 19.00 WIB (slot terdekat dengan jeda minimal 2 jam).
 8. Video, thumbnail, metadata, naskah, dan manifest disimpan sebagai artifact selama 7 hari.
 
 ## GitHub Actions Secrets
@@ -26,12 +26,12 @@ Atur di Settings > Secrets and variables > Actions:
 Jangan commit credential atau token ke repository. OAuth harus memiliki scope YouTube Data API untuk upload. Workflow memeriksa nama channel sebelum upload dan membatalkan proses jika token mengarah ke channel selain Semesta Kisah.
 
 ## Menjalankan
-Buka Actions > Generate Indonesian Horror Video > Run workflow. Isi topik, pilih apakah upload otomatis dilakukan, lalu pilih status video:
+Buka Actions > Generate Indonesian Horror Video > Run workflow. Isi topik dan pilih apakah upload otomatis dilakukan. Opsi `schedule_publish` aktif secara default: video diunggah sebagai private dan dijadwalkan tayang pada slot Jumat/Minggu pukul 19.00 WIB berikutnya. Jika penjadwalan dimatikan, pilih status video:
 - `private` (default dan disarankan untuk pemeriksaan)
 - `unlisted`
 - `public`
 
-Upload otomatis aktif secara default, tetapi video berstatus private. Periksa video di YouTube Studio sebelum mengubahnya menjadi public.
+Penjadwalan otomatis aktif secara default. YouTube akan menjaga video private sampai waktu tayang yang ditentukan. Periksa jadwal di YouTube Studio. Waktu ini adalah baseline awal dan perlu dievaluasi ulang memakai Analytics > Audience > When your viewers are on YouTube setelah channel memiliki data.
 
 ## Lokal
 1. Masuk folder `horror/`.
