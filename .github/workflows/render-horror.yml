@@ -4,10 +4,24 @@ on:
   workflow_dispatch:
     inputs:
       topic:
-        description: "Topik cerita mistis Indonesia"
+        description: "Topik cerita misteri Indonesia"
         required: true
         default: "Misteri Alas Purwo"
         type: string
+      upload_to_youtube:
+        description: "Upload otomatis ke channel Semesta Kisah"
+        required: true
+        default: true
+        type: boolean
+      privacy_status:
+        description: "Status video saat diupload"
+        required: true
+        default: private
+        type: choice
+        options:
+          - private
+          - unlisted
+          - public
 
 permissions:
   contents: read
@@ -23,6 +37,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+          cache-dependency-path: horror/package.json
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -32,7 +48,7 @@ jobs:
         run: npm install
       - name: Install Edge TTS
         run: python3 -m pip install --user --break-system-packages edge-tts
-      - name: Generate story, audio and visuals
+      - name: Generate story, audio, visuals, SEO and thumbnail
         working-directory: horror
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -41,6 +57,7 @@ jobs:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           EDGE_TTS_VOICE: id-ID-ArdiNeural
           EDGE_TTS_RATE: "-8%"
           EDGE_TTS_PITCH: "-5Hz"
@@ -52,13 +69,24 @@ jobs:
       - name: Render video
         working-directory: horror
         run: npm run render
-      - name: Upload video artifact
+      - name: Upload to Semesta Kisah YouTube
+        if: ${{ inputs.upload_to_youtube }}
+        working-directory: horror
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
+          YOUTUBE_PRIVACY_STATUS: ${{ inputs.privacy_status }}
+        run: npm run upload:youtube
+      - name: Upload video and publishing assets as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: indonesian-horror-video
+          name: semesta-kisah-video
           path: |
             horror/out/indonesian-horror.mp4
+            horror/out/youtube-thumbnail.jpg
             horror/data/story.json
+            horror/data/youtube-metadata.json
             horror/data/asset-manifest.json
             horror/public/audio/narration.vtt
           if-no-files-found: error
