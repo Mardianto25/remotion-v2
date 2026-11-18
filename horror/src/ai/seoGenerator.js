@@ -37,5 +37,5 @@ Potongan narasi: ${String(story.narration || "").slice(0, 7000)}`;
   const baseDescription = String(value.description || story.description || "");
   const disclaimer = story.disclaimer || "Sebagian bagian cerita dapat berupa legenda atau dramatisasi.";
   const description = [baseDescription, "", disclaimer, "", "Ikuti Semesta Kisah untuk cerita misteri, legenda, sejarah, dan kisah menarik lainnya.", "", hashtags.join(" ")].join("\n").slice(0, 4900);
-  return { title, description, hashtags, tags, thumbnailText: String(value.thumbnailText || title).slice(0, 42) };
+  return { title, description, hashtags, tags, thumbnailText: String(value.thumbnailText || title).slice(0, 30) };
 }
