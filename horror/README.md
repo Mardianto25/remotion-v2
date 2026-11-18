@@ -21,7 +21,7 @@ Atur di Settings > Secrets and variables > Actions:
 - `PEXELS_API_KEY` (opsional)
 - `YOUTUBE_CLIENT_ID`
 - `YOUTUBE_CLIENT_SECRET`
-- `YOUTUBE_REFRESH_TOKEN_V2` — refresh token OAuth yang memang diberi akses ke channel Semesta Kisah.
+- `YOUTUBE_REFRESH_TOKEN_V2` — refresh token OAuth yang memang diberi akses ke channel Semesta Kisah. Minta scope `https://www.googleapis.com/auth/youtube.upload` untuk upload dan thumbnail, serta `https://www.googleapis.com/auth/youtube.readonly` agar workflow dapat memverifikasi channel tujuan.
 
 Jangan commit credential atau token ke repository. OAuth harus memiliki scope YouTube Data API untuk upload. Workflow memeriksa nama channel sebelum upload dan membatalkan proses jika token mengarah ke channel selain Semesta Kisah.
 
