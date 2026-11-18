@@ -1,42 +1,18 @@
 [
   {
     "start": 0,
-    "end": 3,
-    "text": "kamu boleh menangis karena beratnya proses,",
-    "keyword": "crying Muslim woman emotional distress",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman wearing a hijab, sitting alone with tears in her eyes, expressing deep emotional distress and a heavy heart, soft dramatic indoor lighting, vertical 9:16 composition.",
-    "image": "images/scene-001-1794993802116-9295.jpg"
+    "end": 7.35,
+    "text": "Jika punya kesulitan sebesar apapun, seberat apapun, cepat dehati Allah.",
+    "keyword": "person praying with deep distress",
+    "imagePrompt": "A cinematic photorealistic scene of a distressed person praying with hands raised in deep supplication, emotional facial expression, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-001-1795041172187-2552.jpg"
   },
   {
-    "start": 3,
-    "end": 6.8,
-    "text": "tapi ingat, Allah tidak membawamu sejauh ini hanya untuk gagal.",
-    "keyword": "Muslim woman praying with hope",
-    "imagePrompt": "A cinematic photorealistic close-up of a Muslim woman in a hijab raising her hands in dua and prayer with a hopeful and determined expression, warm gentle lighting, vertical 9:16 composition.",
-    "image": "images/scene-002-1794993815792-3663.jpg"
-  },
-  {
-    "start": 6.8,
-    "end": 11.1,
-    "text": "Tengoklah ke belakang, sudah berapa banyak badai yang berhasil kamu lewati.",
-    "keyword": "person looking back overcoming struggles",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim person looking back over their shoulder with a resilient and reflective expression, standing near a window with soft light illuminating past memories, vertical 9:16 composition.",
-    "image": "images/scene-003-1794993833526-786.jpg"
-  },
-  {
-    "start": 11.1,
-    "end": 17.7,
-    "text": "Atas izin-Nya, jika dulu Allah menolongmu, hari ini dan esok pun Allah akan melakukan hal yang sama.",
-    "keyword": "Muslim person peaceful faith trust",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim person standing peacefully with eyes closed and a calm expression, bathed in soft golden hour light symbolizing divine guidance and trust, vertical 9:16 composition.",
-    "image": "images/scene-004-1794993852680-3.jpg"
-  },
-  {
-    "start": 17.7,
-    "end": 22,
-    "text": "Allah tahu kapan waktu terbaik untuk mengubah lelahmu menjadi indah.",
-    "keyword": "Muslim woman smiling relief happiness",
-    "imagePrompt": "A cinematic photorealistic close-up of a Muslim woman wearing a hijab, smiling with a profound sense of relief and inner peace, warm uplifting cinematic lighting, vertical 9:16 composition.",
-    "image": "images/scene-005-1794993868606-9591.jpg"
+    "start": 7.35,
+    "end": 20.25,
+    "text": "Maka di situ akan dijawab langsung oleh Allah, hambaku, sepanjang engkau mendekat kepadaku, maka yakinkan dalam dirimu, situasi apapun yang kau rasakan, aku tidak akan pernah meninggalkanmu.",
+    "keyword": "person finding peace and comfort",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim person sitting in a quiet room feeling a sense of peace and comfort after prayer, soft warm lighting, modest clothing, vertical 9:16 composition.",
+    "image": "images/scene-002-1795041173429-6155.jpg"
   }
 ]
