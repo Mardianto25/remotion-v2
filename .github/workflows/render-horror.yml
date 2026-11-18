@@ -13,8 +13,13 @@ on:
         required: true
         default: true
         type: boolean
+      schedule_publish:
+        description: "Jadwalkan tayang Jumat/Minggu pukul 19.00 WIB"
+        required: true
+        default: true
+        type: boolean
       privacy_status:
-        description: "Status video saat diupload"
+        description: "Status jika penjadwalan dimatikan"
         required: true
         default: private
         type: choice
@@ -77,6 +82,7 @@ jobs:
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
           YOUTUBE_PRIVACY_STATUS: ${{ inputs.privacy_status }}
+          YOUTUBE_SCHEDULE_ENABLED: ${{ inputs.schedule_publish }}
         run: npm run upload:youtube
       - name: Upload video and publishing assets as artifact
         uses: actions/upload-artifact@v4
