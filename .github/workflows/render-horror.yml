@@ -117,3 +117,11 @@ jobs:
           YOUTUBE_PRIVACY_STATUS: ${{ inputs.privacy_status }}
           YOUTUBE_SCHEDULE_ENABLED: ${{ inputs.schedule_publish }}
         run: npm run upload:youtube
+      - name: Preserve upload state for retry
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semesta-kisah-upload-state
+          path: horror/data/youtube-upload-state.json
+          if-no-files-found: ignore
+          retention-days: 7
