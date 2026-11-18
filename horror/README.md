@@ -10,7 +10,7 @@ Pipeline produksi video misteri/horor Indonesia untuk channel YouTube **Semesta 
 5. Cloudflare FLUX membuat gambar thumbnail, lalu Sharp menambahkan teks judul dan identitas channel.
 6. Remotion merender video landscape.
 7. GitHub Actions mengunggah video dan thumbnail ke channel Semesta Kisah jika opsi upload aktif. Secara default video dijadwalkan tayang Jumat atau Minggu pukul 19.00 WIB (slot terdekat dengan jeda minimal 2 jam).
-8. Video, thumbnail, metadata, naskah, dan manifest disimpan sebagai artifact selama 7 hari.
+8. Video, thumbnail, metadata, naskah, dan manifest disimpan sebagai artifact selama 7 hari. Status upload YouTube juga diarsipkan agar kegagalan saat memasang thumbnail dapat dilanjutkan tanpa upload video duplikat.
 
 ## GitHub Actions Secrets
 Atur di Settings > Secrets and variables > Actions:
@@ -41,6 +41,8 @@ Penjadwalan otomatis aktif secara default. YouTube akan menjaga video private sa
 5. Pastikan ffmpeg tersedia.
 6. Jalankan `npm run generate -- "Misteri Alas Purwo"`.
 7. Jalankan `npm run render`.
+
+Jika upload gagal, buka Actions > Retry Semesta Kisah YouTube Upload. Masukkan Run ID dari proses Generate Indonesian Horror Video yang gagal upload. Workflow retry mengambil video, thumbnail, dan metadata dari artifact, tanpa generate/render ulang. Artifact tersedia selama 7 hari. Jika upload video sudah berhasil tetapi thumbnail gagal, state berisi Video ID dipakai untuk melanjutkan pemasangan thumbnail pada video yang sama.
 
 Untuk upload lokal, isi variabel OAuth di environment dan jalankan `npm run upload:youtube`.
 
