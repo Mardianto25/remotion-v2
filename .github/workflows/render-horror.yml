@@ -22,8 +22,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: horror/package.json
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -59,6 +57,7 @@ jobs:
           path: |
             horror/out/indonesian-horror.mp4
             horror/data/story.json
+            horror/data/asset-manifest.json
             horror/public/audio/narration.vtt
           if-no-files-found: error
           retention-days: 7
