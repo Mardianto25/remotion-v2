@@ -1,0 +1,66 @@
+name: Retry Semesta Kisah YouTube Upload
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: "Run ID workflow Generate Indonesian Horror Video yang artifact-nya mau diupload ulang"
+        required: true
+        type: string
+      schedule_publish:
+        description: "Jadwalkan tayang Jumat/Minggu pukul 19.00 WIB"
+        required: true
+        default: true
+        type: boolean
+      privacy_status:
+        description: "Status jika penjadwalan dimatikan"
+        required: true
+        default: private
+        type: choice
+        options:
+          - private
+          - unlisted
+          - public
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  retry-upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Download generated assets from original run
+        uses: actions/download-artifact@v4
+        with:
+          name: semesta-kisah-assets
+          path: horror
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.source_run_id }}
+      - name: Verify reusable assets exist
+        working-directory: horror
+        run: |
+          test -s out/indonesian-horror.mp4
+          test -s out/youtube-thumbnail.jpg
+          test -s data/youtube-metadata.json
+          echo "Video, thumbnail, dan metadata ditemukan. Tidak ada proses generate atau render ulang."
+      - name: Install Node dependencies
+        working-directory: horror
+        run: npm install
+      - name: Retry upload to Semesta Kisah
+        working-directory: horror
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
+          YOUTUBE_PRIVACY_STATUS: ${{ inputs.privacy_status }}
+          YOUTUBE_SCHEDULE_ENABLED: ${{ inputs.schedule_publish }}
+        run: npm run upload:youtube
