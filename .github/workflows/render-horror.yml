@@ -1,0 +1,64 @@
+name: Generate Indonesian Horror Video
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Topik cerita mistis Indonesia"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  generate-and-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: horror/package.json
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3 python3-pip
+      - name: Install Node dependencies
+        working-directory: horror
+        run: npm install
+      - name: Install Edge TTS
+        run: python3 -m pip install --user --break-system-packages edge-tts
+      - name: Generate story, audio and visuals
+        working-directory: horror
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          EDGE_TTS_VOICE: id-ID-ArdiNeural
+          EDGE_TTS_RATE: "-8%"
+          EDGE_TTS_PITCH: "-5Hz"
+        run: npm run generate -- "${{ inputs.topic }}"
+      - name: Ensure Remotion browser
+        working-directory: horror
+        run: npx remotion browser ensure
+      - name: Render video
+        working-directory: horror
+        run: npm run render
+      - name: Upload video artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: indonesian-horror-video
+          path: |
+            horror/out/indonesian-horror.mp4
+            horror/data/story.json
+            horror/public/audio/narration.vtt
+          if-no-files-found: error
+          retention-days: 7
