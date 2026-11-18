@@ -27,7 +27,7 @@ export async function cloudflareImage(prompt, destination) {
     })
   });
   await saveCloudflareImage(response, destination);
-  return { provider: "cloudflare-workers-ai", sourceUrl: null, fileName: path.basename(destination) };
+  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, sourceUrl: null, fileName: path.basename(destination) };
 }
 
 export async function pixabayImage(query, destination) {
@@ -69,7 +69,7 @@ export async function getSceneImage(scene, index) {
   const prompt = scene.visualPrompt || scene.narration || "Misty Indonesian forest at night";
   const query = scene.searchQuery || "Indonesian misty forest cinematic";
   const providers = [
-    () => cloudflareImage(prompt, path.join(ASSETS_DIR, stem + ".png")),
+    () => cloudflareImage(prompt, path.join(ASSETS_DIR, stem + ".jpg")),
     () => pixabayImage(query, path.join(ASSETS_DIR, stem + ".jpg")),
     () => pexelsImage(query, path.join(ASSETS_DIR, stem + "-pexels.jpg"))
   ];
