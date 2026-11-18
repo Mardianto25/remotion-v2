@@ -45,6 +45,15 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           run-id: ${{ inputs.source_run_id }}
+      - name: Restore previous YouTube upload state if available
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: semesta-kisah-upload-state
+          path: horror/data
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.source_run_id }}
       - name: Verify reusable assets exist
         working-directory: horror
         run: |
