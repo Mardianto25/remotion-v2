@@ -6,6 +6,7 @@ on:
       topic:
         description: "Topik cerita mistis Indonesia"
         required: true
+        default: "Misteri Alas Purwo"
         type: string
 
 permissions:
@@ -43,7 +44,8 @@ jobs:
           EDGE_TTS_VOICE: id-ID-ArdiNeural
           EDGE_TTS_RATE: "-8%"
           EDGE_TTS_PITCH: "-5Hz"
-        run: npm run generate -- "${{ inputs.topic }}"
+          HORROR_TOPIC: ${{ inputs.topic }}
+        run: npm run generate -- "$HORROR_TOPIC"
       - name: Ensure Remotion browser
         working-directory: horror
         run: npx remotion browser ensure
