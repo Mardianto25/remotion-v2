@@ -33,7 +33,7 @@ Potongan narasi: ${String(story.narration || "").slice(0, 7000)}`;
   const value = parseJson(response.text);
   const title = String(value.title || story.title || topic).slice(0, 100);
   const hashtags = [...new Set((Array.isArray(value.hashtags) ? value.hashtags : []).map(x => String(x).trim().replace(/\s+/g, "")).filter(x => /^#[\p{L}\p{N}_]+$/u.test(x)))].slice(0, 5);
-  const tags = [...new Set((Array.isArray(value.tags) ? value.tags : []).map(x => String(x).trim()).filter(Boolean))].slice(0, 18);
+  const uniqueTags = [...new Set((Array.isArray(value.tags) ? value.tags : []).map(x => String(x).trim()).filter(Boolean))].slice(0, 18);\n  const tags = [];\n  let tagLength = 0;\n  for (const tag of uniqueTags) {\n    const extra = tag.length + (tags.length ? 1 : 0);\n    if (tagLength + extra > 480) continue;\n    tags.push(tag);\n    tagLength += extra;\n  }
   const baseDescription = String(value.description || story.description || "");
   const disclaimer = story.disclaimer || "Sebagian bagian cerita dapat berupa legenda atau dramatisasi.";
   const description = [baseDescription, "", disclaimer, "", "Ikuti Semesta Kisah untuk cerita misteri, legenda, sejarah, dan kisah menarik lainnya.", "", hashtags.join(" ")].join("\n").slice(0, 4900);
