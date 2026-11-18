@@ -41,7 +41,7 @@ const channel = channelData.items?.[0];
 if (!channel) throw new Error("Token V2 tidak memiliki akses ke channel YouTube.");
 const channelTitle = channel.snippet?.title || "";
 console.log("OAuth channel terdeteksi: " + channelTitle);
-if (!channelTitle.toLocaleLowerCase("id-ID").includes("semesta kisah")) {
+if (!channelTitle.toLocaleLowerCase("id-ID").includes("ruang cerita indonesia")) {
   throw new Error(`Channel tujuan tidak cocok. Diharapkan "Semesta Kisah", tetapi token mengarah ke "${channelTitle}". Upload dibatalkan.`);
 }
 
