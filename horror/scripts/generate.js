@@ -3,6 +3,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { generateStory } from "../src/ai/storyGenerator.js";
+import { generateSeo } from "../src/ai/seoGenerator.js";
+import { generateThumbnail } from "../src/visual/thumbnail.js";
 import { getSceneImage } from "../src/visual/providers.js";
 import { generateNarration } from "../src/audio/edgeTts.js";
 import { ROOT, ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR } from "../src/config.js";
@@ -36,23 +38,30 @@ const topic = process.argv.slice(2).join(" ").trim() || process.env.HORROR_TOPIC
 if (!topic) throw new Error('Gunakan: npm run generate -- "Misteri Alas Purwo"');
 await Promise.all([ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR].map(dir => fs.mkdir(dir, { recursive: true })));
 
-console.log("[1/4] Generate cerita");
+console.log("[1/6] Generate cerita");
 const story = await generateStory(topic);
 await fs.writeFile(path.join(DATA_DIR, "story.json"), JSON.stringify(story, null, 2));
 
-console.log("[2/4] Generate narasi Edge-TTS");
+console.log("[2/6] Generate metadata SEO dari isi cerita");
+const seo = await generateSeo(story, topic);
+await fs.writeFile(path.join(DATA_DIR, "youtube-metadata.json"), JSON.stringify(seo, null, 2));
+
+console.log("[3/6] Generate narasi Edge-TTS");
 const audioPath = path.join(AUDIO_DIR, "narration.mp3");
 const subtitlePath = path.join(AUDIO_DIR, "narration.vtt");
 await generateNarration(story.narration, audioPath, subtitlePath);
 const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
 const duration = await audioDuration(audioPath);
 
-console.log("[3/4] Ambil visual scene");
+console.log("[4/6] Ambil visual scene");
 const assets = [];
 for (let i = 0; i < story.scenes.length; i++) {
   console.log("Scene " + (i + 1) + "/" + story.scenes.length);
   assets.push(await getSceneImage(story.scenes[i], i));
 }
+
+console.log("[5/6] Generate thumbnail YouTube");
+await generateThumbnail(story, seo, topic);
 
 const words = story.scenes.map(s => (s.narration || "").split(/\s+/).filter(Boolean).length);
 const totalWords = words.reduce((a, b) => a + b, 0) || 1;
@@ -64,9 +73,7 @@ const scenes = story.scenes.map((scene, i) => {
   const endFrame = i === story.scenes.length - 1 ? Math.ceil(duration * fps) : Math.round(cursor * fps);
   return { ...assets[i], startFrame, durationInFrames: Math.max(1, endFrame - startFrame) };
 });
-
 await fs.writeFile(path.join(DATA_DIR, "asset-manifest.json"), JSON.stringify(assets, null, 2));
-
 const manifest = {
   title: story.title,
   description: story.description || "",
@@ -77,4 +84,4 @@ const manifest = {
   captions
 };
 await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";\n");
-console.log("[4/4] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
+console.log("[6/6] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
