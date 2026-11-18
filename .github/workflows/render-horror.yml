@@ -74,20 +74,10 @@ jobs:
       - name: Render video
         working-directory: horror
         run: npm run render
-      - name: Upload to Semesta Kisah YouTube
-        if: ${{ inputs.upload_to_youtube }}
-        working-directory: horror
-        env:
-          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
-          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
-          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
-          YOUTUBE_PRIVACY_STATUS: ${{ inputs.privacy_status }}
-          YOUTUBE_SCHEDULE_ENABLED: ${{ inputs.schedule_publish }}
-        run: npm run upload:youtube
-      - name: Upload video and publishing assets as artifact
+      - name: Save generated video and publishing assets
         uses: actions/upload-artifact@v4
         with:
-          name: semesta-kisah-video
+          name: semesta-kisah-assets
           path: |
             horror/out/indonesian-horror.mp4
             horror/out/youtube-thumbnail.jpg
@@ -97,3 +87,33 @@ jobs:
             horror/public/audio/narration.vtt
           if-no-files-found: error
           retention-days: 7
+
+  upload-to-youtube:
+    if: ${{ inputs.upload_to_youtube }}
+    needs: generate-and-render
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Download previously generated assets
+        uses: actions/download-artifact@v4
+        with:
+          name: semesta-kisah-assets
+          path: horror
+      - name: Install Node dependencies
+        working-directory: horror
+        run: npm install
+      - name: Validate channel and upload existing video
+        working-directory: horror
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
+          YOUTUBE_PRIVACY_STATUS: ${{ inputs.privacy_status }}
+          YOUTUBE_SCHEDULE_ENABLED: ${{ inputs.schedule_publish }}
+        run: npm run upload:youtube
