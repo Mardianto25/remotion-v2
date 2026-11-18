@@ -1,50 +1,74 @@
 [
   {
     "start": 0,
-    "end": 3.7,
-    "text": "Lucky-lucky yang tulus itu nggak gila perempuan,",
-    "keyword": "loyal Muslim man thoughtful expression",
-    "imagePrompt": "A cinematic photorealistic close-up portrait of a loyal Muslim man with a thoughtful, sincere expression, modest clothing, soft natural lighting, vertical 9:16 composition.",
-    "image": "images/scene-001-1794881124038-8026.jpg"
+    "end": 8,
+    "text": "Kalau akhir-akhir ini kamu sedang berusaha memperbaiki diri, mungkin kamu nggak harus memperbaiki semuanya sekaligus.",
+    "keyword": "Muslim woman self reflection",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman wearing a hijab, sitting quietly by a window indoors, engaged in deep self-reflection, soft warm lighting, modest clothing, vertical 9:16 composition, highly detailed.",
+    "image": "images/scene-001-1794971886662-3197.jpg"
   },
   {
-    "start": 3.7,
-    "end": 7.8,
-    "text": "tapi dia bisa gila pada satu perempuan yang benar-benar dia cintai.",
-    "keyword": "Muslim man looking at his hijab-wearing wife with deep love",
-    "imagePrompt": "A cinematic photorealistic scene of a devoted Muslim man looking at his smiling hijab-wearing wife with deep affection and love, modest Islamic clothing, warm emotional lighting, vertical 9:16 composition.",
-    "image": "https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+    "start": 9,
+    "end": 12,
+    "text": "Kamu bisa mulai dari salatmu.",
+    "keyword": "Muslim woman praying on prayer mat",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman wearing a hijab and modest clothing, performing prayer on a patterned prayer mat in a peaceful room, focused and calm expression, soft lighting, vertical 9:16 composition.",
+    "image": "images/scene-002-1794971887904-6073.jpg"
   },
   {
-    "start": 7.8,
-    "end": 12.8,
-    "text": "Dia nggak sibuk mencari yang lain, bukan karena dia nggak mampu,",
-    "keyword": "devoted Muslim husband focused on wife",
-    "imagePrompt": "A cinematic photorealistic scene of a devoted Muslim husband sitting quietly at home, showing total commitment and focus, modest clothing, warm cozy indoor lighting, vertical 9:16 composition.",
-    "image": "images/scene-003-1794881126935-9804.jpg"
+    "start": 12.5,
+    "end": 16.5,
+    "text": "Bukan karena kamu harus tiba-tiba menjadi sempurna,",
+    "keyword": "person seeking improvement",
+    "imagePrompt": "A cinematic photorealistic portrait of a thoughtful Muslim person with a gentle expression, soft indoor lighting, expressing a journey of personal growth, vertical 9:16 composition, highly detailed.",
+    "image": "images/scene-003-1794971888925-8294.jpg"
   },
   {
-    "start": 12.8,
-    "end": 17.5,
-    "text": "tapi karena baginya, satu perempuan yang tulus mencintainya sudah lebih dari cukup.",
-    "keyword": "happy Muslim couple sharing a warm moment",
-    "imagePrompt": "A cinematic photorealistic scene of a happy Muslim couple sharing a warm, peaceful moment together, the wife wearing a modest hijab, gentle affectionate interaction, soft lighting, vertical 9:16 composition.",
-    "image": "images/scene-004-1794881128023-3745.jpg"
+    "start": 16.5,
+    "end": 23.5,
+    "text": "tapi mungkin sudah lama ada bagian dari dirimu yang ingin kembali dekat dengan Allah.",
+    "keyword": "spiritual connection prayer",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman raising her hands in peaceful supplication (duas) indoors, emotional and sincere expression, soft ambient lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1794971889971-958.jpg"
   },
   {
-    "start": 17.5,
-    "end": 25.5,
-    "text": "Kalau kamu menemukan laki-laki seperti itu, jangan cuma menikmati ketulusannya, tapi belajarlah menghargai dan memperjuangkannya.",
-    "keyword": "woman holding her husband's hands with gratitude",
-    "imagePrompt": "A cinematic photorealistic close-up scene of a woman gratefully holding her husband's hands with a warm, appreciative expression, modest clothing, emotional dramatic lighting, vertical 9:16 composition.",
-    "image": "https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+    "start": 24,
+    "end": 34.5,
+    "text": "Maka, mulai lagi pelan-pelan, belajar lagi bacaannya, perbaiki gerakannya, coba pahami apa yang sedang kamu ucapkan.",
+    "keyword": "learning Quran study prayer",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman reading an open Quran on a wooden stand, focused and peaceful expression, warm indoor lighting, modest clothing, vertical 9:16 composition.",
+    "image": "images/scene-005-1794971890865-9822.jpg"
   },
   {
-    "start": 25.5,
-    "end": 32.5,
-    "text": "Jangan sampai kamu baru sadar betapa berharganya dia, saat dia sudah lelah dan memilih pergi.",
-    "keyword": "regretful woman watching her husband leave",
-    "imagePrompt": "A cinematic photorealistic scene of a regretful woman watching her husband walk away with a suitcase, emotional heartbreak, dramatic shadows and melancholic lighting, vertical 9:16 composition.",
-    "image": "images/scene-006-1794881131092-8446.jpg"
+    "start": 35,
+    "end": 45.8,
+    "text": "Kalau hari ini masih susah untuk khusyuk, nggak apa-apa, kalau besok masih lupa lagi, belajar lagi, jangan malu karena sedang belajar.",
+    "keyword": "patient Muslim woman learning",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman gently holding her head with a patient and determined expression, studying Islamic texts at a desk, warm lighting, vertical 9:16 composition.",
+    "image": "images/scene-006-1794971892286-3220.jpg"
+  },
+  {
+    "start": 46.2,
+    "end": 52.8,
+    "text": "Sebab, ada hal-hal dalam hidup yang memang pantas kita pelajari berkali-kali.",
+    "keyword": "contemplation life journey",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman looking thoughtfully out a window, quiet and reflective moment, soft natural lighting, modest attire, vertical 9:16 composition.",
+    "image": "images/scene-007-1794971893410-6179.jpg"
+  },
+  {
+    "start": 53,
+    "end": 64,
+    "text": "Dan mungkin memperbaiki salat bukan hanya tentang membuat salat kita menjadi lebih baik, tapi perlahan membuat kita juga menjadi lebih baik.",
+    "keyword": "inner peace personal growth",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman standing peacefully in prayer in a serene room, calm and graceful posture, soft atmospheric lighting, vertical 9:16 composition.",
+    "image": "images/scene-008-1794971894519-5228.jpg"
+  },
+  {
+    "start": 64.5,
+    "end": 72.5,
+    "text": "Jadi, nggak perlu menunggu menjadi sempurna untuk mulai, mulai aja dari salat berikutnya.",
+    "keyword": "starting prayer ready Muslim",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim woman preparing her prayer rug and smiling gently with a hopeful expression, warm indoor lighting, vertical 9:16 composition.",
+    "image": "images/scene-009-1794971895370-7490.jpg"
   }
 ]
