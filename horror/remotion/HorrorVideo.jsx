@@ -1,0 +1,42 @@
+import React from "react";
+import { AbsoluteFill, Audio, Img, Sequence, staticFile, useCurrentFrame, useVideoConfig, interpolate } from "remotion";
+import { generatedStory } from "./generatedStory.js";
+
+const Caption = () => {
+  const frame = useCurrentFrame();
+  const seconds = frame / (generatedStory.fps || 30);
+  const active = generatedStory.captions?.find(c => seconds >= c.start && seconds <= c.end);
+  if (!active) return null;
+  return <div style={{
+    position: "absolute", bottom: 70, left: 160, right: 160, textAlign: "center",
+    color: "white", fontSize: 40, fontWeight: 700, lineHeight: 1.25,
+    textShadow: "0 3px 12px #000, 0 0 4px #000", background: "rgba(0,0,0,.28)",
+    padding: "12px 22px", borderRadius: 10
+  }}>{active.text}</div>;
+};
+
+const Scene = ({ scene }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const progress = interpolate(frame, [0, Math.max(1, durationInFrames - 1)], [0, 1], { extrapolateRight: "clamp" });
+  const scale = interpolate(progress, [0, 1], [1.02, 1.12]);
+  const x = interpolate(progress, [0, 1], [0, -18]);
+  return <AbsoluteFill style={{ backgroundColor: "#080808", overflow: "hidden" }}>
+    <Img src={staticFile("assets/" + scene.fileName)} style={{
+      width: "100%", height: "100%", objectFit: "cover",
+      transform: "scale(" + scale + ") translateX(" + x + "px)"
+    }} />
+    <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(0,0,0,.12), transparent 45%, rgba(0,0,0,.55))" }} />
+  </AbsoluteFill>;
+};
+
+export const HorrorVideo = () => <AbsoluteFill style={{ backgroundColor: "#000" }}>
+  {generatedStory.scenes.map(scene => <Sequence key={scene.fileName} from={scene.startFrame} durationInFrames={scene.durationInFrames}>
+    <Scene scene={scene} />
+  </Sequence>)}
+  <Audio src={staticFile("audio/narration.mp3")} />
+  <Caption />
+  <AbsoluteFill style={{ top: 30, left: 48, right: 48, bottom: "auto", height: 60, justifyContent: "center" }}>
+    <div style={{ color: "rgba(255,255,255,.86)", fontSize: 24, letterSpacing: 3, textTransform: "uppercase" }}>{generatedStory.title}</div>
+  </AbsoluteFill>
+</AbsoluteFill>;
