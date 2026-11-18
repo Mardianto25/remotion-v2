@@ -51,37 +51,83 @@ const thumbnailPath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
 await fs.access(videoPath);
 await fs.access(thumbnailPath);
 
-const scheduleEnabled = (process.env.YOUTUBE_SCHEDULE_ENABLED || "true").toLowerCase() === "true";
-const requestedPrivacy = process.env.YOUTUBE_PRIVACY_STATUS || "private";
-if (!["private", "unlisted", "public"].includes(requestedPrivacy)) throw new Error("YOUTUBE_PRIVACY_STATUS harus private, unlisted, atau public.");
-
-const publishAt = scheduleEnabled ? nextMysteryPublishSlot() : null;
-const privacyStatus = scheduleEnabled ? "private" : requestedPrivacy;
-if (publishAt) {
-  console.log("Jadwal tayang: " + publishAt.toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) + " WIB");
+const statePath = path.join(DATA_DIR, "youtube-upload-state.json");
+let savedState = null;
+try {
+  savedState = JSON.parse(await fs.readFile(statePath, "utf8"));
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
 }
 
-const status = { privacyStatus, selfDeclaredMadeForKids: false };
-if (publishAt) status.publishAt = publishAt.toISOString();
+let videoId = savedState?.videoId || null;
+let publishAt = savedState?.publishAt ? new Date(savedState.publishAt) : null;
+let privacyStatus = savedState?.privacyStatus || null;
 
-const inserted = await youtube.videos.insert({
-  part: ["snippet", "status"],
-  requestBody: {
-    snippet: {
-      title: metadata.title,
-      description: metadata.description,
-      tags: metadata.tags,
-      categoryId: "24",
-      defaultLanguage: "id",
-      defaultAudioLanguage: "id"
+if (videoId) {
+  // Jika proses sebelumnya berhasil membuat video tetapi gagal memasang thumbnail,
+  // gunakan video yang sama agar retry tidak membuat upload duplikat.
+  const { data } = await youtube.videos.list({ part: ["snippet", "status"], id: [videoId] });
+  const existing = data.items?.[0];
+  if (!existing || existing.snippet?.channelId !== channel.id) {
+    throw new Error("State upload menunjuk video yang tidak ditemukan atau bukan milik channel Semesta Kisah. Upload ulang dibatalkan untuk mencegah duplikasi.");
+  }
+  console.log("Melanjutkan video yang sudah ter-upload: " + videoId);
+} else {
+  const scheduleEnabled = (process.env.YOUTUBE_SCHEDULE_ENABLED || "true").toLowerCase() === "true";
+  const requestedPrivacy = process.env.YOUTUBE_PRIVACY_STATUS || "private";
+  if (!["private", "unlisted", "public"].includes(requestedPrivacy)) throw new Error("YOUTUBE_PRIVACY_STATUS harus private, unlisted, atau public.");
+
+  publishAt = scheduleEnabled ? nextMysteryPublishSlot() : null;
+  privacyStatus = scheduleEnabled ? "private" : requestedPrivacy;
+  if (publishAt) {
+    console.log("Jadwal tayang: " + publishAt.toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) + " WIB");
+  }
+
+  const status = { privacyStatus, selfDeclaredMadeForKids: false };
+  if (publishAt) status.publishAt = publishAt.toISOString();
+
+  const inserted = await youtube.videos.insert({
+    part: ["snippet", "status"],
+    requestBody: {
+      snippet: {
+        title: metadata.title,
+        description: metadata.description,
+        tags: metadata.tags,
+        categoryId: "24",
+        defaultLanguage: "id",
+        defaultAudioLanguage: "id"
+      },
+      status
     },
-    status
-  },
-  media: { body: (await import("node:fs")).createReadStream(videoPath) }
+    media: { body: (await import("node:fs")).createReadStream(videoPath) }
+  });
+  videoId = inserted.data.id;
+  if (!videoId) throw new Error("YouTube tidak mengembalikan video ID.");
+
+  // Simpan ID segera setelah insert agar kegagalan thumbnail bisa di-retry
+  // tanpa mengupload file video yang sama untuk kedua kalinya.
+  await fs.writeFile(statePath, JSON.stringify({
+    videoId,
+    channelId: channel.id,
+    channelTitle,
+    publishAt: publishAt?.toISOString() || null,
+    privacyStatus,
+    thumbnailSet: false
+  }, null, 2));
+}
+
+await youtube.thumbnails.set({
+  videoId,
+  media: { mimeType: "image/jpeg", body: (await import("node:fs")).createReadStream(thumbnailPath) }
 });
-const videoId = inserted.data.id;
-if (!videoId) throw new Error("YouTube tidak mengembalikan video ID.");
-await youtube.thumbnails.set({ videoId, media: { mimeType: "image/jpeg", body: (await import("node:fs")).createReadStream(thumbnailPath) } });
+await fs.writeFile(statePath, JSON.stringify({
+  videoId,
+  channelId: channel.id,
+  channelTitle,
+  publishAt: publishAt?.toISOString() || null,
+  privacyStatus,
+  thumbnailSet: true
+}, null, 2));
 console.log("Upload berhasil. Video ID: " + videoId);
 console.log("Channel: " + channelTitle);
 console.log("Status: " + privacyStatus);
