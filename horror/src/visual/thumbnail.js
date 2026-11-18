@@ -21,7 +21,7 @@ export async function generateThumbnail(story, seo, topic) {
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { Authorization: "Bearer " + config.cloudflareApiToken, "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt, width: 1280, height: 720, steps: 4 })
+    body: JSON.stringify({ prompt, steps: 4 })
   });
   if (!response.ok) throw new Error("Cloudflare thumbnail HTTP " + response.status + ": " + (await response.text()).slice(0, 400));
   const type = response.headers.get("content-type") || "";
