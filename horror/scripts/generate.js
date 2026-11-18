@@ -65,6 +65,8 @@ const scenes = story.scenes.map((scene, i) => {
   return { ...assets[i], startFrame, durationInFrames: Math.max(1, endFrame - startFrame) };
 });
 
+await fs.writeFile(path.join(DATA_DIR, "asset-manifest.json"), JSON.stringify(assets, null, 2));
+
 const manifest = {
   title: story.title,
   description: story.description || "",
