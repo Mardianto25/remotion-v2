@@ -44,10 +44,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
@@ -83,10 +81,7 @@ jobs:
           if [ "$HORROR_TOPIC_MODE" = "auto" ]; then
             npm run generate -- --auto
           else
-            if [ -z "$HORROR_TOPIC" ]; then
-              echo "Topik wajib diisi pada mode manual."
-              exit 1
-            fi
+            if [ -z "$HORROR_TOPIC" ]; then echo "Topik wajib diisi pada mode manual."; exit 1; fi
             npm run generate -- "$HORROR_TOPIC"
           fi
       - name: Ensure Remotion browser
@@ -95,27 +90,20 @@ jobs:
       - name: Render long video
         working-directory: horror
         run: npm run render
-      - name: Generate Shorts from existing story assets (no AI calls)
-        working-directory: horror
-        run: npm run generate:shorts
-      - name: Render vertical Shorts
-        working-directory: horror
-        run: npm run render:shorts
-      - name: Save generated video and publishing assets
+      - name: Save long video and source assets for separate Shorts workflow
         uses: actions/upload-artifact@v4
         with:
           name: ruang-cerita-indonesia-assets
           path: |
             horror/out/indonesian-horror.mp4
             horror/out/youtube-thumbnail.jpg
-            horror/out/shorts/*.mp4
             horror/data/story.json
             horror/data/youtube-metadata.json
             horror/data/asset-manifest.json
-            horror/data/shorts-manifest.json
-            horror/data/shorts-metadata.json
             horror/data/trend-report.json
+            horror/public/audio/narration.mp3
             horror/public/audio/narration.vtt
+            horror/remotion/generatedStory.js
           if-no-files-found: error
           retention-days: 7
 
@@ -125,13 +113,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Download previously generated assets
+      - name: Download generated long video
         uses: actions/download-artifact@v4
         with:
           name: ruang-cerita-indonesia-assets
