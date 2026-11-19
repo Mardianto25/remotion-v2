@@ -25,6 +25,63 @@ function parseVtt(vtt) {
     return text ? [{ start: seconds(parts[0]), end: seconds(parts[1]), text }] : [];
   });
 }
+function normalizeWords(value) {
+  return String(value || "").toLowerCase().match(/[a-z0-9]+/g) || [];
+}
+
+function alignScenesToCaptions(scenes, captions, duration, fps) {
+  const words = captions.flatMap(caption => normalizeWords(caption.text).map(word => ({ word, start: caption.start, end: caption.end })));
+  let cursor = 0;
+  const ranges = scenes.map(scene => {
+    const expected = normalizeWords(scene.narration);
+    if (!expected.length) return null;
+    let best = null;
+    for (let start = cursor; start < words.length; start++) {
+      if (words[start].word !== expected[0]) continue;
+      let scan = start;
+      let matched = 0;
+      let last = start;
+      for (const word of expected) {
+        let found = -1;
+        for (let j = scan; j < Math.min(words.length, scan + 5); j++) {
+          if (words[j].word === word) { found = j; break; }
+        }
+        if (found >= 0) { matched++; last = found; scan = found + 1; }
+      }
+      if (!best || matched > best.matched) best = { start, last, matched, ratio: matched / expected.length };
+      if (matched / expected.length >= 0.82) break;
+    }
+    if (best && best.ratio >= 0.55) {
+      cursor = best.last + 1;
+      return { start: words[best.start].start, end: words[best.last].end };
+    }
+    return null;
+  });
+
+  const counts = scenes.map(scene => normalizeWords(scene.narration).length);
+  const total = counts.reduce((a, b) => a + b, 0) || 1;
+  let elapsed = 0;
+  const fallback = counts.map((count, i) => {
+    const start = elapsed;
+    elapsed += duration * count / total;
+    return { start, end: i === counts.length - 1 ? duration : elapsed };
+  });
+  if (ranges.some(range => !range)) console.warn("[timing] Ada scene yang tidak cocok dengan subtitle; hanya scene tersebut memakai estimasi fallback.");
+
+  const resolved = ranges.map((range, i) => range || fallback[i]);
+  const boundaries = [0];
+  for (let i = 1; i < scenes.length; i++) {
+    const left = resolved[i - 1].end;
+    const right = resolved[i].start;
+    boundaries.push(Math.max(boundaries[i - 1] + 0.25, Math.min(duration - 0.25 * (scenes.length - i), (left + right) / 2)));
+  }
+  boundaries.push(duration);
+  return scenes.map((scene, i) => ({
+    startFrame: Math.round(boundaries[i] * fps),
+    durationInFrames: Math.max(1, Math.round((boundaries[i + 1] - boundaries[i]) * fps))
+  }));
+}
+
 function audioDuration(file) {
   return new Promise((resolve, reject) => {
     const child = spawn("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", file]);
@@ -76,16 +133,16 @@ for (let i = 0; i < story.scenes.length; i++) {
 console.log("[5/6] Generate thumbnail YouTube");
 await generateThumbnail(story, seo, topic);
 
-const words = story.scenes.map(s => (s.narration || "").split(/\s+/).filter(Boolean).length);
-const totalWords = words.reduce((a, b) => a + b, 0) || 1;
-let cursor = 0;
 const fps = 30;
-const scenes = story.scenes.map((scene, i) => {
-  const startFrame = Math.round(cursor * fps);
-  cursor += duration * words[i] / totalWords;
-  const endFrame = i === story.scenes.length - 1 ? Math.ceil(duration * fps) : Math.round(cursor * fps);
-  return { ...assets[i], startFrame, durationInFrames: Math.max(1, endFrame - startFrame) };
-});
+const timings = alignScenesToCaptions(story.scenes, captions, duration, fps);
+const scenes = story.scenes.map((scene, i) => ({
+  ...assets[i],
+  heading: scene.heading,
+  narration: scene.narration,
+  visualPrompt: scene.visualPrompt,
+  startFrame: timings[i].startFrame,
+  durationInFrames: timings[i].durationInFrames
+}));
 await fs.writeFile(path.join(DATA_DIR, "asset-manifest.json"), JSON.stringify(assets, null, 2));
 const manifest = {
   title: story.title,
