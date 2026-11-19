@@ -1,21 +1,30 @@
-name: Generate Shorts - Ruang Cerita Indonesia
+name: Generate and Upload Shorts - Ruang Cerita Indonesia
 
 on:
   workflow_dispatch:
     inputs:
       source_run_id:
-        description: "Run ID workflow video panjang yang ingin dijadikan Shorts (lihat URL run di Actions)"
+        description: "Run ID workflow video panjang yang ingin dijadikan Shorts"
         required: true
         type: string
+      privacy_status:
+        description: "Status publikasi Shorts"
+        required: true
+        default: public
+        type: choice
+        options:
+          - public
+          - unlisted
+          - private
 
 permissions:
   actions: read
   contents: read
 
 jobs:
-  generate-shorts:
+  generate-and-upload-shorts:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,10 +46,19 @@ jobs:
       - name: Install Node dependencies
         working-directory: horror
         run: npm install
-      - name: Generate Shorts without AI calls
+      - name: Generate vertical Shorts and SEO metadata
         working-directory: horror
         run: npm run generate:shorts
-      - name: Upload Shorts artifact
+      - name: Upload Shorts to Ruang Cerita Indonesia
+        working-directory: horror
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
+          YOUTUBE_SHORTS_PRIVACY_STATUS: ${{ inputs.privacy_status }}
+        run: npm run upload:shorts
+      - name: Preserve generated Shorts and upload state
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ruang-cerita-indonesia-shorts
@@ -48,5 +66,6 @@ jobs:
             horror/out/shorts/*.mp4
             horror/data/shorts-manifest.json
             horror/data/shorts-metadata.json
-          if-no-files-found: error
+            horror/data/shorts-upload-state.json
+          if-no-files-found: ignore
           retention-days: 7
