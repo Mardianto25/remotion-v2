@@ -30,7 +30,7 @@ const ShortScene = ({ scene }) => {
     <Img src={source} style={{
       position: "absolute", inset: 0, width: "100%", height: "100%",
       objectFit: "contain", transform: `scale(${scale})`,
-      filter: "brightness(.88)", dropShadow: "0 8px 24px rgba(0,0,0,.7)"
+      filter: "brightness(.88) drop-shadow(0 8px 24px rgba(0,0,0,.7))"
     }} />
     <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(0,0,0,.24), transparent 28%, transparent 62%, rgba(0,0,0,.62))" }} />
   </AbsoluteFill>;
