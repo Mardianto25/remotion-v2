@@ -12,11 +12,12 @@ export async function generateThumbnail(story, seo, topic) {
   const output = path.join(OUT_DIR, "youtube-thumbnail.jpg");
   const endpoint = "https://api.cloudflare.com/client/v4/accounts/" + config.cloudflareAccountId + "/ai/run/" + config.cloudflareModel;
   const prompt = [
-    "Create a terrifying but tasteful cinematic Indonesian supernatural mystery YouTube thumbnail background.",
-    "Landscape 16:9 composition, dramatic visual storytelling, photorealistic, high contrast, deep shadows, volumetric fog, eerie atmosphere, one clear focal subject, professional film poster quality.",
-    "Depict the specific setting and mystery of: " + topic + ".",
+    "Create a terrifying, premium cinematic 3D CGI Indonesian supernatural horror movie poster background for a YouTube thumbnail.",
+    "High-end realistic 3D render, realistic 3D character or supernatural entity, physically based materials, detailed skin hair and fabric textures, detailed 3D environment, Unreal Engine quality, volumetric fog, dramatic moonlight, deep shadows, strong depth and scale, professional theatrical horror film poster.",
+    "Landscape 16:9 composition, one instantly readable focal subject, striking silhouette and suspenseful storytelling.",
+    "Depict the specific setting, supernatural threat and mystery of: " + topic + ".",
     "Leave clean dark negative space on the left for large title overlay. No letters, no typography, no logo, no watermark, no collage, no borders.",
-    "Avoid gore, blood, dismemberment, explicit violence, cartoon style."
+    "Serious realistic 3D horror aesthetic, not cartoon, not anime, not flat illustration. Avoid gore, blood, dismemberment and explicit violence."
   ].join(" ");
   const response = await fetch(endpoint, {
     method: "POST",
