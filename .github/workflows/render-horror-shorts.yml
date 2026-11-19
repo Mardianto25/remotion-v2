@@ -1,0 +1,52 @@
+name: Generate Shorts - Ruang Cerita Indonesia
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: "Run ID workflow video panjang yang ingin dijadikan Shorts (lihat URL run di Actions)"
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  generate-shorts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: horror/package.json
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      - name: Download long-video artifact from selected run
+        uses: actions/download-artifact@v4
+        with:
+          name: ruang-cerita-indonesia-assets
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ github.token }}
+          path: horror
+      - name: Install Node dependencies
+        working-directory: horror
+        run: npm install
+      - name: Generate Shorts without AI calls
+        working-directory: horror
+        run: npm run generate:shorts
+      - name: Upload Shorts artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ruang-cerita-indonesia-shorts
+          path: |
+            horror/out/shorts/*.mp4
+            horror/data/shorts-manifest.json
+            horror/data/shorts-metadata.json
+          if-no-files-found: error
+          retention-days: 7
