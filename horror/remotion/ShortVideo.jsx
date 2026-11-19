@@ -20,13 +20,19 @@ const ShortScene = ({ scene }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const progress = interpolate(frame, [0, Math.max(1, durationInFrames - 1)], [0, 1], { extrapolateRight: "clamp" });
-  const scale = interpolate(progress, [0, 1], [1.04, 1.16]);
+  const scale = interpolate(progress, [0, 1], [1.02, 1.10]);
+  const source = staticFile("assets/" + scene.fileName);
   return <AbsoluteFill style={{ backgroundColor: "#050505", overflow: "hidden" }}>
-    <Img src={staticFile("assets/" + scene.fileName)} style={{
+    <Img src={source} style={{
       width: "100%", height: "100%", objectFit: "cover",
-      transform: `scale(${scale})`, filter: "brightness(.72)"
+      transform: "scale(1.12)", filter: "blur(28px) brightness(.28)"
     }} />
-    <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%, rgba(0,0,0,.08) 55%, rgba(0,0,0,.72))" }} />
+    <Img src={source} style={{
+      position: "absolute", inset: 0, width: "100%", height: "100%",
+      objectFit: "contain", transform: `scale(${scale})`,
+      filter: "brightness(.88)", dropShadow: "0 8px 24px rgba(0,0,0,.7)"
+    }} />
+    <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(0,0,0,.24), transparent 28%, transparent 62%, rgba(0,0,0,.62))" }} />
   </AbsoluteFill>;
 };
 
@@ -46,7 +52,7 @@ export const ShortVideo = ({ shortIndex = 0 }) => {
     </AbsoluteFill>
     <Caption captions={short.captions} />
     {showEndCard && <AbsoluteFill style={{
-      background: "rgba(0,0,0,.82)", justifyContent: "center", alignItems: "center",
+      background: "rgba(0,0,0,.88)", justifyContent: "center", alignItems: "center",
       padding: 70, textAlign: "center"
     }}>
       <div style={{ color: "#fff", fontSize: 66, fontWeight: 900, lineHeight: 1.15 }}>TONTON CERITA LENGKAPNYA</div>
