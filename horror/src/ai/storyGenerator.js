@@ -76,12 +76,17 @@ export async function generateStory(topic) {
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
-    "Buat naskah dokumenter misteri/horor Indonesia berbahasa Indonesia untuk video YouTube 8-10 menit, sekitar 1000-1300 kata.",
-    "Susun 24-32 scene sesuai urutan narasi. Bedakan fakta, legenda, kesaksian dan dramatisasi. Jangan mengarang sumber, tanggal atau kutipan. Hindari gore eksplisit.",
+    "Buat naskah cerita horor/misteri Indonesia untuk video YouTube Ruang Cerita Indonesia dengan target durasi narasi 6-8 menit (sekitar 700-1000 kata).",
+    "Prioritaskan cerita yang padat, mengalir, sinematik, dan membuat penonton ingin terus menonton. Jangan memperpanjang cerita dengan pengulangan, basa-basi, atau deskripsi suasana yang tidak menambah ketegangan.",
+    "Gunakan struktur alur yang jelas: (1) hook mengerikan atau pertanyaan misterius dalam 1-2 kalimat pertama, langsung memancing rasa penasaran; (2) pengenalan tokoh dan lokasi secara singkat; (3) kejadian ganjil yang mulai mengganggu; (4) ancaman meningkat dengan petunjuk baru atau konsekuensi yang makin nyata; (5) klimaks yang menjadi puncak teror; (6) ending atau twist yang kuat dan membekas.",
+    "Pastikan ada perkembangan cerita atau informasi baru setiap sekitar 30-60 detik. Jangan mengulang informasi yang sudah diketahui penonton, jangan terlalu cepat mengungkap sosok/rahasia utama, dan jangan menutup cerita secara terburu-buru.",
+    "Buat 18-24 scene yang mengikuti urutan narasi. Setiap scene harus mewakili satu momen visual yang jelas dan berbeda, bukan memecah satu kalimat menjadi banyak scene.",
+    "Jika mengangkat lokasi, legenda, atau peristiwa nyata, bedakan fakta, legenda, kesaksian, dan dramatisasi. Jangan mengarang sumber, tanggal, kutipan, atau menyebut cerita sebagai kisah nyata tanpa dasar. Hindari gore eksplisit.",
+    "Narasi lengkap harus konsisten dengan gabungan narration pada seluruh scene. Jangan menambahkan atau menghilangkan bagian cerita di salah satunya.",
     "Kembalikan satu objek JSON valid tanpa markdown atau code fence. Gunakan tepat struktur berikut:",
-    '{"title":"judul video","description":"deskripsi","category":"kategori","disclaimer":"catatan fakta dan dramatisasi","narration":"naskah narasi lengkap","scenes":[{"id":1,"heading":"judul adegan","narration":"bagian narasi adegan","visualPrompt":"English cinematic photorealistic visual prompt, landscape 16:9, no text, no watermark","searchQuery":"kata kunci visual alternatif","mood":"misterius"}]}',
+    '{"title":"judul video yang menarik","description":"deskripsi singkat","category":"kategori","disclaimer":"catatan fakta dan dramatisasi bila diperlukan","narration":"naskah narasi lengkap 700-1000 kata","scenes":[{"id":1,"heading":"judul adegan","narration":"bagian narasi adegan yang merupakan potongan dari narasi lengkap","visualPrompt":"English cinematic photorealistic horror visual prompt, landscape 16:9, no text, no watermark","searchQuery":"kata kunci visual alternatif","mood":"misterius"}]}',
     "Setiap scene wajib memiliki narration dan minimal salah satu dari visualPrompt atau searchQuery.",
-    "visualPrompt harus bahasa Inggris, photorealistic cinematic horror documentary still, landscape 16:9, no text, no watermark.",
+    "visualPrompt harus bahasa Inggris, photorealistic cinematic horror still, landscape 16:9, no text, no watermark. Jaga konsistensi karakter dan lokasi antar-scene bila relevan.",
     "Topik: " + topic
   ].join("\n");
 
