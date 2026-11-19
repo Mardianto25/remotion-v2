@@ -1,1 +1,1 @@
-export const generatedShorts = [];\n
+export const generatedShorts = [];
