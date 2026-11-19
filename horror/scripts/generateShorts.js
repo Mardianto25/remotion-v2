@@ -57,7 +57,7 @@ for(let i=0;i<COUNT;i++){
   const filter="[0:v]split=2[bg][fg];[bg]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=24:8,eq=brightness=-0.22[bgv];[fg]scale=1080:-2[fgv];[bgv][fgv]overlay=(W-w)/2:(H-h)/2,setsar=1,format=yuv420p[v]";
   await run("ffmpeg",["-y","-ss",range.start.toFixed(3),"-i",video,"-t",seconds.toFixed(3),"-filter_complex",filter,"-map","[v]","-map","0:a:0","-c:v","libx264","-preset","veryfast","-crf","22","-c:a","aac","-b:a","160k","-movflags","+faststart",output]);
   const titleSuffix=["Bagian paling mengerikan","Ada sesuatu di baliknya","Jangan tonton sendirian"][i];
-  shorts.push({id,fileName:file,title:`Cerita Horor — ${titleSuffix} #Shorts`,description:"Potongan cerita dari video lengkap Ruang Cerita Indonesia. Tonton video lengkapnya di channel kami.\n\n#Shorts #CeritaHoror #HororIndonesia",startSeconds:range.start,durationSeconds:seconds});
+  shorts.push({id,fileName:file,title:`Cerita Horor — ${titleSuffix} #shorts`,description:"Potongan cerita dari video lengkap Ruang Cerita Indonesia. Tonton video lengkapnya di channel kami.\n\n#shorts #CeritaHoror #HororIndonesia",startSeconds:range.start,durationSeconds:seconds});
   console.log(`[Shorts ${id}] ${range.start.toFixed(1)}s–${range.end.toFixed(1)}s -> ${output}`);
 }
 if(!shorts.length) throw new Error("Tidak ada Shorts yang berhasil dibuat.");
