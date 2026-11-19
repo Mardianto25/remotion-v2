@@ -2,6 +2,20 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { config, ASSETS_DIR } from "../config.js";
 
+const HORROR_3D_STYLE = [
+  "high-end cinematic 3D CGI horror film still",
+  "photorealistic 3D rendering, physically based materials, realistic skin and fabric shaders",
+  "detailed 3D environment, volumetric moonlight, deep cinematic shadows, atmospheric fog",
+  "Unreal Engine quality render, dramatic film lighting, realistic depth and scale",
+  "landscape 16:9 composition, no text, no logo, no watermark"
+].join(", ");
+
+function buildHorrorPrompt(prompt) {
+  return String(prompt || "An abandoned Indonesian village at night, thick fog and a distant mysterious silhouette")
+    .replace(/\b(photorealistic|cinematic)\b/gi, "")
+    .trim() + ". " + HORROR_3D_STYLE + ". Indonesian supernatural horror atmosphere. Avoid cartoon, anime, illustration, flat 2D artwork, gore and explicit violence.";
+}
+
 async function saveCloudflareImage(response, destination) {
   if (!response.ok) throw new Error("Cloudflare HTTP " + response.status);
   const type = response.headers.get("content-type") || "";
@@ -22,12 +36,12 @@ export async function cloudflareImage(prompt, destination) {
     method: "POST",
     headers: { Authorization: "Bearer " + config.cloudflareApiToken, "Content-Type": "application/json" },
     body: JSON.stringify({
-      prompt: prompt + ". Photorealistic cinematic Indonesian horror documentary still, landscape 16:9, atmospheric lighting, no text, no logo, no watermark.",
+      prompt: buildHorrorPrompt(prompt),
       steps: 4
     })
   });
   await saveCloudflareImage(response, destination);
-  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, sourceUrl: null, fileName: path.basename(destination) };
+  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, visualStyle: "cinematic-3d-horror", sourceUrl: null, fileName: path.basename(destination) };
 }
 
 export async function pixabayImage(query, destination) {
