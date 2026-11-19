@@ -8,7 +8,8 @@
     "generate:shorts": "node scripts/generateShorts.js",
     "render": "remotion render remotion/index.jsx HorrorVideo out/indonesian-horror.mp4 --codec=h264 --crf=22",
     "upload:youtube": "node scripts/uploadYoutube.js",
-    "build:video": "npm run generate && npm run render"
+    "build:video": "npm run generate && npm run render",
+    "upload:shorts": "node scripts/uploadShorts.js"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
