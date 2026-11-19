@@ -1,18 +1,82 @@
 [
   {
     "start": 0,
-    "end": 7.35,
-    "text": "Jika punya kesulitan sebesar apapun, seberat apapun, cepat dehati Allah.",
-    "keyword": "person praying with deep distress",
-    "imagePrompt": "A cinematic photorealistic scene of a distressed person praying with hands raised in deep supplication, emotional facial expression, dramatic lighting, vertical 9:16 composition.",
-    "image": "images/scene-001-1795041172187-2552.jpg"
+    "end": 3,
+    "text": "Ada yang bersujud sambil memohon ampun di sisi sajadahnya.",
+    "keyword": "Muslim person prostrating in prayer",
+    "imagePrompt": "A cinematic photorealistic scene of a devoted Muslim person in modest clothing prostrating in deep prayer on a prayer rug, peaceful atmosphere, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-001-1795091309629-4376.jpg"
   },
   {
-    "start": 7.35,
-    "end": 20.25,
-    "text": "Maka di situ akan dijawab langsung oleh Allah, hambaku, sepanjang engkau mendekat kepadaku, maka yakinkan dalam dirimu, situasi apapun yang kau rasakan, aku tidak akan pernah meninggalkanmu.",
-    "keyword": "person finding peace and comfort",
-    "imagePrompt": "A cinematic photorealistic scene of a Muslim person sitting in a quiet room feeling a sense of peace and comfort after prayer, soft warm lighting, modest clothing, vertical 9:16 composition.",
-    "image": "images/scene-002-1795041173429-6155.jpg"
+    "start": 3,
+    "end": 7,
+    "text": "Ada yang menunduk membawa riuh beban keluarga.",
+    "keyword": "burdened Muslim man bowing head",
+    "imagePrompt": "A cinematic photorealistic scene of a tired Muslim man in modest clothing bowing his head in deep thought, overwhelmed by family burdens, emotional expression, dramatic shadows, vertical 9:16 composition.",
+    "image": "images/scene-002-1795091311530-6725.jpg"
+  },
+  {
+    "start": 7,
+    "end": 11.8,
+    "text": "Tubuhnya di atas sajadah, namun hatinya masih liar berkelana.",
+    "keyword": "person kneeling on prayer rug distracted",
+    "imagePrompt": "A cinematic photorealistic close-up of a person kneeling on a prayer rug with a distracted and restless expression, emotional internal struggle, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-003-1795091312995-1067.jpg"
+  },
+  {
+    "start": 11.8,
+    "end": 17.6,
+    "text": "Seringkali kita datang ke sajadah, bukan karena hati telah menemukan tenangnya.",
+    "keyword": "person sitting on prayer rug looking restless",
+    "imagePrompt": "A cinematic photorealistic scene of a person sitting on a prayer rug with a restless and troubled expression, seeking inner peace, emotional depth, dramatic lighting, vertical 9:16 composition.",
+    "image": "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+  },
+  {
+    "start": 17.6,
+    "end": 20.3,
+    "text": "Justru karena kita sedang mencarinya.",
+    "keyword": "person searching for inner peace",
+    "imagePrompt": "A cinematic photorealistic portrait of a person with an expression of deep longing and search for peace, soft dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-005-1795091315678-1947.jpg"
+  },
+  {
+    "start": 20.3,
+    "end": 22.5,
+    "text": "Dan itu tidak mengapa.",
+    "keyword": "person looking relieved",
+    "imagePrompt": "A cinematic photorealistic portrait of a person showing a subtle expression of relief and acceptance, gentle lighting, vertical 9:16 composition.",
+    "image": "https://images.pexels.com/photos/4388167/pexels-photo-4388167.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+  },
+  {
+    "start": 22.5,
+    "end": 26.5,
+    "text": "Sebab sajadah bukan tempat bagi mereka yang sempurna.",
+    "keyword": "person praying humbly on prayer mat",
+    "imagePrompt": "A cinematic photorealistic scene of a humble person praying on a prayer mat, embracing human imperfection, modest clothing, warm dramatic lighting, vertical 9:16 composition.",
+    "image": "https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+  },
+  {
+    "start": 26.5,
+    "end": 31,
+    "text": "Sajadah adalah rumah, rumah bagi jiwa yang hampir patah.",
+    "keyword": "broken soul praying on prayer rug",
+    "imagePrompt": "A cinematic photorealistic scene of a heartbroken person weeping gently while holding hands in prayer on a prayer rug, vulnerability, emotional depth, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-008-1795091318848-3753.jpg"
+  },
+  {
+    "start": 31,
+    "end": 34.4,
+    "text": "Kita tidak datang karena hidup telah baik-baik saja.",
+    "keyword": "person facing hardship in prayer",
+    "imagePrompt": "A cinematic photorealistic scene of a person enduring hardship, sitting quietly on a prayer mat with a reflective and sorrowful expression, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-009-1795091320255-7348.jpg"
+  },
+  {
+    "start": 34.4,
+    "end": 41,
+    "text": "Kita datang sebab tahu, tanpa Allah, hati ini tak akan pernah menemukan arah.",
+    "keyword": "person praying with hands raised seeking guidance",
+    "imagePrompt": "A cinematic photorealistic scene of a person raising hands in supplication, seeking divine guidance in a dark and quiet room with a single beam of light, emotional depth, vertical 9:16 composition.",
+    "image": "images/scene-010-1795091321477-4122.jpg"
   }
 ]
