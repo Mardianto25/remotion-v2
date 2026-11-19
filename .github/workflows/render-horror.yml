@@ -1,15 +1,23 @@
-name: Generate Indonesian Horror Video
+name: Generate Ruang Cerita Indonesia Video
 
 on:
   workflow_dispatch:
     inputs:
-      topic:
-        description: "Topik cerita misteri Indonesia"
+      topic_mode:
+        description: "Pilih otomatis berdasarkan tren kemarin atau masukkan topik sendiri"
         required: true
-        default: "Misteri Alas Purwo"
+        default: auto
+        type: choice
+        options:
+          - auto
+          - manual
+      topic:
+        description: "Topik manual (hanya dipakai jika mode manual)"
+        required: false
+        default: ""
         type: string
       upload_to_youtube:
-        description: "Upload otomatis ke channel Semesta Kisah"
+        description: "Upload otomatis ke channel Ruang Cerita Indonesia"
         required: true
         default: true
         type: boolean
@@ -67,7 +75,20 @@ jobs:
           EDGE_TTS_RATE: "-8%"
           EDGE_TTS_PITCH: "-5Hz"
           HORROR_TOPIC: ${{ inputs.topic }}
-        run: npm run generate -- "$HORROR_TOPIC"
+          HORROR_TOPIC_MODE: ${{ inputs.topic_mode }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
+        run: |
+          if [ "$HORROR_TOPIC_MODE" = "auto" ]; then
+            npm run generate -- --auto
+          else
+            if [ -z "$HORROR_TOPIC" ]; then
+              echo "Topik wajib diisi pada mode manual."
+              exit 1
+            fi
+            npm run generate -- "$HORROR_TOPIC"
+          fi
       - name: Ensure Remotion browser
         working-directory: horror
         run: npx remotion browser ensure
@@ -77,13 +98,14 @@ jobs:
       - name: Save generated video and publishing assets
         uses: actions/upload-artifact@v4
         with:
-          name: semesta-kisah-assets
+          name: ruang-cerita-indonesia-assets
           path: |
             horror/out/indonesian-horror.mp4
             horror/out/youtube-thumbnail.jpg
             horror/data/story.json
             horror/data/youtube-metadata.json
             horror/data/asset-manifest.json
+            horror/data/trend-report.json
             horror/public/audio/narration.vtt
           if-no-files-found: error
           retention-days: 7
@@ -103,7 +125,7 @@ jobs:
       - name: Download previously generated assets
         uses: actions/download-artifact@v4
         with:
-          name: semesta-kisah-assets
+          name: ruang-cerita-indonesia-assets
           path: horror
       - name: Install Node dependencies
         working-directory: horror
@@ -121,7 +143,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: semesta-kisah-upload-state
+          name: ruang-cerita-indonesia-upload-state
           path: horror/data/youtube-upload-state.json
           if-no-files-found: ignore
           retention-days: 7

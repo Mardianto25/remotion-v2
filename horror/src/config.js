@@ -8,6 +8,7 @@ export const ASSETS_DIR = path.join(PUBLIC_DIR, "assets");
 export const AUDIO_DIR = path.join(PUBLIC_DIR, "audio");
 export const DATA_DIR = path.join(ROOT, "data");
 export const OUT_DIR = path.join(ROOT, "out");
+export const CHANNEL_NAME = process.env.YOUTUBE_CHANNEL_NAME || "Ruang Cerita Indonesia";
 export const config = {
   geminiApiKey: process.env.GEMINI_API_KEY,
   geminiModel: process.env.GEMINI_MODEL || "gemini-2.5-flash",

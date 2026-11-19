@@ -2,7 +2,7 @@ import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { google } from "googleapis";
-import { DATA_DIR, OUT_DIR } from "../src/config.js";
+import { CHANNEL_NAME, DATA_DIR, OUT_DIR } from "../src/config.js";
 
 const required = ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN_V2"];
 for (const key of required) if (!process.env[key]) throw new Error("GitHub Secret belum diatur: " + key);
@@ -12,7 +12,6 @@ oauth.setCredentials({ refresh_token: process.env.YOUTUBE_REFRESH_TOKEN_V2 });
 const youtube = google.youtube({ version: "v3", auth: oauth });
 
 function nextMysteryPublishSlot(now = new Date()) {
-  // Jadwal audiens Indonesia: Jumat dan Minggu pukul 19.00 WIB (UTC+7).
   const offsetMs = 7 * 60 * 60 * 1000;
   const jakartaNow = new Date(now.getTime() + offsetMs);
   for (let addDays = 0; addDays <= 7; addDays++) {
@@ -30,7 +29,6 @@ function nextMysteryPublishSlot(now = new Date()) {
       localDate.getUTCDate(),
       12, 0, 0
     ));
-    // Beri jeda minimal 2 jam dari proses upload agar video siap diproses YouTube.
     if (publishAt.getTime() >= now.getTime() + 2 * 60 * 60 * 1000) return publishAt;
   }
   throw new Error("Tidak menemukan slot publikasi Jumat/Minggu dalam 7 hari.");
@@ -38,11 +36,11 @@ function nextMysteryPublishSlot(now = new Date()) {
 
 const { data: channelData } = await youtube.channels.list({ part: ["snippet"], mine: true });
 const channel = channelData.items?.[0];
-if (!channel) throw new Error("Token V2 tidak memiliki akses ke channel YouTube.");
+if (!channel) throw new Error("Token OAuth tidak memiliki akses ke channel YouTube.");
 const channelTitle = channel.snippet?.title || "";
 console.log("OAuth channel terdeteksi: " + channelTitle);
-if (!channelTitle.toLocaleLowerCase("id-ID").includes("ruang cerita indonesia")) {
-  throw new Error(`Channel tujuan tidak cocok. Diharapkan "Semesta Kisah", tetapi token mengarah ke "${channelTitle}". Upload dibatalkan.`);
+if (!channelTitle.toLocaleLowerCase("id-ID").includes(CHANNEL_NAME.toLocaleLowerCase("id-ID"))) {
+  throw new Error(`Channel tujuan tidak cocok. Diharapkan "${CHANNEL_NAME}", tetapi token mengarah ke "${channelTitle}". Upload dibatalkan.`);
 }
 
 const metadata = JSON.parse(await fs.readFile(path.join(DATA_DIR, "youtube-metadata.json"), "utf8"));
@@ -64,12 +62,10 @@ let publishAt = savedState?.publishAt ? new Date(savedState.publishAt) : null;
 let privacyStatus = savedState?.privacyStatus || null;
 
 if (videoId) {
-  // Jika proses sebelumnya berhasil membuat video tetapi gagal memasang thumbnail,
-  // gunakan video yang sama agar retry tidak membuat upload duplikat.
   const { data } = await youtube.videos.list({ part: ["snippet", "status"], id: [videoId] });
   const existing = data.items?.[0];
   if (!existing || existing.snippet?.channelId !== channel.id) {
-    throw new Error("State upload menunjuk video yang tidak ditemukan atau bukan milik channel Semesta Kisah. Upload ulang dibatalkan untuk mencegah duplikasi.");
+    throw new Error("State upload menunjuk video yang tidak ditemukan atau bukan milik channel tujuan. Upload ulang dibatalkan untuk mencegah duplikasi.");
   }
   console.log("Melanjutkan video yang sudah ter-upload: " + videoId);
 } else {
@@ -104,8 +100,6 @@ if (videoId) {
   videoId = inserted.data.id;
   if (!videoId) throw new Error("YouTube tidak mengembalikan video ID.");
 
-  // Simpan ID segera setelah insert agar kegagalan thumbnail bisa di-retry
-  // tanpa mengupload file video yang sama untuk kedua kalinya.
   await fs.writeFile(statePath, JSON.stringify({
     videoId,
     channelId: channel.id,

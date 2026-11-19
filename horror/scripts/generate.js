@@ -4,6 +4,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import { generateStory } from "../src/ai/storyGenerator.js";
 import { generateSeo } from "../src/ai/seoGenerator.js";
+import { researchTrendingTopic } from "../src/ai/trendResearcher.js";
 import { generateThumbnail } from "../src/visual/thumbnail.js";
 import { getSceneImage } from "../src/visual/providers.js";
 import { generateNarration } from "../src/audio/edgeTts.js";
@@ -34,9 +35,21 @@ function audioDuration(file) {
   });
 }
 
-const topic = process.argv.slice(2).join(" ").trim() || process.env.HORROR_TOPIC;
-if (!topic) throw new Error('Gunakan: npm run generate -- "Misteri Alas Purwo"');
+const args = process.argv.slice(2);
+const autoMode = args.includes("--auto") || (process.env.HORROR_TOPIC_MODE || "").toLowerCase() === "auto";
+let topic = args.filter(arg => arg !== "--auto").join(" ").trim() || process.env.HORROR_TOPIC || "";
 await Promise.all([ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR].map(dir => fs.mkdir(dir, { recursive: true })));
+
+if (autoMode) {
+  console.log("[0/6] Riset tren horor/misteri YouTube Indonesia (kemarin)");
+  const trend = await researchTrendingTopic();
+  topic = trend.topic;
+  await fs.writeFile(path.join(DATA_DIR, "trend-report.json"), JSON.stringify(trend, null, 2));
+  console.log("[trend] Topik terpilih: " + topic);
+  console.log("[trend] Alasan: " + trend.reason);
+} else if (!topic) {
+  throw new Error('Topik kosong. Gunakan: npm run generate -- --auto atau npm run generate -- "Misteri Alas Purwo".');
+}
 
 console.log("[1/6] Generate cerita");
 const story = await generateStory(topic);

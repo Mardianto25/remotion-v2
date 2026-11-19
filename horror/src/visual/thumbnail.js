@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
-import { config, DATA_DIR, OUT_DIR } from "../config.js";
+import { CHANNEL_NAME, config, DATA_DIR, OUT_DIR } from "../config.js";
 
 function escapeXml(value) {
   return String(value).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&apos;" })[c]);
@@ -34,13 +34,15 @@ export async function generateThumbnail(story, seo, topic) {
     imageBuffer = Buffer.from(await response.arrayBuffer());
   }
   const label = escapeXml(seo.thumbnailText || story.title || topic);
+  const brand = escapeXml(CHANNEL_NAME.toLocaleUpperCase("id-ID"));
   const overlay = Buffer.from(`<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
     <defs><linearGradient id="shade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".88"/><stop offset=".58" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient></defs>
     <rect width="1280" height="720" fill="url(#shade)"/>
     <text x="78" y="500" fill="#fff" font-family="Arial, sans-serif" font-size="76" font-weight="900" stroke="#160b0b" stroke-width="5" paint-order="stroke" letter-spacing="1">${label}</text>
-    <text x="82" y="565" fill="#ffcf55" font-family="Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="5">SEMESTA KISAH</text>
+    <text x="82" y="565" fill="#ffcf55" font-family="Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="3">${brand}</text>
   </svg>`);
   await sharp(imageBuffer).resize(1280, 720, { fit: "cover" }).composite([{ input: overlay }]).jpeg({ quality: 90, mozjpeg: true }).toFile(output);
+  await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(path.join(DATA_DIR, "youtube-metadata.json"), JSON.stringify(seo, null, 2));
   return output;
 }
