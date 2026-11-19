@@ -27,7 +27,6 @@ function extractJson(raw) {
 }
 
 function normalizeStory(input, topic) {
-  // Beberapa respons model membungkus hasil di dalam story/data/result.
   let value = input;
   for (let i = 0; i < 3; i++) {
     if (value && !Array.isArray(value.scenes)) {
@@ -84,9 +83,12 @@ export async function generateStory(topic) {
     "Jika mengangkat lokasi, legenda, atau peristiwa nyata, bedakan fakta, legenda, kesaksian, dan dramatisasi. Jangan mengarang sumber, tanggal, kutipan, atau menyebut cerita sebagai kisah nyata tanpa dasar. Hindari gore eksplisit.",
     "Narasi lengkap harus konsisten dengan gabungan narration pada seluruh scene. Jangan menambahkan atau menghilangkan bagian cerita di salah satunya.",
     "Kembalikan satu objek JSON valid tanpa markdown atau code fence. Gunakan tepat struktur berikut:",
-    '{"title":"judul video yang menarik","description":"deskripsi singkat","category":"kategori","disclaimer":"catatan fakta dan dramatisasi bila diperlukan","narration":"naskah narasi lengkap 700-1000 kata","scenes":[{"id":1,"heading":"judul adegan","narration":"bagian narasi adegan yang merupakan potongan dari narasi lengkap","visualPrompt":"English cinematic photorealistic horror visual prompt, landscape 16:9, no text, no watermark","searchQuery":"kata kunci visual alternatif","mood":"misterius"}]}',
+    '{"title":"judul video yang menarik","description":"deskripsi singkat","category":"kategori","disclaimer":"catatan fakta dan dramatisasi bila diperlukan","narration":"naskah narasi lengkap 700-1000 kata","scenes":[{"id":1,"heading":"judul adegan","narration":"bagian narasi adegan yang merupakan potongan dari narasi lengkap","visualPrompt":"English cinematic 3D CGI Indonesian horror film still prompt, landscape 16:9, no text, no watermark","searchQuery":"kata kunci visual alternatif","mood":"misterius"}]}',
     "Setiap scene wajib memiliki narration dan minimal salah satu dari visualPrompt atau searchQuery.",
-    "visualPrompt harus bahasa Inggris, photorealistic cinematic horror still, landscape 16:9, no text, no watermark. Jaga konsistensi karakter dan lokasi antar-scene bila relevan.",
+    "visualPrompt wajib bahasa Inggris dan secara eksplisit mendeskripsikan adegan sebagai high-end 3D CGI horror film still, realistic 3D character and environment, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render, landscape 16:9, no text, no logo, no watermark. Jangan menulis prompt sebagai foto dokumenter atau gambar stok.",
+    "Buat karakter utama dan entitas supernatural konsisten antar-scene: pertahankan umur, bentuk wajah, rambut, pakaian, ciri fisik, dan detail penampilan yang sama saat karakter muncul kembali. Deskripsikan kembali ciri penting tersebut di setiap visualPrompt karena setiap gambar dibuat secara terpisah.",
+    "Variasikan framing antar-scene (wide establishing shot, medium shot, close-up, over-the-shoulder, low angle) sesuai momen cerita. Hindari mengulang komposisi yang sama.",
+    "Gaya visual harus serius, menyeramkan, realistis seperti film horor CGI 3D; bukan kartun, anime, ilustrasi, atau game low-poly. Hindari gore dan kekerasan eksplisit.",
     "Topik: " + topic
   ].join("\n");
 
