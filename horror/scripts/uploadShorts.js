@@ -24,8 +24,21 @@ const shorts=JSON.parse(await fs.readFile(metadataPath,"utf8"));
 let state={channelId:channel.id,channelTitle,uploaded:{}};
 try { state={...state,...JSON.parse(await fs.readFile(statePath,"utf8"))}; } catch(e) { if(e.code!=="ENOENT") throw e; }
 if(state.channelId!==channel.id) throw new Error("State upload berasal dari channel berbeda. Upload dibatalkan.");
-const privacyStatus=process.env.YOUTUBE_SHORTS_PRIVACY_STATUS||"public";
-if(!["private","unlisted","public"].includes(privacyStatus)) throw new Error("YOUTUBE_SHORTS_PRIVACY_STATUS tidak valid.");
+
+const offsetMs=7*60*60*1000;
+const jakartaNow=new Date(Date.now()+offsetMs);
+const eligibleDays=new Set([2,4,6]); // Selasa, Kamis, Sabtu
+function nextShortsSlot(after) {
+  const local=new Date(after.getTime()+offsetMs);
+  for(let dayOffset=0;dayOffset<15;dayOffset++) {
+    const candidate=new Date(Date.UTC(local.getUTCFullYear(),local.getUTCMonth(),local.getUTCDate()+dayOffset,12,30,0));
+    if(!eligibleDays.has(candidate.getUTCDay())) continue;
+    const utc=new Date(candidate.getTime());
+    if(utc.getTime()>=after.getTime()+2*60*60*1000) return utc;
+  }
+  throw new Error("Tidak menemukan slot Shorts dalam 15 hari.");
+}
+let nextAfter=new Date(Date.now());
 for(const item of shorts) {
   if(state.uploaded?.[item.id]?.videoId) {
     console.log(`Shorts ${item.id} sudah pernah di-upload: ${state.uploaded[item.id].videoId}; dilewati.`);
@@ -33,8 +46,10 @@ for(const item of shorts) {
   }
   const file=path.join(OUT_DIR,"shorts",item.fileName);
   await fs.access(file);
+  const publishAt=nextShortsSlot(nextAfter);
+  nextAfter=new Date(publishAt.getTime()+60*1000);
   const hashtags=Array.isArray(item.hashtags)?item.hashtags:[];
-  const description=[item.description||"",...(!String(item.description||"").includes("#shorts")?["#shorts"]:[])].join("\n");
+  const description=[item.description||"",...(!String(item.description||"").toLowerCase().includes("#shorts")?["#shorts"]:[])].join("\n");
   const result=await youtube.videos.insert({
     part:["snippet","status"],
     requestBody:{
@@ -46,14 +61,14 @@ for(const item of shorts) {
         defaultLanguage:"id",
         defaultAudioLanguage:"id"
       },
-      status:{privacyStatus,selfDeclaredMadeForKids:false}
+      status:{privacyStatus:"private",publishAt:publishAt.toISOString(),selfDeclaredMadeForKids:false}
     },
     media:{body:createReadStream(file)}
   });
   const videoId=result.data.id;
   if(!videoId) throw new Error(`YouTube tidak mengembalikan video ID untuk Shorts ${item.id}.`);
-  state.uploaded[item.id]={videoId,title:item.title,privacyStatus,url:`https://www.youtube.com/shorts/${videoId}`};
+  state.uploaded[item.id]={videoId,title:item.title,privacyStatus:"private",publishAt:publishAt.toISOString(),url:`https://www.youtube.com/shorts/${videoId}`};
   await fs.writeFile(statePath,JSON.stringify(state,null,2));
-  console.log(`Shorts ${item.id} berhasil di-upload: https://www.youtube.com/shorts/${videoId}`);
+  console.log(`Shorts ${item.id} di-upload sebagai private dan dijadwalkan ${publishAt.toLocaleString("id-ID",{timeZone:"Asia/Jakarta"})} WIB: https://www.youtube.com/shorts/${videoId}`);
 }
-console.log("Selesai upload Shorts. Channel: "+channelTitle+"; status: "+privacyStatus);
+console.log("Selesai upload dan menjadwalkan Shorts. Channel: "+channelTitle+". Semua video diunggah private dengan jadwal publikasi.");
