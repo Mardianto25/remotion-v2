@@ -1,58 +1,42 @@
 [
   {
     "start": 0,
-    "end": 3.4,
-    "text": "Ada fase hidup ini kita capek, tapi tetap harus kerja.",
-    "keyword": "exhausted worker tired office",
-    "imagePrompt": "Cinematic photorealistic shot of an exhausted Muslim man sitting at his office desk late at night, rubbing his tired eyes while continuing to work, warm desk lamp lighting, moody atmosphere, vertical 9:16 composition.",
-    "image": "https://images.pexels.com/photos/4388167/pexels-photo-4388167.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+    "end": 8.5,
+    "text": "Seburuk apapun perilaku yang pernah dikerjakan di masa lalu, jangan pernah menyimpulkan tidak ada pintu untuk bertaubat, selalu terbuka.",
+    "keyword": "person praying with regret",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim person in a state of sincere repentance, hands raised in prayer, tearful eyes, soft warm light breaking through darkness, modest clothing, vertical 9:16 composition.",
+    "image": "images/scene-001-1795163339360-7245.jpg"
   },
   {
-    "start": 3.4,
-    "end": 6.8,
-    "text": "Sedih, tapi tetap harus senyum.",
-    "keyword": "sad woman forcing smile hijab",
-    "imagePrompt": "Cinematic close-up portrait of a Muslim woman wearing a soft-toned hijab, tears welling in her eyes while gently forcing a faint smile, emotional expression, soft dramatic lighting, vertical 9:16 composition.",
-    "image": "images/scene-002-1795137044852-7761.jpg"
+    "start": 8.5,
+    "end": 19.5,
+    "text": "Jangan putus asa ya rahmat Allah, begitu kemudian kita kejar itu dapat rahmat.",
+    "keyword": "hopeful person looking up",
+    "imagePrompt": "A cinematic photorealistic scene of a hopeful Muslim individual looking upward with faith and relief, warm hopeful lighting, peaceful emotional expression, vertical 9:16 composition.",
+    "image": "images/scene-002-1795163341014-1634.jpg"
   },
   {
-    "start": 6.8,
-    "end": 10.8,
-    "text": "Banyak pikiran, tapi tetap harus bilang ya nggak apa-apa.",
-    "keyword": "pensive thoughtful man window",
-    "imagePrompt": "Cinematic shot of a contemplative young man gazing out a rain-streaked window, heavy thoughts on his mind, muted tones, cinematic depth of field, vertical 9:16 composition.",
-    "image": "images/scene-003-1795137045860-6066.jpg"
+    "start": 19.5,
+    "end": 23.5,
+    "text": "Tidak ada orang yang tidak pernah salah.",
+    "keyword": "person reflecting in thought",
+    "imagePrompt": "A cinematic photorealistic close-up of a person deep in thought, contemplative and remorseful expression, dramatic low-key lighting, vertical 9:16 composition.",
+    "image": "images/scene-003-1795163342495-5161.jpg"
   },
   {
-    "start": 10.8,
-    "end": 15,
-    "text": "Nyatanya semakin dewasa kita bukan makin sedikit masalah,",
-    "keyword": "lonely adult city night stress",
-    "imagePrompt": "Cinematic night view of an adult walking alone on a dimly lit urban street under the glow of streetlights, head slightly bowed, carrying the weight of life, vertical 9:16 composition.",
-    "image": "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+    "start": 23.5,
+    "end": 33,
+    "text": "Sepanjang yang bukan nabi dan rasul, yang bukan maksum, pasti punya latar belakang yang telah pernah salah.",
+    "keyword": "human mistake regret",
+    "imagePrompt": "A cinematic photorealistic scene of a human figure standing in shadows with a remorseful posture, symbolizing human imperfection and mistakes, dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-004-1795163343785-588.jpg"
   },
   {
-    "start": 15,
-    "end": 19.4,
-    "text": "tapi kita hanya makin pandai aja menyembunyikannya.",
-    "keyword": "person hiding sadness smile mirror",
-    "imagePrompt": "Cinematic portrait of a person in front of a mirror, fixing a composed smile on their reflection while their posture conveys deep inner burden, moody shadows, vertical 9:16 composition.",
-    "image": "https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
-  },
-  {
-    "start": 19.4,
-    "end": 25,
-    "text": "Dan di titik itu kita sadar, ternyata yang benar-benar menguatkan bukan karena kita hebat,",
-    "keyword": "humble prayer sujud mosque",
-    "imagePrompt": "Cinematic shot of a modest man in quiet contemplation sitting on a prayer mat inside a serene, dimly lit mosque, feeling humble and vulnerable, gentle rays of light, vertical 9:16 composition.",
-    "image": "images/scene-006-1795137047867-8462.jpg"
-  },
-  {
-    "start": 25,
-    "end": 30,
-    "text": "tapi karena Allah belum pernah berhenti menjaga kita.",
-    "keyword": "peaceful prayer hands gratitude light",
-    "imagePrompt": "Cinematic shot of a person raising hands in heartfelt dua, illuminated by warm, ethereal morning sunlight streaming through an archway, atmosphere of divine protection and inner peace, vertical 9:16 composition.",
-    "image": "https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+    "start": 33,
+    "end": 45,
+    "text": "Bahkan Allah sangat mencintai orang salah yang mau taubat dibandingkan orang saleh yang tidak pernah merasa salah.",
+    "keyword": "repentant person seeking forgiveness",
+    "imagePrompt": "A cinematic photorealistic scene of a humble Muslim person kneeling in quiet prayer asking for forgiveness, soft dramatic spotlight from above, emotional and peaceful atmosphere, vertical 9:16 composition.",
+    "image": "images/scene-005-1795163345009-418.jpg"
   }
 ]
