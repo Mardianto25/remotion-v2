@@ -6,6 +6,11 @@ on:
     - cron: '0 6 * * *'
   workflow_dispatch: # Memungkinkan tombol "Run workflow" manual di tab Actions GitHub
 
+# Serialisasi proses yang menulis aset agar tidak bertabrakan dengan render/upload.
+concurrency:
+  group: remotion-shorts-render-upload
+  cancel-in-progress: false
+
 jobs:
   dispatch-and-render:
     runs-on: ubuntu-latest
