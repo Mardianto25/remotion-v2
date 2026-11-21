@@ -121,7 +121,7 @@ const audioPath = path.join(AUDIO_DIR, "narration.mp3");
 const subtitlePath = path.join(AUDIO_DIR, "narration.vtt");
 await generateNarration(story.narration, audioPath, subtitlePath);
 const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
-const duration = await audioDuration(audioPath);
+const duration = await audioDuration(audioPath);\nif (duration > 300) {\n  throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 5 menit. Perpendek naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);\n}
 
 console.log("[4/6] Ambil visual scene");
 const assets = [];
