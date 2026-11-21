@@ -7,13 +7,18 @@ import { generateSeo } from "../src/ai/seoGenerator.js";
 import { researchTrendingTopic } from "../src/ai/trendResearcher.js";
 import { generateThumbnail } from "../src/visual/thumbnail.js";
 import { getSceneImage } from "../src/visual/providers.js";
-import { generateNarration } from "../src/audio/edgeTts.js";\nimport { generateSoundDesign } from "../src/ai/soundDesigner.js";\nimport { generateSoundAssets } from "../src/audio/soundAssets.js";
+import { generateNarration } from "../src/audio/edgeTts.js";
+import { generateSoundDesign } from "../src/ai/soundDesigner.js";
+import { generateSoundAssets } from "../src/audio/soundAssets.js";
 import { ROOT, ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR } from "../src/config.js";
 
 function parseVtt(vtt) {
-  const blocks = vtt.replace(/\r/g, "").split(/\n\n+/);
+  const blocks = vtt.replace(/\r/g, "").split(/
+
++/);
   return blocks.flatMap(block => {
-    const lines = block.split("\n");
+    const lines = block.split("
+");
     const line = lines.find(x => x.includes("-->"));
     if (!line) return [];
     const parts = line.split("-->").map(x => x.trim().split(" ")[0]);
@@ -126,7 +131,12 @@ if (duration > 300) {
   throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 5 menit. Perpendek naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);
 }
 
-console.log("[4/7] Rancang sound design dan siapkan SFX");\nconst soundDesign = await generateSoundDesign(story, duration, story.scenes);\nconst soundAssets = await generateSoundAssets();\nawait fs.writeFile(path.join(DATA_DIR, "sound-design.json"), JSON.stringify(soundDesign, null, 2));\n\nconsole.log("[5/7] Ambil visual scene");
+console.log("[4/7] Rancang sound design dan siapkan SFX");
+const soundDesign = await generateSoundDesign(story, duration, story.scenes);
+const soundAssets = await generateSoundAssets();
+await fs.writeFile(path.join(DATA_DIR, "sound-design.json"), JSON.stringify(soundDesign, null, 2));
+
+console.log("[5/7] Ambil visual scene");
 const assets = [];
 for (let i = 0; i < story.scenes.length; i++) {
   console.log("Scene " + (i + 1) + "/" + story.scenes.length);
@@ -147,6 +157,16 @@ const scenes = story.scenes.map((scene, i) => ({
   durationInFrames: timings[i].durationInFrames
 }));
 await fs.writeFile(path.join(DATA_DIR, "asset-manifest.json"), JSON.stringify(assets, null, 2));
+const sceneStarts = timings.map(item => item.startFrame / fps);
+const soundEffects = soundDesign.effects.map(effect => {
+  const sceneIndex = Math.max(0, story.scenes.findIndex(scene => String(scene.id) === String(effect.sceneId)));
+  return { ...effect, startFrame: Math.max(0, Math.round((sceneStarts[sceneIndex] + Number(effect.offsetSeconds || 0)) * fps)) };
+});
+const soundBeds = soundDesign.beds.map(bed => {
+  const sceneIndex = Math.max(0, story.scenes.findIndex(scene => String(scene.id) === String(bed.sceneId)));
+  const nextStart = sceneIndex + 1 < timings.length ? timings[sceneIndex + 1].startFrame : Math.ceil(duration * fps);
+  return { ...bed, startFrame: timings[sceneIndex].startFrame, durationInFrames: Math.max(1, nextStart - timings[sceneIndex].startFrame) };
+});
 const manifest = {
   title: story.title,
   description: story.description || "",
@@ -156,5 +176,6 @@ const manifest = {
   scenes,
   captions
 };
-await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";\n");
+await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";
+");
 console.log("[7/7] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
