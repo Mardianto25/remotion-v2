@@ -1,0 +1,71 @@
+{
+  "videoFolder": "video-2026-11-21_14-45-39-341Z",
+  "generatedAt": "2026-11-21T14:46:37.028Z",
+  "audioFile": "audio.mp3",
+  "sceneCount": 9,
+  "scenes": [
+    {
+      "start": 0,
+      "end": 3.1,
+      "text": "Subuh ketemu siang, selesai masalah.",
+      "keyword": "dawn to morning",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-001-1795272339351-7587.png"
+    },
+    {
+      "start": 3.1,
+      "end": 5.8,
+      "text": "Siang ketemu sore, selesai masalah.",
+      "keyword": "afternoon sunlight",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-002-1795272357168-6974.png"
+    },
+    {
+      "start": 5.8,
+      "end": 9.1,
+      "text": "Sore ketemu maghrib, mau malam, selesai masalah.",
+      "keyword": "dusk twilight",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-003-1795272359940-6972.png"
+    },
+    {
+      "start": 9.1,
+      "end": 14.3,
+      "text": "Mau tidur pun dipanggil dulu supaya sebelum tidur tuh bahagia dulu.",
+      "keyword": "peaceful night bedroom",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-004-1795272362401-7396.png"
+    },
+    {
+      "start": 14.3,
+      "end": 18.2,
+      "text": "Jangan sampai ada orang tidur membawa kegelisahan.",
+      "keyword": "restless shadow night",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-005-1795272364957-7326.png"
+    },
+    {
+      "start": 18.2,
+      "end": 25.7,
+      "text": "Allah tuh paling enggak ingin dengan sifat Rahman-Nya, ada hamba sudah capek kerja siang, mau tidur pun masih capek juga.",
+      "keyword": "tired desk night",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-006-1795272367722-7561.jpg"
+    },
+    {
+      "start": 25.7,
+      "end": 31,
+      "text": "Ngomong yang tadi kata Pak Menteri yang belum selesai itu, masih tidur.",
+      "keyword": "meeting room night",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-007-1795272372411-6141.png"
+    },
+    {
+      "start": 31,
+      "end": 37.3,
+      "text": "Jadi kenapa dibawa salat? Itu filosofinya yang pertama landasannya, diinginkan oleh Allah",
+      "keyword": "prayer rug light",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-008-1795272382871-2071.png"
+    },
+    {
+      "start": 37.3,
+      "end": 43.6,
+      "text": "sebelum tidur pun tenang dulu, bahagia dulu, dan selesai semua urusan pekerjaannya.",
+      "keyword": "serene night peace",
+      "image": "images/video-2026-11-21_14-45-39-341Z/scene-009-1795272386179-1337.jpg"
+    }
+  ]
+}
