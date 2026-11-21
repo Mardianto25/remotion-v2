@@ -115,4 +115,4 @@ jobs:
           path: |
             out/video.mp4
             out/capcut-template.zip
-          retention-days: 7
+          retention-days: 1
