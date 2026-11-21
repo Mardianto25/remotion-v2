@@ -11,9 +11,12 @@ import { generateNarration } from "../src/audio/edgeTts.js";
 import { ROOT, ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR } from "../src/config.js";
 
 function parseVtt(vtt) {
-  const blocks = vtt.replace(/\r/g, "").split(/\n\n+/);
+  const blocks = vtt.replace(/\r/g, "").split(/
+
++/);
   return blocks.flatMap(block => {
-    const lines = block.split("\n");
+    const lines = block.split("
+");
     const line = lines.find(x => x.includes("-->"));
     if (!line) return [];
     const parts = line.split("-->").map(x => x.trim().split(" ")[0]);
@@ -121,7 +124,10 @@ const audioPath = path.join(AUDIO_DIR, "narration.mp3");
 const subtitlePath = path.join(AUDIO_DIR, "narration.vtt");
 await generateNarration(story.narration, audioPath, subtitlePath);
 const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
-const duration = await audioDuration(audioPath);\nif (duration > 300) {\n  throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 5 menit. Perpendek naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);\n}
+const duration = await audioDuration(audioPath);
+if (duration > 300) {
+  throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 5 menit. Perpendek naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);
+}
 
 console.log("[4/6] Ambil visual scene");
 const assets = [];
@@ -153,5 +159,6 @@ const manifest = {
   scenes,
   captions
 };
-await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";\n");
+await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";
+");
 console.log("[6/6] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
