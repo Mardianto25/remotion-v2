@@ -50,15 +50,31 @@ for (let i = 0; i < scenes.length; i++) {
   imageSource = path.join(publicDir, imageSource.replace(/^\/+/, ''));
   if (!fs.existsSync(imageSource)) throw new Error(`Gambar scene ${i + 1} tidak ditemukan: ${imageSource}`);
   const ext = path.extname(imageSource) || '.jpg';
-  const filename = `scene-${String(i + 1).padStart(3, '0')}${ext}`;
-  fs.copyFileSync(imageSource, path.join(mediaDir, filename));
+  const imageFilename = `scene-${String(i + 1).padStart(3, '0')}${ext}`;
+  const imageCopyPath = path.join(mediaDir, imageFilename);
+  fs.copyFileSync(imageSource, imageCopyPath);
+
+  // CapCut Android dapat memilih MP4 dari galeri. Buat satu klip video
+  // vertikal per scene dengan durasi tepat sesuai timestamp audio.
+  const duration = Number((end - start).toFixed(3));
+  const frameCount = Math.max(1, Math.ceil(duration * 30));
+  const videoFilename = `scene-${String(i + 1).padStart(3, '0')}.mp4`;
+  const videoPath = path.join(mediaDir, videoFilename);
+  execFileSync('ffmpeg', [
+    '-y', '-loop', '1', '-i', imageCopyPath,
+    '-vf', `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,zoompan=z='min(zoom+0.0005,1.08)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${frameCount}:s=1080x1920:fps=30,format=yuv420p`,
+    '-frames:v', String(frameCount), '-an', '-c:v', 'libx264', '-preset', 'ultrafast',
+    '-crf', '23', '-r', '30', '-movflags', '+faststart', videoPath
+  ], { stdio: 'inherit' });
+
   manifestScenes.push({
     order: i + 1,
     start,
     end,
-    duration: Number((end - start).toFixed(3)),
+    duration,
     text,
-    image: `media/${filename}`
+    image: `media/${imageFilename}`,
+    video: `media/${videoFilename}`
   });
 }
 
@@ -73,7 +89,7 @@ fs.writeFileSync(path.join(packageDir, 'manifest.json'), JSON.stringify({
   sceneCount: manifestScenes.length,
   scenes: manifestScenes
 }, null, 2));
-fs.writeFileSync(path.join(packageDir, 'PETUNJUK-ANDROID.txt'), `PAKET BAHAN CAPCUT ANDROID
+fs.writeFileSync(path.join(packageDir, 'PETUNJUK-ANDROID.txt'), `PAKET VIDEO SCENE CAPCUT ANDROID
 
 Isi:
 - media/audio-original.mp3: audio asli dari video
