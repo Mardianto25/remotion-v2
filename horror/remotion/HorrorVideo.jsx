@@ -38,7 +38,7 @@ export const HorrorVideo = () => <AbsoluteFill style={{ backgroundColor: "#000" 
   </Sequence>)}
   <Audio src={staticFile("audio/narration.mp3")} />
   <Caption />
-  <AbsoluteFill style={{ top: 30, left: 48, right: 48, bottom: "auto", height: 60, justifyContent: "center" }}>
-    <div style={{ color: "rgba(255,255,255,.86)", fontSize: 24, letterSpacing: 3, textTransform: "uppercase" }}>{generatedStory.title}</div>
+  <AbsoluteFill style={{ top: 26, left: 48, right: 48, bottom: "auto", height: 36, alignItems: "flex-end" }}>
+    <div style={{ color: "rgba(255,255,255,.55)", fontSize: 16, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>RUANG CERITA INDONESIA</div>
   </AbsoluteFill>
 </AbsoluteFill>;
