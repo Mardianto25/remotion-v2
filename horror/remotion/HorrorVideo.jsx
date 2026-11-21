@@ -36,7 +36,13 @@ export const HorrorVideo = () => <AbsoluteFill style={{ backgroundColor: "#000" 
   {generatedStory.scenes.map(scene => <Sequence key={scene.fileName} from={scene.startFrame} durationInFrames={scene.durationInFrames}>
     <Scene scene={scene} />
   </Sequence>)}
-  {generatedStory.soundBeds?.map((bed, index) => <Sequence key={"bed-" + index} from={bed.startFrame} durationInFrames={bed.durationInFrames}>\n    <Audio src={staticFile("audio/sfx/" + bed.asset)} loop volume={bed.volume ?? 0.16} />\n  </Sequence>)}\n  {generatedStory.soundEffects?.map((effect, index) => <Sequence key={"sfx-" + index} from={effect.startFrame}>\n    <Audio src={staticFile("audio/sfx/" + effect.asset)} volume={effect.volume ?? 0.28} />\n  </Sequence>)}\n  <Audio src={staticFile("audio/narration.mp3")} volume={1} />
+  {generatedStory.soundBeds?.map((bed, index) => <Sequence key={"bed-" + index} from={bed.startFrame} durationInFrames={bed.durationInFrames}>
+    <Audio src={staticFile("audio/sfx/" + bed.asset)} loop volume={bed.volume ?? 0.16} />
+  </Sequence>)}
+  {generatedStory.soundEffects?.map((effect, index) => <Sequence key={"sfx-" + index} from={effect.startFrame}>
+    <Audio src={staticFile("audio/sfx/" + effect.asset)} volume={effect.volume ?? 0.28} />
+  </Sequence>)}
+  <Audio src={staticFile("audio/narration.mp3")} volume={1} />
   <Caption />
   <AbsoluteFill style={{ top: 26, left: 48, right: 48, bottom: "auto", height: 36, alignItems: "flex-end" }}>
     <div style={{ color: "rgba(255,255,255,.55)", fontSize: 16, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>RUANG CERITA INDONESIA</div>
