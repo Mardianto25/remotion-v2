@@ -104,46 +104,16 @@ async function generateFluxImage(prompt, filename) {
     '/ai/run/@cf/black-forest-labs/flux-1-schnell';
 
   const visualRules = `
-    VISUAL SCENE INTERPRETATION — HIGHEST PRIORITY
-
-Analyze the meaning and context of the provided narration before generating an image.
-
-The image MUST visually represent the actual meaning of the narration, not simply generate a generic cinematic scene.
-
-VISUAL SELECTION RULES:
-
-1. Identify the main subject, event, action, and environment described in the narration.
-
-2. Select the most relevant visual representation:
-   
-   - Hell and punishment: terrifying inferno, massive flames, fire, darkness, smoke, and apocalyptic atmosphere.
-   - Volcanic eruption: erupting volcano, flowing lava, explosions, ash clouds, and volcanic destruction.
-   - Earthquake: collapsing buildings, cracked ground, and destruction.
-   - Flood: massive waves, overflowing water, and submerged environments.
-   - Prayer: Muslims praying in appropriate Islamic clothing.
-   - Repentance: relevant human actions showing remorse and seeking forgiveness.
-   - Death: appropriate symbolic or contextual imagery.
-   - Paradise: beautiful gardens, rivers, peaceful atmosphere, and magnificent natural surroundings.
-
-3. DO NOT automatically generate women, men, or human faces.
-
-4. If the narration describes a natural disaster, supernatural event, environmental condition, or specific object, prioritize that actual subject.
-
-5. Only include humans when they are essential to communicating the narration.
-
-STRICT ISLAMIC VISUAL REQUIREMENTS:
-
-Whenever a woman is depicted, she MUST wear a complete Islamic hijab covering all hair, ears, and neck, with modest loose clothing.
-
-Never show uncovered hair, partially covered hair, exposed necks, or immodest clothing.
-
-Do not introduce unrelated people or objects.
-
-VISUAL ACCURACY:
-
-Every image must directly correspond to its narration segment.
-
-Do not substitute generic portraits, random people, or unrelated landscapes for the actual narrated event.
+    STRICT SCENE MATCHING:
+The image must illustrate only the exact subject, action, object, or idea in the supplied narration segment.
+DEFAULT TO ZERO PEOPLE: do not generate people, faces, portraits, crowds, or human figures unless the narration explicitly mentions a person or a human action that requires depiction.
+Prefer meaningful objects, environments, architecture, landscapes only when relevant, close details, symbolic still life, and cinematic establishing shots.
+When a person is explicitly required, use the minimum number of people and prefer wide shots, silhouettes, rear views, or hands; avoid face close-ups.
+Never invent a mother, father, child, couple, or random person.
+For abstract ideas, use a clear relevant visual metaphor instead of an unrelated human portrait.
+No text, captions, logos, symbols, or watermarks.
+If a woman is explicitly required, she must wear a complete hijab covering hair, ears, and neck and modest loose clothing.
+Never depict Allah or prophets.
 
 CINEMATIC QUALITY:
 
@@ -206,8 +176,6 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index) {
   const fluxFilename = `${filename}.png`;
   const pixabayFilename = `${filename}.jpg`;
 
-  const fallbackUrl =
-    PEXELS_FALLBACKS[index % PEXELS_FALLBACKS.length];
 
   // ----------------------------------------------------------
   // 1. FLUX - PRIORITAS UTAMA
@@ -267,8 +235,8 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index) {
       const hits = data.hits || [];
 
       if (hits.length > 0) {
-        const selected =
-          hits[Math.floor(Math.random() * hits.length)];
+        // Pixabay mengurutkan hasil berdasarkan relevansi; jangan memilih acak.
+        const selected = hits[0];
 
         const imageUrl =
           selected.largeImageURL || selected.webformatURL;
@@ -292,13 +260,8 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index) {
     console.log('[Pixabay] API key tidak tersedia.');
   }
 
-  // ----------------------------------------------------------
-  // 3. PEXELS - FALLBACK TERAKHIR
-  // ----------------------------------------------------------
-
-  console.log(`[Pexels] Menggunakan fallback untuk: ${keyword}`);
-
-  return fallbackUrl;
+  // Jangan gunakan gambar stok generik yang berpotensi tidak sesuai narasi.
+  throw new Error(`Tidak ada gambar relevan untuk scene ${index + 1}. FLUX dan Pixabay gagal; render dihentikan agar tidak menghasilkan visual yang salah.`);
 }
 
 // ============================================================
@@ -317,142 +280,56 @@ export async function executePipeline(autoPushGit = true) {
     .toString('base64');
 
   const prompt = `
-    Dengarkan audio ini dengan saksama.
-
-    Konten merupakan renungan dan motivasi Islami.
+    Analisis audio terlampir secara langsung. Audio adalah satu-satunya sumber kebenaran.
+    Jangan mengarang, memperbaiki, meringkas, atau menambahkan kata yang tidak terdengar.
 
     TUGAS:
+    Buat transkrip verbatim dalam urutan asli dan bagi menjadi scene berdasarkan satu gagasan/kalimat utuh.
+    Setiap scene harus memiliki teks, waktu, dan visual yang berasal dari bagian audio yang SAMA.
 
-    Bagi audio menjadi beberapa scene berdasarkan perubahan
-    makna kalimat. Setiap scene memiliki satu gambar yang
-    menggambarkan isi narasi secara langsung.
+    TIMESTAMP:
+    - start dan end dalam detik berdasarkan posisi aktual di audio.
+    - Jangan memperkirakan durasi secara merata dan jangan menggeser timestamp demi membuat scene sama panjang.
+    - Scene harus berurutan, tidak tumpang tindih, dan tidak melompati narasi.
+    - Gunakan batas jeda alami dan pergantian kalimat.
+    - Jangan memotong satu frasa di tengah kata.
+    - Pastikan seluruh narasi sampai akhir audio tercakup.
 
-    HASILKAN FIELD:
+    TEKS:
+    - text harus merupakan kata-kata yang benar-benar terdengar.
+    - Pertahankan bahasa asli, jangan parafrase.
+    - Pecah kalimat panjang menjadi scene yang nyaman dibaca, tanpa mengubah urutan kata.
 
-    1. start: waktu mulai dalam detik.
-    2. end: waktu selesai dalam detik.
-    3. text: transkrip asli sesuai audio.
-    4. keyword: keyword singkat dalam bahasa Inggris untuk Pixabay.
-    5. imagePrompt: deskripsi visual detail dalam bahasa Inggris
-       untuk AI image generator FLUX.
-
-    ATURAN IMAGE PROMPT:
-
-    - Visual harus sesuai dengan makna kalimat,
-      bukan sekadar suasana atau pemandangan umum.
-    - Utamakan manusia, ekspresi, aktivitas,
-      hubungan keluarga, dan objek yang disebutkan.
-    - Jika menyebut anak, gambarkan anak.
-    - Jika menyebut ibu atau ayah, gambarkan orang tua.
-    - Jika menyebut suami dan istri, gambarkan pasangan.
-    - Jika menyebut perempuan Muslim, gambarkan perempuan
-      menggunakan hijab yang menutup rambut dan leher
-      serta pakaian Muslimah yang sopan.
-    - Jika menyebut laki-laki Muslim, gambarkan dengan
-      pakaian yang sopan.
-    - Jangan otomatis menggunakan pemandangan alam
-      untuk menggantikan karakter manusia.
-    - Jika membahas neraka atau hari penghakiman,
-      gambarkan suasana simbolis yang dramatis:
-      kobaran api, kegelapan, kerumunan manusia ketakutan,
-      dan cahaya dramatis. Tidak perlu gore.
-    - Jika membahas akhirat, gunakan visual yang menghormati
-      keyakinan Islam.
+    VISUAL — PRIORITAS UTAMA:
+    - Visual harus menggambarkan makna spesifik dari text pada scene tersebut, bukan tema umum video.
+    - DEFAULT: jangan tampilkan manusia, wajah, atau kerumunan.
+    - Utamakan objek, lokasi, alam, arsitektur, detail aktivitas tanpa wajah, benda simbolis, dan visual konseptual yang relevan.
+    - Gunakan manusia HANYA jika audio secara eksplisit menyebut orang/karakter atau tindakan manusia yang memang perlu divisualisasikan.
+    - Jika manusia memang disebut, tampilkan seperlunya; utamakan wide shot, siluet, tampak belakang, atau tangan. Hindari close-up wajah dan portrait.
+    - Jangan menambahkan perempuan, laki-laki, anak, pasangan, atau keluarga jika tidak disebutkan dalam audio.
+    - Jangan mengganti kata konkret dengan visual yang tidak berhubungan. Contoh: "ibu" boleh divisualisasikan sebagai ibu; "hujan" harus hujan; "doa" dapat berupa sajadah/tangan berdoa; "waktu" dapat berupa jam.
+    - Untuk konsep abstrak seperti dosa, penyesalan, kesabaran, atau kematian, gunakan simbol visual yang relevan tanpa otomatis menampilkan wajah/orang.
+    - Untuk bencana, tampilkan bencana dan dampaknya; untuk surga/neraka gunakan visual simbolis yang menghormati keyakinan Islam.
     - Jangan menggambarkan Allah atau para nabi.
-    - Jangan membuat Yesus, salib, gereja, crucifix,
-      atau simbol agama Kristen.
-    - Jangan menambahkan simbol agama lain yang tidak relevan.
-    - Jangan membuat tulisan, subtitle, logo, atau watermark.
-    - Gunakan cinematic photorealistic photography,
-      dramatic lighting, vertical 9:16 composition,
-      highly detailed.
+    - Jika perempuan harus ditampilkan, wajib berhijab menutup rambut dan leher serta berpakaian sopan.
+    - Jangan tambahkan simbol agama lain yang tidak disebut atau tidak relevan.
+    - Tidak boleh ada tulisan, subtitle, logo, watermark, atau tipografi di gambar.
+    - Image prompt berbahasa Inggris, spesifik terhadap scene, cinematic photorealistic, vertical 9:16.
 
-    CONTOH PERTAMA:
-
-    Narasi:
-    "Dan mereka teriak minta tolong, tolong saya."
-
-    Keyword:
-    "crying child asking for help"
-
-    ImagePrompt:
-    "A cinematic photorealistic scene of a frightened young
-    child crying and reaching out for help, emotional facial
-    expression, dramatic dark atmosphere, realistic human
-    anatomy, vertical 9:16 composition."
-
-    CONTOH KEDUA:
-
-    Narasi:
-    "Lupa dengan suami."
-
-    Keyword:
-    "Muslim married couple emotional separation"
-
-    ImagePrompt:
-    "A cinematic photorealistic scene of a Muslim husband
-    and his hijab-wearing wife standing apart, emotional
-    distance, modest Islamic clothing, dramatic lighting,
-    vertical 9:16 composition."
-
-    CONTOH KETIGA:
-
-    Narasi:
-    "Apa Anda rida masuk surga sementara anak-anak Anda
-    berteriak masuk neraka?"
-
-    Keyword:
-    "frightened children dramatic fire"
-
-    ImagePrompt:
-    "A symbolic cinematic scene of frightened children
-    reaching out for help in a dark dramatic environment
-    with distant flames and intense atmospheric lighting,
-    no gore, vertical 9:16 composition."
-
-    CONTOH KEEMPAT:
-
-    Narasi:
-    "Lihat mata Anda di cermin yang penuh dengan dosa."
-
-    Keyword:
-    "person looking at mirror emotional reflection"
-
-    ImagePrompt:
-    "A cinematic photorealistic close-up of a person
-    looking into a dusty mirror with a regretful expression,
-    dramatic shadows, emotional atmosphere,
-    vertical 9:16 composition."
-
-    ATURAN KEYWORD:
-
-    - Keyword harus spesifik dan sesuai adegan.
-    - Jangan selalu menggunakan keyword landscape.
-    - Jangan menambahkan kata landscape atau scenery
-      jika narasi tidak membahas pemandangan.
-
-    ATURAN WAKTU:
-
-    - Tentukan start dan end sesuai waktu audio.
-    - Jangan mengubah urutan kalimat.
-    - Jangan menghilangkan bagian narasi.
-    - Pastikan end lebih besar daripada start.
+    KEYWORD:
+    - keyword singkat, spesifik, bahasa Inggris, dan sesuai objek/kejadian scene.
+    - Hindari keyword generik seperti nature, landscape, beautiful scenery kecuali memang disebut audio.
 
     KELUARAN:
-
     Hanya JSON array valid tanpa markdown.
-
-    FORMAT:
-
-    [
-      {
-        "start": 0.0,
-        "end": 3.5,
-        "text": "Kalimat asli dari audio",
-        "keyword": "specific visual keyword",
-        "imagePrompt": "Detailed cinematic image description"
-      }
-    ]
+    Setiap item wajib memiliki:
+    {
+      "start": 0.0,
+      "end": 3.5,
+      "text": "transkrip asli yang terdengar",
+      "keyword": "specific subject or event",
+      "imagePrompt": "A precise visual description of this exact narration segment"
+    }
   `;
 
   let aiResponseText = null;
@@ -518,13 +395,62 @@ export async function executePipeline(autoPushGit = true) {
 
   const parsedSegments = JSON.parse(rawJson);
 
-  if (
-    !Array.isArray(parsedSegments) ||
-    parsedSegments.length === 0
-  ) {
-    throw new Error(
-      'Gemini tidak menghasilkan segment audio yang valid.'
+  if (!Array.isArray(parsedSegments) || parsedSegments.length === 0) {
+    throw new Error('Gemini tidak menghasilkan segment audio yang valid.');
+  }
+
+  // Validasi durasi audio asli agar timestamp AI tidak melewati audio.
+  let audioDuration = null;
+  try {
+    const { stdout } = await execAsync(
+      `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${audioPath}"`
     );
+    const measuredDuration = Number(stdout.trim());
+    if (Number.isFinite(measuredDuration) && measuredDuration > 0) {
+      audioDuration = measuredDuration;
+    }
+  } catch (error) {
+    console.warn('[Audio Duration] ffprobe tidak tersedia, validasi durasi dilewati:', error.message);
+  }
+
+  // Pertahankan urutan ucapan. Overlap kecil dirapikan pada batas scene,
+  // sedangkan timestamp yang mundur atau di luar audio dianggap kesalahan.
+  let previousStart = -1;
+  let previousEnd = 0;
+  const normalizedSegments = parsedSegments.map((segment, index) => {
+    const start = Number(segment.start);
+    let end = Number(segment.end);
+    const text = String(segment.text || '').trim();
+
+    if (!Number.isFinite(start) || !Number.isFinite(end) || !text) {
+      throw new Error(`Scene ${index + 1}: timestamp atau teks tidak valid.`);
+    }
+    if (start < 0 || end <= start) {
+      throw new Error(`Scene ${index + 1}: rentang waktu tidak valid.`);
+    }
+    if (start < previousStart) {
+      throw new Error(`Urutan timestamp mundur pada scene ${index + 1}; render dibatalkan agar tidak salah sinkron.`);
+    }
+    if (audioDuration && start >= audioDuration) {
+      throw new Error(`Scene ${index + 1} dimulai setelah audio berakhir.`);
+    }
+
+    if (audioDuration) end = Math.min(end, audioDuration);
+    if (index > 0 && start < previousEnd) {
+      // Hanya rapikan overlap dengan memotong akhir scene sebelumnya.
+      normalizedSegments[index - 1].end = start;
+    }
+    if (end <= start) {
+      throw new Error(`Scene ${index + 1} terlalu pendek setelah validasi timestamp.`);
+    }
+
+    previousStart = start;
+    previousEnd = end;
+    return { ...segment, start, end, text };
+  }).filter(segment => segment.end - segment.start >= 0.12);
+
+  if (!normalizedSegments.length) {
+    throw new Error('Tidak ada scene valid setelah validasi timestamp.');
   }
 
   // ----------------------------------------------------------
@@ -536,8 +462,8 @@ export async function executePipeline(autoPushGit = true) {
 
   const subtitlesData = [];
 
-  for (let i = 0; i < parsedSegments.length; i++) {
-    const seg = parsedSegments[i];
+  for (let i = 0; i < normalizedSegments.length; i++) {
+    const seg = normalizedSegments[i];
 
     const start = Number(seg.start);
     const end = Number(seg.end);
