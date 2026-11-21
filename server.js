@@ -546,6 +546,15 @@ export async function executePipeline(autoPushGit = true) {
     'utf8'
   );
 
+  // Setelah generasi video baru berhasil, hapus folder aset video lama.
+  // Folder aktif dipertahankan; folder lain yang bukan video-* tidak disentuh.
+  for (const entry of fs.readdirSync(imagesDir, { withFileTypes: true })) {
+    if (entry.isDirectory() && entry.name.startsWith('video-') && entry.name !== videoFolderName) {
+      fs.rmSync(path.join(imagesDir, entry.name), { recursive: true, force: true });
+      console.log(`[Cleanup] Folder gambar lama dihapus: ${entry.name}`);
+    }
+  }
+
   // Penanda folder aset untuk video yang terakhir diproses.
   fs.writeFileSync(
     path.join(imagesDir, 'LATEST.json'),
