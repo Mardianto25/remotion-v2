@@ -105,9 +105,14 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3N }}
         run: npm run upload
 
-      - name: 9. Simpan Video Hasil Render sebagai Artifact
+      - name: 9. Siapkan Paket Template CapCut Android
+        run: npm run export:capcut
+
+      - name: 10. Simpan Video dan Paket CapCut sebagai Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: rendered-shorts-video
-          path: out/video.mp4
-          retention-days: 3
+          name: rendered-shorts-and-capcut-package
+          path: |
+            out/video.mp4
+            out/capcut-template.zip
+          retention-days: 7
