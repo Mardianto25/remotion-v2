@@ -1,74 +1,106 @@
 [
   {
     "start": 0,
-    "end": 3.1,
-    "text": "Subuh ketemu siang, selesai masalah.",
-    "keyword": "dawn to morning",
-    "imagePrompt": "Vertical 9:16 shot of dawn sky transitioning to bright morning light over a tranquil horizon, soft golden rays, photorealistic.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-001-1795272339351-7587.png"
+    "end": 2.5,
+    "text": "bukan buat aku ya Allah,",
+    "keyword": "hands in prayer",
+    "imagePrompt": "A person's hands raised in Islamic supplication, palms facing upward, soft warm lighting, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-001-1795275271226-7959.png"
   },
   {
-    "start": 3.1,
-    "end": 5.8,
-    "text": "Siang ketemu sore, selesai masalah.",
-    "keyword": "afternoon sunlight",
-    "imagePrompt": "Vertical 9:16 shot of warm late afternoon sun casting long shadows on clean stone pavement, serene atmosphere, cinematic photorealism.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-002-1795272357168-6974.png"
+    "start": 2.5,
+    "end": 5,
+    "text": "tapi untuk anak yang engkau titipkan padaku.",
+    "keyword": "child silhouette",
+    "imagePrompt": "Silhouette of a small child walking away towards a warm golden light, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-002-1795275274271-4249.png"
   },
   {
-    "start": 5.8,
-    "end": 9.1,
-    "text": "Sore ketemu maghrib, mau malam, selesai masalah.",
-    "keyword": "dusk twilight",
-    "imagePrompt": "Vertical 9:16 view of dusk twilight sky glowing in deep orange and violet above a distant mosque dome silhouette.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-003-1795272359940-6972.png"
+    "start": 5,
+    "end": 9,
+    "text": "Aku mohon kepadamu dengan cinta dan kasih sayang,",
+    "keyword": "gentle embrace",
+    "imagePrompt": "An out of focus tender gesture of a parent holding a small child's hand, warm ambient light, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-003-1795275276215-9764.png"
   },
   {
-    "start": 9.1,
-    "end": 14.3,
-    "text": "Mau tidur pun dipanggil dulu supaya sebelum tidur tuh bahagia dulu.",
-    "keyword": "peaceful night bedroom",
-    "imagePrompt": "Vertical 9:16 shot of a cozy bedroom at night, soft warm lamp light beside a neatly made bed, peaceful ambiance.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-004-1795272362401-7396.png"
+    "start": 9,
+    "end": 12,
+    "text": "menangkanlah aku kali ini,",
+    "keyword": "triumphant light",
+    "imagePrompt": "Sunlight breaking through dark clouds illuminating a path, symbolizing hope and victory, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-004-1795275278541-3886.png"
   },
   {
-    "start": 14.3,
-    "end": 18.2,
-    "text": "Jangan sampai ada orang tidur membawa kegelisahan.",
-    "keyword": "restless shadow night",
-    "imagePrompt": "Vertical 9:16 moody shot of cold blue moonlight casting deep shadows across an empty bed through window blinds.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-005-1795272364957-7326.png"
+    "start": 12,
+    "end": 13,
+    "text": "sehatkan badanku,",
+    "keyword": "healthy vitality",
+    "imagePrompt": "Fresh green leaves covered with morning dew glistening in the sunlight, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-005-1795275281137-4662.png"
   },
   {
-    "start": 18.2,
-    "end": 25.7,
-    "text": "Allah tuh paling enggak ingin dengan sifat Rahman-Nya, ada hamba sudah capek kerja siang, mau tidur pun masih capek juga.",
-    "keyword": "tired desk night",
-    "imagePrompt": "Vertical 9:16 view of an office desk with a closed laptop and stacked documents beside a dark window at night, dim lamp.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-006-1795272367722-7561.jpg"
+    "start": 13,
+    "end": 14.5,
+    "text": "kuatkanlah langkahku,",
+    "keyword": "steadfast footsteps",
+    "imagePrompt": "Footsteps walking firmly on a steady forest pathway, morning light, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-006-1795275282859-6586.png"
   },
   {
-    "start": 25.7,
-    "end": 31,
-    "text": "Ngomong yang tadi kata Pak Menteri yang belum selesai itu, masih tidur.",
-    "keyword": "meeting room night",
-    "imagePrompt": "Vertical 9:16 shot of an empty formal meeting room with papers on a polished table under dim night lighting.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-007-1795272372411-6141.png"
+    "start": 14.5,
+    "end": 16.5,
+    "text": "perluaskanlah rezekiku.",
+    "keyword": "abundance wealth",
+    "imagePrompt": "Golden wheat fields swaying gently in the wind under a vast open sky, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-007-1795275285428-1868.png"
   },
   {
-    "start": 31,
-    "end": 37.3,
-    "text": "Jadi kenapa dibawa salat? Itu filosofinya yang pertama landasannya, diinginkan oleh Allah",
-    "keyword": "prayer rug light",
-    "imagePrompt": "Vertical 9:16 close shot of a textured prayer rug neatly placed on a wooden floor, bathed in warm heavenly light.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-008-1795272382871-2071.png"
+    "start": 16.5,
+    "end": 19.5,
+    "text": "Jika rezekiku jauh, dekatkanlah,",
+    "keyword": "approaching light",
+    "imagePrompt": "A glowing warm light moving closer through a peaceful twilight landscape, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-008-1795275288161-6849.png"
   },
   {
-    "start": 37.3,
-    "end": 43.6,
-    "text": "sebelum tidur pun tenang dulu, bahagia dulu, dan selesai semua urusan pekerjaannya.",
-    "keyword": "serene night peace",
-    "imagePrompt": "Vertical 9:16 tranquil bedroom scene with gentle moonlight pouring through curtains onto a quiet, peaceful bed, photorealistic.",
-    "image": "images/video-2026-11-21_14-45-39-341Z/scene-009-1795272386179-1337.jpg"
+    "start": 19.5,
+    "end": 22,
+    "text": "jika rezekiku di langit, turunkanlah,",
+    "keyword": "rain from sky",
+    "imagePrompt": "Gentle rain falling from a soft cloudy sky catching the golden hour sunbeams, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-009-1795275289786-4342.png"
+  },
+  {
+    "start": 22,
+    "end": 24.5,
+    "text": "mudahkan segala urusanku.",
+    "keyword": "smooth path",
+    "imagePrompt": "A straight clear road leading toward the horizon with a calm peaceful atmosphere, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-010-1795275292310-5442.png"
+  },
+  {
+    "start": 24.5,
+    "end": 29.5,
+    "text": "Aku ingin memberikan kehidupan yang baik untuknya, memenuhi kebutuhannya,",
+    "keyword": "providing needs",
+    "imagePrompt": "A warm cozy home interior with soft lighting, a wooden table with essentials, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-011-1795275294162-4852.png"
+  },
+  {
+    "start": 29.5,
+    "end": 37.5,
+    "text": "dan melihatnya tumbuh bahagia tanpa rasa kekurangan, ya Allah, semoga kelak engkau izinkan aku tersenyum bahagia,",
+    "keyword": "happy blooming",
+    "imagePrompt": "Bright blooming flowers opening up toward the warm morning sun, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-012-1795275295855-6487.png"
+  },
+  {
+    "start": 37.5,
+    "end": 44.5,
+    "text": "karena melihat anakku mendapatkan kehidupan terbaik yang mampu kuperjuangkan untuknya, amin.",
+    "keyword": "peaceful horizon",
+    "imagePrompt": "A serene horizon glowing with peaceful twilight colors, symbolizing a secure future, cinematic photorealistic, vertical 9:16.",
+    "image": "images/video-2026-11-21_15-34-31-217Z/scene-013-1795275299694-5584.png"
   }
 ]
