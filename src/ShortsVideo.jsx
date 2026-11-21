@@ -19,26 +19,21 @@ export const ShortsVideo = ({ subtitles = [] }) => {
   const currentTime = frame / fps;
   const fadeDuration = 0.45;
 
-  // Cari scene yang sedang aktif
-  const activeIndex = subtitles.findIndex(
-    (s) => currentTime >= s.start && currentTime < s.end
-  );
-
-  // Cari scene terakhir yang sudah dimulai.
-  // Ini menjaga gambar tetap tampil saat jeda antar-subtitle.
+  // Satu indeks scene menjadi sumber gambar DAN teks.
+  // Saat jeda antar-ucapan, gambar scene terakhir tetap tampil,
+  // tetapi subtitle disembunyikan sampai rentang waktunya aktif.
   let sceneIndex = -1;
-
   for (let i = 0; i < subtitles.length; i++) {
-    if (currentTime >= subtitles[i].start) {
-      sceneIndex = i;
-    } else {
-      break;
-    }
+    if (currentTime >= subtitles[i].start) sceneIndex = i;
+    else break;
   }
 
-  const activeSegment = sceneIndex >= 0
-    ? subtitles[sceneIndex]
-    : subtitles[0];
+  const activeSegment = sceneIndex >= 0 ? subtitles[sceneIndex] : subtitles[0];
+  const hasActiveSubtitle = Boolean(
+    activeSegment &&
+    currentTime >= activeSegment.start &&
+    currentTime < activeSegment.end
+  );
 
   if (!activeSegment) {
     return (
@@ -98,9 +93,6 @@ export const ShortsVideo = ({ subtitles = [] }) => {
     [0, 1],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
-
-  // Subtitle hanya tampil ketika berada dalam rentang waktunya
-  const hasActiveSubtitle = activeIndex >= 0;
 
   const textFrame = hasActiveSubtitle
     ? Math.max(0, frame - activeSegment.start * fps)
