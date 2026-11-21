@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Build CapCut Android import package
         run: node scripts/export-capcut.js
 
@@ -32,4 +35,4 @@ jobs:
         with:
           name: capcut-android-template
           path: out/capcut-template.zip
-          retention-days: 7
+          retention-days: 1
