@@ -1,114 +1,74 @@
 [
   {
     "start": 0,
-    "end": 3,
-    "text": "ada amalan sebelum tidur tapi ringan tapi pahalanya besar.",
-    "keyword": "bedside before sleep",
-    "imagePrompt": "A peaceful bedroom at night with a soft warm glow from a bedside lamp, a closed book on a wooden nightstand, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-001-1795262682394-8183.png"
+    "end": 2.5,
+    "text": "Subuh ketemu siang, selesai masalah.",
+    "keyword": "dawn sky, morning light",
+    "imagePrompt": "Cinematic vertical shot of dawn sky transitioning to morning light, peaceful atmosphere, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-001-1795270904822-9857.png"
   },
   {
     "start": 3,
-    "end": 8,
-    "text": "Satu kali nabi pernah bilang begini, janganlah engkau tidur sebelum engkau melakukan empat hal.",
-    "keyword": "wooden prayer beads",
-    "imagePrompt": "Close-up of prayer beads resting on a soft fabric surface in dim warm lighting, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-002-1795262685270-1701.png"
+    "end": 6,
+    "text": "Siang ketemu sore, selesai masalah.",
+    "keyword": "noon sun, afternoon light",
+    "imagePrompt": "Cinematic vertical shot of bright afternoon sun casting long shadows, peaceful environment, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-002-1795270907247-883.png"
   },
   {
-    "start": 8,
-    "end": 12,
-    "text": "Satu, jangan lupa baca surat Al-Ikhlas tiga kali sebelum tidur.",
-    "keyword": "open holy Quran",
-    "imagePrompt": "An open Quran on a wooden reading stand with soft atmospheric lighting, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-003-1795262688469-6557.png"
+    "start": 6,
+    "end": 9,
+    "text": "Sore ketemu magrib, mau malam, selesai masalah.",
+    "keyword": "sunset, dusk, twilight",
+    "imagePrompt": "Cinematic vertical shot of a beautiful sunset horizon with dusk colors, calm and serene, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-003-1795270910430-9091.png"
   },
   {
-    "start": 12,
-    "end": 13,
-    "text": "Oh iya makanya itu dibilangnya.",
-    "keyword": "soft interior light",
-    "imagePrompt": "Soft ambient light filtering through a window into a quiet indoor space, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-004-1795262691430-2603.png"
+    "start": 9,
+    "end": 13.5,
+    "text": "Mau tidur pun dipanggil dulu, supaya sebelum tidur tuh bahagia dulu.",
+    "keyword": "night time, bedroom serenity",
+    "imagePrompt": "Cinematic vertical shot of a quiet bedroom at night with soft ambient lighting, tranquil atmosphere, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-004-1795270912801-3089.png"
   },
   {
-    "start": 13,
-    "end": 20,
-    "text": "Maka ketika engkau baca Al-Ikhlas tiga kali sebelum tidur, engkau mendapatkan pahala seperti menghatamkan Al-Qur'an.",
-    "keyword": "stacked holy books",
-    "imagePrompt": "A neatly stacked collection of Islamic religious books on a dark wooden table, warm light, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-005-1795262694052-6340.png"
+    "start": 14.5,
+    "end": 18.5,
+    "text": "Jangan sampai ada orang tidur membawa kegelisahan.",
+    "keyword": "restless night, dark room",
+    "imagePrompt": "Cinematic vertical shot of a dark quiet room representing restlessness, moody lighting, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-005-1795270915333-641.png"
   },
   {
-    "start": 21,
-    "end": 28,
-    "text": "Yang kedua, jangan engkau tidur sebelum engkau mendapatkan syafaat dari para nabi, maksudnya apa? Jangan tidur sebelum engkau shalawat tiga kali.",
-    "keyword": "praying hands silhouette",
-    "imagePrompt": "Silhouette of hands raised in supplication against a soft twilight sky, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-006-1795262696501-5696.png"
+    "start": 18.5,
+    "end": 21.5,
+    "text": "Allah tuh paling enggak ingin dengan sifat rahman-Nya.",
+    "keyword": "divine mercy, conceptual light",
+    "imagePrompt": "Cinematic vertical shot of soft divine light breaking through clouds, symbolizing mercy, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-006-1795270942875-1796.png"
   },
   {
-    "start": 29,
+    "start": 21.5,
+    "end": 25.5,
+    "text": "Ada hamba sudah capek kerja siang, mau tidur pun masih capek juga.",
+    "keyword": "tired worker, weary hands",
+    "imagePrompt": "Cinematic vertical shot of weary hands resting on a desk, representing fatigue after a long day of work, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-007-1795270945142-9073.png"
+  },
+  {
+    "start": 26,
     "end": 31,
-    "text": "Allahumma shalli ala sayyidina Muhammad.",
-    "keyword": "calm mosque interior",
-    "imagePrompt": "Warm, peaceful interior of a mosque with intricate pillars and soft lighting, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-007-1795262698997-2161.png"
+    "text": "Coba omong yang tadi kata Pak Menteri yang belum selesai itu, masih tidur.",
+    "keyword": "unfinished work, paperwork",
+    "imagePrompt": "Cinematic vertical shot of a messy desk with unfinished paperwork in dim evening light, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-008-1795270965228-5436.png"
   },
   {
-    "start": 32,
-    "end": 37,
-    "text": "Yang ketiga, jangan engkau tidur sebelum seluruh muslim ridho kepadamu.",
-    "keyword": "peaceful horizon",
-    "imagePrompt": "A serene horizon at sunset with soft clouds stretching across the sky, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-008-1795262701372-7105.png"
-  },
-  {
-    "start": 38,
-    "end": 41,
-    "text": "Gimana caranya? Jangan tidur sebelum engkau istighfar tiga kali.",
-    "keyword": "tasbih beads",
-    "imagePrompt": "A string of wooden tasbih beads resting on a clean prayer rug, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-009-1795262703492-792.png"
-  },
-  {
-    "start": 42,
-    "end": 44,
-    "text": "Astagfirullahaladzim.",
-    "keyword": "subtle light glow",
-    "imagePrompt": "A gentle beam of warm light shining into a quiet, dark room, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-010-1795262706853-8916.png"
-  },
-  {
-    "start": 44,
-    "end": 48,
-    "text": "Dan yang keempat, jangan tidur sebelum engkau haji dan umrah.",
-    "keyword": "Kaaba minimalist",
-    "imagePrompt": "A distant minimalist view of the Kaaba surrounded by soft night lights, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-011-1795262709028-8884.png"
-  },
-  {
-    "start": 48,
-    "end": 49,
-    "text": "Gimana caranya?",
-    "keyword": "dim warm room",
-    "imagePrompt": "A quiet room illuminated by a subtle warm glow from a corner lamp, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-012-1795262711021-7022.png"
-  },
-  {
-    "start": 49,
-    "end": 56,
-    "text": "Jangan tidur sebelum engkau baca Subhanallah, Alhamdulillah, walailahaillallah wallahu akbar tiga kali.",
-    "keyword": "tasbih counter",
-    "imagePrompt": "Close-up of fingers gently turning prayer beads on a smooth wooden surface, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-013-1795262713009-6680.png"
-  },
-  {
-    "start": 57,
-    "end": 59.792789,
-    "text": "Dahsyat, ringan, berpahala besar.",
-    "keyword": "tranquil night light",
-    "imagePrompt": "A calm, dimly lit bedroom atmosphere with soft shadows and peaceful ambiance, cinematic photorealistic, vertical 9:16",
-    "image": "images/scene-014-1795262715331-9677.png"
+    "start": 31,
+    "end": 42.9,
+    "text": "Jadi kenapa dibawa salat? Itu filosofinya yang pertama landasannya, diinginkan oleh Allah sebelum tidur pun tenang dulu, bahagia dulu, dan selesai semua urusan pekerjaannya.",
+    "keyword": "prayer rug, beads, Islamic spirituality",
+    "imagePrompt": "Cinematic vertical shot of a prayer rug and tasbih beads in a serene quiet room, peaceful spiritual ambiance, photorealistic, 9:16",
+    "image": "images/video-2026-11-21_14-21-44-817Z/scene-009-1795270968328-7319.png"
   }
 ]
