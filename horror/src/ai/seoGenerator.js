@@ -13,25 +13,26 @@ function parseJson(text) {
 
 export async function generateSeo(story, topic) {
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
-  const prompt = `Bertindak sebagai editor YouTube dan spesialis SEO untuk channel Indonesia "${CHANNEL_NAME}".
-Buat metadata untuk video berdasarkan cerita berikut. Bahasa Indonesia alami, menarik, tidak clickbait menyesatkan.
-Jangan menyebut "kisah nyata", "terbukti", penampakan faktual, tanggal, sumber atau kejadian yang tidak ada dalam materi.
-Judul maksimal 100 karakter, keyword utama di awal jika alami. Deskripsi 2-4 paragraf dengan ringkasan, keyword relevan, ajakan subscribe ke channel ${CHANNEL_NAME}, dan disclaimer fakta/legenda/dramatisasi yang sesuai.
-Hashtags 3-5 buah, relevan, tanpa spasi. Tags berupa 10-18 keyword pendek, jangan mengulang berlebihan.
+  const prompt = `Anda adalah YouTube packaging agent senior untuk channel Indonesia "${CHANNEL_NAME}". Tugas Anda bukan sekadar mengisi SEO, tetapi memilih kemasan video yang paling membuat penonton target ingin mengeklik tanpa menipu.
+Analisis keseluruhan premis, konflik, ancaman, lokasi, dan twist cerita. Buat 3 kandidat judul secara internal, nilai masing-masing dari sisi rasa penasaran, kejelasan, relevansi dengan cerita, dan naturalitas bahasa Indonesia. Pilih satu pemenang.
+Buat 2-4 kata untuk teks thumbnail. Teks thumbnail harus melengkapi judul, bukan mengulang judul. Buat prompt gambar thumbnail khusus berdasarkan momen paling kuat/unik dari cerita: satu focal subject yang langsung terbaca pada layar HP, ancaman terlihat jelas tetapi misterinya tidak dibocorkan, komposisi sinematik landscape 16:9, ruang kosong di kiri untuk teks. Prompt harus bahasa Inggris, high-end realistic 3D CGI Indonesian horror film still, konsisten dengan detail tokoh/entitas dalam cerita, tanpa tulisan/logo/watermark/gore.
+Judul maksimal 85 karakter, spesifik dan memancing pertanyaan. Hindari judul generik, keyword stuffing, kapital berlebihan, dan clickbait yang tidak dibayar oleh isi cerita. Jangan mengklaim kisah nyata atau fakta yang tidak didukung materi.
+Deskripsi 2-3 paragraf: kalimat pembuka kuat dan memuat keyword utama secara alami, ringkasan singkat tanpa membocorkan twist, konteks legenda/fiksi bila relevan, ajakan subscribe yang tidak berlebihan.
+Hashtags 3-5 buah. Tags 10-18 keyword pendek yang benar-benar relevan.
 Kembalikan JSON valid saja dengan struktur:
-{"title":"...","description":"...","hashtags":["#..."],"tags":["..."],"thumbnailText":"teks pendek maksimal 5 kata"}
+{"title":"judul terpilih","titleAlternatives":["alternatif 1","alternatif 2"],"selectionReason":"alasan singkat pemilihan judul","description":"...","hashtags":["#..."],"tags":["..."],"thumbnailText":"2-4 kata","thumbnailPrompt":"English image generation prompt"}
 Topik: ${topic}
 Judul cerita: ${story.title}
 Ringkasan: ${story.description || ""}
 Disclaimer: ${story.disclaimer || ""}
-Potongan narasi: ${String(story.narration || "").slice(0, 7000)}`;
+Naskah: ${String(story.narration || "").slice(0, 9000)}`;
   const response = await ai.models.generateContent({
     model: config.geminiModel,
     contents: prompt,
     config: { responseMimeType: "application/json" }
   });
   const value = parseJson(response.text);
-  const title = String(value.title || story.title || topic).slice(0, 100);
+  const title = String(value.title || story.title || topic).trim().slice(0, 100);
   const hashtags = [...new Set((Array.isArray(value.hashtags) ? value.hashtags : []).map(x => String(x).trim().replace(/\s+/g, "")).filter(x => /^#[\p{L}\p{N}_]+$/u.test(x)))].slice(0, 5);
   const uniqueTags = [...new Set((Array.isArray(value.tags) ? value.tags : []).map(x => String(x).trim()).filter(Boolean))].slice(0, 18);
   const tags = [];
@@ -45,5 +46,11 @@ Potongan narasi: ${String(story.narration || "").slice(0, 7000)}`;
   const baseDescription = String(value.description || story.description || "");
   const disclaimer = story.disclaimer || "Sebagian bagian cerita dapat berupa legenda atau dramatisasi.";
   const description = [baseDescription, "", disclaimer, "", `Ikuti ${CHANNEL_NAME} untuk cerita misteri, legenda, sejarah, dan kisah menarik lainnya.`, "", hashtags.join(" ")].join("\n").slice(0, 4900);
-  return { title, description, hashtags, tags, thumbnailText: String(value.thumbnailText || title).slice(0, 30) };
+  const thumbnailText = String(value.thumbnailText || title).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
+  return {
+    title, titleAlternatives: Array.isArray(value.titleAlternatives) ? value.titleAlternatives.slice(0, 2) : [],
+    selectionReason: String(value.selectionReason || ""),
+    description, hashtags, tags, thumbnailText,
+    thumbnailPrompt: String(value.thumbnailPrompt || "")
+  };
 }
