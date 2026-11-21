@@ -13,12 +13,9 @@ import { generateSoundAssets } from "../src/audio/soundAssets.js";
 import { ROOT, ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR } from "../src/config.js";
 
 function parseVtt(vtt) {
-  const blocks = vtt.replace(/\r/g, "").split(/
-
-+/);
+  const blocks = vtt.replace(/\r/g, "").split(/\n\n+/);
   return blocks.flatMap(block => {
-    const lines = block.split("
-");
+    const lines = block.split("\n");
     const line = lines.find(x => x.includes("-->"));
     if (!line) return [];
     const parts = line.split("-->").map(x => x.trim().split(" ")[0]);
@@ -127,8 +124,8 @@ const subtitlePath = path.join(AUDIO_DIR, "narration.vtt");
 await generateNarration(story.narration, audioPath, subtitlePath);
 const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
 const duration = await audioDuration(audioPath);
-if (duration > 300) {
-  throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 5 menit. Perpendek naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);
+if (duration > 360) {
+  throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 6 menit. Perpendek naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);
 }
 
 console.log("[4/7] Rancang sound design dan siapkan SFX");
@@ -174,8 +171,10 @@ const manifest = {
   durationInFrames: Math.ceil(duration * fps),
   fps,
   scenes,
-  captions
+  captions,
+  soundEffects,
+  soundBeds,
+  soundAssets
 };
-await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";
-");
+await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";\n");
 console.log("[7/7] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
