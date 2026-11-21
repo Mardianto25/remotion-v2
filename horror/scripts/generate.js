@@ -7,7 +7,7 @@ import { generateSeo } from "../src/ai/seoGenerator.js";
 import { researchTrendingTopic } from "../src/ai/trendResearcher.js";
 import { generateThumbnail } from "../src/visual/thumbnail.js";
 import { getSceneImage } from "../src/visual/providers.js";
-import { generateNarration } from "../src/audio/edgeTts.js";
+import { generateNarration } from "../src/audio/edgeTts.js";\nimport { generateSoundDesign } from "../src/ai/soundDesigner.js";\nimport { generateSoundAssets } from "../src/audio/soundAssets.js";
 import { ROOT, ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR } from "../src/config.js";
 
 function parseVtt(vtt) {
@@ -126,14 +126,14 @@ if (duration > 300) {
   throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 5 menit. Perpendek naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);
 }
 
-console.log("[4/6] Ambil visual scene");
+console.log("[4/7] Rancang sound design dan siapkan SFX");\nconst soundDesign = await generateSoundDesign(story, duration, story.scenes);\nconst soundAssets = await generateSoundAssets();\nawait fs.writeFile(path.join(DATA_DIR, "sound-design.json"), JSON.stringify(soundDesign, null, 2));\n\nconsole.log("[5/7] Ambil visual scene");
 const assets = [];
 for (let i = 0; i < story.scenes.length; i++) {
   console.log("Scene " + (i + 1) + "/" + story.scenes.length);
   assets.push(await getSceneImage(story.scenes[i], i));
 }
 
-console.log("[5/6] Generate thumbnail YouTube");
+console.log("[6/7] Generate thumbnail YouTube");
 await generateThumbnail(story, seo, topic);
 
 const fps = 30;
@@ -157,4 +157,4 @@ const manifest = {
   captions
 };
 await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";\n");
-console.log("[6/6] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
+console.log("[7/7] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
