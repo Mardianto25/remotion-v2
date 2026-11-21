@@ -1,0 +1,35 @@
+name: Export CapCut Android Package
+
+on:
+  push:
+    paths:
+      - 'public/audio.mp3'
+      - 'public/subtitles.json'
+      - 'public/images/**'
+      - 'scripts/export-capcut.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export-capcut:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build CapCut Android import package
+        run: node scripts/export-capcut.js
+
+      - name: Upload CapCut package
+        uses: actions/upload-artifact@v4
+        with:
+          name: capcut-android-template
+          path: out/capcut-template.zip
+          retention-days: 7
