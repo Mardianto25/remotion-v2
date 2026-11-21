@@ -1,42 +1,74 @@
 [
   {
     "start": 0,
-    "end": 5.5,
-    "text": "Hei, masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
-    "keyword": "anxious man stressed indoors",
-    "imagePrompt": "Cinematic portrait of a stressed Muslim man sitting holding his head in distress, moody window shadows, emotional tension, photorealistic, 9:16 vertical composition.",
-    "image": "images/scene-001-1795228195290-5874.jpg"
+    "end": 3,
+    "text": "ada amalan sebelum tidur, tapi ringan, tapi pahalanya besar.",
+    "keyword": "person praying before sleep",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim person lying in bed peacefully at night, praying before sleep, calm and serene expression, soft warm indoor lighting, vertical 9:16 composition.",
+    "image": "images/scene-001-1795261462561-615.jpg"
   },
   {
-    "start": 5.5,
-    "end": 9,
-    "text": "Bukankah dulu banyak ribuan masalah yang telah kuseleasikan?",
-    "keyword": "reflective man looking past memory",
-    "imagePrompt": "A thoughtful Muslim man looking out a rainy window, silhouette reflecting resilience and past overcome struggles, atmospheric dramatic lighting, photorealistic, 9:16 vertical.",
-    "image": "images/scene-002-1795228197049-9434.jpg"
+    "start": 3,
+    "end": 8.5,
+    "text": "Satu kali Nabi pernah bilang begini: \"Janganlah engkau tidur sebelum engkau melakukan empat hal.",
+    "keyword": "person advising listening attentively",
+    "imagePrompt": "A cinematic photorealistic close-up of a wise Muslim man speaking gently with a caring and serious expression, indoor setting, soft warm lighting, vertical 9:16 composition.",
+    "image": "images/scene-002-1795261464133-654.jpg"
   },
   {
-    "start": 9,
-    "end": 14.5,
-    "text": "Jangan sampai larut sedih dengan masalah yang sekarang. Yakin, dulu pun banyak masalah selesai juga.",
-    "keyword": "hopeful man looking up relief",
-    "imagePrompt": "Close-up of a contemplative man slowly raising his face toward warm sunlight, subtle expression of hope and relief, photorealistic, 9:16 vertical.",
-    "image": "images/scene-003-1795228198131-6277.jpg"
+    "start": 8.5,
+    "end": 12.7,
+    "text": "Satu, jangan lupa baca surat Al-Ikhlas tiga kali sebelum tidur.\"",
+    "keyword": "Muslim reading Quran at night",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim person reading the Quran quietly by soft bedside lighting at night, wearing modest clothing, peaceful and focused expression, vertical 9:16 composition.",
+    "image": "images/scene-003-1795261465329-6207.jpg"
   },
   {
-    "start": 14.5,
-    "end": 23.5,
-    "text": "Lalu apa yang harus dilakukan? Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu, inna ma'al-'usri...",
-    "keyword": "muslim man praying hands chest",
-    "imagePrompt": "A modest Muslim man placing his right hand over his chest in sincere prayer, peaceful faith amidst trials, soft spiritual backlight, photorealistic, 9:16 vertical.",
-    "image": "images/scene-004-1795228200240-2090.jpg"
+    "start": 12.7,
+    "end": 20.9,
+    "text": "Oh ya, makanya itu dibilangnya. Maka, ketika engkau baca Al-Ikhlas tiga kali sebelum tidur, engkau mendapatkan pahala seperti menghatamkan Al-Qur'an.",
+    "keyword": "reading holy Quran glowing light",
+    "imagePrompt": "A cinematic photorealistic scene of an open Quran glowing softly in a dimly lit room at night, hands resting respectfully nearby, spiritual atmosphere, vertical 9:16 composition.",
+    "image": "images/scene-004-1795261466502-3444.jpg"
   },
   {
-    "start": 23.5,
-    "end": 29.5,
-    "text": "semua ini pasti selesai. Pasti ada solusinya. Pasti selesai.",
-    "keyword": "peaceful man smiling bright light",
-    "imagePrompt": "A relieved Muslim man smiling calmly, bathed in bright morning sunlight, finding tranquility and solution, photorealistic cinematic lighting, 9:16 vertical.",
-    "image": "images/scene-005-1795228201626-9979.jpg"
+    "start": 21,
+    "end": 28.9,
+    "text": "Yang kedua, jangan engkau tidur sebelum engkau mendapatkan syafaat dari para nabi. Maksudnya apa? Jangan tidur sebelum engkau solat tiga kali. Allahumma sholli ala sayyidina Muhammad.",
+    "keyword": "Muslim praying hands raised dua",
+    "imagePrompt": "A cinematic photorealistic close-up of a Muslim person with hands raised in prayer, making dua with a sincere and emotional facial expression, soft lighting, vertical 9:16 composition.",
+    "image": "images/scene-005-1795261467688-7013.jpg"
+  },
+  {
+    "start": 29,
+    "end": 37.8,
+    "text": "Yang ketiga, jangan engkau tidur sebelum seluruh muslim rida kepadamu. Gimana caranya? Jangan tidur sebelum engkau istighfar tiga kali.",
+    "keyword": "Muslim seeking forgiveness praying",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim person closing eyes in deep contemplation and seeking forgiveness, emotional and humble expression, indoor setting, vertical 9:16 composition.",
+    "image": "images/scene-006-1795261468761-7855.jpg"
+  },
+  {
+    "start": 37.8,
+    "end": 44.2,
+    "text": "Astagfirullahaladzim. Dan yang keempat, jangan engkau tidur sebelum engkau haji dan umrah.",
+    "keyword": "Muslim praying longing for hajj",
+    "imagePrompt": "A cinematic photorealistic scene of a Muslim pilgrim praying with a yearning expression, spiritual devotion, soft dramatic lighting, vertical 9:16 composition.",
+    "image": "images/scene-007-1795261469785-458.jpg"
+  },
+  {
+    "start": 44.2,
+    "end": 56.6,
+    "text": "Gimana caranya? Gimana itu? Jangan tidur sebelum engkau baca Subhanallah, Alhamdulillah, wala ilaha illallah wallahu akbar tiga kali.",
+    "keyword": "Muslim dhikr counting tasbih",
+    "imagePrompt": "A cinematic photorealistic close-up of hands gently holding a tasbih prayer beads while performing dhikr at night, warm candlelight, peaceful atmosphere, vertical 9:16 composition.",
+    "image": "https://images.pexels.com/photos/8111394/pexels-photo-8111394.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1080&h=1920"
+  },
+  {
+    "start": 56.6,
+    "end": 59.9,
+    "text": "Dahsyat, ringan, berpahala besar.",
+    "keyword": "peaceful relieved expression Muslim",
+    "imagePrompt": "A cinematic photorealistic close-up of a Muslim person smiling with a peaceful and relieved expression after completing evening prayers, soft warm lighting, vertical 9:16 composition.",
+    "image": "images/scene-009-1795261471562-3521.jpg"
   }
 ]
