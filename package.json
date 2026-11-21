@@ -7,7 +7,8 @@
     "render": "remotion render src/index.js ShortsVideo out/video.mp4",
     "upload": "node scripts/youtube-upload.js",
     "dispatch": "node scripts/auto-dispatch.js",
-    "generate:thumbnail": "node scripts/thumbnail.js"
+    "generate:thumbnail": "node scripts/thumbnail.js",
+    "export:capcut": "node scripts/export-capcut.js"
   },
   "dependencies": {
     "@composio/core": "^0.29.0",
