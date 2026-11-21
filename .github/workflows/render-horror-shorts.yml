@@ -52,9 +52,9 @@ jobs:
       - name: Upload Shorts to Ruang Cerita Indonesia
         working-directory: horror
         env:
-          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
-          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
-          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID_RC }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET_RC }}
+          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_RC }}
           YOUTUBE_SHORTS_PRIVACY_STATUS: ${{ inputs.privacy_status }}
         run: npm run upload:shorts
       - name: Preserve generated Shorts and upload state
