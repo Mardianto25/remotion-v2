@@ -29,6 +29,18 @@ const imagesDir = path.join(publicDir, 'images');
 fs.mkdirSync(publicDir, { recursive: true });
 fs.mkdirSync(imagesDir, { recursive: true });
 
+// Setiap video memiliki folder sendiri agar aset antar-video tidak tercampur.
+function createVideoImageFolder() {
+  const timestamp = new Date().toISOString()
+    .replace(/[:.]/g, '-')
+    .replace('T', '_')
+    .replace('Z', 'Z');
+  const folderName = `video-${timestamp}`;
+  const folderPath = path.join(imagesDir, folderName);
+  fs.mkdirSync(folderPath, { recursive: true });
+  return { folderName, folderPath };
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, publicDir),
   filename: (req, file, cb) => cb(null, 'audio.mp3')
@@ -60,7 +72,7 @@ const PEXELS_FALLBACKS = [
 // DOWNLOAD IMAGE
 // ============================================================
 
-async function downloadImage(imageUrl, filename) {
+async function downloadImage(imageUrl, filename, targetDir = imagesDir) {
   const response = await fetch(imageUrl);
 
   if (!response.ok) {
@@ -79,7 +91,8 @@ async function downloadImage(imageUrl, filename) {
     throw new Error('File gambar kosong.');
   }
 
-  const imagePath = path.join(imagesDir, filename);
+  fs.mkdirSync(targetDir, { recursive: true });
+  const imagePath = path.join(targetDir, filename);
 
   fs.writeFileSync(imagePath, buffer);
 
@@ -91,7 +104,7 @@ async function downloadImage(imageUrl, filename) {
 // PRIORITAS UTAMA
 // ============================================================
 
-async function generateFluxImage(prompt, filename) {
+async function generateFluxImage(prompt, filename, targetDir = imagesDir) {
   const accountId = process.env.CF_ACCOUNT_ID;
   const apiToken = process.env.CF_API_TOKEN;
 
@@ -155,7 +168,8 @@ No text, captions, logos, or watermarks.
     throw new Error('Hasil gambar FLUX kosong.');
   }
 
-  const imagePath = path.join(imagesDir, filename);
+  fs.mkdirSync(targetDir, { recursive: true });
+  const imagePath = path.join(targetDir, filename);
 
   fs.writeFileSync(imagePath, imageBuffer);
 
@@ -166,7 +180,7 @@ No text, captions, logos, or watermarks.
 // FLUX -> PIXABAY -> PEXELS FALLBACK
 // ============================================================
 
-async function fetchVerticalNatureImage(imagePrompt, keyword, index) {
+async function fetchVerticalNatureImage(imagePrompt, keyword, index, targetDir = imagesDir, folderName = '') {
   const timestamp = Date.now();
   const randomId = Math.floor(Math.random() * 10000);
 
@@ -191,12 +205,13 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index) {
 
       const imagePath = await generateFluxImage(
         imagePrompt,
-        fluxFilename
+        fluxFilename,
+        targetDir
       );
 
       console.log(`[FLUX] Berhasil: ${imagePath}`);
 
-      return imagePath;
+      return folderName ? `images/${folderName}/${path.basename(imagePath)}` : imagePath;
 
     } catch (error) {
       console.error('[FLUX Error]:', error.message);
@@ -243,12 +258,13 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index) {
 
         const imagePath = await downloadImage(
           imageUrl,
-          pixabayFilename
+          pixabayFilename,
+          targetDir
         );
 
         console.log(`[Pixabay] Berhasil: ${imagePath}`);
 
-        return imagePath;
+        return folderName ? `images/${folderName}/${path.basename(imagePath)}` : imagePath;
       }
 
       console.log('[Pixabay] Tidak menemukan gambar.');
@@ -461,6 +477,8 @@ export async function executePipeline(autoPushGit = true) {
   console.log('[3/4] Memproses gambar setiap scene...');
 
   const subtitlesData = [];
+  const { folderName: videoFolderName, folderPath: videoFolderPath } = createVideoImageFolder();
+  console.log(`[Images] Semua gambar video ini disimpan di public/images/${videoFolderName}/`);
 
   for (let i = 0; i < normalizedSegments.length; i++) {
     const seg = normalizedSegments[i];
@@ -498,7 +516,9 @@ export async function executePipeline(autoPushGit = true) {
     const imagePath = await fetchVerticalNatureImage(
       imagePrompt,
       keyword,
-      i
+      i,
+      videoFolderPath,
+      videoFolderName
     );
 
     subtitlesData.push({
@@ -510,6 +530,33 @@ export async function executePipeline(autoPushGit = true) {
       image: imagePath
     });
   }
+
+  // Simpan manifest agar folder dapat dikenali sebagai satu hasil video.
+  fs.writeFileSync(
+    path.join(videoFolderPath, 'manifest.json'),
+    JSON.stringify({
+      videoFolder: videoFolderName,
+      generatedAt: new Date().toISOString(),
+      audioFile: 'audio.mp3',
+      sceneCount: subtitlesData.length,
+      scenes: subtitlesData.map(({ start, end, text, image, keyword }) => ({
+        start, end, text, keyword, image
+      }))
+    }, null, 2),
+    'utf8'
+  );
+
+  // Penanda folder aset untuk video yang terakhir diproses.
+  fs.writeFileSync(
+    path.join(imagesDir, 'LATEST.json'),
+    JSON.stringify({
+      videoFolder: videoFolderName,
+      folder: `public/images/${videoFolderName}/`,
+      generatedAt: new Date().toISOString(),
+      sceneCount: subtitlesData.length
+    }, null, 2),
+    'utf8'
+  );
 
   // ----------------------------------------------------------
   // SAVE SUBTITLES
