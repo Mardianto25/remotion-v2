@@ -11,12 +11,9 @@ import { generateNarration } from "../src/audio/edgeTts.js";
 import { ROOT, ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR } from "../src/config.js";
 
 function parseVtt(vtt) {
-  const blocks = vtt.replace(/\r/g, "").split(/
-
-+/);
+  const blocks = vtt.replace(/\r/g, "").split(/\n\n+/);
   return blocks.flatMap(block => {
-    const lines = block.split("
-");
+    const lines = block.split("\n");
     const line = lines.find(x => x.includes("-->"));
     if (!line) return [];
     const parts = line.split("-->").map(x => x.trim().split(" ")[0]);
@@ -159,6 +156,5 @@ const manifest = {
   scenes,
   captions
 };
-await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";
-");
+await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";\n");
 console.log("[6/6] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
