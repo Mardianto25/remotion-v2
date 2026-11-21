@@ -20,7 +20,9 @@ const Scene = ({ scene }) => {
   const { durationInFrames } = useVideoConfig();
   const progress = interpolate(frame, [0, Math.max(1, durationInFrames - 1)], [0, 1], { extrapolateRight: "clamp" });
   const scale = interpolate(progress, [0, 1], [1.02, 1.12]);
-  const reverse = Number(scene.id || 0) % 2 === 0;\n  const x = interpolate(progress, [0, 1], reverse ? [0, 22] : [0, -22]);\n  const y = interpolate(progress, [0, 1], reverse ? [0, -10] : [0, 8]);
+  const reverse = Number(scene.id || 0) % 2 === 0;
+  const x = interpolate(progress, [0, 1], reverse ? [0, 22] : [0, -22]);
+  const y = interpolate(progress, [0, 1], reverse ? [0, -10] : [0, 8]);
   return <AbsoluteFill style={{ backgroundColor: "#080808", overflow: "hidden" }}>
     <Img src={staticFile("assets/" + scene.fileName)} style={{
       width: "100%", height: "100%", objectFit: "cover",
