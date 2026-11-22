@@ -2,6 +2,13 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { config, ASSETS_DIR } from "../config.js";
 
+const HORROR_3D_STYLE = [
+  "high-end cinematic 3D CGI horror film still",
+  "photorealistic 3D rendering, physically based materials, realistic skin and fabric shaders",
+  "detailed 3D environment, volumetric moonlight, deep cinematic shadows, atmospheric fog",
+  "Unreal Engine quality render, dramatic film lighting, realistic depth and scale",
+  "landscape 16:9 composition, no text, no logo, no watermark"
+].join(", ");
 const HORROR_2D_STYLE = [
   "2D cinematic horror animation frame",
   "semi-realistic dark graphic novel illustration, hand-painted background",
@@ -11,9 +18,14 @@ const HORROR_2D_STYLE = [
 ].join(", ");
 
 function buildHorrorPrompt(prompt) {
+  const use2D = (process.env.HORROR_VISUAL_STYLE || "3d").toLowerCase() === "2d";
+  const style = use2D ? HORROR_2D_STYLE : HORROR_3D_STYLE;
+  const suffix = use2D
+    ? "Indonesian horror story illustration. Avoid photorealistic 3D rendering, game render, gore and explicit violence."
+    : "Indonesian supernatural horror atmosphere. Avoid cartoon, anime, illustration, gore and explicit violence.";
   return String(prompt || "An abandoned Indonesian village at night, thick fog and a distant mysterious silhouette")
     .replace(/\b(photorealistic|cinematic)\b/gi, "")
-    .trim() + ". " + HORROR_2D_STYLE + ". Indonesian horror story illustration. Avoid photorealistic 3D rendering, game render, gore and explicit violence.";
+    .trim() + ". " + style + ". " + suffix;
 }
 
 async function saveCloudflareImage(response, destination) {
