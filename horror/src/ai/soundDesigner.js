@@ -16,7 +16,20 @@ export async function generateSoundDesign(story, duration, scenes) {
     "Bed hanya boleh: drone.wav, night-wind.wav, rain.wav, suspense.wav, climax.wav. Efek hanya boleh: knock.wav, footsteps.wav, creak.wav, heartbeat.wav, impact.wav, wind-hit.wav, gamelan.wav, gong.wav, shriek.wav, gasp.wav, breathing.wav, whisper.wav.\n" +
     "Panduan pemilihan: gamelan.wav untuk gamelan/iringan tradisional yang terdengar; gong.wav untuk gong atau dentang besar; shriek.wav untuk teriakan melengking/jeritan tokoh; gasp.wav untuk tokoh tersentak atau terkejut; breathing.wav untuk napas berat/terengah; whisper.wav untuk bisikan misterius; footsteps.wav untuk langkah; creak.wav untuk pintu/benda berderit; knock.wav untuk ketukan; impact.wav untuk benturan; heartbeat.wav untuk detak jantung; wind-hit.wav untuk hembusan mendadak. Jangan menambahkan efek yang tidak didukung cerita.\n" +
     "Buat bed berubah mengikuti mood: awal tipis, ketegangan meningkat, klimaks intens, akhir menyisakan rasa ganjil. Efek maksimal 3 per scene dan prioritaskan momen penting, jangan menumpuk. Offset harus berada di dalam scene dan maksimal 12 detik. Volume bed 0.06-0.18, efek 0.12-0.38 agar narasi tetap jelas. SceneId harus persis dari daftar. Cue hanya label singkat untuk log. Jangan membuat dialog atau mengubah narasi.";
-  const response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json" } });
+  let response;
+  try {
+    response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json" } });
+  } catch (error) {
+    console.warn("[sound] Gemini tidak tersedia/kuota habis. Menggunakan sound design lokal:", error.message);
+    return {
+      beds: scenes.map((scene, index) => ({
+        sceneId: scene.id,
+        asset: /climax|puncak|serangan|terbongkar|mengejar|kabur/i.test(String(scene.mood || "") + " " + String(scene.heading || "")) ? "climax.wav" : index === 0 ? "night-wind.wav" : "drone.wav",
+        volume: 0.1
+      })),
+      effects: []
+    };
+  }
   const raw = String(response.text || "").replace(/^\x60{3}json\s*/i, "").replace(/\s*\x60{3}$/, "").trim();
   let parsed;
   try { parsed = JSON.parse(raw); } catch { throw new Error("Sound Design Agent mengembalikan JSON tidak valid."); }
