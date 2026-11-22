@@ -124,9 +124,7 @@ const subtitlePath = path.join(AUDIO_DIR, "narration.vtt");
 await generateNarration(story.narration, audioPath, subtitlePath);
 const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
 const duration = await audioDuration(audioPath);
-if (duration > 360) {
-  throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 6 menit. Perpendek naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);
-}
+console.log("[duration] Durasi narasi: " + (duration / 60).toFixed(1) + " menit. Tidak ada batas maksimal; proses visual dilanjutkan.");
 
 console.log("[4/7] Rancang sound design dan siapkan SFX");
 const soundDesign = await generateSoundDesign(story, duration, story.scenes);
