@@ -2,105 +2,73 @@
   {
     "start": 0,
     "end": 2.5,
-    "text": "bukan buat aku ya Allah,",
-    "keyword": "hands in prayer",
-    "imagePrompt": "A person's hands raised in Islamic supplication, palms facing upward, soft warm lighting, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-001-1795275271226-7959.png"
+    "text": "Bahwa laki-laki itu harus sabar sama istri.",
+    "keyword": "patience husband wife",
+    "imagePrompt": "Cinematic vertical 9:16 shot of a serene domestic interior, soft lighting, calm atmosphere without showing human faces.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-001-1795358304054-8416.jpg"
   },
   {
     "start": 2.5,
-    "end": 5,
-    "text": "tapi untuk anak yang engkau titipkan padaku.",
-    "keyword": "child silhouette",
-    "imagePrompt": "Silhouette of a small child walking away towards a warm golden light, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-002-1795275274271-4249.png"
+    "end": 5.5,
+    "text": "Berapa kesabarannya? 70 kali per hari.",
+    "keyword": "counting time patience",
+    "imagePrompt": "Cinematic vertical 9:16 close up of an antique wall clock ticking, soft warm lighting, abstract concept of enduring time.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-002-1795358305781-1203.png"
   },
   {
-    "start": 5,
-    "end": 9,
-    "text": "Aku mohon kepadamu dengan cinta dan kasih sayang,",
-    "keyword": "gentle embrace",
-    "imagePrompt": "An out of focus tender gesture of a parent holding a small child's hand, warm ambient light, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-003-1795275276215-9764.png"
+    "start": 6,
+    "end": 11.5,
+    "text": "Kalau istrinya bikin diabetes, kalau belum 70 kali belum boleh marah.",
+    "keyword": "sweetness conflict patience",
+    "imagePrompt": "Cinematic vertical 9:16 shot of a traditional wooden table with a glass of sweet tea and morning sunlight, symbolic calm.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-003-1795358311019-3031.png"
   },
   {
-    "start": 9,
-    "end": 12,
-    "text": "menangkanlah aku kali ini,",
-    "keyword": "triumphant light",
-    "imagePrompt": "Sunlight breaking through dark clouds illuminating a path, symbolizing hope and victory, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-004-1795275278541-3886.png"
+    "start": 11.5,
+    "end": 15.5,
+    "text": "Istrinya ngitung, ah, udah 69, udah ah.",
+    "keyword": "counting tally marks",
+    "imagePrompt": "Cinematic vertical 9:16 macro shot of chalk tally marks on a dark wooden board, soft warm light.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-004-1795358313452-2381.png"
   },
   {
-    "start": 12,
-    "end": 13,
-    "text": "sehatkan badanku,",
-    "keyword": "healthy vitality",
-    "imagePrompt": "Fresh green leaves covered with morning dew glistening in the sunlight, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-005-1795275281137-4662.png"
+    "start": 16,
+    "end": 20.5,
+    "text": "Perempuan menghormati suami sampai seolah-olah analoginya kata Nabi,",
+    "keyword": "respect devotion",
+    "imagePrompt": "Cinematic vertical 9:16 interior shot of an Arabic style lamp casting warm geometric shadows on a textured wall.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-005-1795358315594-6427.png"
   },
   {
-    "start": 13,
-    "end": 14.5,
-    "text": "kuatkanlah langkahku,",
-    "keyword": "steadfast footsteps",
-    "imagePrompt": "Footsteps walking firmly on a steady forest pathway, morning light, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-006-1795275282859-6586.png"
+    "start": 20.5,
+    "end": 27.5,
+    "text": "kalau boleh menyuruh manusia sujud kepada manusia, maka aku suruh perempuan sujud kepada suaminya.",
+    "keyword": "devotion submission humility",
+    "imagePrompt": "Cinematic vertical 9:16 shot of an empty Islamic prayer rug (sajadah) folded neatly on a woven floor mat, soft divine light.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-006-1795358318303-9770.png"
   },
   {
-    "start": 14.5,
-    "end": 16.5,
-    "text": "perluaskanlah rezekiku.",
-    "keyword": "abundance wealth",
-    "imagePrompt": "Golden wheat fields swaying gently in the wind under a vast open sky, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-007-1795275285428-1868.png"
+    "start": 27.5,
+    "end": 34,
+    "text": "Jadi masing-masing punya fikihnya, fikih laki-laki itu fikih sabar, fikih tanggung jawab, fikih membimbing.",
+    "keyword": "Islamic jurisprudence responsibilities",
+    "imagePrompt": "Cinematic vertical 9:16 shot of closed classic Islamic law books on a dark wooden desk with soft dramatic lighting.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-007-1795358321918-8850.png"
   },
   {
-    "start": 16.5,
-    "end": 19.5,
-    "text": "Jika rezekiku jauh, dekatkanlah,",
-    "keyword": "approaching light",
-    "imagePrompt": "A glowing warm light moving closer through a peaceful twilight landscape, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-008-1795275288161-6849.png"
+    "start": 34,
+    "end": 41.5,
+    "text": "Fikih perempuan itu fikih amanah, fikih berkhidmat, fikih menyayangi, fikih menghormati.",
+    "keyword": "women ethics devotion",
+    "imagePrompt": "Cinematic vertical 9:16 shot of an intricate brass incense burner with gentle wisps of smoke rising in a peaceful room.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-008-1795358324079-7846.png"
   },
   {
-    "start": 19.5,
-    "end": 22,
-    "text": "jika rezekiku di langit, turunkanlah,",
-    "keyword": "rain from sky",
-    "imagePrompt": "Gentle rain falling from a soft cloudy sky catching the golden hour sunbeams, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-009-1795275289786-4342.png"
-  },
-  {
-    "start": 22,
-    "end": 24.5,
-    "text": "mudahkan segala urusanku.",
-    "keyword": "smooth path",
-    "imagePrompt": "A straight clear road leading toward the horizon with a calm peaceful atmosphere, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-010-1795275292310-5442.png"
-  },
-  {
-    "start": 24.5,
-    "end": 29.5,
-    "text": "Aku ingin memberikan kehidupan yang baik untuknya, memenuhi kebutuhannya,",
-    "keyword": "providing needs",
-    "imagePrompt": "A warm cozy home interior with soft lighting, a wooden table with essentials, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-011-1795275294162-4852.png"
-  },
-  {
-    "start": 29.5,
-    "end": 37.5,
-    "text": "dan melihatnya tumbuh bahagia tanpa rasa kekurangan, ya Allah, semoga kelak engkau izinkan aku tersenyum bahagia,",
-    "keyword": "happy blooming",
-    "imagePrompt": "Bright blooming flowers opening up toward the warm morning sun, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-012-1795275295855-6487.png"
-  },
-  {
-    "start": 37.5,
-    "end": 44.5,
-    "text": "karena melihat anakku mendapatkan kehidupan terbaik yang mampu kuperjuangkan untuknya, amin.",
-    "keyword": "peaceful horizon",
-    "imagePrompt": "A serene horizon glowing with peaceful twilight colors, symbolizing a secure future, cinematic photorealistic, vertical 9:16.",
-    "image": "images/video-2026-11-21_15-34-31-217Z/scene-013-1795275299694-5584.png"
+    "start": 41.5,
+    "end": 46.6,
+    "text": "Karena bagi laki-laki itu respek, penghormatan itu lebih tinggi daripada kebutuhan biologisnya.",
+    "keyword": "respect honor dignity",
+    "imagePrompt": "Cinematic vertical 9:16 shot of a majestic archway in Islamic architecture with sunlight streaming through, symbolizing dignity and respect.",
+    "image": "images/video-2026-11-22_14-38-24-053Z/scene-009-1795358326371-1583.png"
   }
 ]
