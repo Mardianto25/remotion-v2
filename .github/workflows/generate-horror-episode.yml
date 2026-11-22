@@ -36,7 +36,7 @@ on:
           - "7"
           - "8"
       force_regenerate:
-        description: "Regenerate naskah episode yang sudah ada (gunakan hati-hati)"
+        description: "Regenerate naskah jika run sebelumnya gagal sebelum video selesai (jangan untuk episode rendered)"
         required: true
         default: false
         type: boolean
@@ -146,7 +146,7 @@ jobs:
             state.updatedAt = new Date().toISOString();
             await fs.writeFile(file, JSON.stringify(state, null, 2) + "\n");
           '
-      - name: Persist episode script, continuity and rendered video in repository
+      - name: Persist episode script and continuity JSON in repository
         env:
           SEASON_ID: ${{ inputs.season_id }}
           EPISODE_NUMBER: ${{ inputs.episode_number }}
