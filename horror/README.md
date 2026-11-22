@@ -65,7 +65,7 @@ Metadata dan thumbnail dihasilkan AI, sehingga tetap perlu ditinjau. Hindari kla
 
 ## Serial POV Survival & Mystery (8 episode per season)
 
-Workflow baru yang terpisah dari workflow horror lama: **Actions > Ruang Cerita Indonesia — Episode Generator**.
+Workflow baru yang terpisah dari workflow horror lama: **Actions > Ruang Cerita Indonesia — Episode Generator**. Workflow ini tersedia setelah branch fitur di-merge ke default branch, karena GitHub memerlukan file workflow_dispatch berada di default branch.
 
 1. Pilih `create-season`, isi `season_id` (contoh `season-01`) dan konsep. Gemini membuat series bible, world rules, character bible, dan outline 8 episode.
 2. Pilih `generate-episode`, gunakan season ID yang sama dan pilih satu episode. Episode 2-8 hanya bisa dibuat jika episode sebelumnya sudah berhasil dirender.
