@@ -72,6 +72,13 @@ if (command === "episode") {
     try { await fs.access(previousPath); } catch {
       throw new Error("Episode " + (episodeNumber - 1) + " belum tersedia. Generate episode secara berurutan agar kontinuitas terjaga.");
     }
+    const previousState = state.episodes.find(item => item.episodeNumber === episodeNumber - 1);
+    if (!previousState || previousState.status !== "rendered") {
+      throw new Error("Episode " + (episodeNumber - 1) + " belum selesai dirender. Episode berikutnya baru bisa dibuat setelah video sebelumnya berhasil diproduksi.");
+    }
+  }
+  if (Number(ledger.lastGeneratedEpisode || 0) !== episodeNumber - 1) {
+    throw new Error("Continuity ledger berada di episode " + ledger.lastGeneratedEpisode + ", sedangkan permintaan episode " + episodeNumber + ". Jangan menimpa urutan season; periksa status episode.");
   }
   const previousEpisodes = [];
   for (let number = 1; number < episodeNumber; number++) {
@@ -136,7 +143,6 @@ if (command === "episode") {
   await writeJson(path.join(episodeDir, "retention-review.json"), acceptedRetention);
   await writeJson(path.join(episodeDir, "continuity-review.json"), acceptedContinuity);
   await writeJson(path.join(episodeDir, "continuity-ledger-after.json"), ledgerNext);
-  await writeJson(ledgerPath, ledgerNext);
   state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? {
     ...item, title: acceptedStory.title, status: "script_approved",
     retentionScore: acceptedRetention.score, continuityScore: acceptedContinuity.score
