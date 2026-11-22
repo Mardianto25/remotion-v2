@@ -95,11 +95,15 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg python3 python3-pip
+          sudo apt-get install -y ffmpeg
+      - name: Set up supported Python runtime
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Install Node dependencies
         run: npm install
       - name: Install Edge TTS
-        run: python3 -m pip install --user --break-system-packages edge-tts
+        run: python3 -m pip install --upgrade edge-tts
       - name: Generate one episode script and run quality gates
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
