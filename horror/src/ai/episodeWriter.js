@@ -11,7 +11,7 @@ function parseJson(raw) {
 }
 function normalizeEpisode(value, episodeNumber, planEpisode) {
   const scenes = Array.isArray(value.scenes) ? value.scenes : [];
-  const narration = String(value.narration || scenes.map(scene => scene.narration || "").join("\n\n")).trim();
+  let narration = String(value.narration || scenes.map(scene => scene.narration || "").join("\n\n")).trim();
   if (!narration) throw new Error("Naskah episode kosong.");
   if (scenes.length < 10 || scenes.length > 24) throw new Error("Episode harus memiliki 10-24 scene.");
   const normalizedScenes = scenes.map((scene, index) => ({
@@ -23,11 +23,14 @@ function normalizeEpisode(value, episodeNumber, planEpisode) {
     mood: String(scene.mood || "suspense")
   }));
   if (normalizedScenes.some(scene => !scene.narration || !scene.visualPrompt)) throw new Error("Setiap scene wajib memiliki narration dan visualPrompt.");
-  const wordCount = narration.split(/\s+/).filter(Boolean).length;
-  if (wordCount < 560 || wordCount > 850) throw new Error("Panjang naskah di luar batas 560-850 kata (" + wordCount + " kata).");
   const joined = normalizedScenes.map(scene => scene.narration).join(" ").replace(/\s+/g, " ").trim();
   const full = narration.replace(/\s+/g, " ").trim();
-  if (joined !== full) throw new Error("Gabungan narration setiap scene tidak sama persis dengan naskah lengkap. Minta Gemini memperbaiki pemetaan scene.");
+  if (joined !== full) {
+    console.warn("[episode] Naskah utama berbeda dari gabungan scene. Menggunakan gabungan scene sebagai narasi kanonik agar audio, subtitle, dan visual sinkron.");
+    narration = joined;
+  }
+  const wordCount = narration.split(/\s+/).filter(Boolean).length;
+  if (wordCount < 560 || wordCount > 850) throw new Error("Panjang naskah scene di luar batas 560-850 kata (" + wordCount + " kata).");
   return {
     episodeNumber, title: String(value.title || planEpisode.title || "Episode " + episodeNumber),
     description: String(value.description || planEpisode.logline || ""),
