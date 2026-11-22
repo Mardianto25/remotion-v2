@@ -61,3 +61,22 @@ Jumlah Shorts dapat kurang dari tiga jika subtitle tidak menyediakan potongan ya
 
 ## Catatan
 Metadata dan thumbnail dihasilkan AI, sehingga tetap perlu ditinjau. Hindari klaim "kisah nyata" atau fakta yang tidak terverifikasi. Pastikan lisensi aset visual sesuai penggunaan.
+
+
+## Serial POV Survival & Mystery (8 episode per season)
+
+Workflow baru yang terpisah dari workflow horror lama: **Actions > Ruang Cerita Indonesia — Episode Generator**. Workflow ini tersedia setelah branch fitur di-merge ke default branch, karena GitHub memerlukan file workflow_dispatch berada di default branch.
+
+1. Pilih `create-season`, isi `season_id` (contoh `season-01`) dan konsep. Gemini membuat series bible, world rules, character bible, dan outline 8 episode.
+2. Pilih `generate-episode`, gunakan season ID yang sama dan pilih satu episode. Episode 2-8 hanya bisa dibuat jika episode sebelumnya sudah berhasil dirender.
+3. Gemini Episode Writer menulis naskah POV orang kedua, lalu Retention Agent dan Continuity Agent menilai naskah. Maksimal tiga draft; skor minimal 85/100 untuk kedua pemeriksaan.
+4. Jika lolos, pipeline existing membuat Edge-TTS, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Workflow episodik mengaktifkan prompt ilustrasi 2D. Workflow lama tetap memakai gaya 3D default.
+5. Hasil episode, review, aset, video, dan continuity ledger disimpan di `data/seasons/<season-id>/episodes/episode-XX/`. Workflow menyimpan data season ke branch yang dipilih agar run berikutnya dapat melanjutkan cerita.
+
+Perintah lokal dari folder `horror/`:
+- `npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"`
+- `npm run generate:episode -- --season season-01 --episode 1`
+- `npm run generate:episode-assets`
+- `npx remotion render remotion/index.jsx HorrorVideo out/indonesian-horror.mp4 --codec=h264 --crf=22`
+
+Pilih branch `feat/episodic-story-engine` saat menjalankan workflow baru. Workflow episodik membutuhkan izin GitHub Actions untuk menulis commit ke branch agar season bible dan progres episode bertahan di antara workflow run. Jangan aktifkan `force_regenerate` untuk episode yang sudah dirender; perubahan episode lama memerlukan rekonsiliasi continuity dan episode setelahnya.

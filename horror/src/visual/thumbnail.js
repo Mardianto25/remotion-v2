@@ -11,13 +11,20 @@ export async function generateThumbnail(story, seo, topic) {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const output = path.join(OUT_DIR, "youtube-thumbnail.jpg");
   const endpoint = "https://api.cloudflare.com/client/v4/accounts/" + config.cloudflareAccountId + "/ai/run/" + config.cloudflareModel;
+  const use2D = (process.env.HORROR_VISUAL_STYLE || "3d").toLowerCase() === "2d";
+  const visualStyle = use2D
+    ? "2D cinematic horror animation, semi-realistic dark graphic novel illustration, expressive consistent character design, hand-painted detailed environment, painterly shading, dramatic moonlight, atmospheric fog, deep shadows, professional illustrated horror poster."
+    : "High-end realistic 3D render, realistic 3D character or supernatural entity, physically based materials, detailed textures, detailed 3D environment, Unreal Engine quality, volumetric fog, dramatic moonlight, deep shadows, professional theatrical horror film poster.";
+  const visualAvoid = use2D
+    ? "Serious cinematic 2D illustrated horror aesthetic, not photorealistic 3D, not game render."
+    : "Serious realistic 3D horror aesthetic, not cartoon, not anime, not flat illustration.";
   const prompt = [
     "Create a high-CTR YouTube thumbnail background. Prioritize one instantly readable, emotionally disturbing focal subject and a clear visual question that makes viewers curious.",
-    "High-end realistic 3D render, realistic 3D character or supernatural entity, physically based materials, detailed skin hair and fabric textures, detailed 3D environment, Unreal Engine quality, volumetric fog, dramatic moonlight, deep shadows, strong depth and scale, professional theatrical horror film poster.",
+    visualStyle,
     "Landscape 16:9 composition, one instantly readable focal subject, striking silhouette and suspenseful storytelling.",
     "Depict the exact strongest story moment and threat from: " + (seo.thumbnailPrompt || (story.title + ". " + topic)) + ".",
     "Leave clean dark negative space on the left for large title overlay. No letters, no typography, no logo, no watermark, no collage, no borders.",
-    "Serious realistic 3D horror aesthetic, not cartoon, not anime, not flat illustration. Avoid gore, blood, dismemberment and explicit violence."
+    visualAvoid + " Avoid gore, blood, dismemberment and explicit violence."
   ].join(" ");
   const response = await fetch(endpoint, {
     method: "POST",

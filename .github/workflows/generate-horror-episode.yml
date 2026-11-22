@@ -1,0 +1,171 @@
+name: Ruang Cerita Indonesia — Episode Generator
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Buat season plan atau produksi satu episode"
+        required: true
+        type: choice
+        default: generate-episode
+        options:
+          - create-season
+          - generate-episode
+      season_id:
+        description: "ID season, contoh season-01"
+        required: true
+        default: season-01
+        type: string
+      concept:
+        description: "Konsep season (wajib saat create-season)"
+        required: false
+        default: "POV: Terjebak di sekolah saat kiamat zombie"
+        type: string
+      episode_number:
+        description: "Episode yang dibuat (1-8); episode sebelumnya harus sudah ada"
+        required: true
+        default: "1"
+        type: choice
+        options:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+          - "6"
+          - "7"
+          - "8"
+      force_regenerate:
+        description: "Regenerate naskah jika run sebelumnya gagal sebelum video selesai (jangan untuk episode rendered)"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  create-season:
+    if: ${{ inputs.action == 'create-season' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Create 8-episode season plan
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+        run: npm run generate:season -- --season "${{ inputs.season_id }}" --concept "${{ inputs.concept }}"
+      - name: Persist season bible and outline for future episode runs
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/seasons/"$SEASON_ID"/*.json
+          git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID season bible" && git push)
+      - name: Upload season bible and episode outline
+        uses: actions/upload-artifact@v4
+        with:
+          name: ruang-cerita-${{ inputs.season_id }}-season-plan
+          path: horror/data/seasons/${{ inputs.season_id }}/
+          if-no-files-found: error
+          retention-days: 30
+
+  generate-episode:
+    if: ${{ inputs.action == 'generate-episode' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3 python3-pip
+      - name: Install Node dependencies
+        run: npm ci
+      - name: Install Edge TTS
+        run: python3 -m pip install --user --break-system-packages edge-tts
+      - name: Generate one episode script and run quality gates
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+        run: |
+          FORCE=""
+          if [ "${{ inputs.force_regenerate }}" = "true" ]; then FORCE="--force"; fi
+          node scripts/series.js episode --season "${{ inputs.season_id }}" --episode "${{ inputs.episode_number }}" $FORCE
+      - name: Generate narration, 2D FLUX scenes, sound design and thumbnail
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
+          CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
+          HORROR_VISUAL_STYLE: "2d"
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          EDGE_TTS_VOICE: id-ID-ArdiNeural
+          EDGE_TTS_RATE: "-8%"
+          EDGE_TTS_PITCH: "-5Hz"
+        run: npm run generate:episode-assets
+      - name: Ensure Remotion browser
+        run: npx remotion browser ensure
+      - name: Render this episode only
+        run: npx remotion render remotion/index.jsx HorrorVideo out/indonesian-horror.mp4 --codec=h264 --crf=22
+      - name: Archive rendered episode without touching previous episodes
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          DEST="data/seasons/$SEASON_ID/episodes/episode-$EP"
+          mkdir -p "$DEST"
+          cp out/indonesian-horror.mp4 "$DEST/indonesian-horror.mp4"
+          cp out/youtube-thumbnail.jpg "$DEST/youtube-thumbnail.jpg"
+          cp "$DEST/continuity-ledger-after.json" "data/seasons/$SEASON_ID/continuity-ledger.json"
+          node --input-type=module -e '
+            import fs from "node:fs/promises";
+            const file = "data/seasons/" + process.env.SEASON_ID + "/production-state.json";
+            const state = JSON.parse(await fs.readFile(file, "utf8"));
+            const n = Number(process.env.EPISODE_NUMBER);
+            state.episodes = state.episodes.map(e => e.episodeNumber === n ? {...e, status:"rendered", videoPath:"episodes/episode-" + String(n).padStart(2,"0") + "/indonesian-horror.mp4"} : e);
+            state.updatedAt = new Date().toISOString();
+            await fs.writeFile(file, JSON.stringify(state, null, 2) + "\n");
+          '
+      - name: Persist episode script and continuity JSON in repository
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          DIR="data/seasons/$SEASON_ID/episodes/episode-$EP"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "data/seasons/$SEASON_ID/continuity-ledger.json" "data/seasons/$SEASON_ID/production-state.json" "$DIR/story.json" "$DIR/retention-review.json" "$DIR/continuity-review.json" "$DIR/continuity-ledger-after.json"
+          git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID episode $EP" && git push)
+      - name: Upload episode deliverables
+        uses: actions/upload-artifact@v4
+        with:
+          name: ruang-cerita-${{ inputs.season_id }}-episode-${{ inputs.episode_number }}
+          path: |
+            horror/data/seasons/${{ inputs.season_id }}/
+            horror/out/indonesian-horror.mp4
+            horror/out/youtube-thumbnail.jpg
+            horror/data/youtube-metadata.json
+            horror/data/story.json
+          if-no-files-found: error
+          retention-days: 30
