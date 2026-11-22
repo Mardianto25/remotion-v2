@@ -157,7 +157,9 @@ await fs.writeFile(path.join(DATA_DIR, "asset-manifest.json"), JSON.stringify(as
 const sceneStarts = timings.map(item => item.startFrame / fps);
 const soundEffects = soundDesign.effects.map(effect => {
   const sceneIndex = Math.max(0, story.scenes.findIndex(scene => String(scene.id) === String(effect.sceneId)));
-  return { ...effect, startFrame: Math.max(0, Math.round((sceneStarts[sceneIndex] + Number(effect.offsetSeconds || 0)) * fps)) };
+  const sceneDurationSeconds = timings[sceneIndex].durationInFrames / fps;
+  const safeOffset = Math.min(Number(effect.offsetSeconds || 0), Math.max(0, sceneDurationSeconds - 0.25));
+  return { ...effect, offsetSeconds: safeOffset, startFrame: Math.max(0, Math.round((sceneStarts[sceneIndex] + safeOffset) * fps)) };
 });
 const soundBeds = soundDesign.beds.map(bed => {
   const sceneIndex = Math.max(0, story.scenes.findIndex(scene => String(scene.id) === String(bed.sceneId)));
