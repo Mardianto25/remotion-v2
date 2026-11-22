@@ -5,7 +5,7 @@ import { config } from "../config.js";
 
 function run(args) {
   return new Promise((resolve, reject) => {
-    const child = spawn("python3", args, { stdio: "inherit" });
+    const child = spawn(process.env.PYTHON_BIN || "python", args, { stdio: "inherit" });
     child.on("error", reject);
     child.on("close", code => code === 0 ? resolve() : reject(new Error("edge-tts exit code " + code)));
   });
