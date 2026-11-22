@@ -70,7 +70,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "horror/data/seasons/$SEASON_ID"
+          git add "data/seasons/$SEASON_ID"
           git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID season bible" && git push)
       - name: Upload season bible and episode outline
         uses: actions/upload-artifact@v4
@@ -150,7 +150,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "horror/data/seasons/$SEASON_ID"
+          git add "data/seasons/$SEASON_ID"
           git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID episode ${{ inputs.episode_number }}" && git push)
       - name: Upload episode deliverables
         uses: actions/upload-artifact@v4
