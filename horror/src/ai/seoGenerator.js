@@ -11,6 +11,27 @@ function parseJson(text) {
   }
 }
 
+function fallbackSeo(story, topic) {
+  const title = String(story.title || topic || "Cerita Misteri Indonesia").trim().slice(0, 85);
+  const tags = ["cerita horor Indonesia", "cerita misteri", "kisah horor", "cerita seram", "horor Indonesia", "kisah misteri", "Ruang Cerita Indonesia", "cerita thriller"];
+  const hashtags = ["#CeritaHoror", "#CeritaMisteri", "#HororIndonesia"];
+  const scenePrompt = Array.isArray(story.scenes) ? story.scenes.slice(0, 2).map(x => x.visualPrompt || x.heading).filter(Boolean).join("; ") : "";
+  const description = [
+    String(story.description || ("Sebuah kisah " + title + " yang membawa kita menyusuri misteri dan ancaman tak terduga.")).trim(),
+    "",
+    story.disclaimer || "Cerita ini merupakan fiksi dan dramatisasi untuk hiburan.",
+    "",
+    "Ikuti " + CHANNEL_NAME + " untuk cerita horor, misteri, dan kisah menegangkan lainnya.",
+    "",
+    hashtags.join(" ")
+  ].join("\n").slice(0, 4900);
+  return {
+    title, titleAlternatives: [], selectionReason: "Metadata dibuat menggunakan template lokal karena Gemini API sedang mencapai kuota.",
+    description, hashtags, tags, thumbnailText: title.split(/\\s+/).slice(0, 4).join(" ").slice(0, 28),
+    thumbnailPrompt: "High-end realistic 3D CGI Indonesian horror film still, cinematic landscape 16:9. " + (scenePrompt || title) + ". One clear focal subject, visible suspenseful threat, mysterious atmosphere, dramatic cinematic lighting, empty space on the left for thumbnail text, no text, no logo, no watermark, no gore."
+  };
+}
+
 export async function generateSeo(story, topic) {
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = `Anda adalah YouTube packaging agent senior untuk channel Indonesia "${CHANNEL_NAME}". Tugas Anda bukan sekadar mengisi SEO, tetapi memilih kemasan video yang paling membuat penonton target ingin mengeklik tanpa menipu.
@@ -26,12 +47,18 @@ Judul cerita: ${story.title}
 Ringkasan: ${story.description || ""}
 Disclaimer: ${story.disclaimer || ""}
 Naskah: ${String(story.narration || "").slice(0, 9000)}`;
-  const response = await ai.models.generateContent({
-    model: config.geminiModel,
-    contents: prompt,
-    config: { responseMimeType: "application/json" }
-  });
-  const value = parseJson(response.text);
+  let value;
+  try {
+    const response = await ai.models.generateContent({
+      model: config.geminiModel,
+      contents: prompt,
+      config: { responseMimeType: "application/json" }
+    });
+    value = parseJson(response.text);
+  } catch (error) {
+    console.warn("[seo] Gemini tidak tersedia/kuota habis. Menggunakan metadata lokal:", error.message);
+    return fallbackSeo(story, topic);
+  }
   const title = String(value.title || story.title || topic).trim().slice(0, 100);
   const hashtags = [...new Set((Array.isArray(value.hashtags) ? value.hashtags : []).map(x => String(x).trim().replace(/\s+/g, "")).filter(x => /^#[\p{L}\p{N}_]+$/u.test(x)))].slice(0, 5);
   const uniqueTags = [...new Set((Array.isArray(value.tags) ? value.tags : []).map(x => String(x).trim()).filter(Boolean))].slice(0, 18);
