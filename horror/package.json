@@ -9,7 +9,10 @@
     "render": "remotion render remotion/index.jsx HorrorVideo out/indonesian-horror.mp4 --codec=h264 --crf=22",
     "upload:youtube": "node scripts/uploadYoutube.js",
     "build:video": "npm run generate && npm run render",
-    "upload:shorts": "node scripts/uploadShorts.js"
+    "upload:shorts": "node scripts/uploadShorts.js",
+    "generate:season": "node scripts/series.js plan",
+    "generate:episode": "node scripts/series.js episode",
+    "generate:episode-assets": "node scripts/generate.js --story-file data/story.json"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
