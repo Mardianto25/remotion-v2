@@ -135,6 +135,7 @@ jobs:
           mkdir -p "$DEST"
           cp out/indonesian-horror.mp4 "$DEST/indonesian-horror.mp4"
           cp out/youtube-thumbnail.jpg "$DEST/youtube-thumbnail.jpg"
+          cp "$DEST/continuity-ledger-after.json" "data/seasons/$SEASON_ID/continuity-ledger.json"
           node --input-type=module -e '
             import fs from "node:fs/promises";
             const file = "data/seasons/" + process.env.SEASON_ID + "/production-state.json";
