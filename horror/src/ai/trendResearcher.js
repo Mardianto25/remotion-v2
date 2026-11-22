@@ -106,9 +106,11 @@ ${JSON.stringify(topVideos, null, 2)}`;
     config: { responseMimeType: "application/json" }
   });
   const choice = parseJson(response.text);
-  const topic = String(choice.topic || "").trim();
-  if (topic.length < 8 || topic.length > 180) {
-    throw new Error("Gemini menghasilkan topik tren yang tidak valid: " + topic);
+  const topic = String(choice.topic || "").replace(/\\s+/g, " ").trim();
+  // Topik dari Gemini boleh berupa kalimat deskriptif, bukan hanya frasa pendek.
+  // Batas 300 karakter mencegah output kosong/berlebihan tanpa menolak ide yang valid.
+  if (topic.length < 8 || topic.length > 300) {
+    throw new Error("Gemini menghasilkan topik tren yang tidak valid (panjang " + topic.length + "): " + topic);
   }
   return {
     topic,
