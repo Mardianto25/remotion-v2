@@ -42,7 +42,7 @@ on:
         type: boolean
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   create-season:
@@ -57,15 +57,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: horror/package-lock.json
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Create 8-episode season plan
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
         run: npm run generate:season -- --season "${{ inputs.season_id }}" --concept "${{ inputs.concept }}"
+      - name: Persist season bible and outline for future episode runs
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "horror/data/seasons/$SEASON_ID"
+          git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID season bible" && git push)
       - name: Upload season bible and episode outline
         uses: actions/upload-artifact@v4
         with:
@@ -86,8 +92,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: horror/package-lock.json
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -140,6 +144,14 @@ jobs:
             state.updatedAt = new Date().toISOString();
             await fs.writeFile(file, JSON.stringify(state, null, 2) + "\n");
           '
+      - name: Persist episode script, continuity and rendered video in repository
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "horror/data/seasons/$SEASON_ID"
+          git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID episode ${{ inputs.episode_number }}" && git push)
       - name: Upload episode deliverables
         uses: actions/upload-artifact@v4
         with:
