@@ -96,10 +96,21 @@ function audioDuration(file) {
 
 const args = process.argv.slice(2);
 const autoMode = args.includes("--auto") || (process.env.HORROR_TOPIC_MODE || "").toLowerCase() === "auto";
-let topic = args.filter(arg => arg !== "--auto").join(" ").trim() || process.env.HORROR_TOPIC || "";
+const storyFileIndex = args.indexOf("--story-file");
+const storyFile = storyFileIndex >= 0 ? args[storyFileIndex + 1] : "";
+let topic = args.filter((arg, index) => arg !== "--auto" && arg !== "--story-file" && index !== storyFileIndex + 1).join(" ").trim() || process.env.HORROR_TOPIC || "";
 await Promise.all([ASSETS_DIR, AUDIO_DIR, DATA_DIR, OUT_DIR].map(dir => fs.mkdir(dir, { recursive: true })));
 
-if (autoMode) {
+if (storyFile) {
+  console.log("[0/6] Memuat naskah episode yang sudah lolos Story Quality Gate: " + storyFile);
+  const resolvedStoryFile = path.resolve(ROOT, storyFile);
+  const loaded = JSON.parse(await fs.readFile(resolvedStoryFile, "utf8"));
+  if (!loaded.narration || !Array.isArray(loaded.scenes) || !loaded.scenes.length) {
+    throw new Error("File story episode tidak memiliki narration/scenes yang valid.");
+  }
+  topic = loaded.title || "Ruang Cerita Indonesia";
+  await fs.writeFile(path.join(DATA_DIR, "story.json"), JSON.stringify(loaded, null, 2));
+} else if (autoMode) {
   console.log("[0/6] Riset tren horor/misteri YouTube Indonesia (kemarin)");
   const trend = await researchTrendingTopic();
   topic = trend.topic;
@@ -110,8 +121,10 @@ if (autoMode) {
   throw new Error('Topik kosong. Gunakan: npm run generate -- --auto atau npm run generate -- "Misteri Alas Purwo".');
 }
 
-console.log("[1/6] Generate cerita");
-const story = await generateStory(topic);
+console.log("[1/6] " + (storyFile ? "Menggunakan naskah episode yang disetujui" : "Generate cerita"));
+const story = storyFile
+  ? JSON.parse(await fs.readFile(path.join(DATA_DIR, "story.json"), "utf8"))
+  : await generateStory(topic);
 await fs.writeFile(path.join(DATA_DIR, "story.json"), JSON.stringify(story, null, 2));
 
 console.log("[2/6] Generate metadata SEO dari isi cerita");
@@ -179,4 +192,31 @@ const manifest = {
   soundAssets
 };
 await fs.writeFile(path.join(ROOT, "remotion", "generatedStory.js"), "export const generatedStory = " + JSON.stringify(manifest, null, 2) + ";\n");
+// Arsipkan seluruh hasil produksi di direktori season/episode agar episode lain tidak tertimpa.
+const activeEpisodePath = path.join(DATA_DIR, "active-episode.json");
+try {
+  const active = JSON.parse(await fs.readFile(activeEpisodePath, "utf8"));
+  const episodeDir = active.episodeDir;
+  await fs.mkdir(episodeDir, { recursive: true });
+  await fs.copyFile(path.join(DATA_DIR, "story.json"), path.join(episodeDir, "story.json"));
+  await fs.copyFile(path.join(DATA_DIR, "youtube-metadata.json"), path.join(episodeDir, "youtube-metadata.json"));
+  await fs.copyFile(path.join(DATA_DIR, "asset-manifest.json"), path.join(episodeDir, "asset-manifest.json"));
+  await fs.copyFile(path.join(DATA_DIR, "sound-design.json"), path.join(episodeDir, "sound-design.json"));
+  await fs.copyFile(path.join(ROOT, "remotion", "generatedStory.js"), path.join(episodeDir, "generatedStory.js"));
+  await fs.cp(ASSETS_DIR, path.join(episodeDir, "assets"), { recursive: true });
+  await fs.cp(AUDIO_DIR, path.join(episodeDir, "audio"), { recursive: true });
+  await fs.copyFile(path.join(OUT_DIR, "youtube-thumbnail.jpg"), path.join(episodeDir, "youtube-thumbnail.jpg"));
+  const stateFile = path.join(path.dirname(episodeDir), "..", "production-state.json");
+  const state = JSON.parse(await fs.readFile(stateFile, "utf8"));
+  state.episodes = state.episodes.map(item => item.episodeNumber === active.episodeNumber
+    ? { ...item, status: "render_assets_ready", durationSeconds: Number(duration.toFixed(1)), assetPath: episodeDir }
+    : item);
+  state.updatedAt = new Date().toISOString();
+  await fs.writeFile(stateFile, JSON.stringify(state, null, 2));
+  console.log("[archive] Aset episode diarsipkan: " + episodeDir);
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+  console.log("[archive] Mode video tunggal lama; arsip episode tidak digunakan.");
+}
+
 console.log("[7/7] Berhasil. Durasi: " + duration.toFixed(1) + " detik.");
