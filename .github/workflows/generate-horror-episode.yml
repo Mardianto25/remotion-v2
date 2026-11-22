@@ -70,7 +70,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "data/seasons/$SEASON_ID"
+          git add data/seasons/"$SEASON_ID"/*.json
           git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID season bible" && git push)
       - name: Upload season bible and episode outline
         uses: actions/upload-artifact@v4
@@ -149,11 +149,14 @@ jobs:
       - name: Persist episode script, continuity and rendered video in repository
         env:
           SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
         run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          DIR="data/seasons/$SEASON_ID/episodes/episode-$EP"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "data/seasons/$SEASON_ID"
-          git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID episode ${{ inputs.episode_number }}" && git push)
+          git add "data/seasons/$SEASON_ID/continuity-ledger.json" "data/seasons/$SEASON_ID/production-state.json" "$DIR/story.json" "$DIR/retention-review.json" "$DIR/continuity-review.json" "$DIR/continuity-ledger-after.json"
+          git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID episode $EP" && git push)
       - name: Upload episode deliverables
         uses: actions/upload-artifact@v4
         with:
