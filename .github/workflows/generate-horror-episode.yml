@@ -103,7 +103,12 @@ jobs:
       - name: Install Node dependencies
         run: npm install
       - name: Install Edge TTS
-        run: python3 -m pip install --upgrade edge-tts
+        run: python -m pip install --upgrade edge-tts
+      - name: Verify Python and Edge TTS runtime
+        run: |
+          python --version
+          python -m pip show edge-tts
+          python -c "import sys, edge_tts; print('Python executable:', sys.executable); print('Edge TTS module:', edge_tts.__file__)"
       - name: Generate one episode script and run quality gates
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -125,6 +130,7 @@ jobs:
           EDGE_TTS_VOICE: id-ID-ArdiNeural
           EDGE_TTS_RATE: "-8%"
           EDGE_TTS_PITCH: "-5Hz"
+          PYTHON_BIN: python
         run: npm run generate:episode-assets
       - name: Ensure Remotion browser
         run: npx remotion browser ensure
