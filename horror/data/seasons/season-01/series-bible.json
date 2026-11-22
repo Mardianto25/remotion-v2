@@ -1,0 +1,182 @@
+{
+  "seriesTitle": "Ruang Cerita Indonesia: Gema Kosong",
+  "genre": "mixed",
+  "logline": "Ketika bel sekolah berbunyi, semua yang kamu kenal lenyap, digantikan oleh entitas kosong yang menyerupai manusia, memaksa kamu dan segelintir penyintas mengungkap misteri frekuensi yang mengubah dunia sebelum kalian ikut menjadi 'Gema'.",
+  "premise": "Kamu berada di sekolah saat bel pulang berbunyi. Tapi alih-alih pulang, kamu menyaksikan teman-teman dan guru berubah menjadi 'Gema' - wujud familiar namun kosong, bergerak tanpa tujuan tapi bereaksi agresif terhadap suara dan gerakan. Terjebak di dalam labirin beton yang tiba-tiba mematikan, kamu harus mencari jalan keluar dan menemukan apa yang terjadi.",
+  "audiencePromise": "Pengalaman mencekam di mana setiap langkah adalah pertaruhan hidup, misteri yang menggigit di balik krisis yang tak masuk akal, dan kisah bertahan hidup yang menguji batas kemanusiaan di tengah kengerian yang tak terbayangkan.",
+  "pointOfView": "orang kedua - kamu",
+  "tone": "mencekam, putus asa, paranoid, atmosferik, melankolis, penuh misteri",
+  "mainMystery": "Apa yang menyebabkan bel sekolah mengubah semua orang menjadi 'Gema'? Apa atau siapa 'Gema' itu sebenarnya? Apakah ada harapan untuk mengembalikan mereka?",
+  "finalReveal": "'Gema' adalah proyek eksperimen frekuensi resonansi ultra-rendah yang dirancang untuk memanipulasi kesadaran massa secara diam-diam. Bel sekolah menjadi pemicu tanpa sengaja karena frekuensi resonansinya yang sama, memutus 'jiwa' dari raga dan menjadikannya wadah kosong yang diprogram oleh sinyal-sinyal tertentu. Sumber frekuensi berasal dari fasilitas penelitian rahasia bawah tanah di bawah kota, dan bel sekolah hanya memperkuat efek lokal. 'Gema' tidak bisa kembali, mereka adalah kulit kosong yang merespon stimulus, dan orang-orang yang \"hilang\" kesadarannya melayang di dimensi lain, tidak mati tapi juga tidak hidup.",
+  "seasonArc": "Kamu dimulai sebagai saksi yang pasif, bersembunyi dari kengerian. Secara bertahap kamu menjadi pemimpin kelompok kecil yang berusaha memahami dan berjuang keluar. Dari sekadar bertahan hidup, tujuanmu bergeser menjadi mengungkap kebenaran di balik 'Gema' dan menemukan sumbernya, yang mengarah pada pengorbanan, pengkhianatan, dan penemuan mengerikan tentang eksperimen yang salah. Puncaknya adalah upaya untuk mematikan sumber frekuensi, bukan hanya untuk bertahan hidup, tapi untuk menghentikan bencana agar tidak meluas.",
+  "worldRules": [
+    "The Bell's Echo (Gema Kosong): Bel sekolah, dan frekuensi resonansi ultra-rendah serupa lainnya, memicu perubahan instan. Orang-orang yang terpapar menjadi 'Gema' – wujud fisik sama persis, tapi tanpa kesadaran. Mereka kosong, tidak merasakan sakit, dan bereaksi agresif terhadap suara keras atau gerakan tiba-tiba. Mata mereka seringkali terlihat kosong, kadang memancarkan cahaya redup.",
+    "Sound and Motion Sensitivity: Gema bergerak lambat dan tanpa tujuan saat tidak terprovokasi. Suara keras atau gerakan cepat akan menarik perhatian mereka dan memicu pengejaran. Berbisik, bergerak pelan, atau menggunakan pengalih perhatian suara adalah taktik bertahan hidup penting.",
+    "The Fading Aura: Kontak fisik langsung dengan Gema (terutama sentuhan kulit atau cairan tubuh) akan menyebabkan 'Kamu' merasa lemas, pusing, dan pandangan kabur. Paparan berulang atau berkepanjangan dapat mulai memudarkan kesadaran, mengubah seseorang perlahan menjadi Gema baru. Ini adalah ancaman 'infeksi' non-fisik.",
+    "No Return: Sekali berubah menjadi Gema, tidak ada cara untuk mengembalikan kesadaran mereka. Mereka adalah wadah kosong.",
+    "Limited Immunity: Sebagian kecil orang mungkin memiliki resistansi alami atau kekebalan parsial terhadap efek frekuensi, memungkinkan mereka bertahan lebih lama atau bahkan kebal sepenuhnya, meskipun mereka tetap rentan terhadap serangan fisik dari Gema."
+  ],
+  "characters": [
+    {
+      "id": "char-01",
+      "name": "Kamu (Tokoh Utama)",
+      "role": "Protagonis, mata penonton.",
+      "motivation": "Bertahan hidup, melindungi orang yang peduli, mengungkap kebenaran di balik bencana.",
+      "personality": "Awalnya ragu-ragu dan ketakutan, tetapi secara bertahap menunjukkan keberanian, kecerdasan, dan kepemimpinan saat dihadapkan pada situasi ekstrem. Empati yang tinggi.",
+      "secret": "Tidak ada rahasia pribadi yang besar, tetapi menyimpan beban emosional dari kehilangan dan keputusan sulit.",
+      "visualBible": "Tidak ada deskripsi visual karena POV orang kedua. Ini adalah karakter yang bisa diisi oleh imajinasi penonton."
+    },
+    {
+      "id": "char-02",
+      "name": "Rara",
+      "role": "Sahabat karib, pendukung moral dan fisik.",
+      "motivation": "Melindungi Kamu, mencari orang tuanya (yang mungkin juga berubah), bertahan hidup.",
+      "personality": "Energik, pemberani, atletis, realistis, cenderung langsung bertindak. Memiliki indra keenam yang tajam terhadap bahaya.",
+      "secret": "Diam-diam merasa bersalah karena pernah menertawakan teori konspirasi Kamu tentang fenomena aneh sebelum insiden. Ia juga mungkin memiliki sedikit kepekaan lebih terhadap frekuensi, sering merasakan pusing atau telinga berdenging tanpa sebab yang jelas.",
+      "visualBible": "Remaja perempuan (sekitar 16-17 tahun), rambut sebahu hitam pekat diikat ekor kuda tinggi, mata cokelat gelap yang tajam. Sering memakai seragam olahraga atau kaus longgar dan celana jeans. Postur tubuh ramping tapi kuat. Palet warna dominan biru gelap dan abu-abu. Ekspresi sering cemas tapi menunjukkan tekad."
+    },
+    {
+      "id": "char-03",
+      "name": "Pak Budi",
+      "role": "Guru Sejarah, pembimbing yang misterius.",
+      "motivation": "Melindungi dirinya sendiri dan \"pengetahuan\" tertentu, mengarahkan Kamu dan Rara untuk mencapai tujuannya sendiri.",
+      "personality": "Tenang, cerdas, observatif, sedikit sinis tapi memiliki karisma. Terkadang tampak dingin atau manipulatif.",
+      "secret": "Sebenarnya adalah seorang peneliti yang dulunya terlibat dalam proyek \"Gema\" di masa lalu. Dia tahu lebih banyak tentang apa yang terjadi daripada yang dia katakan dan memiliki agenda tersembunyi untuk memperbaiki atau bahkan memanfaatkan situasi. Dia mungkin memiliki peralatan kecil yang bisa mendeteksi frekuensi.",
+      "visualBible": "Pria paruh baya (sekitar 40-an), rambut hitam rapi disisir ke samping, kacamata bingkai tipis, wajah tirus dengan garis rahang tegas. Selalu memakai kemeja batik lengan panjang rapi yang agak gelap dan celana bahan. Gerak-gerik tenang dan terencana. Palet warna dominan cokelat tua, hijau lumut, dan krem."
+    },
+    {
+      "id": "char-04",
+      "name": "Arya",
+      "role": "Murid baru, penyendiri, kunci informasi penting.",
+      "motivation": "Mencari kebenaran tentang apa yang terjadi pada keluarganya (yang juga pernah mengalami kejadian serupa dalam skala kecil di kota lain), memperingatkan orang lain.",
+      "personality": "Pendiam, introvert, cerdas, sedikit paranoid, tapi memiliki pemahaman yang mendalam tentang pola dan frekuensi. Cenderung menyendiri.",
+      "secret": "Keluarganya adalah korban awal dari pengujian prototipe frekuensi di kota lain. Dia selamat karena kebetulan menggunakan earphone peredam bising saat kejadian. Dia tahu tentang \"sinyal\" yang menyebabkan perubahan dan percaya bahwa ada cara untuk melawan atau memblokirnya, bahkan membawa beberapa catatan penelitian lama ayahnya.",
+      "visualBible": "Remaja laki-laki (sekitar 16 tahun), rambut hitam acak-acakan menutupi sebagian dahi, mata cokelat yang terlihat lelah dan waspada. Sering memakai jaket hoodie abu-abu besar dan celana cargo. Postur membungkuk. Selalu membawa tas selempang kecil. Palet warna dominan abu-abu gelap, hitam, dan putih pucat."
+    }
+  ],
+  "episodes": [
+    {
+      "episodeNumber": 1,
+      "title": "Jam Pulang yang Berubah",
+      "logline": "Bel pulang berbunyi, tapi alih-alih kebebasan, kamu justru terjebak dalam kengerian saat teman-temanmu berubah menjadi wujud kosong yang mengerikan.",
+      "openingHook": "Suara bel pulang yang familiar tiba-tiba terdengar aneh, seperti memecah udara, dan seketika itu juga, kamu melihat teman sebangkumu menatap kosong ke depan. Lalu, satu per satu, seluruh kelas, kemudian lorong, terdiam dengan tatapan yang sama, sebelum mulai bergerak tak menentu. Kamu bersembunyi di bawah meja, jantungmu berdebar keras.",
+      "mainConflict": "Bertahan hidup dan mencari tahu apa yang terjadi di tengah kekacauan awal dan ancaman 'Gema' yang tak terduga di lingkungan sekolah yang familiar.",
+      "turningPoint": "Kamu melihat Rara, sahabatmu, berhasil menyelinap ke perpustakaan. Kalian berdua saling memberi isyarat dan berhasil bertemu, menyadari kalian bukan satu-satunya yang selamat.",
+      "episodePayoff": "Kamu dan Rara berhasil mengamankan diri di dalam perpustakaan yang gelap dan sepi, menemukan jalan masuk rahasia ke area bawah tanah yang kurang diketahui sekolah. Kamu mulai sadar bahwa ini bukan sekadar insiden, tapi sesuatu yang lebih besar.",
+      "cliffhanger": "Dari jendela perpustakaan, kamu melihat bayangan 'Gema' yang tak terhitung memenuhi halaman sekolah, bergerak pelan seolah mencari sesuatu. Dan di salah satu sudut, kamu melihat sosok Pak Budi yang tampak mencurigakan, seperti sedang mengamati.",
+      "continuityQuestions": [
+        "Apa 'Gema' itu sebenarnya?",
+        "Apakah ada orang dewasa lain yang selamat?",
+        "Bagaimana cara keluar dari sekolah?"
+      ]
+    },
+    {
+      "episodeNumber": 2,
+      "title": "Sinyal di Antara Bisikan",
+      "logline": "Kamu dan Rara menemukan aturan baru dunia yang mengerikan dan bertemu Pak Budi, yang mengungkap informasi mengejutkan tentang 'Gema' dan bahaya frekuensi.",
+      "openingHook": "Di bawah tanah, udara lembab dan dingin. Kamu dan Rara menemukan ruang arsip tua yang penuh dokumen dan peralatan usang. Di sana, kalian mulai mencoba mengerti. Tapi, suara langkah di atas membuat kalian waspada, dan untuk pertama kalinya, kalian harus bersembunyi dari 'Gema' yang hanya bereaksi pada suara.",
+      "mainConflict": "Memahami perilaku 'Gema' dan menemukan cara aman untuk bergerak di dalam sekolah, serta mencari persediaan penting. Bertemu dengan Pak Budi dan berhadapan dengan informasi awal yang menakutkan.",
+      "turningPoint": "Saat mencari perbekalan di kantin, kamu dan Rara hampir tertangkap 'Gema' yang tiba-tiba berkerumun. Kalian diselamatkan oleh kemunculan Pak Budi yang tenang, menggunakan trik pengalihan suara. Dia menjelaskan bahwa 'Gema' peka terhadap suara, dan bahwa ada frekuensi aneh yang mengganggu. Pak Budi lalu membimbing kalian kembali ke area aman, tetapi ia tampak menyembunyikan sesuatu.",
+      "episodePayoff": "Kalian berhasil mendapatkan beberapa makanan dan minuman. Pak Budi mulai menjelaskan tentang 'Gema' yang tidak lagi 'hidup', melainkan 'kosong', dan bagaimana sentuhan mereka bisa berbahaya. Dia juga menyebutkan 'frekuensi' sebagai penyebabnya, menyarankan bahwa mungkin ada sumbernya di suatu tempat, bukan hanya bel.",
+      "cliffhanger": "Pak Budi menunjukkan sebuah sketsa kasar peta kota, dengan sekolah sebagai titik pusat dan beberapa lingkaran konsentris. Dia menunjuk ke salah satu lingkaran yang jauh dari sekolah, berkata, 'Jika kita ingin tahu, kita harus ke sana.' Kamu juga melihat tulisan samar di balik peta tersebut: 'Proyek ECHO'.",
+      "continuityQuestions": [
+        "Apa itu 'Proyek ECHO'?",
+        "Mengapa Pak Budi tahu begitu banyak?",
+        "Apakah seluruh kota sudah menjadi 'Gema'?"
+      ]
+    },
+    {
+      "episodeNumber": 3,
+      "title": "Peta Misterius di Lab",
+      "logline": "Kamu, Rara, dan Pak Budi mencoba mencari rute keluar dan peta lebih jelas, tetapi menemukan Arya yang ternyata menyimpan rahasia lebih besar tentang frekuensi.",
+      "openingHook": "Dengan peta kasar Pak Budi, kalian sadar area bawah tanah itu terhubung ke lab sains. Pak Budi butuh alat-alat di sana untuk 'mendengar' frekuensi. Kalian menyusup ke lab, di mana bangku-bangku terbalik dan alat pecah berserakan, dan kalian menemukan Arya yang bersembunyi.",
+      "mainConflict": "Berusaha mencapai ruang lab sains untuk mendapatkan peralatan yang bisa mendeteksi frekuensi dan menemukan rute keluar yang aman, sembari harus berinteraksi dengan Arya yang tampak mencurigakan.",
+      "turningPoint": "Di dalam lab, Arya yang awalnya waspada, secara tak sengaja menjatuhkan sebuah buku catatan lama yang penuh rumus dan sketsa diagram frekuensi. Pak Budi menyadari Arya tahu lebih banyak dari yang ia duga. Arya akhirnya mengakui bahwa keluarganya pernah mengalami hal serupa di kota lain dan ia memiliki 'pengetahuan' ayahnya tentang 'sinyal' penyebabnya.",
+      "episodePayoff": "Arya setuju untuk membantu, menunjukkan catatan ayahnya yang mengindikasikan lokasi 'pemancar' utama. Dengan alat di lab dan catatan Arya, Pak Budi berhasil menyusun perangkat dasar yang bisa mengidentifikasi anomali frekuensi. Kalian menemukan bahwa ada 'sinyal' kuat yang memancar dari suatu tempat di bawah tanah kota.",
+      "cliffhanger": "Perangkat deteksi frekuensi buatan Pak Budi mulai berbunyi nyaring, mengindikasikan lonjakan frekuensi yang tak terduga. Bersamaan dengan itu, beberapa 'Gema' di luar lab tiba-tiba menjadi sangat agresif, memukul-mukul pintu dan jendela dengan kekuatan aneh, seolah ada yang mengendalikan mereka secara langsung.",
+      "continuityQuestions": [
+        "Siapa atau apa yang mengendalikan 'Gema'?",
+        "Bagaimana keluarga Arya bisa selamat dari kejadian serupa?",
+        "Apa tujuan sebenarnya Pak Budi?"
+      ]
+    },
+    {
+      "episodeNumber": 4,
+      "title": "Stasiun Bawah Tanah",
+      "logline": "Kalian berhasil keluar dari sekolah menuju stasiun bawah tanah, tetapi menemukan bahwa frekuensi tersebut memiliki 'penjaga' tak terduga, dan niat Pak Budi dipertanyakan.",
+      "openingHook": "Melalui lorong servis rahasia sekolah yang ditunjukkan Arya, kalian berhasil mencapai stasiun kereta bawah tanah yang ditinggalkan. Udara dingin dan gelap, hanya diterangi senter. Kalian menemukan tanda-tanda kehadiran manusia, tapi bukan seperti yang kalian harapkan.",
+      "mainConflict": "Menjelajahi stasiun bawah tanah, mencari petunjuk menuju sumber frekuensi utama, dan menghadapi 'Gema' yang lebih terorganisir, serta menyadari bahwa Pak Budi menyembunyikan informasi penting.",
+      "turningPoint": "Saat menelusuri terowongan, kalian menemukan 'Gema' yang tampak 'berbaris' rapi, bergerak menuju sebuah area tertentu, seolah diperintah. Pak Budi secara tak sengaja menyebutkan istilah 'Penjaga Frekuensi' sebelum buru-buru meralatnya, membuat Kamu dan Rara curiga. Arya juga menemukan beberapa symbol yang sama dengan catatan ayahnya, menjelaskan bahwa ini adalah tanda-tanda manipulasi frekuensi yang disengaja.",
+      "episodePayoff": "Kalian menemukan sebuah pintu baja raksasa bertuliskan 'PT. E.C.H.O' yang terkunci rapat di ujung terowongan. Perangkat Pak Budi menunjukkan frekuensi memancar sangat kuat dari balik pintu itu. Kalian tahu kalian sudah dekat dengan sumbernya. Pak Budi menyarankan untuk mencari cara membuka pintu, tapi Arya menolak dan mengatakan itu terlalu berbahaya.",
+      "cliffhanger": "Saat kalian berdebat, sistem pengeras suara di stasiun tiba-tiba menyala dengan suara statis, lalu terdengar bisikan samar-samar yang membuat Kamu dan Rara pusing, seolah frekuensi itu berbicara langsung ke pikiran. Mata Pak Budi memancarkan kilatan aneh, sementara Arya terlihat sangat ketakutan.",
+      "continuityQuestions": [
+        "Apa atau siapa 'PT. E.C.H.O'?",
+        "Apakah ada entitas di balik frekuensi yang berkomunikasi?",
+        "Apa itu 'Penjaga Frekuensi' yang disebut Pak Budi?"
+      ]
+    },
+    {
+      "episodeNumber": 5,
+      "title": "Bisikan dari Labirin",
+      "logline": "Terjebak di stasiun, Kamu dan Rara mulai curiga pada Pak Budi, sementara Arya mengungkap kebenaran yang lebih gelap tentang 'Proyek ECHO' dan masa lalunya.",
+      "openingHook": "Bisikan di kepala Kamu makin kuat, membuatmu nyaris tidak bisa berpikir jernih. Rara juga mengeluh sakit kepala. Pak Budi tampak tidak terpengaruh, sementara Arya berusaha memblokir suara itu dengan earphone modifikasinya. Kalian menyadari ada 'Gema' yang semakin agresif mendekat.",
+      "mainConflict": "Menghadapi efek langsung dari frekuensi yang diperkuat dan tekanan psikologis. Membongkar rahasia Pak Budi dan Arya, serta mencari cara untuk masuk ke fasilitas 'PT. E.C.H.O'.",
+      "turningPoint": "Di tengah kepanikan, Arya menunjukkan sebuah bagian dari catatan ayahnya yang menjelaskan bahwa 'Proyek ECHO' adalah eksperimen manipulasi kesadaran massa yang dilakukan secara rahasia oleh sebuah korporasi. Dia menuduh Pak Budi sebagai salah satu peneliti lama yang terlibat. Pak Budi awalnya membantah, tapi kemudian mengakui sebagian keterlibatannya, namun mengklaim ia ingin memperbaiki kesalahannya dan menghentikan proyek tersebut.",
+      "episodePayoff": "Arya menemukan pintu servis lain yang lebih kecil, tersembunyi, yang bisa mengarah ke fasilitas 'ECHO'. Dengan petunjuk Arya dan Pak Budi, kalian berhasil menonaktifkan sementara frekuensi penguat di stasiun, meredakan bisikan dan agresivitas 'Gema' untuk sementara. Pak Budi berjanji akan menjelaskan semuanya setelah mereka berhasil masuk.",
+      "cliffhanger": "Saat kalian mendekati pintu servis, sebuah 'Gema' yang lebih besar dan tampak lebih 'utuh' muncul dari kegelapan. Mata 'Gema' itu berkedip-kedip, seolah ada kesadaran yang terperangkap di dalamnya, dan ia menunjuk ke arah Pak Budi, lalu mengeluarkan suara mengerikan yang bukan bisikan, melainkan raungan.",
+      "continuityQuestions": [
+        "Apakah 'Gema' itu bisa mengenali Pak Budi?",
+        "Apakah ada 'Gema' yang berbeda dari yang lain?",
+        "Apakah Pak Budi mengatakan yang sebenarnya?"
+      ]
+    },
+    {
+      "episodeNumber": 6,
+      "title": "Jantung Proyek: Terjebak",
+      "logline": "Terjebak di dalam fasilitas ECHO, kalian dihadapkan pada bukti mengerikan eksperimen dan dilema: apakah Pak Budi adalah penyelamat atau dalang?",
+      "openingHook": "Pintu servis mengarah ke lorong sempit yang berakhir di fasilitas penelitian bawah tanah yang masif. Cahaya redup dari layar-layar komputer yang berkedip menunjukkan kondisi terbengkalai. Udara dipenuhi bau logam dan desisan listrik yang pelan. Kalian menemukan jejak-jejak kerja keras manusia, tapi tidak ada satu pun yang hidup. Hanya 'Gema' yang berpatroli, lebih sering dan teratur.",
+      "mainConflict": "Menyusup lebih dalam ke fasilitas 'ECHO', menemukan pusat kendali frekuensi, dan menghadapi jebakan-jebakan serta 'Gema' yang semakin terorganisir. Keraguan terhadap Pak Budi mencapai puncaknya saat kalian menemukan bukti keterlibatannya.",
+      "turningPoint": "Kalian menemukan sebuah ruang kontrol dengan rekaman arsip proyek. Rekaman itu menunjukkan Pak Budi sebagai salah satu ilmuwan senior yang antusias. Namun, rekaman terakhir memperlihatkan Pak Budi berdebat sengit dengan direktur proyek, menyatakan protes keras terhadap penggunaan 'frekuensi resonansi' sebagai senjata manipulasi massal. Kemudian, Pak Budi menyelinap kembali dan secara sengaja memodifikasi beberapa parameter, seolah ingin sabotase, tapi malah memicu kelebihan beban sistem, yang menyebabkan kejadian bel sekolah. Artinya, Pak Budi adalah penyebab insiden ini, tapi dengan niat yang ambigu.",
+      "episodePayoff": "Meskipun terkejut dengan pengakuan tidak langsung dari rekaman, kalian menyadari bahwa niat Pak Budi mungkin rumit. Dia tidak sepenuhnya jahat, tapi juga bukan tanpa cela. Kalian menemukan 'jantung' proyek: sebuah reaktor inti frekuensi yang memancarkan energi ke seluruh kota, dan sebuah konsol kontrol utama.",
+      "cliffhanger": "Tepat ketika kalian mendekati konsol kontrol, sebuah alarm berbunyi keras. Pintu-pintu baja mengunci kalian di dalam ruang reaktor. Dari bayangan, muncul sesosok 'Gema' yang sangat berbeda, tampak lebih 'sadar' dan memegang senjata. Itu adalah direktur proyek yang telah berubah, dan dia mengarahkan senjatanya ke arah Pak Budi, dengan tatapan penuh dendam, seolah 'kesadarannya' terikat pada frekuensi itu.",
+      "continuityQuestions": [
+        "Apakah direktur proyek itu memiliki sisa kesadaran?",
+        "Apakah Pak Budi bisa memperbaiki kesalahannya?",
+        "Bagaimana cara menghentikan reaktor tanpa terjebak atau terbunuh?"
+      ]
+    },
+    {
+      "episodeNumber": 7,
+      "title": "Kunci Gema, Kunci Harapan",
+      "logline": "Terjebak dengan direktur yang bermutasi, kalian harus bekerja sama dengan Pak Budi, yang mengungkap cara untuk 'memutus' frekuensi, tetapi butuh pengorbanan besar.",
+      "openingHook": "Kalian terperangkap. Direktur yang telah menjadi 'Gema' berwujud manusia yang sedikit terdistorsi, wajahnya memancarkan amarah kosong. Ia berbicara dengan suara terdistorsi, bukan bisikan, melainkan ancaman langsung yang membuat kepalamu sakit. Senjata yang ia pegang adalah prototype yang bisa memperkuat frekuensi dan memanipulasi Gema lain. Dia mengarahkan Gema lain ke arah kalian.",
+      "mainConflict": "Bertahan hidup dari Direktur 'Gema' dan Gema yang terorganisir di ruang reaktor yang tertutup. Mencari cara untuk membuka pintu dan mencapai konsol utama untuk mematikan reaktor frekuensi.",
+      "turningPoint": "Dalam keputusasaan, Pak Budi menyadari bahwa direktur Gema mengoperasikan reaktor secara manual. Dia menjelaskan bahwa satu-satunya cara untuk mematikan reaktor secara permanen adalah dengan 'membalik polaritas' inti frekuensi, yang akan menciptakan ledakan energi yang melumpuhkan, tetapi juga berarti seseorang harus berada sangat dekat dengan inti saat itu terjadi.",
+      "episodePayoff": "Dengan kerja sama tim, memanfaatkan pengetahuan Arya tentang sirkuit, keberanian Rara dalam mengalihkan perhatian, dan panduan Pak Budi, kalian berhasil mengalahkan direktur Gema dan mengamankan senjatanya. Kalian menemukan cara untuk membuka kunci pintu dan mencapai konsol kontrol utama. Pak Budi siap untuk melakukan pengorbanan besar.",
+      "cliffhanger": "Saat Pak Budi bersiap untuk memasukkan kode dan membalik polaritas, Rara melihat sebuah gambar keluarga di meja konsol: foto Pak Budi bersama seorang anak perempuan yang mirip dengannya. Rara menyadari bahwa Pak Budi telah berbohong tentang tidak punya keluarga, dan pengorbanannya mungkin bukan hanya untuk penebusan, tapi juga untuk putrinya yang mungkin juga telah menjadi Gema.",
+      "continuityQuestions": [
+        "Apakah Pak Budi akan berhasil membalik polaritas?",
+        "Apakah ada cara lain yang tidak melibatkan pengorbanan?",
+        "Apa nasib putri Pak Budi?"
+      ]
+    },
+    {
+      "episodeNumber": 8,
+      "title": "Senyap Setelah Gema",
+      "logline": "Di final showdown, Kamu, Rara, dan Arya harus menghadapi keputusan terakhir Pak Budi untuk menghentikan frekuensi, mengungkap nasib Gema, dan membuka pintu ke masa depan yang tak pasti.",
+      "openingHook": "Tegang, Kamu melihat Pak Budi di depan konsol utama, tangannya gemetar. Rara dan Arya berjaga, napas tertahan. Suara desisan reaktor inti semakin kuat, seperti detak jantung monster raksasa. Kamu tahu, ini adalah pilihan terakhir. Atau semua akan menjadi 'Gema'.",
+      "mainConflict": "Melakukan 'pembalikan polaritas' inti frekuensi, menghentikan 'Proyek ECHO' untuk selamanya, menghadapi pengorbanan Pak Budi, dan mengungkap kebenaran penuh tentang 'Gema' dan nasib mereka.",
+      "turningPoint": "Pak Budi memandang kalian, tatapannya sendu namun penuh tekad. Dia menjelaskan bahwa putrinya adalah salah satu 'Gema' di sekolah, dan ini adalah satu-satunya cara untuk memberinya 'kedamaian'. Dia menginstruksikan Arya untuk mengaktifkan perisai darurat sesaat sebelum polaritas berbalik. Pak Budi mengaktifkan urutan, dan saat energi memuncak, dia tersenyum tipis ke arah kalian.",
+      "episodePayoff": "Ledakan energi frekuensi mengguncang fasilitas. Kalian terlempar, tetapi perisai darurat yang diaktifkan Arya berhasil melindungi kalian. Suara desisan reaktor mereda. Kebisuan yang mencekam turun ke ruangan, lalu ke seluruh fasilitas. Gema-gema di luar kini hanya terdiam, berdiri kaku, tanpa reaksi. Proyek ECHO telah mati. Kalian melihat Pak Budi, ia telah menjadi 'Gema', tetapi matanya tidak kosong. Ada sepercik cahaya redup di sana, seolah-olah ia telah menemukan kedamaian, atau kesadarannya kini menjadi bagian dari frekuensi yang mati, beristirahat. Kalian berhasil keluar dari fasilitas, kembali ke dunia yang sunyi dan kosong, namun bebas dari 'Gema' yang agresif.",
+      "cliffhanger": "Saat kalian melangkah keluar dari stasiun bawah tanah, kamu melihat langit yang biru dan kota yang hening. Gema-gema berdiri kaku seperti patung, tidak bergerak, tidak bereaksi. Kalian melihat Rara menunduk, tatapannya sedih. Lalu Arya menunjuk ke sebuah titik di langit. Di kejauhan, di atas cakrawala, tampak cahaya merah samar yang berdenyut, seolah ada 'gema' lain yang baru saja dimulai, atau sebuah sinyal lain dari sesuatu yang lebih besar.",
+      "continuityQuestions": [
+        "Apakah kota-kota lain juga terpengaruh?",
+        "Apa arti cahaya merah yang berdenyut itu?",
+        "Apakah ada cara untuk mengembalikan 'kesadaran' yang hilang, meskipun 'Gema' tidak bisa kembali?"
+      ]
+    }
+  ],
+  "seasonId": "season-01",
+  "createdAt": "2026-11-22T15:33:47.186Z",
+  "status": "planned"
+}

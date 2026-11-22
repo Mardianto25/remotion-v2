@@ -1,0 +1,47 @@
+{
+  "seasonId": "season-01",
+  "status": "planned",
+  "episodes": [
+    {
+      "episodeNumber": 1,
+      "title": "Jam Pulang yang Berubah",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 2,
+      "title": "Sinyal di Antara Bisikan",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 3,
+      "title": "Peta Misterius di Lab",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 4,
+      "title": "Stasiun Bawah Tanah",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 5,
+      "title": "Bisikan dari Labirin",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 6,
+      "title": "Jantung Proyek: Terjebak",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 7,
+      "title": "Kunci Gema, Kunci Harapan",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 8,
+      "title": "Senyap Setelah Gema",
+      "status": "not_started"
+    }
+  ],
+  "updatedAt": "2026-11-22T15:33:47.188Z"
+}
