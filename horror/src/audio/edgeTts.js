@@ -17,7 +17,7 @@ export async function generateNarration(text, audioPath, subtitlePath) {
 
   const args = [
     "-m", "edge_tts", "--voice", config.edgeVoice,
-    "--rate", config.edgeRate, "--pitch", config.edgePitch,
+    "--rate=" + (config.edgeRate || "-8%"), "--pitch=" + (config.edgePitch || "-5Hz"),
     "--file", textPath, "--write-media", audioPath,
     "--write-subtitles", subtitlePath
   ];
