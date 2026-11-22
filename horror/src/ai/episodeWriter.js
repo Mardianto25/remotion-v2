@@ -30,7 +30,7 @@ function normalizeEpisode(value, episodeNumber, planEpisode) {
     narration = joined;
   }
   const wordCount = narration.split(/\s+/).filter(Boolean).length;
-  if (wordCount < 560 || wordCount > 850) throw new Error("Panjang naskah scene di luar batas 560-850 kata (" + wordCount + " kata).");
+  // Panjang naskah tidak lagi menjadi hard validation; durasi ditentukan oleh kebutuhan cerita.
   return {
     episodeNumber, title: String(value.title || planEpisode.title || "Episode " + episodeNumber),
     description: String(value.description || planEpisode.logline || ""),
@@ -65,7 +65,7 @@ export async function writeEpisode(input) {
     "CATATAN REVISI EDITOR:\n" + (revisionNotes || "Tidak ada. Buat draft pertama terbaik."),
     "GAYA: narasi orang kedua menggunakan 'kamu', seolah penonton mengalami langsung kejadian. Bahasa Indonesia luwes, sederhana, emosional, tidak seperti esai. Hindari pembukaan channel, salam, ajakan subscribe di awal, dan eksposisi panjang.",
     "RETENTION: kalimat pertama berupa cold open spesifik; sebelum 30 detik penonton tahu ancaman dan taruhan; setiap 20-35 detik ada informasi baru, keputusan, bahaya, perubahan tujuan, atau pertanyaan; setiap adegan mengubah situasi; dialog singkat dan fungsional; hindari repetisi dan filler; berikan payoff kecil di episode ini; akhiri dengan cliffhanger yang berasal dari kejadian, bukan sekadar kata bersambung.",
-    "DURASI: 5-6 menit, target 650-750 kata, batas 560-850 kata. Buat 14-20 scene. Narasi lengkap dan gabungan scene.narration harus sama persis, urut, tanpa kalimat hilang/tambahan/parafrase.",
+    "DURASI: target sekitar 5-6 menit dan 14-20 scene, tetapi jangan memaksakan atau memotong cerita demi jumlah kata. Utamakan alur yang utuh, ritme, emosi, dan kebutuhan cerita. Narasi lengkap dan gabungan scene.narration harus sama persis, urut, tanpa kalimat hilang/tambahan/parafrase.",
     "KONTINUITAS: jangan mengubah fakta episode sebelumnya, jangan menghidupkan karakter yang sudah dipastikan mati, jangan mengubah aturan dunia, jangan mengulang hook/plot twist. Misteri utama hanya boleh terjawab pada episode 8 kecuali bible menyatakan lain. Jawab sebagian pertanyaan lama dan tanam pertanyaan baru.",
     "VISUAL: setiap visualPrompt berbahasa Inggris dan menggambarkan tepat momen scene. Gaya 2D cinematic horror animation, semi-realistic graphic novel illustration, hand-painted background, expressive consistent character design, cinematic composition, landscape 16:9, no text/logo/watermark/gore. Tempel visualBible karakter yang muncul secara konsisten dari Character Bible. FLUX.1 Schnell adalah text-to-image; konsistensi dipandu prompt teks, bukan jaminan image reference.",
     "JSON valid tanpa markdown dengan struktur:",
