@@ -23,6 +23,8 @@ if (command === "plan") {
   const genre = arg("--genre", "mystery");
   const concept = arg("--concept");
   const seriesTitle = arg("--title");
+  const episodeCount = Number(arg("--episodes", "8"));
+  if (![4, 6, 8, 10, 12].includes(episodeCount)) throw new Error("--episodes harus 4, 6, 8, 10, atau 12.");
   if (!concept) throw new Error('Konsep season wajib diisi. Contoh: npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"');
   const biblePath = path.join(seasonDir, "series-bible.json");
   try {
@@ -33,8 +35,8 @@ if (command === "plan") {
   } catch (error) {
     if (error.code !== "ENOENT") throw error;
   }
-  console.log("[season] Membuat series bible, 8 naskah final, dan seluruh scene...");
-  const bible = await planSeason(concept, { seasonId, genre, seriesTitle });
+  console.log("[season] Membuat series bible, " + episodeCount + " naskah final, dan seluruh scene...");
+  const bible = await planSeason(concept, { seasonId, genre, seriesTitle, episodeCount });
   await writeJson(biblePath, bible);
   await writeJson(path.join(seasonDir, "characters.json"), bible.characters);
   await writeJson(path.join(seasonDir, "world-rules.json"), bible.worldRules);
@@ -44,14 +46,14 @@ if (command === "plan") {
       episodeNumber: item.episodeNumber, title: item.title, status: "not_started"
     })), updatedAt: new Date().toISOString()
   });
-  console.log("[season] Season plan tersimpan: " + bible.seriesTitle + " (8 episode).");
+  console.log("[season] Season plan tersimpan: " + bible.seriesTitle + " (" + bible.episodes.length + " episode).");
   for (const episode of bible.episodes) console.log(String(episode.episodeNumber).padStart(2, "0") + ". " + episode.title);
   process.exit(0);
 }
 
 if (command === "episode") {
   const episodeNumber = Number(arg("--episode", "1"));
-  if (!Number.isInteger(episodeNumber) || episodeNumber < 1 || episodeNumber > 8) throw new Error("--episode harus angka 1 sampai 8.");
+  if (!Number.isInteger(episodeNumber) || episodeNumber < 1 || episodeNumber > 12) throw new Error("--episode harus angka 1 sampai 12.");
   const bible = await readJson(path.join(seasonDir, "series-bible.json"));
   const statePath = path.join(seasonDir, "production-state.json");
   const state = await readJson(statePath);
@@ -114,7 +116,7 @@ if (command === "episode") {
     : item);
   state.updatedAt = new Date().toISOString();
   await writeJson(statePath, state);
-  console.log("[script] Episode " + episodeNumber + " diambil langsung dari season plan.");
+  console.log("[script] Episode " + episodeNumber + " diambil langsung dari season plan (" + bible.episodes.length + " episode tersedia).");
   console.log("[script] Tidak ada pemanggilan Gemini pada tahap generate episode.");
   console.log("[script] Tersimpan: " + storyPath);
   process.exit(0);
