@@ -65,13 +65,13 @@ Metadata dan thumbnail dihasilkan AI, sehingga tetap perlu ditinjau. Hindari kla
 
 ## Serial Story Production — Multi-Genre, Resumable
 
-Season Planner menyiapkan **seluruh 8 naskah episode dan seluruh scene** dalam satu kali perencanaan. Setiap workflow produksi berikutnya hanya membaca hasil yang tersimpan; workflow Generate Episode Script tidak memanggil Gemini untuk menulis ulang naskah atau scene.
+Season Planner menyiapkan **seluruh naskah episode dan seluruh scene** sesuai pilihan 4, 6, 8, 10, atau 12 episode dalam satu kali perencanaan. Setiap workflow produksi berikutnya hanya membaca hasil yang tersimpan; workflow Generate Episode Script tidak memanggil Gemini untuk menulis ulang naskah atau scene.
 
 ### Workflow produksi (urut 01–07)
 
 Di tab **Actions**, workflow sudah diberi nomor di depan namanya agar tampil berurutan. Jalankan sesuai nomor; jangan lompat ke tahap berikutnya sebelum tahap sebelumnya berhasil.
 
-1. [01 — Season Plan](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-season-plan.yml) — Gemini membuat series bible, karakter, aturan dunia, 8 naskah final, dan 5-8 scene per episode.
+1. [01 — Season Plan](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-season-plan.yml) — Gemini membuat series bible, karakter, aturan dunia, naskah final sesuai jumlah episode yang dipilih, dan 5-8 scene per episode.
 2. [02 — Episode Script](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-script.yml) — menyalin naskah dan scene dari season plan ke folder episode. Tidak ada AI call.
 3. [03 — Episode Images](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-images.yml) — membuat gambar scene yang belum tersedia. Gambar yang valid dilewati. Jika scene 4 gagal, jalankan workflow yang sama lagi: scene 1-3 dilewati, scene 4 dicoba ulang, lalu lanjut scene berikutnya.
 4. [04 — Episode Audio](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-audio.yml) — Edge-TTS membuat narasi dan subtitle; file valid digunakan kembali.
@@ -81,9 +81,9 @@ Di tab **Actions**, workflow sudah diberi nomor di depan namanya agar tampil ber
 
 ### Urutan penggunaan
 
-- Jalankan Season Plan satu kali untuk season baru. Isi **Series Title** dengan judul serial yang ingin dipakai, lalu pilih **Concept** dari dropdown. **Season ID** adalah kode folder/identitas internal (contoh: kisah-kampung-misterius), bukan judul yang tampil ke penonton. Untuk season-01 lama yang baru berisi outline, pilih force_regenerate=true agar seluruh 8 naskah dan scene dibuat. Jika season sudah memiliki folder episode produksi, gunakan season_id baru agar aset lama tidak tertimpa.
+- Jalankan Season Plan satu kali untuk season baru. Isi **Series Title** dengan judul serial yang ingin dipakai, lalu pilih **Concept** dari dropdown. **Season ID** adalah kode folder/identitas internal (contoh: kisah-kampung-misterius), bukan judul yang tampil ke penonton. Pilih jumlah episode (4, 6, 8, 10, atau 12) saat membuat Season Plan. Untuk season lama yang baru berisi outline, pilih force_regenerate=true agar seluruh naskah dan scene dibuat ulang. Jika season sudah memiliki folder episode produksi, gunakan season_id baru agar aset lama tidak tertimpa.
 - Jalankan Episode Script untuk episode yang akan diproduksi.
-- Jalankan Images, Audio, Render, dan Thumbnail secara terpisah. Isi season ID dan nomor episode yang sama di setiap workflow.
+- Jalankan Images, Audio, Render, dan Thumbnail secara terpisah. Isi season ID dan nomor episode yang sama di setiap workflow. Pilihan episode 1–12 akan divalidasi terhadap jumlah episode yang benar-benar tersimpan pada Season Plan.
 - Jika Images gagal, buka ulang workflow Images dengan season ID, episode, dan visual style yang sama. File gambar yang sudah valid tidak akan digenerate ulang.
 - Upload membutuhkan dua run ID: run ID workflow Render Episode Video dan run ID workflow Generate Episode Thumbnail. Ambil angka run ID dari URL halaman run GitHub Actions. Artifact disimpan 30 hari.
 - Pastikan GitHub Actions memiliki izin **Read and write permissions** karena naskah, gambar, audio, thumbnail, dan status produksi disimpan ke repository. Upload YouTube tetap PRIVATE dan membutuhkan YOUTUBE_CLIENT_ID_3N, YOUTUBE_CLIENT_SECRET_3N, serta YOUTUBE_REFRESH_TOKEN_3N.
