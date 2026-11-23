@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { config } from "../config.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 
 function extractJson(raw) {
   const text = String(raw || "").trim();
@@ -92,8 +93,7 @@ export async function generateStory(topic) {
     "Topik: " + topic
   ].join("\n");
 
-  const response = await ai.models.generateContent({
-    model: config.geminiModel,
+  const response = await generateGeminiContent(ai, {
     contents: prompt,
     config: { responseMimeType: "application/json" }
   });
