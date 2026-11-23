@@ -217,7 +217,7 @@ jobs:
             const upload = JSON.parse(await fs.readFile(dir + "/episodes/episode-" + String(n).padStart(2,"0") + "/youtube-upload.json", "utf8"));
             state.episodes = state.episodes.map(e => e.episodeNumber === n ? {...e, youtubeVideoId: upload.videoId, youtubeUrl: upload.url, youtubePrivacyStatus: upload.privacyStatus} : e);
             state.updatedAt = new Date().toISOString();
-            await fs.writeFile(dir + "/production-state.json", JSON.stringify(state, null, 2) + "\\n");
+            await fs.writeFile(dir + "/production-state.json", JSON.stringify(state, null, 2) + "\n");
           '
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
