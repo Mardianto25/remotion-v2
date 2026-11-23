@@ -42,7 +42,7 @@ if (command === "plan") {
   await writeJson(path.join(seasonDir, "world-rules.json"), bible.worldRules);
   await writeJson(path.join(seasonDir, "continuity-ledger.json"), createInitialLedger(bible));
   await writeJson(path.join(seasonDir, "production-state.json"), {
-    seasonId, genre, status: "planned", episodes: bible.episodes.map(item => ({
+    seasonId, genre, episodeCount: bible.episodes.length, status: "planned", episodes: bible.episodes.map(item => ({
       episodeNumber: item.episodeNumber, title: item.title, status: "not_started"
     })), updatedAt: new Date().toISOString()
   });
