@@ -133,8 +133,9 @@ if (stage === "images") {
   const landscapeExisting = path.join(episodeDir,"youtube-thumbnail.jpg");
   try {
     const [v,l] = await Promise.all([fs.stat(verticalExisting), fs.stat(landscapeExisting)]);
-    if (v.size > 1024 && l.size > 1024) {
+    if (v.size > 1024 && l.size > 1024 && (await fs.stat(path.join(episodeDir,"youtube-metadata.json"))).size > 0) {
       console.log("[thumbnail] Thumbnail sudah tersedia; tidak generate ulang.");
+      await setEpisodeState("thumbnail_ready");
       process.exit(0);
     }
   } catch {}
