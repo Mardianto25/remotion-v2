@@ -71,13 +71,22 @@ jobs:
           EP=$(printf "%02d" "$EPISODE_NUMBER")
           export EPISODE_UPLOAD_STATE="data/seasons/$SEASON_ID/episodes/episode-$EP/youtube-upload.json"
           node scripts/uploadEpisode.js
-      - name: Persist upload state
+      - name: Update episode production state
         env:
           SEASON_ID: ${{ inputs.season_id }}
           EPISODE_NUMBER: ${{ inputs.episode_number }}
         run: |
           EP=$(printf "%02d" "$EPISODE_NUMBER")
+          node --input-type=module -e '
+            import fs from "node:fs/promises";
+            const dir = "data/seasons/" + process.env.SEASON_ID;
+            const state = JSON.parse(await fs.readFile(dir + "/production-state.json", "utf8"));
+            const upload = JSON.parse(await fs.readFile(dir + "/episodes/episode-" + String(process.env.EPISODE_NUMBER).padStart(2,"0") + "/youtube-upload.json", "utf8"));
+            state.episodes = state.episodes.map(e => e.episodeNumber === Number(process.env.EPISODE_NUMBER) ? {...e, status:"uploaded", youtubeVideoId:upload.videoId, youtubeUrl:upload.url, youtubePrivacyStatus:upload.privacyStatus} : e);
+            state.updatedAt = new Date().toISOString();
+            await fs.writeFile(dir + "/production-state.json", JSON.stringify(state,null,2) + "\n");
+          '
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "data/seasons/$SEASON_ID/episodes/episode-$EP/youtube-upload.json"
+          git add "data/seasons/$SEASON_ID/episodes/episode-$EP/youtube-upload.json" "data/seasons/$SEASON_ID/production-state.json"
           git diff --cached --quiet || (git commit -m "chore(youtube): record $SEASON_ID episode $EP upload" && git push)
