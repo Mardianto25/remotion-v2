@@ -81,7 +81,7 @@ Di tab **Actions**, workflow sudah diberi nomor di depan namanya agar tampil ber
 
 ### Urutan penggunaan
 
-- Jalankan Season Plan satu kali untuk season baru. Untuk season-01 lama yang baru berisi outline, pilih force_regenerate=true agar seluruh 8 naskah dan scene dibuat. Jika season sudah memiliki folder episode produksi, gunakan season_id baru agar aset lama tidak tertimpa.
+- Jalankan Season Plan satu kali untuk season baru. Isi **Series Title** dengan judul serial yang ingin dipakai, lalu pilih **Concept** dari dropdown. **Season ID** adalah kode folder/identitas internal (contoh: kisah-kampung-misterius), bukan judul yang tampil ke penonton. Untuk season-01 lama yang baru berisi outline, pilih force_regenerate=true agar seluruh 8 naskah dan scene dibuat. Jika season sudah memiliki folder episode produksi, gunakan season_id baru agar aset lama tidak tertimpa.
 - Jalankan Episode Script untuk episode yang akan diproduksi.
 - Jalankan Images, Audio, Render, dan Thumbnail secara terpisah. Isi season ID dan nomor episode yang sama di setiap workflow.
 - Jika Images gagal, buka ulang workflow Images dengan season ID, episode, dan visual style yang sama. File gambar yang sudah valid tidak akan digenerate ulang.
