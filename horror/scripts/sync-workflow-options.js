@@ -26,12 +26,12 @@ entries.sort((a, b) => a.id.localeCompare(b.id));
 
 const seriesOptions = ["no-plan-yet", ...entries.map(item => item.id)];
 const episodeOptions = entries.flatMap(({ id, bible }) =>
-  (Array.isArray(bible.episodes) ? bible.episodes : []).map(episode => {
-    const number = String(episode.episodeNumber).padStart(2, "0");
-    return id + " | " + number + " - " + String(episode.title || "Episode " + number).replace(/\s+/g, " ").trim();
-  })
+  (Array.isArray(bible.episodes) ? bible.episodes : []).map(episode =>
+    String(episode.title || "Episode " + String(episode.episodeNumber).padStart(2, "0")).replace(/\s+/g, " ").trim()
+  )
 );
-episodeOptions.unshift("no-episode-yet");
+const uniqueEpisodeOptions = [...new Set(episodeOptions)];
+uniqueEpisodeOptions.unshift("no-episode-yet");
 
 function replaceOptions(source, marker, values) {
   const start = "          # " + marker + "_START";
@@ -47,7 +47,7 @@ for (const file of workflowFiles) {
   const target = path.join(workflowDir, file);
   let source = await fs.readFile(target, "utf8");
   source = replaceOptions(source, "SERIES_ID_OPTIONS", seriesOptions);
-  source = replaceOptions(source, "EPISODE_TITLE_OPTIONS", episodeOptions);
+  source = replaceOptions(source, "EPISODE_TITLE_OPTIONS", uniqueEpisodeOptions);
   await fs.writeFile(target, source);
-  console.log("[catalog] " + file + ": " + seriesOptions.length + " serial, " + episodeOptions.length + " judul episode");
+  console.log("[catalog] " + file + ": " + seriesOptions.length + " serial, " + uniqueEpisodeOptions.length + " judul episode");
 }
