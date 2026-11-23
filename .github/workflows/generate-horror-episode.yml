@@ -145,6 +145,15 @@ jobs:
         run: npx remotion browser ensure
       - name: Render this episode only
         run: npx remotion render remotion/index.jsx HorrorVideo out/indonesian-horror.mp4 --codec=h264 --crf=22
+      - name: Validate short duration and vertical format
+        run: |
+          DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 out/indonesian-horror.mp4)
+          WIDTH=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=s=x:p=0 out/indonesian-horror.mp4)
+          HEIGHT=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=s=x:p=0 out/indonesian-horror.mp4)
+          echo "Duration: ${DURATION}s; resolution: ${WIDTH}x${HEIGHT}"
+          awk -v d="$DURATION" 'BEGIN { if (d > 60.5) { print "Video melebihi batas 60 detik"; exit 1 } }'
+          test "$WIDTH" -eq 1080
+          test "$HEIGHT" -eq 1920
       - name: Archive rendered episode without touching previous episodes
         env:
           SEASON_ID: ${{ inputs.season_id }}
