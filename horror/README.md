@@ -1,6 +1,6 @@
-# Ruang Cerita Indonesia — Indonesian Horror AI
+# Ruang Cerita Indonesia — AI Storytelling Studio
 
-Pipeline produksi video misteri/horor Indonesia untuk channel YouTube **Ruang Cerita Indonesia**. Pipeline utama video panjang tetap berjalan seperti sebelumnya. Setelah video panjang selesai dirender, workflow juga membuat tiga video Shorts dari potongan audio, subtitle, dan visual yang sama.
+Pipeline produksi YouTube Shorts storytelling multi-genre untuk channel **Ruang Cerita Indonesia**. Genre dapat dipilih per season: horor, misteri, Islami/inspiratif, drama, sejarah, petualangan, fantasi, edukasi, atau konsep khusus. Pipeline utama video panjang tetap berjalan seperti sebelumnya. Setelah video panjang selesai dirender, workflow juga membuat tiga video Shorts dari potongan audio, subtitle, dan visual yang sama.
 
 ## Alur produksi
 1. Mode otomatis mengambil video horor/misteri Indonesia yang terbit pada hari kalender kemarin (WIB) melalui YouTube Data API.
@@ -27,7 +27,7 @@ Atur di Settings > Secrets and variables > Actions:
 - `PEXELS_API_KEY` (opsional)
 - `YOUTUBE_CLIENT_ID`
 - `YOUTUBE_CLIENT_SECRET`
-- `YOUTUBE_REFRESH_TOKEN_V2`
+- `YOUTUBE_REFRESH_TOKEN_3N`
 
 Jangan commit credential atau token ke repository. Mode tren otomatis memerlukan kuota YouTube Data API dan scope baca YouTube. Upload video memerlukan scope YouTube Data API yang sesuai.
 
@@ -67,10 +67,10 @@ Metadata dan thumbnail dihasilkan AI, sehingga tetap perlu ditinjau. Hindari kla
 
 Workflow serial tersedia di **Actions > Ruang Cerita Indonesia — Episode Generator** atau melalui tab **Cerita Episode** pada Auto-Shorts Studio. Setiap episode diproduksi sebagai YouTube Short vertikal 1080x1920 (9:16), dengan durasi audio dan video maksimal 60 detik. Workflow dispatch berada di branch default (`main`), sehingga bisa dijalankan langsung dari GitHub Actions.
 
-1. Pilih `create-season`, isi `season_id` (contoh `season-01`) dan konsep. Gemini membuat series bible, world rules, character bible, dan outline 8 episode.
+1. Pilih `create-season`, tentukan genre (`horror`, `mystery`, `islamic`, `inspirational`, `drama`, `history`, `adventure`, `fantasy`, atau `education`), isi `season_id` (contoh `season-01`) dan konsep. Gemini membuat series bible, world rules, character bible, dan outline 8 episode.
 2. Pilih `generate-episode`, gunakan season ID yang sama dan pilih satu episode. Episode 2-8 hanya bisa dibuat jika episode sebelumnya sudah berhasil dirender.
 3. Gemini Episode Writer menulis naskah POV orang kedua, lalu Retention Agent dan Continuity Agent menilai naskah. Maksimal tiga draft; skor minimal 85/100 untuk kedua pemeriksaan.
-4. Jika lolos, pipeline existing membuat narasi Edge-TTS sekitar 100-125 kata, 5-8 scene, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Target durasi 45-55 detik; proses dihentikan jika audio lebih dari 60 detik. Hasil dirender vertikal 1080x1920 (9:16), lalu workflow memvalidasi durasi dan resolusinya. Pilih visual style **cinematic-3d** (default) atau **2d-animation** saat menjalankan workflow. Style dijaga konsisten; jika FLUX gagal, workflow tidak mengganti scene dengan foto stok.
+4. Jika lolos, pipeline existing membuat narasi Edge-TTS sekitar 100-125 kata, 5-8 scene, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Target durasi 45-55 detik; proses dihentikan jika audio lebih dari 60 detik. Hasil dirender vertikal 1080x1920 (9:16), lalu workflow memvalidasi durasi dan resolusinya. Pilih visual style **cinematic-3d** (default) atau **2d-animation** saat menjalankan workflow. Genre diterapkan ke naskah, mood visual FLUX, SEO, thumbnail, dan metadata YouTube; pipeline tidak lagi otomatis menambahkan unsur horor untuk genre lain. Style dijaga konsisten; jika FLUX gagal, workflow tidak mengganti scene dengan foto stok.
 5. Hasil episode, review, aset, video, dan continuity ledger disimpan di `data/seasons/<season-id>/episodes/episode-XX/`. Workflow menyimpan data season ke branch `main` agar run berikutnya dapat melanjutkan cerita.
 
 Perintah lokal dari folder `horror/` (episode Shorts maksimal 60 detik):
