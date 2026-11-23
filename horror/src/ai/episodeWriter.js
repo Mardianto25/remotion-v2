@@ -34,7 +34,7 @@ function normalizeEpisode(value, episodeNumber, planEpisode, genre) {
   return {
     episodeNumber, title: String(value.title || planEpisode.title || "Episode " + episodeNumber),
     description: String(value.description || planEpisode.logline || ""),
-    genre: String(value.genre || "storytelling"),
+    genre: String(value.genre || genre || "storytelling"),
     category: String(value.category || value.genre || "Storytelling"),
     disclaimer: String(value.disclaimer || "Cerita fiksi untuk hiburan. Kemiripan dengan kejadian atau tokoh nyata tidak disengaja."),
     hook: String(value.hook || planEpisode.openingHook || ""),
