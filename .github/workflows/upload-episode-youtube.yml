@@ -1,0 +1,79 @@
+name: Ruang Cerita — Upload Episode to YouTube (3N)
+on:
+  workflow_dispatch:
+    inputs:
+      season_id:
+        description: Season ID
+        required: true
+        default: season-01
+        type: string
+      episode_number:
+        description: Nomor episode
+        required: true
+        default: "1"
+        type: choice
+        options: ["1","2","3","4","5","6","7","8"]
+      render_run_id:
+        description: GitHub Actions run ID dari workflow Render Episode Video
+        required: true
+        type: string
+      thumbnail_run_id:
+        description: GitHub Actions run ID dari workflow Generate Episode Thumbnail
+        required: true
+        type: string
+permissions:
+  contents: write
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Download rendered video from selected run
+        uses: actions/download-artifact@v4
+        with:
+          name: episode-video-${{ inputs.season_id }}-${{ inputs.episode_number }}
+          run-id: ${{ inputs.render_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: horror/out
+      - name: Download thumbnail from selected run
+        uses: actions/download-artifact@v4
+        with:
+          name: episode-thumbnail-${{ inputs.season_id }}-${{ inputs.episode_number }}
+          run-id: ${{ inputs.thumbnail_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/episode-thumbnail
+      - name: Prepare episode metadata and thumbnail
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          DIR="data/seasons/$SEASON_ID/episodes/episode-$EP"
+          mkdir -p out
+          cp "/tmp/episode-thumbnail/$DIR/youtube-thumbnail.jpg" out/youtube-thumbnail.jpg 2>/dev/null || find /tmp/episode-thumbnail -name youtube-thumbnail.jpg -exec cp {} out/youtube-thumbnail.jpg \;
+          cp "$DIR/youtube-metadata.json" data/youtube-metadata.json
+      - name: Upload privately to the 3N channel
+        env:
+          YOUTUBE_CLIENT_ID_3N: ${{ secrets.YOUTUBE_CLIENT_ID_3N }}
+          YOUTUBE_CLIENT_SECRET_3N: ${{ secrets.YOUTUBE_CLIENT_SECRET_3N }}
+          YOUTUBE_REFRESH_TOKEN_3N: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3N }}
+          YOUTUBE_CHANNEL_NAME: Ruang Cerita Indonesia
+          EPISODE_UPLOAD_STATE: data/seasons/${{ inputs.season_id }}/episodes/episode-${{ inputs.episode_number }}/youtube-upload.json
+        run: node scripts/uploadEpisode.js
+      - name: Persist upload state
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "data/seasons/$SEASON_ID/episodes/episode-$EP/youtube-upload.json"
+          git diff --cached --quiet || (git commit -m "chore(youtube): record $SEASON_ID episode $EP upload" && git push)
