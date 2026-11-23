@@ -79,7 +79,7 @@ Season Planner menyiapkan **seluruh 8 naskah episode dan seluruh scene** dalam s
 
 ### Urutan penggunaan
 
-- Jalankan Season Plan satu kali untuk season baru. Season plan lama yang hanya memiliki outline perlu dibuat ulang karena belum menyimpan naskah dan scene final.
+- Jalankan Season Plan satu kali untuk season baru. Untuk season-01 lama yang baru berisi outline, pilih force_regenerate=true agar seluruh 8 naskah dan scene dibuat. Jika season sudah memiliki folder episode produksi, gunakan season_id baru agar aset lama tidak tertimpa.
 - Jalankan Episode Script untuk episode yang akan diproduksi.
 - Jalankan Images, Audio, Render, dan Thumbnail secara terpisah. Isi season ID dan nomor episode yang sama di setiap workflow.
 - Jika Images gagal, buka ulang workflow Images dengan season ID, episode, dan visual style yang sama. File gambar yang sudah valid tidak akan digenerate ulang.
