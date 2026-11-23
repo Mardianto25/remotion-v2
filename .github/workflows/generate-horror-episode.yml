@@ -1,4 +1,4 @@
-name: Ruang Cerita Indonesia — Episode Generator
+name: Ruang Cerita Indonesia — Story Episode Generator
 
 on:
   workflow_dispatch:
@@ -19,8 +19,23 @@ on:
       concept:
         description: "Konsep season (wajib saat create-season)"
         required: false
-        default: "POV: Terjebak di sekolah saat kiamat zombie"
+        default: "Buat serial storytelling sesuai genre yang dipilih"
         type: string
+      genre:
+        description: "Genre utama season; naskah, visual, SEO dan thumbnail mengikuti genre ini"
+        required: true
+        type: choice
+        default: mystery
+        options:
+          - mystery
+          - horror
+          - islamic
+          - inspirational
+          - drama
+          - history
+          - adventure
+          - fantasy
+          - education
       visual_style:
         description: "Gaya visual untuk seluruh episode"
         required: true
@@ -76,7 +91,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
-        run: npm run generate:season -- --season "${{ inputs.season_id }}" --concept "${{ inputs.concept }}"
+        run: npm run generate:season -- --season "${{ inputs.season_id }}" --genre "${{ inputs.genre }}" --concept "${{ inputs.concept }}"
       - name: Persist season bible and outline for future episode runs
         env:
           SEASON_ID: ${{ inputs.season_id }}
@@ -126,6 +141,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
+          STORY_GENRE: ${{ inputs.genre }}
         run: |
           FORCE=""
           if [ "${{ inputs.force_regenerate }}" = "true" ]; then FORCE="--force"; fi
@@ -137,6 +153,7 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
           CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
+          STORY_GENRE: ${{ inputs.genre }}
           HORROR_VISUAL_STYLE: ${{ inputs.visual_style }}
           HORROR_STRICT_VISUAL_STYLE: "true"
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
@@ -206,7 +223,7 @@ jobs:
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
-          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
+          YOUTUBE_REFRESH_TOKEN_3N: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3N }}
           YOUTUBE_CHANNEL_NAME: Ruang Cerita Indonesia
         run: node scripts/uploadEpisode.js
 
