@@ -1,4 +1,4 @@
-name: Ruang Cerita — Render Episode Video
+name: 05 - Render Episode Video
 on:
   workflow_dispatch:
     inputs:
