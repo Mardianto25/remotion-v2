@@ -73,18 +73,21 @@ jobs:
       - name: Generate complete season bible, scripts and scenes
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: gemini-2.5-flash
+          GEMINI_MODEL: gemini-3.8-flash
+          GEMINI_FALLBACK_MODELS: gemini-3.5-flash,gemini-2.5-flash
         run: |
           FORCE=""
           if [ "${{ inputs.force_regenerate }}" = "true" ]; then FORCE="--force"; fi
           node scripts/series.js plan --season "${{ steps.resolve-series.outputs.season_id }}" --episodes "${{ inputs.episode_count }}" --genre "${{ inputs.genre }}" --title "${{ inputs.series_title }}" --concept "${{ inputs.concept }}" $FORCE
+      - name: Refresh plan and episode dropdowns
+        run: node scripts/sync-workflow-options.js
       - name: Persist season plan
         env:
           SEASON_ID: ${{ steps.resolve-series.outputs.season_id }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "data/seasons/$SEASON_ID"
+          git add "data/seasons/$SEASON_ID" ../.github/workflows/generate-episode-script.yml ../.github/workflows/generate-episode-images.yml ../.github/workflows/generate-episode-audio.yml ../.github/workflows/render-episode-video.yml ../.github/workflows/generate-episode-thumbnail.yml ../.github/workflows/upload-episode-youtube.yml
           git diff --cached --quiet || (git commit -m "chore(series): save complete $SEASON_ID plan" && git push)
       - uses: actions/upload-artifact@v4
         with:
