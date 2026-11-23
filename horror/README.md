@@ -67,15 +67,17 @@ Metadata dan thumbnail dihasilkan AI, sehingga tetap perlu ditinjau. Hindari kla
 
 Season Planner menyiapkan **seluruh 8 naskah episode dan seluruh scene** dalam satu kali perencanaan. Setiap workflow produksi berikutnya hanya membaca hasil yang tersimpan; workflow Generate Episode Script tidak memanggil Gemini untuk menulis ulang naskah atau scene.
 
-### Workflow terpisah
+### Workflow produksi (urut 01–07)
 
-1. [Generate Season Plan](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-season-plan.yml) — Gemini membuat series bible, karakter, aturan dunia, 8 naskah final, dan 5-8 scene per episode.
-2. [Generate Episode Script](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-script.yml) — menyalin naskah dan scene dari season plan ke folder episode. Tidak ada AI call.
-3. [Generate Episode Images](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-images.yml) — membuat gambar scene yang belum tersedia. Gambar yang valid dilewati. Jika scene 4 gagal, jalankan workflow yang sama lagi: scene 1-3 dilewati, scene 4 dicoba ulang, lalu lanjut scene berikutnya.
-4. [Generate Episode Audio](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-audio.yml) — Edge-TTS membuat narasi dan subtitle; file valid digunakan kembali.
-5. [Render Episode Video](https://github.com/Mardianto25/remotion-v2/actions/workflows/render-episode-video.yml) — Remotion memakai gambar dan audio tersimpan; hasil MP4 menjadi artifact.
-6. [Generate Episode Thumbnail](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-thumbnail.yml) — membuat SEO metadata dan thumbnail terpisah; hasil tersimpan agar tidak perlu dibuat ulang.
-7. [Upload Episode YouTube](https://github.com/Mardianto25/remotion-v2/actions/workflows/upload-episode-youtube.yml) — mengunduh artifact video dan thumbnail dari run yang dipilih, lalu upload sebagai PRIVATE menggunakan credential channel 3N.
+Di tab **Actions**, workflow sudah diberi nomor di depan namanya agar tampil berurutan. Jalankan sesuai nomor; jangan lompat ke tahap berikutnya sebelum tahap sebelumnya berhasil.
+
+1. [01 — Season Plan](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-season-plan.yml) — Gemini membuat series bible, karakter, aturan dunia, 8 naskah final, dan 5-8 scene per episode.
+2. [02 — Episode Script](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-script.yml) — menyalin naskah dan scene dari season plan ke folder episode. Tidak ada AI call.
+3. [03 — Episode Images](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-images.yml) — membuat gambar scene yang belum tersedia. Gambar yang valid dilewati. Jika scene 4 gagal, jalankan workflow yang sama lagi: scene 1-3 dilewati, scene 4 dicoba ulang, lalu lanjut scene berikutnya.
+4. [04 — Episode Audio](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-audio.yml) — Edge-TTS membuat narasi dan subtitle; file valid digunakan kembali.
+5. [05 — Render Episode Video](https://github.com/Mardianto25/remotion-v2/actions/workflows/render-episode-video.yml) — Remotion memakai gambar dan audio tersimpan; hasil MP4 menjadi artifact.
+6. [06 — Thumbnail & SEO](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-thumbnail.yml) — membuat SEO metadata dan thumbnail terpisah; hasil tersimpan agar tidak perlu dibuat ulang.
+7. [07 — Upload Episode YouTube](https://github.com/Mardianto25/remotion-v2/actions/workflows/upload-episode-youtube.yml) — mengunduh artifact video dan thumbnail dari run yang dipilih, lalu upload sebagai PRIVATE menggunakan credential channel 3N.
 
 ### Urutan penggunaan
 
@@ -90,5 +92,5 @@ Season Planner menyiapkan **seluruh 8 naskah episode dan seluruh scene** dalam s
 
 Semua data episode berada di data/seasons/<season-id>/episodes/episode-XX/. Gambar disimpan per scene dan audio disimpan per episode. image-progress.json, image-manifest.json, audio-manifest.json, dan production-state.json mencatat progres. Video MP4 dipertukarkan sebagai GitHub Actions artifact agar tidak menambah ukuran Git repository.
 
-Workflow lama generate-horror-episode.yml sekarang hanya menjadi entry point Season Planner. Produksi episode dilakukan melalui workflow terpisah di atas.
+Workflow `99 - LEGACY | Season Planner` hanya dipertahankan untuk kompatibilitas dan tidak perlu digunakan. Gunakan workflow bernomor 01 untuk membuat season baru. Workflow lain yang tidak terkait (Instagram, CapCut, dan pipeline video panjang) tetap dipertahankan.
 
