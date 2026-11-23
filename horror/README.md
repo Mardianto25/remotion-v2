@@ -71,7 +71,7 @@ Workflow serial tersedia di **Actions > Ruang Cerita Indonesia — Episode Gener
 2. Pilih `generate-episode`, gunakan season ID yang sama dan pilih satu episode. Episode 2-8 hanya bisa dibuat jika episode sebelumnya sudah berhasil dirender.
 3. Gemini Episode Writer menulis naskah POV orang kedua, lalu Retention Agent dan Continuity Agent menilai naskah. Maksimal tiga draft; skor minimal 85/100 untuk kedua pemeriksaan.
 4. Jika lolos, pipeline existing membuat Edge-TTS, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Pilih visual style **cinematic-3d** (default) atau **2d-animation** saat menjalankan workflow. Style dijaga konsisten; jika FLUX gagal, workflow tidak mengganti scene dengan foto stok. Workflow cerita lama tetap memakai perilaku default-nya.
-5. Hasil episode, review, aset, video, dan continuity ledger disimpan di `data/seasons/<season-id>/episodes/episode-XX/`. Workflow menyimpan data season ke branch yang dipilih agar run berikutnya dapat melanjutkan cerita.
+5. Hasil episode, review, aset, video, dan continuity ledger disimpan di `data/seasons/<season-id>/episodes/episode-XX/`. Workflow menyimpan data season ke branch `main` agar run berikutnya dapat melanjutkan cerita.
 
 Perintah lokal dari folder `horror/`:
 - `npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"`
