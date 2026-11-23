@@ -7,7 +7,7 @@ const HORROR_3D_STYLE = [
   "photorealistic 3D rendering, physically based materials, realistic skin and fabric shaders",
   "detailed 3D environment, volumetric moonlight, deep cinematic shadows, atmospheric fog",
   "Unreal Engine quality render, dramatic film lighting, realistic depth and scale",
-  "landscape 16:9 composition, no text, no logo, no watermark"
+  "portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark"
 ].join(", ");
 const HORROR_2D_STYLE = [
   "2D cinematic horror animation frame",
@@ -54,7 +54,7 @@ export async function cloudflareImage(prompt, destination) {
     })
   });
   await saveCloudflareImage(response, destination);
-  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, visualStyle: use2D ? "2d-animation" : "cinematic-3d", sourceUrl: null, fileName: path.basename(destination) };
+  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, visualStyle: ["2d", "2d-animation"].includes((process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase()) ? "2d-animation" : "cinematic-3d", sourceUrl: null, fileName: path.basename(destination) };
 }
 
 export async function pixabayImage(query, destination) {
