@@ -12,7 +12,8 @@
     "upload:shorts": "node scripts/uploadShorts.js",
     "generate:season": "node scripts/series.js plan",
     "generate:episode": "node scripts/series.js episode",
-    "generate:episode-assets": "node scripts/generate.js --story-file data/story.json"
+    "generate:episode-assets": "node scripts/generate.js --story-file data/story.json",
+    "upload:episode": "node scripts/uploadEpisode.js"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
