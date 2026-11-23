@@ -5,7 +5,7 @@ import { createReadStream } from "node:fs";
 import { google } from "googleapis";
 import { CHANNEL_NAME, DATA_DIR, OUT_DIR } from "../src/config.js";
 
-for (const key of ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN_V2"]) {
+for (const key of ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN_3N"]) {
   if (!process.env[key]) throw new Error("GitHub Secret belum diatur: " + key);
 }
 const videoPath = path.join(OUT_DIR, "indonesian-horror.mp4");
@@ -16,7 +16,7 @@ for (const file of [videoPath, thumbnailPath, metadataPath]) await fs.access(fil
 const metadata = JSON.parse(await fs.readFile(metadataPath, "utf8"));
 
 const oauth = new google.auth.OAuth2(process.env.YOUTUBE_CLIENT_ID, process.env.YOUTUBE_CLIENT_SECRET);
-oauth.setCredentials({ refresh_token: process.env.YOUTUBE_REFRESH_TOKEN_V2 });
+oauth.setCredentials({ refresh_token: process.env.YOUTUBE_REFRESH_TOKEN_3N });
 const youtube = google.youtube({ version: "v3", auth: oauth });
 const { data: channelData } = await youtube.channels.list({ part: ["snippet"], mine: true });
 const channel = channelData.items?.[0];
@@ -65,7 +65,7 @@ const { data } = await youtube.videos.insert({
     snippet: {
       title: String(metadata.title || "Cerita Horor Indonesia #Shorts").slice(0, 100),
       description,
-      tags: [...new Set([...(metadata.tags || []), "shorts", "cerita horor", "horor indonesia"])].slice(0, 18),
+      tags: [...new Set([...(metadata.tags || []), "shorts", "cerita indonesia"])].slice(0, 18),
       categoryId: "24",
       defaultLanguage: "id",
       defaultAudioLanguage: "id"
