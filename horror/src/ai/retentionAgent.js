@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { config } from "../config.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 function parseJson(raw) {
   const fence = String.fromCharCode(96).repeat(3);
   const text = String(raw || "").replace(new RegExp("^" + fence + "(?:json)?\\s*", "i"), "").replace(new RegExp("\\s*" + fence + "$"), "").trim();
@@ -22,7 +23,7 @@ export async function reviewRetention(story, episodePlan) {
     "Beri masalah konkret dengan lokasi/kutipan, dampak pada penonton, dan instruksi revisi. Jangan menulis ulang naskah.",
     "JSON valid saja: {\"score\":0,\"scores\":{\"hook\":0,\"curiosity\":0,\"escalation\":0,\"characterEmotion\":0,\"payoffTwist\":0,\"cliffhanger\":0},\"strengths\":[\"...\"],\"issues\":[{\"location\":\"...\",\"quote\":\"...\",\"problem\":\"...\",\"fix\":\"...\"}],\"revisionBrief\":\"instruksi revisi maksimal 8 poin\",\"verdict\":\"revise|pass\"}"
   ].join("\n");
-  const response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json" } });
+  const response = await generateGeminiContent(ai, { contents: prompt, config: { responseMimeType: "application/json" } });
   const review = parseJson(response.text);
   const score = Math.max(0, Math.min(100, Number(review.score) || 0));
   return { ...review, score, verdict: score >= 85 ? "pass" : "revise", reviewedAt: new Date().toISOString() };
