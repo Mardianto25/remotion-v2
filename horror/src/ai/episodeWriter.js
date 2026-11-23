@@ -9,7 +9,7 @@ function parseJson(raw) {
     return JSON.parse(text.slice(start, end + 1));
   }
 }
-function normalizeEpisode(value, episodeNumber, planEpisode) {
+function normalizeEpisode(value, episodeNumber, planEpisode, genre) {
   const scenes = Array.isArray(value.scenes) ? value.scenes : [];
   let narration = String(value.narration || scenes.map(scene => scene.narration || "").join("\n\n")).trim();
   if (!narration) throw new Error("Naskah episode kosong.");
@@ -32,7 +32,7 @@ function normalizeEpisode(value, episodeNumber, planEpisode) {
   const wordCount = narration.split(/\s+/).filter(Boolean).length;
   // Panjang naskah tidak lagi menjadi hard validation; durasi ditentukan oleh kebutuhan cerita.
   return {
-    genre: String(value.genre || "storytelling"),
+    genre: String(value.genre || genre || "storytelling"),
     episodeNumber, title: String(value.title || planEpisode.title || "Episode " + episodeNumber),
     description: String(value.description || planEpisode.logline || ""),
     genre: String(value.genre || "storytelling"),
@@ -75,5 +75,5 @@ export async function writeEpisode(input) {
     "Judul episode harus kuat dan spesifik, bukan sekadar Episode " + episodeNumber + "."
   ].join("\n");
   const response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json" } });
-  return normalizeEpisode(parseJson(response.text), episodeNumber, episodePlan);
+  return normalizeEpisode(parseJson(response.text), episodeNumber, episodePlan, seriesBible.genre);
 }
