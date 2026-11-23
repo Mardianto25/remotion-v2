@@ -1,4 +1,4 @@
-name: 01 - Season Plan | Tema, 8 Naskah & Semua Scene
+name: 01 - Season Plan | Tema, Naskah & Semua Scene
 on:
   workflow_dispatch:
     inputs:
@@ -28,6 +28,12 @@ on:
           - season-18
           - season-19
           - season-20
+      episode_count:
+        description: Tentukan panjang alur cerita serial
+        required: true
+        default: "8"
+        type: choice
+        options: ["4", "6", "8", "10", "12"]
       series_title:
         description: Judul serial yang akan digunakan
         required: true
@@ -79,7 +85,7 @@ jobs:
         run: |
           FORCE=""
           if [ "${{ inputs.force_regenerate }}" = "true" ]; then FORCE="--force"; fi
-          node scripts/series.js plan --season "${{ inputs.season_id }}" --genre "${{ inputs.genre }}" --title "${{ inputs.series_title }}" --concept "${{ inputs.concept }}" $FORCE
+          node scripts/series.js plan --season "${{ inputs.season_id }}" --episodes "${{ inputs.episode_count }}" --genre "${{ inputs.genre }}" --title "${{ inputs.series_title }}" --concept "${{ inputs.concept }}" $FORCE
       - name: Persist season plan
         env:
           SEASON_ID: ${{ inputs.season_id }}
