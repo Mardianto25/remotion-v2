@@ -30,7 +30,15 @@ try { state = { ...state, ...JSON.parse(await fs.readFile(statePath, "utf8")) };
 catch (error) { if (error.code !== "ENOENT") throw error; }
 if (state.channelId !== channel.id) throw new Error("State upload berasal dari channel berbeda. Upload dibatalkan.");
 if (state.videoId) {
-  console.log("Episode ini sudah pernah di-upload: " + state.url);
+  if (!state.thumbnailUploaded) {
+    await youtube.thumbnails.set({ videoId: state.videoId, media: { mimeType: "image/jpeg", body: createReadStream(thumbnailPath) } });
+    state.thumbnailUploaded = true;
+    state.thumbnailUpdatedAt = new Date().toISOString();
+    await fs.writeFile(statePath, JSON.stringify(state, null, 2) + "\\n");
+    console.log("Thumbnail berhasil diperbarui untuk video: " + state.url);
+  } else {
+    console.log("Episode ini sudah pernah di-upload: " + state.url);
+  }
   process.exit(0);
 }
 
