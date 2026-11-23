@@ -18,7 +18,8 @@ const HORROR_2D_STYLE = [
 ].join(", ");
 
 function buildHorrorPrompt(prompt) {
-  const use2D = (process.env.HORROR_VISUAL_STYLE || "3d").toLowerCase() === "2d";
+  const selectedStyle = (process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
+  const use2D = selectedStyle === "2d" || selectedStyle === "2d-animation";
   const style = use2D ? HORROR_2D_STYLE : HORROR_3D_STYLE;
   const suffix = use2D
     ? "Indonesian horror story illustration. Avoid photorealistic 3D rendering, game render, gore and explicit violence."
@@ -53,7 +54,7 @@ export async function cloudflareImage(prompt, destination) {
     })
   });
   await saveCloudflareImage(response, destination);
-  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, visualStyle: "cinematic-3d-horror", sourceUrl: null, fileName: path.basename(destination) };
+  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, visualStyle: use2D ? "2d-animation" : "cinematic-3d", sourceUrl: null, fileName: path.basename(destination) };
 }
 
 export async function pixabayImage(query, destination) {
@@ -108,6 +109,9 @@ export async function getSceneImage(scene, index) {
       errors.push(error.message);
       console.warn("[visual] " + error.message);
     }
+  }
+  if ((process.env.HORROR_STRICT_VISUAL_STYLE || "").toLowerCase() === "true") {
+    throw new Error("FLUX gagal membuat visual sesuai style " + (process.env.HORROR_VISUAL_STYLE || "cinematic-3d") + " pada scene " + (index + 1) + ". Fallback foto stok dinonaktifkan agar style serial tetap konsisten. " + errors.join(" | "));
   }
   throw new Error("Semua provider visual gagal pada scene " + (index + 1) + ": " + errors.join(" | "));
 }
