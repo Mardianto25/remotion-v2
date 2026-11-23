@@ -12,8 +12,8 @@ export const Root = () => (
       component={HorrorVideo}
       durationInFrames={Math.max(1, generatedStory.durationInFrames || 1800)}
       fps={generatedStory.fps || 30}
-      width={1920}
-      height={1080}
+      width={1080}
+      height={1920}
     />
     {generatedShorts.map((short, index) => (
       <Composition
