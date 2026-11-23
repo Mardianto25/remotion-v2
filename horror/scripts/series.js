@@ -21,7 +21,8 @@ const readJson = async file => JSON.parse(await fs.readFile(file, "utf8"));
 
 if (command === "plan") {
   const genre = arg("--genre", "mystery");
-  const concept = args.filter((value, index) => !["--season", "--concept", "--genre"].includes(value) && args[index - 1] !== "--season" && args[index - 1] !== "--concept" && args[index - 1] !== "--genre").join(" ").trim() || arg("--concept");
+  const concept = arg("--concept");
+  const seriesTitle = arg("--title");
   if (!concept) throw new Error('Konsep season wajib diisi. Contoh: npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"');
   const biblePath = path.join(seasonDir, "series-bible.json");
   try {
@@ -33,7 +34,7 @@ if (command === "plan") {
     if (error.code !== "ENOENT") throw error;
   }
   console.log("[season] Membuat series bible, 8 naskah final, dan seluruh scene...");
-  const bible = await planSeason(concept, { seasonId, genre });
+  const bible = await planSeason(concept, { seasonId, genre, seriesTitle });
   await writeJson(biblePath, bible);
   await writeJson(path.join(seasonDir, "characters.json"), bible.characters);
   await writeJson(path.join(seasonDir, "world-rules.json"), bible.worldRules);
