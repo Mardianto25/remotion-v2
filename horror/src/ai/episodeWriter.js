@@ -32,8 +32,10 @@ function normalizeEpisode(value, episodeNumber, planEpisode) {
   const wordCount = narration.split(/\s+/).filter(Boolean).length;
   // Panjang naskah tidak lagi menjadi hard validation; durasi ditentukan oleh kebutuhan cerita.
   return {
+    genre: String(value.genre || "storytelling"),
     episodeNumber, title: String(value.title || planEpisode.title || "Episode " + episodeNumber),
     description: String(value.description || planEpisode.logline || ""),
+    genre: String(value.genre || "storytelling"),
     category: String(value.category || value.genre || "Storytelling"),
     disclaimer: String(value.disclaimer || "Cerita fiksi untuk hiburan. Kemiripan dengan kejadian atau tokoh nyata tidak disengaja."),
     hook: String(value.hook || planEpisode.openingHook || ""),
