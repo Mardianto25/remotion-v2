@@ -29,6 +29,7 @@
     <div class="tab">
       <button id="tabFileBtn" class="active" onclick="switchTab('file')">Unggah File Audio</button>
       <button id="tabIgBtn" onclick="switchTab('ig')">Link Instagram</button>
+      <button id="tabStoryBtn" onclick="switchTab('story')">Cerita Episode</button>
     </div>
 
     <!-- Form 1: Upload File Audio -->
@@ -58,6 +59,29 @@
       <button type="submit" class="submit-btn" id="submitIgBtn">Ambil Audio & Buat Video</button>
     </form>
 
+    <!-- Form 3: Serial cerita berepisode melalui GitHub Actions -->
+    <section id="storySection" class="form-section">
+      <p style="font-size:14px; color:#cbd5e1; line-height:1.6;">
+        Buat serial cerita original yang karakternya konsisten dari episode ke episode.
+        Gemini menyusun season bible dan outline 8 episode, menulis setiap episode,
+        lalu memeriksa kualitas cerita serta kontinuitas sebelum produksi video.
+      </p>
+      <ul style="font-size:13px; color:#94a3b8; line-height:1.8; padding-left:20px;">
+        <li>Buat season terlebih dahulu dengan konsep cerita.</li>
+        <li>Generate episode secara berurutan, mulai dari episode 1.</li>
+        <li>Episode berikutnya terbuka setelah episode sebelumnya berhasil dirender.</li>
+        <li>Pilih visual 3D Cinematic atau 2D Animation di workflow.</li>
+      </ul>
+      <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-horror-episode.yml"
+         target="_blank" rel="noopener noreferrer"
+         style="display:block; text-align:center; text-decoration:none; padding:12px; background:#0284c7; color:white; border-radius:8px; font-weight:bold;">
+        Buka Episode Generator di GitHub Actions
+      </a>
+      <p style="font-size:12px; color:#64748b; margin-top:12px;">
+        Produksi serial dijalankan di GitHub Actions agar proses generate gambar dan render tidak membebani perangkat Android.
+      </p>
+    </section>
+
     <div id="output" style="margin-top: 20px; display: none;">
       <h4>Status Pemrosesan:</h4>
       <pre id="resultLog"></pre>
@@ -68,8 +92,10 @@
     function switchTab(type) {
       document.getElementById('uploadForm').classList.toggle('active', type === 'file');
       document.getElementById('igForm').classList.toggle('active', type === 'ig');
+      document.getElementById('storySection').classList.toggle('active', type === 'story');
       document.getElementById('tabFileBtn').classList.toggle('active', type === 'file');
       document.getElementById('tabIgBtn').classList.toggle('active', type === 'ig');
+      document.getElementById('tabStoryBtn').classList.toggle('active', type === 'story');
     }
 
     const output = document.getElementById('output');
