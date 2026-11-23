@@ -28,7 +28,7 @@ function fallbackSeo(story, topic) {
   return {
     title, titleAlternatives: [], selectionReason: "Metadata dibuat menggunakan template lokal karena Gemini API sedang mencapai kuota.",
     description, hashtags, tags, thumbnailText: title.split(/\\s+/).slice(0, 4).join(" ").slice(0, 28),
-    thumbnailPrompt: "High-end realistic 3D CGI Indonesian horror film still, cinematic landscape 16:9. " + (scenePrompt || title) + ". One clear focal subject, visible suspenseful threat, mysterious atmosphere, dramatic cinematic lighting, empty space on the left for thumbnail text, no text, no logo, no watermark, no gore."
+    thumbnailPrompt: "Cinematic Indonesian horror cover image, portrait vertical 9:16, visual style consistent with the selected episode style. " + (scenePrompt || title) + ". One clear focal subject, visible suspenseful threat, mysterious atmosphere, dramatic cinematic lighting, empty space on the left for thumbnail text, no text, no logo, no watermark, no gore."
   };
 }
 
