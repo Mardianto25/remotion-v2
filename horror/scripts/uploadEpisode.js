@@ -63,7 +63,7 @@ const { data } = await youtube.videos.insert({
   part: ["snippet", "status"],
   requestBody: {
     snippet: {
-      title: String(metadata.title || "Cerita Horor Indonesia #Shorts").slice(0, 100),
+      title: String(metadata.title || "Cerita Indonesia #Shorts").slice(0, 100),
       description,
       tags: [...new Set([...(metadata.tags || []), "shorts", "cerita indonesia"])].slice(0, 18),
       categoryId: "24",
