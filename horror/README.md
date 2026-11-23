@@ -65,15 +65,15 @@ Metadata dan thumbnail dihasilkan AI, sehingga tetap perlu ditinjau. Hindari kla
 
 ## Serial POV Survival & Mystery (8 episode per season)
 
-Workflow serial tersedia di **Actions > Ruang Cerita Indonesia — Episode Generator** atau melalui tab **Cerita Episode** pada Auto-Shorts Studio. Workflow dispatch berada di branch default (`main`), sehingga bisa dijalankan langsung dari GitHub Actions.
+Workflow serial tersedia di **Actions > Ruang Cerita Indonesia — Episode Generator** atau melalui tab **Cerita Episode** pada Auto-Shorts Studio. Setiap episode diproduksi sebagai YouTube Short vertikal 1080x1920 (9:16), dengan durasi audio dan video maksimal 60 detik. Workflow dispatch berada di branch default (`main`), sehingga bisa dijalankan langsung dari GitHub Actions.
 
 1. Pilih `create-season`, isi `season_id` (contoh `season-01`) dan konsep. Gemini membuat series bible, world rules, character bible, dan outline 8 episode.
 2. Pilih `generate-episode`, gunakan season ID yang sama dan pilih satu episode. Episode 2-8 hanya bisa dibuat jika episode sebelumnya sudah berhasil dirender.
 3. Gemini Episode Writer menulis naskah POV orang kedua, lalu Retention Agent dan Continuity Agent menilai naskah. Maksimal tiga draft; skor minimal 85/100 untuk kedua pemeriksaan.
-4. Jika lolos, pipeline existing membuat Edge-TTS, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Pilih visual style **cinematic-3d** (default) atau **2d-animation** saat menjalankan workflow. Style dijaga konsisten; jika FLUX gagal, workflow tidak mengganti scene dengan foto stok. Workflow cerita lama tetap memakai perilaku default-nya.
+4. Jika lolos, pipeline existing membuat narasi Edge-TTS sekitar 100-125 kata, 5-8 scene, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Target durasi 45-55 detik; proses dihentikan jika audio lebih dari 60 detik. Hasil dirender vertikal 1080x1920 (9:16), lalu workflow memvalidasi durasi dan resolusinya. Pilih visual style **cinematic-3d** (default) atau **2d-animation** saat menjalankan workflow. Style dijaga konsisten; jika FLUX gagal, workflow tidak mengganti scene dengan foto stok.
 5. Hasil episode, review, aset, video, dan continuity ledger disimpan di `data/seasons/<season-id>/episodes/episode-XX/`. Workflow menyimpan data season ke branch `main` agar run berikutnya dapat melanjutkan cerita.
 
-Perintah lokal dari folder `horror/`:
+Perintah lokal dari folder `horror/` (episode Shorts maksimal 60 detik):
 - `npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"`
 - `npm run generate:episode -- --season season-01 --episode 1`
 - `npm run generate:episode-assets`
