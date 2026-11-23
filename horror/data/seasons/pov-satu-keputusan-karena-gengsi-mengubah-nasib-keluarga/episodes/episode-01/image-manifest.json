@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "fileName": "scene-001.jpg",
+    "visualPrompt": "Vertical 9:16 frame. A middle-aged Indonesian man named Arya in a crisp navy blue shirt standing proudly in front of a modern boutique with grand ribbon decorations, indoor lighting, upper-class ambiance."
+  },
+  {
+    "id": 2,
+    "fileName": "scene-002.jpg",
+    "visualPrompt": "Vertical 9:16 frame. Close up of Arya smiling proudly while holding golden scissors cutting a red ribbon, with guests applauding in the background."
+  },
+  {
+    "id": 3,
+    "fileName": "scene-003.jpg",
+    "visualPrompt": "Vertical 9:16 frame. Empty modern clothing store, dim lighting, Arya standing alone among racks of unsold clothes looking stressed with overdue bills in hand."
+  },
+  {
+    "id": 4,
+    "fileName": "scene-004.jpg",
+    "visualPrompt": "Vertical 9:16 frame. A young Indonesian woman Maya holding a university rejection form looking crying at a bank foreclosure sticker being put on her house front gate."
+  },
+  {
+    "id": 5,
+    "fileName": "scene-005.jpg",
+    "visualPrompt": "Vertical 9:16 frame. Living room packed with cardboard boxes, cardboard furniture being hauled away by movers in the background."
+  },
+  {
+    "id": 6,
+    "fileName": "scene-006.jpg",
+    "visualPrompt": "Vertical 9:16 frame. Arya seated on the bare wooden floor of an empty room, head in hands, looking defeated in low daylight shadows."
+  }
+]
