@@ -13,6 +13,8 @@ on:
         default: "1"
         type: choice
         options: ["1","2","3","4","5","6","7","8"]
+permissions:
+  contents: write
 jobs:
   audio:
     runs-on: ubuntu-latest
