@@ -11,6 +11,11 @@ on:
         description: Konsep serial
         required: true
         type: string
+      force_regenerate:
+        description: Ganti season plan lama yang belum memiliki episode produksi
+        required: true
+        default: false
+        type: boolean
       genre:
         description: Genre serial
         required: true
@@ -35,7 +40,10 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
-        run: node scripts/series.js plan --season "${{ inputs.season_id }}" --genre "${{ inputs.genre }}" --concept "${{ inputs.concept }}"
+        run: |
+          FORCE=""
+          if [ "${{ inputs.force_regenerate }}" = "true" ]; then FORCE="--force"; fi
+          node scripts/series.js plan --season "${{ inputs.season_id }}" --genre "${{ inputs.genre }}" --concept "${{ inputs.concept }}" $FORCE
       - name: Persist season plan
         env:
           SEASON_ID: ${{ inputs.season_id }}
