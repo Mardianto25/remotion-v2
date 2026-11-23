@@ -12,10 +12,12 @@ function parseJson(raw) {
 export async function planSeason(concept, options = {}) {
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
   const seasonId = options.seasonId || "season-01";
+  const genre = String(options.genre || "mystery").trim();
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
-    "Anda adalah showrunner serial POV Survival & Mystery Stories untuk channel Ruang Cerita Indonesia.",
-    "Buat rancangan SATU season tepat 8 episode. Genre campuran: horror supernatural, zombie/apocalypse, survival, bencana, psychological thriller, misteri dan eksperimen rahasia. Satu season hanya boleh memiliki satu konflik utama dan satu aturan dunia yang konsisten; jangan mencampur genre secara acak.",
+    "Anda adalah showrunner serial profesional untuk channel Ruang Cerita Indonesia.",
+    "GENRE UTAMA season ini: " + genre + ". Seluruh premis, konflik, karakter, visual, tone, dan payoff wajib mengikuti genre ini. Jangan otomatis memasukkan hantu, pembunuhan, jumpscare, atau unsur horor kecuali genre yang dipilih memang horor.",
+    "Buat rancangan SATU season tepat 8 episode dalam satu genre yang konsisten. Genre bisa berupa horor, misteri, Islami/inspiratif, drama keluarga, sejarah, legenda, petualangan, fantasi, edukasi, atau genre lain dari pengguna. Jangan mencampur genre secara acak.",
     "Konsep season dari pengguna: " + concept,
     "FORMAT: penonton adalah tokoh utama (POV orang kedua: kamu). Gunakan bahasa Indonesia luwes, visual, mudah dinarasikan, tidak seperti esai. Premis harus langsung mudah dipahami dan memiliki ancaman konkret.",
     "Buat cerita fiksi orisinal. Jangan menyalin karya, tokoh, atau plot terkenal. Hindari gore eksplisit dan eksploitasi anak. Jika latar sekolah atau anak digunakan, ancaman boleh menegangkan tetapi tanpa detail kekerasan grafis.",
@@ -34,5 +36,5 @@ export async function planSeason(concept, options = {}) {
   plan.episodes = plan.episodes.map((episode, index) => ({ ...episode, episodeNumber: index + 1 }));
   if (!Array.isArray(plan.characters) || !plan.characters.length) throw new Error("Season Planner tidak menghasilkan character bible.");
   if (!Array.isArray(plan.worldRules) || !plan.worldRules.length) throw new Error("Season Planner tidak menghasilkan world rules.");
-  return { ...plan, seasonId, createdAt: new Date().toISOString(), status: "planned" };
+  return { ...plan, genre, seasonId, createdAt: new Date().toISOString(), status: "planned" };
 }
