@@ -11,7 +11,7 @@ export const OUT_DIR = path.join(ROOT, "out");
 export const CHANNEL_NAME = process.env.YOUTUBE_CHANNEL_NAME || "Ruang Cerita Indonesia";
 export const config = {
   geminiApiKey: process.env.GEMINI_API_KEY,
-  geminiModel: process.env.GEMINI_MODEL || "gemini-2.5-flash",
+  geminiModel: process.env.GEMINI_MODEL || "gemini-3.8-flash",
   geminiFallbackModels: (process.env.GEMINI_FALLBACK_MODELS || "gemini-3.5-flash,gemini-2.5-flash").split(",").map(model => model.trim()).filter(Boolean),
   cloudflareAccountId: process.env.CF_ACCOUNT_ID,
   cloudflareApiToken: process.env.CF_API_TOKEN,
