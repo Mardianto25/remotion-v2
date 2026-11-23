@@ -62,21 +62,23 @@
     <!-- Form 3: Serial cerita berepisode melalui GitHub Actions -->
     <section id="storySection" class="form-section">
       <p style="font-size:14px; color:#cbd5e1; line-height:1.6;">
-        Buat serial cerita original yang karakternya konsisten dari episode ke episode.
-        Gemini menyusun season bible dan outline 8 episode, menulis setiap episode,
-        lalu memeriksa kualitas cerita serta kontinuitas sebelum produksi video.
+        Buat serial cerita original. Saat membuat season, Gemini menyiapkan seluruh naskah dan scene untuk 8 episode sekaligus. Produksi tiap episode dijalankan melalui workflow terpisah agar hasil yang sudah selesai tidak perlu dibuat ulang.
       </p>
       <ul style="font-size:13px; color:#94a3b8; line-height:1.8; padding-left:20px;">
-        <li>Buat season terlebih dahulu dengan konsep cerita.</li>
-        <li>Generate episode secara berurutan, mulai dari episode 1.</li>
-        <li>Episode berikutnya terbuka setelah episode sebelumnya berhasil dirender.</li>
-        <li>Pilih visual 3D Cinematic atau 2D Animation di workflow.</li>
+        <li>Generate Season Plan: tema, 8 naskah final, dan seluruh scene disiapkan sekaligus.</li>
+        <li>Generate Episode Script: hanya mengambil naskah dari season plan, tanpa AI tambahan.</li>
+        <li>Generate Images: melewati gambar yang sudah tersimpan dan melanjutkan scene yang belum selesai.</li>
+        <li>Generate Audio, Render Video, Generate Thumbnail, dan Upload YouTube dijalankan terpisah.</li>
       </ul>
-      <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-horror-episode.yml"
-         target="_blank" rel="noopener noreferrer"
-         style="display:block; text-align:center; text-decoration:none; padding:12px; background:#0284c7; color:white; border-radius:8px; font-weight:bold;">
-        Buka Episode Generator di GitHub Actions
-      </a>
+      <div style="display:grid; gap:8px;">
+        <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-season-plan.yml" target="_blank" rel="noopener noreferrer">1. Generate Season Plan</a>
+        <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-script.yml" target="_blank" rel="noopener noreferrer">2. Generate Episode Script</a>
+        <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-images.yml" target="_blank" rel="noopener noreferrer">3. Generate Images (Resume)</a>
+        <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-audio.yml" target="_blank" rel="noopener noreferrer">4. Generate Audio</a>
+        <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/render-episode-video.yml" target="_blank" rel="noopener noreferrer">5. Render Video</a>
+        <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-thumbnail.yml" target="_blank" rel="noopener noreferrer">6. Generate Thumbnail</a>
+        <a href="https://github.com/Mardianto25/remotion-v2/actions/workflows/upload-episode-youtube.yml" target="_blank" rel="noopener noreferrer">7. Upload YouTube (PRIVATE)</a>
+      </div>
       <p style="font-size:12px; color:#64748b; margin-top:12px;">
         Produksi serial dijalankan di GitHub Actions agar proses generate gambar dan render tidak membebani perangkat Android.
       </p>
