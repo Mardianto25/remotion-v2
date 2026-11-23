@@ -9,7 +9,8 @@ on:
         type: choice
         options:
           # SERIES_ID_OPTIONS_START
-          - no-plan-yet
+          - "no-plan-yet"
+          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga"
           # SERIES_ID_OPTIONS_END
       episode_title:
         description: Pilih saran judul episode dari semua plan yang tersedia
@@ -18,7 +19,11 @@ on:
         type: choice
         options:
           # EPISODE_TITLE_OPTIONS_START
-          - no-episode-yet
+          - "no-episode-yet"
+          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga | 01 - Demi Pamer Di Hadapan Kerabat"
+          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga | 02 - Jatuh ke Titik Terendah"
+          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga | 03 - Merintis dari Gerobak Kecil"
+          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga | 04 - Kemenangan Sejati Tanpa Gengsi"
           # EPISODE_TITLE_OPTIONS_END
       episode_number:
         description: Nomor episode

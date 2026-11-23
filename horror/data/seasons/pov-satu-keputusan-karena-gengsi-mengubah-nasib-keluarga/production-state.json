@@ -1,0 +1,29 @@
+{
+  "seasonId": "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga",
+  "genre": "inspirational",
+  "episodeCount": 4,
+  "status": "planned",
+  "episodes": [
+    {
+      "episodeNumber": 1,
+      "title": "Demi Pamer Di Hadapan Kerabat",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 2,
+      "title": "Jatuh ke Titik Terendah",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 3,
+      "title": "Merintis dari Gerobak Kecil",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 4,
+      "title": "Kemenangan Sejati Tanpa Gengsi",
+      "status": "not_started"
+    }
+  ],
+  "updatedAt": "2026-11-23T15:28:27.794Z"
+}
