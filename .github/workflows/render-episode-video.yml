@@ -53,7 +53,7 @@ jobs:
           const bible = JSON.parse(fs.readFileSync('data/seasons/' + id + '/series-bible.json', 'utf8'));
           const episode = bible.episodes.find(item => Number(item.episodeNumber) === number);
           if (!episode) throw new Error('Episode tidak ditemukan di plan ' + id);
-          const expected = id + ' | ' + String(number).padStart(2, '0') + ' - ' + String(episode.title || 'Episode ' + number).replace(/\\s+/g, ' ').trim();
+          const expected = id + ' | ' + String(number).padStart(2, '0') + ' - ' + String(episode.title || 'Episode ' + number).replace(/\s+/g, ' ').trim();
           if (process.env.EPISODE_TITLE !== expected) throw new Error('Judul episode tidak cocok. Pilih judul yang sesuai dengan Series ID dan nomor episode. Seharusnya: ' + expected);
           console.log('[episode] ' + expected);
           NODE
