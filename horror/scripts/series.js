@@ -61,10 +61,19 @@ if (command === "episode") {
   await fs.mkdir(episodeDir, { recursive: true });
   const storyPath = path.join(episodeDir, "story.json");
   try {
-    await fs.access(storyPath);
-    if (!flag("--force")) throw new Error("Episode " + episodeNumber + " sudah memiliki naskah. Gunakan --force untuk mengganti naskah dari season plan.");
+    const existingStory = await readJson(storyPath);
+    if (!flag("--force")) {
+      await fs.mkdir(DATA_DIR, { recursive: true });
+      await writeJson(path.join(DATA_DIR, "story.json"), existingStory);
+      await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath });
+      state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? { ...item, title: existingStory.title, status: "script_ready", sceneCount: existingStory.scenes.length } : item);
+      state.updatedAt = new Date().toISOString();
+      await writeJson(statePath, state);
+      console.log("[script] Naskah sudah tersedia; menggunakan file yang sama tanpa generate ulang.");
+      process.exit(0);
+    }
   } catch (error) {
-    if (error.message.includes("sudah memiliki naskah")) throw error;
+    if (error.code !== "ENOENT") throw error;
   }
   const scenes = episodePlan.scenes.map((scene, index) => ({
     id: scene.id ?? index + 1,
