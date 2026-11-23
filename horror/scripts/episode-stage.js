@@ -20,6 +20,14 @@ const readJson = async file => JSON.parse(await fs.readFile(file, "utf8"));
 const writeJson = async (file, value) => { await fs.mkdir(path.dirname(file), { recursive: true }); await fs.writeFile(file, JSON.stringify(value, null, 2) + "\n"); };
 const storyPath = path.join(episodeDir, "story.json");
 const story = await readJson(storyPath);
+const seasonDir = path.dirname(path.dirname(episodeDir));
+const statePath = path.join(seasonDir, "production-state.json");
+async function setEpisodeState(status, extra = {}) {
+  const state = await readJson(statePath);
+  state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? { ...item, status, ...extra } : item);
+  state.updatedAt = new Date().toISOString();
+  await writeJson(statePath, state);
+}
 const assetsDir = path.join(episodeDir, "assets");
 const audioDir = path.join(episodeDir, "audio");
 await Promise.all([assetsDir, audioDir, OUT_DIR].map(dir => fs.mkdir(dir, { recursive: true })));
@@ -51,6 +59,7 @@ async function durationOf(file) {
 }
 
 if (stage === "images") {
+  await setEpisodeState("images_in_progress");
   for (let i = 0; i < story.scenes.length; i++) {
     const filename = "scene-" + String(i + 1).padStart(3, "0") + ".jpg";
     const destination = path.join(assetsDir, filename);
@@ -63,17 +72,20 @@ if (stage === "images") {
     const produced = path.join(assetsDir, filename);
     const stat = await fs.stat(produced);
     if (stat.size <= 1024) throw new Error("Image scene " + (i+1) + " kosong/tidak valid.");
+    await writeJson(path.join(episodeDir, "image-progress.json"), { completed: i + 1, total: story.scenes.length, lastCompletedScene: i + 1, updatedAt: new Date().toISOString() });
   }
   const manifest = story.scenes.map((scene, i) => ({ id: scene.id, fileName: "scene-" + String(i+1).padStart(3,"0") + ".jpg", visualPrompt: scene.visualPrompt }));
   await writeJson(path.join(episodeDir, "image-manifest.json"), manifest);
+  await setEpisodeState("images_ready", { imageCount: story.scenes.length });
   console.log("[image] Semua " + story.scenes.length + " scene tersedia. File yang valid tidak dibuat ulang.");
 } else if (stage === "audio") {
+  await setEpisodeState("audio_in_progress");
   const audioPath = path.join(audioDir, "narration.mp3");
   const subtitlePath = path.join(audioDir, "narration.vtt");
   try {
-    const stat = await fs.stat(audioPath);
-    if (stat.size > 1024) console.log("[audio] Audio sudah ada; tidak dibuat ulang.");
-    else throw new Error("empty");
+    const [audioStat, subtitleStat] = await Promise.all([fs.stat(audioPath), fs.stat(subtitlePath)]);
+    if (audioStat.size > 1024 && subtitleStat.size > 0) console.log("[audio] Audio dan subtitle sudah ada; tidak dibuat ulang.");
+    else throw new Error("missing/empty");
   } catch {
     await generateNarration(story.narration, audioPath, subtitlePath);
   }
@@ -82,8 +94,10 @@ if (stage === "images") {
   const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
   if (!captions.length) throw new Error("Subtitle VTT kosong/tidak valid.");
   await writeJson(path.join(episodeDir, "audio-manifest.json"), { durationSeconds: Number(duration.toFixed(3)), captions, audio: "audio/narration.mp3", subtitles: "audio/narration.vtt" });
+  await setEpisodeState("audio_ready", { durationSeconds: Number(duration.toFixed(1)) });
   console.log("[audio] Selesai: " + duration.toFixed(1) + " detik.");
 } else if (stage === "render") {
+  await setEpisodeState("render_in_progress");
   const audioManifest = await readJson(path.join(episodeDir, "audio-manifest.json"));
   const imageManifest = await readJson(path.join(episodeDir, "image-manifest.json"));
   const fps = 30;
@@ -110,8 +124,10 @@ if (stage === "images") {
   const videoDuration=await durationOf(video);
   if(videoDuration>60.05) throw new Error("Hasil render melebihi 60 detik.");
   await fs.copyFile(video,path.join(episodeDir,"indonesian-horror.mp4"));
+  await setEpisodeState("rendered", { durationSeconds: Number(videoDuration.toFixed(1)), videoPath: "episodes/episode-" + String(episodeNumber).padStart(2,"0") + "/indonesian-horror.mp4" });
   console.log("[render] Video berhasil dibuat: "+video);
 } else if (stage === "thumbnail") {
+  await setEpisodeState("thumbnail_in_progress");
   process.env.STORY_GENRE = story.genre || "mystery";
   const seoPath = path.join(episodeDir,"youtube-metadata.json");
   let seo;
@@ -120,6 +136,7 @@ if (stage === "images") {
   await generateThumbnail(story,seo,story.title);
   await fs.copyFile(path.join(OUT_DIR,"youtube-thumbnail.jpg"),path.join(episodeDir,"youtube-thumbnail.jpg"));
   await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"shorts-cover.jpg"));
+  await setEpisodeState("thumbnail_ready");
   console.log("[thumbnail] Landscape dan vertical cover berhasil dibuat.");
 } else {
   throw new Error("Stage tidak dikenal. Gunakan images|audio|render|thumbnail.");
