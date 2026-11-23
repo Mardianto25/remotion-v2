@@ -170,7 +170,7 @@ export const ShortsVideo = ({ subtitles = [] }) => {
           <div
             style={{
               color: '#fff',
-              fontSize: 28,
+              fontSize: 24,
               fontWeight: 400,
               fontFamily: 'system-ui, sans-serif',
               lineHeight: 1.4,
