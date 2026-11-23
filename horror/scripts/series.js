@@ -2,9 +2,6 @@ import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { planSeason } from "../src/ai/seriesPlanner.js";
-import { writeEpisode } from "../src/ai/episodeWriter.js";
-import { reviewRetention } from "../src/ai/retentionAgent.js";
-import { reviewContinuity } from "../src/ai/continuityAgent.js";
 import { createInitialLedger, applyEpisodeToLedger } from "../src/ai/continuityLedger.js";
 import { DATA_DIR } from "../src/config.js";
 
@@ -53,109 +50,61 @@ if (command === "episode") {
   const episodeNumber = Number(arg("--episode", "1"));
   if (!Number.isInteger(episodeNumber) || episodeNumber < 1 || episodeNumber > 8) throw new Error("--episode harus angka 1 sampai 8.");
   const bible = await readJson(path.join(seasonDir, "series-bible.json"));
-  const ledgerPath = path.join(seasonDir, "continuity-ledger.json");
-  const ledger = await readJson(ledgerPath);
   const statePath = path.join(seasonDir, "production-state.json");
   const state = await readJson(statePath);
   const episodePlan = bible.episodes.find(item => Number(item.episodeNumber) === episodeNumber);
   if (!episodePlan) throw new Error("Episode tidak ditemukan di series bible.");
+  if (!episodePlan.narration || !Array.isArray(episodePlan.scenes) || episodePlan.scenes.length < 5 || episodePlan.scenes.length > 8) {
+    throw new Error("Season plan lama/tidak lengkap: episode ini belum memiliki naskah final dan 5-8 scene. Buat ulang season plan agar semua naskah dan scene disiapkan sejak awal.");
+  }
   const episodeDir = path.join(episodesDir, "episode-" + String(episodeNumber).padStart(2, "0"));
   await fs.mkdir(episodeDir, { recursive: true });
   const storyPath = path.join(episodeDir, "story.json");
   try {
     await fs.access(storyPath);
-    if (!flag("--force")) throw new Error("Episode " + episodeNumber + " sudah memiliki naskah. Gunakan --force untuk membuat ulang naskah episode ini.");
+    if (!flag("--force")) throw new Error("Episode " + episodeNumber + " sudah memiliki naskah. Gunakan --force untuk mengganti naskah dari season plan.");
   } catch (error) {
     if (error.message.includes("sudah memiliki naskah")) throw error;
   }
-  if (episodeNumber > 1) {
-    const previousPath = path.join(episodesDir, "episode-" + String(episodeNumber - 1).padStart(2, "0"), "story.json");
-    try { await fs.access(previousPath); } catch {
-      throw new Error("Episode " + (episodeNumber - 1) + " belum tersedia. Generate episode secara berurutan agar kontinuitas terjaga.");
-    }
-    const previousState = state.episodes.find(item => item.episodeNumber === episodeNumber - 1);
-    if (!previousState || previousState.status !== "rendered") {
-      throw new Error("Episode " + (episodeNumber - 1) + " belum selesai dirender. Episode berikutnya baru bisa dibuat setelah video sebelumnya berhasil diproduksi.");
-    }
+  const scenes = episodePlan.scenes.map((scene, index) => ({
+    id: scene.id ?? index + 1,
+    heading: String(scene.heading || "Adegan " + (index + 1)),
+    narration: String(scene.narration || "").trim(),
+    visualPrompt: String(scene.visualPrompt || "").trim(),
+    searchQuery: String(scene.searchQuery || "").trim(),
+    mood: String(scene.mood || "cinematic")
+  }));
+  if (scenes.some(scene => !scene.narration || !scene.visualPrompt)) throw new Error("Season plan memiliki scene tanpa narration atau visualPrompt.");
+  const narration = String(episodePlan.narration).trim();
+  if (scenes.map(scene => scene.narration).join(" ").replace(/\s+/g, " ").trim() !== narration.replace(/\s+/g, " ").trim()) {
+    throw new Error("Naskah utama tidak sama dengan gabungan narration setiap scene. Perbaiki season plan sebelum produksi.");
   }
-  if (Number(ledger.lastGeneratedEpisode || 0) !== episodeNumber - 1) {
-    throw new Error("Continuity ledger berada di episode " + ledger.lastGeneratedEpisode + ", sedangkan permintaan episode " + episodeNumber + ". Jangan menimpa urutan season; periksa status episode.");
-  }
-  const previousEpisodes = [];
-  for (let number = 1; number < episodeNumber; number++) {
-    const file = path.join(episodesDir, "episode-" + String(number).padStart(2, "0"), "story.json");
-    previousEpisodes.push(await readJson(file));
-  }
-  state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? { ...item, status: "writing" } : item);
-  state.updatedAt = new Date().toISOString();
-  await writeJson(statePath, state);
-
-  let acceptedStory = null;
-  let acceptedRetention = null;
-  let acceptedContinuity = null;
-  let revisionNotes = "";
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    console.log("[writer] Episode " + episodeNumber + " — draft " + attempt + "/3");
-    const draft = await writeEpisode({
-      seriesBible: bible,
-      characters: bible.characters,
-      worldRules: bible.worldRules,
-      episodePlan,
-      previousEpisodes,
-      continuityLedger: ledger,
-      episodeNumber,
-      revisionNotes
-    });
-    console.log("[retention] Memeriksa hook, curiosity, escalation, payoff dan cliffhanger...");
-    const retention = await reviewRetention(draft, episodePlan);
-    console.log("[retention] Skor " + retention.score + "/100");
-    console.log("[continuity] Memeriksa canon, karakter dan world rules...");
-    const continuity = await reviewContinuity(draft, {
-      seriesBible: bible, characters: bible.characters, worldRules: bible.worldRules,
-      previousEpisodes, continuityLedger: ledger
-    });
-    console.log("[continuity] Skor " + continuity.score + "/100; kontradiksi " + (continuity.contradictions || []).length);
-    if (retention.score >= 85 && continuity.score >= 85 && !(continuity.contradictions || []).length) {
-      acceptedStory = draft;
-      acceptedRetention = retention;
-      acceptedContinuity = continuity;
-      break;
-    }
-    revisionNotes = [
-      "Retention score: " + retention.score + "/100. " + (retention.revisionBrief || ""),
-      "Retention issues: " + JSON.stringify(retention.issues || []),
-      "Continuity score: " + continuity.score + "/100. " + (continuity.revisionBrief || ""),
-      "Continuity contradictions: " + JSON.stringify(continuity.contradictions || [])
-    ].join("\n");
-    await writeJson(path.join(episodeDir, "draft-review-" + attempt + ".json"), { retention, continuity });
-  }
-
-  if (!acceptedStory) {
-    state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? { ...item, status: "needs_manual_review" } : item);
-    state.updatedAt = new Date().toISOString();
-    await writeJson(statePath, state);
-    throw new Error("Episode belum lolos quality gate setelah 3 draft. Periksa draft-review-*.json; tidak ada video yang dirender.");
-  }
-
-  const ledgerNext = applyEpisodeToLedger(ledger, acceptedStory, {
-    retentionScore: acceptedRetention.score, continuityScore: acceptedContinuity.score
-  });
-  await writeJson(storyPath, acceptedStory);
-  await writeJson(path.join(episodeDir, "retention-review.json"), acceptedRetention);
-  await writeJson(path.join(episodeDir, "continuity-review.json"), acceptedContinuity);
-  await writeJson(path.join(episodeDir, "continuity-ledger-after.json"), ledgerNext);
-  state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? {
-    ...item, title: acceptedStory.title, status: "script_approved",
-    retentionScore: acceptedRetention.score, continuityScore: acceptedContinuity.score
-  } : item);
-  state.updatedAt = new Date().toISOString();
-  await writeJson(statePath, state);
+  const story = {
+    episodeNumber, title: String(episodePlan.title || "Episode " + episodeNumber),
+    description: String(episodePlan.description || episodePlan.logline || ""),
+    genre: String(bible.genre || state.genre || "storytelling"),
+    category: String(bible.genre || "Storytelling"),
+    disclaimer: String(episodePlan.disclaimer || "Cerita fiksi untuk hiburan. Kemiripan dengan kejadian atau tokoh nyata tidak disengaja."),
+    hook: String(episodePlan.hook || episodePlan.openingHook || ""),
+    mainConflict: String(episodePlan.mainConflict || ""),
+    revelation: String(episodePlan.revelation || episodePlan.turningPoint || ""),
+    cliffhanger: String(episodePlan.cliffhanger || ""),
+    storySummary: String(episodePlan.storySummary || episodePlan.logline || ""),
+    narration, wordCount: narration.split(/\s+/).filter(Boolean).length,
+    scenes, continuityUpdate: episodePlan.continuityUpdate || { canonEvents: [], characterStates: [], unresolvedThreads: [], resolvedThreads: [] }
+  };
+  await writeJson(storyPath, story);
   await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.copyFile(storyPath, path.join(DATA_DIR, "story.json"));
+  await writeJson(path.join(DATA_DIR, "story.json"), story);
   await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath });
-  console.log("[approved] " + acceptedStory.title + " — retention " + acceptedRetention.score + "/100.");
-  console.log("[approved] Naskah episode tersimpan: " + storyPath);
-  console.log("[next] Jalankan npm run generate -- --story-file data/story.json untuk membuat audio, FLUX, thumbnail dan manifest Remotion.");
+  state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber
+    ? { ...item, title: story.title, status: "script_ready", sceneCount: scenes.length }
+    : item);
+  state.updatedAt = new Date().toISOString();
+  await writeJson(statePath, state);
+  console.log("[script] Episode " + episodeNumber + " diambil langsung dari season plan.");
+  console.log("[script] Tidak ada pemanggilan Gemini pada tahap generate episode.");
+  console.log("[script] Tersimpan: " + storyPath);
   process.exit(0);
 }
 
