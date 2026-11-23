@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { google } from "googleapis";
 import { CHANNEL_NAME, config } from "../config.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 
 const TREND_QUERIES = [
   "cerita horor indonesia",
@@ -100,8 +101,7 @@ Pilih satu tema yang paling menjanjikan untuk dibuat menjadi cerita ORISINAL. Ja
 Kembalikan JSON valid saja: {"topic":"topik cerita orisinal yang spesifik","reason":"alasan singkat berdasarkan tren","alternativeTopics":["ide 2","ide 3","ide 4"]}.
 Daftar video tren (viewsPerHour adalah estimasi views dibagi umur video dalam jam):
 ${JSON.stringify(topVideos, null, 2)}`;
-  const response = await ai.models.generateContent({
-    model: config.geminiModel,
+  const response = await generateGeminiContent(ai, {
     contents: prompt,
     config: { responseMimeType: "application/json" }
   });
