@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { config } from "../config.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 function parseJson(raw) {
   const fence = String.fromCharCode(96).repeat(3);
   const text = String(raw || "").replace(new RegExp("^" + fence + "(?:json)?\\s*", "i"), "").replace(new RegExp("\\s*" + fence + "$"), "").trim();
@@ -36,7 +37,7 @@ export async function planSeason(concept, options = {}) {
     "{\"seriesTitle\":\"...\",\"genre\":\"" + genre + "\",\"logline\":\"...\",\"premise\":\"...\",\"audiencePromise\":\"...\",\"pointOfView\":\"sesuai genre\",\"tone\":\"...\",\"mainMystery\":\"konflik atau pertanyaan utama\",\"finalReveal\":\"payoff akhir\",\"seasonArc\":\"...\",\"worldRules\":[\"...\"],\"characters\":[{\"id\":\"char-01\",\"name\":\"...\",\"role\":\"...\",\"motivation\":\"...\",\"personality\":\"...\",\"secret\":\"...\",\"visualBible\":\"...\"}],\"episodes\":[{\"episodeNumber\":1,\"title\":\"...\",\"logline\":\"...\",\"openingHook\":\"...\",\"mainConflict\":\"...\",\"turningPoint\":\"...\",\"episodePayoff\":\"...\",\"cliffhanger\":\"...\",\"continuityQuestions\":[\"...\"],\"narration\":\"naskah lengkap 100-125 kata\",\"description\":\"...\",\"hook\":\"...\",\"revelation\":\"...\",\"storySummary\":\"...\",\"disclaimer\":\"...\",\"continuityUpdate\":{\"canonEvents\":[\"...\"],\"characterStates\":[{\"characterId\":\"char-01\",\"state\":\"...\"}],\"unresolvedThreads\":[\"...\"],\"resolvedThreads\":[\"...\"]},\"scenes\":[{\"id\":1,\"heading\":\"...\",\"narration\":\"potongan verbatim dari narration\",\"visualPrompt\":\"English portrait 9:16 prompt with consistent character and location details\",\"searchQuery\":\"...\",\"mood\":\"...\"}]}",
     "Pastikan episodeNumber berurutan 1 sampai " + episodeCount + ", jumlah episode tepat " + episodeCount + ", judul berbeda dan tidak generik. seasonId internal: " + seasonId
   ].join("\n");
-  const response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json", maxOutputTokens: 30000 } });
+  const response = await generateGeminiContent(ai, { contents: prompt, config: { responseMimeType: "application/json", maxOutputTokens: 30000 } });
   const plan = parseJson(response.text);
   if (!Array.isArray(plan.episodes) || plan.episodes.length !== episodeCount) throw new Error("Season Planner wajib menghasilkan tepat " + episodeCount + " episode.");
   plan.episodes = plan.episodes.map((episode, index) => ({ ...episode, episodeNumber: index + 1 }));
