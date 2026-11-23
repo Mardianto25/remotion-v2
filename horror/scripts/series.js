@@ -26,7 +26,9 @@ if (command === "plan") {
   const biblePath = path.join(seasonDir, "series-bible.json");
   try {
     await fs.access(biblePath);
-    if (!flag("--force")) throw new Error("Season plan sudah ada. Gunakan --force hanya jika memang ingin mengganti seluruh bible.");
+    if (!flag("--force")) throw new Error("Season plan sudah ada. Gunakan --force jika ingin mengganti plan lama yang belum memiliki naskah dan scene.");
+    const existingEpisodes = await fs.readdir(episodesDir);
+    if (existingEpisodes.length) throw new Error("Season ini sudah memiliki folder episode. Untuk menghindari tertimpanya aset lama, gunakan season_id baru untuk membuat plan baru.");
   } catch (error) {
     if (error.message.includes("Season plan sudah ada")) throw error;
   }
