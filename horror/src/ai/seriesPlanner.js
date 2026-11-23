@@ -13,11 +13,13 @@ export async function planSeason(concept, options = {}) {
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
   const seasonId = options.seasonId || "season-01";
   const genre = String(options.genre || "mystery").trim();
+  const requestedTitle = String(options.seriesTitle || "").trim();
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
     "Anda adalah showrunner serial profesional untuk channel Ruang Cerita Indonesia.",
     "GENRE UTAMA season ini: " + genre + ". Seluruh premis, konflik, karakter, visual, tone, dan payoff wajib mengikuti genre ini. Jangan otomatis memasukkan hantu, pembunuhan, jumpscare, atau unsur horor kecuali genre yang dipilih memang horor.",
     "Buat rancangan SATU season tepat 8 episode dalam satu genre yang konsisten. Genre bisa berupa horor, misteri, Islami/inspiratif, drama keluarga, sejarah, legenda, petualangan, fantasi, edukasi, atau genre lain dari pengguna. Jangan mencampur genre secara acak.",
+    "Judul serial yang diminta pengguna: " + (requestedTitle || "Buat judul yang paling sesuai dengan konsep") + ". Gunakan judul ini sebagai seriesTitle; jangan menggantinya dengan judul lain.",
     "Konsep season dari pengguna: " + concept,
     "FORMAT: pilih sudut pandang dan struktur yang paling cocok untuk genre. Gunakan bahasa Indonesia luwes, visual, mudah dinarasikan, tidak seperti esai. Premis harus langsung mudah dipahami dan memiliki konflik atau tujuan utama yang jelas.",
     "Buat cerita orisinal dan sesuai genre. Jangan menyalin karya, tokoh, atau plot terkenal. Jika membahas agama, sejarah, atau fakta, hindari klaim yang tidak terverifikasi. Hindari gore eksplisit dan eksploitasi anak.",
@@ -44,5 +46,5 @@ export async function planSeason(concept, options = {}) {
   }
   if (!Array.isArray(plan.characters) || !plan.characters.length) throw new Error("Season Planner tidak menghasilkan character bible.");
   if (!Array.isArray(plan.worldRules) || !plan.worldRules.length) throw new Error("Season Planner tidak menghasilkan world rules.");
-  return { ...plan, genre, seasonId, createdAt: new Date().toISOString(), status: "planned" };
+  return { ...plan, seriesTitle: requestedTitle || plan.seriesTitle, genre, seasonId, createdAt: new Date().toISOString(), status: "planned" };
 }
