@@ -23,6 +23,12 @@ const geminiModels = process.env.GEMINI_MODELS
   ? process.env.GEMINI_MODELS.split(',').map(m => m.trim())
   : ['gemini-2.5-flash', 'gemini-flash'];
 
+const STYLE_PRESETS = {
+  'cinematic-3d': 'Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render.',
+  photorealistic: 'Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field.',
+  anime: 'High-quality cinematic anime film illustration, refined hand-drawn-inspired details, expressive anime visual language, beautiful film lighting, consistent character design.',
+  documentary: 'Natural documentary photography, authentic locations and objects, observational framing, realistic available light, restrained cinematic color grading.'
+};
 const publicDir = path.join(process.cwd(), 'public');
 const imagesDir = path.join(publicDir, 'images');
 
@@ -104,7 +110,7 @@ async function downloadImage(imageUrl, filename, targetDir = imagesDir) {
 // PRIORITAS UTAMA
 // ============================================================
 
-async function generateFluxImage(prompt, filename, targetDir = imagesDir) {
+async function generateFluxImage(prompt, filename, targetDir = imagesDir, visualStyle = 'cinematic-3d') {
   const accountId = process.env.CF_ACCOUNT_ID;
   const apiToken = process.env.CF_API_TOKEN;
 
@@ -115,6 +121,8 @@ async function generateFluxImage(prompt, filename, targetDir = imagesDir) {
   const endpoint =
     `https://api.cloudflare.com/client/v4/accounts/${accountId}` +
     '/ai/run/@cf/black-forest-labs/flux-1-schnell';
+
+  const styleInstructions = STYLE_PRESETS[visualStyle] || STYLE_PRESETS['cinematic-3d'];
 
   const visualRules = `
     STRICT SCENE MATCHING:
@@ -130,7 +138,7 @@ Never depict Allah or prophets.
 
 CINEMATIC QUALITY:
 
-Photorealistic, cinematic lighting, realistic anatomy, detailed environments, dramatic composition, vertical 9:16.
+${styleInstructions} Detailed environments, dramatic composition, vertical 9:16.
 
 No text, captions, logos, or watermarks.
   `;
@@ -180,7 +188,7 @@ No text, captions, logos, or watermarks.
 // FLUX -> PIXABAY -> PEXELS FALLBACK
 // ============================================================
 
-async function fetchVerticalNatureImage(imagePrompt, keyword, index, targetDir = imagesDir, folderName = '') {
+async function fetchVerticalNatureImage(imagePrompt, keyword, index, targetDir = imagesDir, folderName = '', visualStyle = 'cinematic-3d') {
   const timestamp = Date.now();
   const randomId = Math.floor(Math.random() * 10000);
 
@@ -206,7 +214,8 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index, targetDir =
       const imagePath = await generateFluxImage(
         imagePrompt,
         fluxFilename,
-        targetDir
+        targetDir,
+        visualStyle
       );
 
       console.log(`[FLUX] Berhasil: ${imagePath}`);
@@ -284,7 +293,11 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index, targetDir =
 // GEMINI AUDIO ANALYSIS
 // ============================================================
 
-export async function executePipeline(autoPushGit = true) {
+export async function executePipeline(autoPushGit = true, visualStyle = 'cinematic-3d') {
+  visualStyle = Object.hasOwn(STYLE_PRESETS, visualStyle) ? visualStyle : 'cinematic-3d';
+  const styleInstructions = STYLE_PRESETS[visualStyle];
+  console.log(`[Visual Style] ${visualStyle}`);
+
   const audioPath = path.join(publicDir, 'audio.mp3');
 
   if (!fs.existsSync(audioPath)) {
@@ -315,6 +328,11 @@ export async function executePipeline(autoPushGit = true) {
     - text harus merupakan kata-kata yang benar-benar terdengar.
     - Pertahankan bahasa asli, jangan parafrase.
     - Pecah kalimat panjang menjadi scene yang nyaman dibaca, tanpa mengubah urutan kata.
+
+    VISUAL STYLE PRESET (WAJIB DIIKUTI):
+    ${styleInstructions}
+    Pertahankan style yang sama di seluruh scene agar tampilan video konsisten.
+    Jangan mengubah objek atau kejadian yang disebut narasi demi mengikuti style.
 
     VISUAL — PRIORITAS UTAMA:
     - Visual harus menggambarkan makna spesifik dari text pada scene tersebut, bukan tema umum video.
@@ -518,7 +536,8 @@ export async function executePipeline(autoPushGit = true) {
       keyword,
       i,
       videoFolderPath,
-      videoFolderName
+      videoFolderName,
+      visualStyle
     );
 
     subtitlesData.push({
@@ -645,6 +664,7 @@ export async function executePipeline(autoPushGit = true) {
     success: true,
     message: 'Pemrosesan audio dan gambar berhasil!',
     modelUsed: successfulModel,
+    visualStyle,
     gitStatus: gitStatusMessage,
     transcript: fullTranscript,
     subtitles: subtitlesData
@@ -655,7 +675,7 @@ export async function executePipeline(autoPushGit = true) {
 // INSTAGRAM PROCESSING
 // ============================================================
 
-async function processInstagram(igUrl, autoPushGit = true) {
+async function processInstagram(igUrl, autoPushGit = true, visualStyle = 'cinematic-3d') {
   try {
     console.log('[IG URL] URL diterima:', igUrl);
 
@@ -692,7 +712,7 @@ async function processInstagram(igUrl, autoPushGit = true) {
 
     console.log('[IG URL] Audio berhasil diunduh.');
 
-    return await executePipeline(autoPushGit);
+    return await executePipeline(autoPushGit, visualStyle);
 
   } catch (error) {
     console.error('[Process Instagram Error]:', error);
@@ -795,7 +815,7 @@ app.post('/api/process-url', async (req, res) => {
 
 app.post('/api/process-ig-url', async (req, res) => {
   try {
-    const { igUrl, autoPush } = req.body;
+    const { igUrl, autoPush, visualStyle } = req.body;
 
     if (!igUrl) {
       return res.status(400).json({
@@ -809,7 +829,8 @@ app.post('/api/process-ig-url', async (req, res) => {
 
     const result = await processInstagram(
       igUrl,
-      autoPushGit
+      autoPushGit,
+      visualStyle
     );
 
     return res.json(result);
