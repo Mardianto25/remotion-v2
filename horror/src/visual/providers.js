@@ -2,33 +2,31 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { config, ASSETS_DIR } from "../config.js";
 
-const HORROR_3D_STYLE = [
-  "high-end cinematic 3D CGI horror film still",
-  "photorealistic 3D rendering, physically based materials, realistic skin and fabric shaders",
-  "detailed 3D environment, volumetric moonlight, deep cinematic shadows, atmospheric fog",
-  "Unreal Engine quality render, dramatic film lighting, realistic depth and scale",
-  "portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark"
-].join(", ");
-const HORROR_2D_STYLE = [
-  "2D cinematic horror animation frame",
-  "semi-realistic dark graphic novel illustration, hand-painted background",
-  "expressive consistent 2D character design, detailed linework and textured painterly shading",
-  "cinematic composition, atmospheric fog, dramatic lighting, deep shadows, restrained color palette",
-  "landscape 16:9 composition, no text, no logo, no watermark"
-].join(", ");
-
-function buildHorrorPrompt(prompt) {
+const VISUAL_STYLES = {
+  "cinematic-3d": "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting, realistic depth and scale",
+  "2d-animation": "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading, dramatic composition"
+};
+function buildVisualPrompt(prompt) {
   const selectedStyle = (process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
-  const use2D = selectedStyle === "2d" || selectedStyle === "2d-animation";
-  const style = use2D ? HORROR_2D_STYLE : HORROR_3D_STYLE;
-  const suffix = use2D
-    ? "Indonesian horror story illustration. Avoid photorealistic 3D rendering, game render, gore and explicit violence."
-    : "Indonesian supernatural horror atmosphere. Avoid cartoon, anime, illustration, gore and explicit violence.";
-  return String(prompt || "An abandoned Indonesian village at night, thick fog and a distant mysterious silhouette")
-    .replace(/\b(photorealistic|cinematic)\b/gi, "")
-    .trim() + ". " + style + ". " + suffix;
+  const styleKey = selectedStyle === "2d" ? "2d-animation" : selectedStyle;
+  const style = VISUAL_STYLES[styleKey] || VISUAL_STYLES["cinematic-3d"];
+  const genre = String(process.env.STORY_GENRE || "mystery").toLowerCase();
+  const moodByGenre = {
+    horror: "suspenseful unsettling atmosphere, eerie shadows, mysterious tension",
+    mystery: "intriguing investigative atmosphere, clues, layered mystery",
+    islamic: "respectful warm spiritual atmosphere, modest clothing, peaceful cinematic lighting",
+    inspirational: "hopeful emotional atmosphere, human resilience, uplifting cinematic lighting",
+    drama: "emotionally expressive realistic human drama, believable everyday locations",
+    history: "period-appropriate historical setting, authentic clothing and architecture",
+    adventure: "dynamic adventurous atmosphere, exploration, scale and discovery",
+    fantasy: "immersive imaginative world, magical atmosphere, original fantasy design",
+    education: "clear informative visual storytelling, accurate and approachable setting"
+  };
+  const mood = moodByGenre[genre] || "genre-appropriate cinematic visual storytelling";
+  return String(prompt || "A cinematic scene with a clear central subject")
+    .replace(/\\b(photorealistic|cinematic)\\b/gi, "")
+    .trim() + ". " + style + ". " + mood + ". Portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark.";
 }
-
 async function saveCloudflareImage(response, destination) {
   if (!response.ok) throw new Error("Cloudflare HTTP " + response.status);
   const type = response.headers.get("content-type") || "";
@@ -49,19 +47,19 @@ export async function cloudflareImage(prompt, destination) {
     method: "POST",
     headers: { Authorization: "Bearer " + config.cloudflareApiToken, "Content-Type": "application/json" },
     body: JSON.stringify({
-      prompt: buildHorrorPrompt(prompt),
+      prompt: buildVisualPrompt(prompt),
       steps: 4
     })
   });
   await saveCloudflareImage(response, destination);
-  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, visualStyle: ["2d", "2d-animation"].includes((process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase()) ? "2d-animation" : "cinematic-3d", sourceUrl: null, fileName: path.basename(destination) };
+  return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, visualStyle: ["2d", "2d-animation"].includes((process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase()) ? "2d-animation" : "cinematic-3d", genre: process.env.STORY_GENRE || "mystery", sourceUrl: null, fileName: path.basename(destination) };
 }
 
 export async function pixabayImage(query, destination) {
   if (!config.pixabayApiKey) throw new Error("PIXABAY_API_KEY belum tersedia.");
   const params = new URLSearchParams({
     key: config.pixabayApiKey, q: query, image_type: "photo",
-    orientation: "horizontal", safesearch: "true", per_page: "30"
+    orientation: "vertical", safesearch: "true", per_page: "30"
   });
   const response = await fetch("https://pixabay.com/api/?" + params);
   if (!response.ok) throw new Error("Pixabay HTTP " + response.status);
@@ -76,7 +74,7 @@ export async function pixabayImage(query, destination) {
 
 export async function pexelsImage(query, destination) {
   if (!config.pexelsApiKey) throw new Error("Pexels nonaktif: PEXELS_API_KEY belum tersedia.");
-  const params = new URLSearchParams({ query, orientation: "landscape", per_page: "20" });
+  const params = new URLSearchParams({ query, orientation: "portrait", per_page: "20" });
   const response = await fetch("https://api.pexels.com/v1/search?" + params, {
     headers: { Authorization: config.pexelsApiKey }
   });
