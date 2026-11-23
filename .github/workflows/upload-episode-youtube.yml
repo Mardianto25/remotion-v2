@@ -3,10 +3,31 @@ on:
   workflow_dispatch:
     inputs:
       season_id:
-        description: Season ID
+        description: Pilih ID serial yang sama dengan workflow sebelumnya
         required: true
         default: season-01
-        type: string
+        type: choice
+        options:
+          - season-01
+          - season-02
+          - season-03
+          - season-04
+          - season-05
+          - season-06
+          - season-07
+          - season-08
+          - season-09
+          - season-10
+          - season-11
+          - season-12
+          - season-13
+          - season-14
+          - season-15
+          - season-16
+          - season-17
+          - season-18
+          - season-19
+          - season-20
       episode_number:
         description: Nomor episode
         required: true
