@@ -11,7 +11,7 @@ for (const key of ["YOUTUBE_CLIENT_ID_3N", "YOUTUBE_CLIENT_SECRET_3N", "YOUTUBE_
 const videoPath = path.join(OUT_DIR, "indonesian-horror.mp4");
 const thumbnailPath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
 const metadataPath = path.join(DATA_DIR, "youtube-metadata.json");
-const statePath = path.join(DATA_DIR, "episode-youtube-upload.json");
+const statePath = process.env.EPISODE_UPLOAD_STATE ? path.resolve(process.env.EPISODE_UPLOAD_STATE) : path.join(DATA_DIR, "episode-youtube-upload.json");
 for (const file of [videoPath, thumbnailPath, metadataPath]) await fs.access(file);
 const metadata = JSON.parse(await fs.readFile(metadataPath, "utf8"));
 
