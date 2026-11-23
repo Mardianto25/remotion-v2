@@ -30,7 +30,7 @@ if (command === "plan") {
     const existingEpisodes = await fs.readdir(episodesDir);
     if (existingEpisodes.length) throw new Error("Season ini sudah memiliki folder episode. Untuk menghindari tertimpanya aset lama, gunakan season_id baru untuk membuat plan baru.");
   } catch (error) {
-    if (error.message.includes("Season plan sudah ada")) throw error;
+    if (error.code !== "ENOENT") throw error;
   }
   console.log("[season] Membuat series bible, 8 naskah final, dan seluruh scene...");
   const bible = await planSeason(concept, { seasonId, genre });
