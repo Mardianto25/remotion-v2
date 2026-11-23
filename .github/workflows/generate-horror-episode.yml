@@ -221,8 +221,8 @@ jobs:
       - name: Upload episode to YouTube (optional, private by default)
         if: ${{ inputs.publish_to_youtube }}
         env:
-          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
-          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID_3N }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET_3N }}
           YOUTUBE_REFRESH_TOKEN_3N: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3N }}
           YOUTUBE_CHANNEL_NAME: Ruang Cerita Indonesia
         run: node scripts/uploadEpisode.js
