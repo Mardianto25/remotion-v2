@@ -23,6 +23,7 @@ const writeJson = (file, value) => fs.writeFile(file, JSON.stringify(value, null
 const readJson = async file => JSON.parse(await fs.readFile(file, "utf8"));
 
 if (command === "plan") {
+  const genre = arg("--genre", "mystery");
   const concept = args.filter((value, index) => !["--season", "--concept"].includes(value) && args[index - 1] !== "--season" && args[index - 1] !== "--concept").join(" ").trim() || arg("--concept");
   if (!concept) throw new Error('Konsep season wajib diisi. Contoh: npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"');
   const biblePath = path.join(seasonDir, "series-bible.json");
@@ -33,13 +34,13 @@ if (command === "plan") {
     if (error.message.includes("Season plan sudah ada")) throw error;
   }
   console.log("[season] Membuat series bible dan outline tepat 8 episode...");
-  const bible = await planSeason(concept, { seasonId });
+  const bible = await planSeason(concept, { seasonId, genre });
   await writeJson(biblePath, bible);
   await writeJson(path.join(seasonDir, "characters.json"), bible.characters);
   await writeJson(path.join(seasonDir, "world-rules.json"), bible.worldRules);
   await writeJson(path.join(seasonDir, "continuity-ledger.json"), createInitialLedger(bible));
   await writeJson(path.join(seasonDir, "production-state.json"), {
-    seasonId, status: "planned", episodes: bible.episodes.map(item => ({
+    seasonId, genre, status: "planned", episodes: bible.episodes.map(item => ({
       episodeNumber: item.episodeNumber, title: item.title, status: "not_started"
     })), updatedAt: new Date().toISOString()
   });
