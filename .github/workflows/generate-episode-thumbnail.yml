@@ -1,4 +1,4 @@
-name: Ruang Cerita — Generate Episode Thumbnail
+name: 06 - Thumbnail & SEO
 on:
   workflow_dispatch:
     inputs:
