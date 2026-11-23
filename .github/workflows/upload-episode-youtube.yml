@@ -23,6 +23,7 @@ on:
         type: string
 permissions:
   contents: write
+  actions: read
 jobs:
   upload:
     runs-on: ubuntu-latest
