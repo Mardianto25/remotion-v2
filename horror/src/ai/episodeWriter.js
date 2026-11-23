@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { config } from "../config.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 function parseJson(raw) {
   const fence = String.fromCharCode(96).repeat(3);
   const text = String(raw || "").replace(new RegExp("^" + fence + "(?:json)?\\s*", "i"), "").replace(new RegExp("\\s*" + fence + "$"), "").trim();
@@ -73,6 +74,6 @@ export async function writeEpisode(input) {
     "{\"title\":\"...\",\"description\":\"...\",\"hook\":\"...\",\"mainConflict\":\"...\",\"revelation\":\"...\",\"cliffhanger\":\"...\",\"storySummary\":\"...\",\"disclaimer\":\"...\",\"narration\":\"naskah lengkap\",\"scenes\":[{\"id\":1,\"heading\":\"...\",\"narration\":\"potongan verbatim dari narration\",\"visualPrompt\":\"English cinematic visual prompt including consistent character details, portrait 9:16\",\"searchQuery\":\"keyword English untuk fallback\",\"mood\":\"...\"}],\"continuityUpdate\":{\"canonEvents\":[\"...\"],\"characterStates\":[{\"characterId\":\"char-01\",\"state\":\"...\"}],\"unresolvedThreads\":[\"...\"],\"resolvedThreads\":[\"...\"]}}",
     "Judul episode harus kuat dan spesifik, bukan sekadar Episode " + episodeNumber + "."
   ].join("\n");
-  const response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json" } });
+  const response = await generateGeminiContent(ai, { contents: prompt, config: { responseMimeType: "application/json" } });
   return normalizeEpisode(parseJson(response.text), episodeNumber, episodePlan, seriesBible.genre);
 }
