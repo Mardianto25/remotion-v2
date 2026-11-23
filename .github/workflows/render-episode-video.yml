@@ -1,0 +1,43 @@
+name: Ruang Cerita — Render Episode Video
+on:
+  workflow_dispatch:
+    inputs:
+      season_id:
+        description: Season ID
+        required: true
+        default: season-01
+        type: string
+      episode_number:
+        description: Nomor episode
+        required: true
+        default: "1"
+        type: choice
+        options: ["1","2","3","4","5","6","7","8"]
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: npm install
+      - run: npx remotion browser ensure
+      - name: Render using saved images and audio only
+        run: node scripts/episode-stage.js render --season "${{ inputs.season_id }}" --episode "${{ inputs.episode_number }}"
+      - name: Validate video dimensions and duration
+        run: |
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 out/indonesian-horror.mp4
+          W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=s=x:p=0 out/indonesian-horror.mp4)
+          H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=s=x:p=0 out/indonesian-horror.mp4)
+          test "$W" -eq 1080 && test "$H" -eq 1920
+      - uses: actions/upload-artifact@v4
+        with:
+          name: episode-video-${{ inputs.season_id }}-${{ inputs.episode_number }}
+          path: horror/out/indonesian-horror.mp4
+          retention-days: 30
