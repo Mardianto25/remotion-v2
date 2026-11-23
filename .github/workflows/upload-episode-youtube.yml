@@ -1,4 +1,4 @@
-name: Ruang Cerita — Upload Episode to YouTube (3N)
+name: 07 - Upload YouTube | PRIVATE
 on:
   workflow_dispatch:
     inputs:
