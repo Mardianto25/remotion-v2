@@ -12,12 +12,13 @@ function parseJson(text) {
 }
 
 function fallbackSeo(story, topic) {
-  const title = String(story.title || topic || "Cerita Misteri Indonesia").trim().slice(0, 70);
-  const tags = ["cerita horor Indonesia", "cerita misteri", "kisah horor", "cerita seram", "horor Indonesia", "kisah misteri", "Ruang Cerita Indonesia", "cerita thriller"];
-  const hashtags = ["#CeritaHoror", "#CeritaMisteri", "#HororIndonesia"];
+  const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
+  const title = String(story.title || topic || "Cerita " + genre).trim().slice(0, 70);
+  const tags = ["cerita " + genre, "storytelling Indonesia", "kisah inspiratif", "cerita Indonesia", "Ruang Cerita Indonesia", "video shorts"];
+  const hashtags = ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\\p{L}\\p{N}]/gu, "")];
   const scenePrompt = Array.isArray(story.scenes) ? story.scenes.slice(0, 2).map(x => x.visualPrompt || x.heading).filter(Boolean).join("; ") : "";
   const description = [
-    String(story.description || ("Sebuah kisah " + title + " yang membawa kita menyusuri misteri dan ancaman tak terduga.")).trim(),
+    String(story.description || ("Sebuah cerita " + genre + ": " + title + ".")).trim(),
     "",
     story.disclaimer || "Cerita ini merupakan fiksi dan dramatisasi untuk hiburan.",
     "",
@@ -34,10 +35,11 @@ function fallbackSeo(story, topic) {
 
 export async function generateSeo(story, topic) {
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
+  const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
   const prompt = `Anda adalah YouTube packaging agent senior untuk channel Indonesia "${CHANNEL_NAME}". Tugas Anda bukan sekadar mengisi SEO, tetapi memilih kemasan video yang paling membuat penonton target ingin mengeklik tanpa menipu.
-Analisis keseluruhan premis, konflik, ancaman, lokasi, dan twist cerita. Buat 3 kandidat judul secara internal, nilai masing-masing dari sisi rasa penasaran, kejelasan, relevansi dengan cerita, dan naturalitas bahasa Indonesia. Pilih satu pemenang.
+Genre konten: ${genre}. Analisis keseluruhan premis, konflik, emosi, lokasi, dan payoff cerita. Jangan otomatis memakai keyword horor jika genre bukan horor. Buat 3 kandidat judul secara internal, nilai masing-masing dari sisi rasa penasaran, kejelasan, relevansi dengan cerita, dan naturalitas bahasa Indonesia. Pilih satu pemenang.
 Buat 2-4 kata untuk teks thumbnail. Teks thumbnail harus melengkapi judul, bukan mengulang judul. Buat prompt cover khusus YouTube Shorts berdasarkan momen paling kuat/unik dari cerita: satu focal subject yang langsung terbaca pada layar HP, ancaman terlihat jelas tetapi misterinya tidak dibocorkan, komposisi portrait vertical 9:16, subjek utama berada di area tengah agar aman saat di-crop. Prompt harus bahasa Inggris, mengikuti visual style yang dipilih (cinematic 3D atau 2D animation), konsisten dengan detail tokoh/entitas dalam cerita, tanpa tulisan/logo/watermark/gore.
-Judul maksimal 70 karakter agar ringkas di feed Shorts, spesifik dan memancing pertanyaan. Hindari judul generik, keyword stuffing, kapital berlebihan, dan clickbait yang tidak dibayar oleh isi cerita. Jangan mengklaim kisah nyata atau fakta yang tidak didukung materi.
+Judul maksimal 70 karakter agar ringkas di feed Shorts, spesifik dan memancing rasa ingin tahu sesuai genre. Hindari judul generik, keyword stuffing, kapital berlebihan, dan clickbait yang tidak dibayar oleh isi cerita. Jangan mengklaim kisah nyata atau fakta yang tidak didukung materi.
 Deskripsi 2-3 paragraf: kalimat pembuka kuat dan memuat keyword utama secara alami, ringkasan singkat tanpa membocorkan twist, konteks legenda/fiksi bila relevan, ajakan subscribe yang tidak berlebihan.
 Hashtags 3-5 buah. Tags 10-18 keyword pendek yang benar-benar relevan.
 Kembalikan JSON valid saja dengan struktur:
