@@ -25,8 +25,8 @@ Atur di Settings > Secrets and variables > Actions:
 - `CF_API_TOKEN_V2`
 - `PIXABAY_API_KEY`
 - `PEXELS_API_KEY` (opsional)
-- `YOUTUBE_CLIENT_ID`
-- `YOUTUBE_CLIENT_SECRET`
+- `YOUTUBE_CLIENT_ID_3N`
+- `YOUTUBE_CLIENT_SECRET_3N`
 - `YOUTUBE_REFRESH_TOKEN_3N`
 
 Jangan commit credential atau token ke repository. Mode tren otomatis memerlukan kuota YouTube Data API dan scope baca YouTube. Upload video memerlukan scope YouTube Data API yang sesuai.
