@@ -42,13 +42,14 @@ export async function generateThumbnail(story, seo, topic) {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const style = selectedStyle();
   const subject = String(seo.thumbnailPrompt || story.scenes?.[0]?.visualPrompt || story.title + ". " + topic);
+  const genre = String(process.env.STORY_GENRE || story.genre || story.category || "mystery").toLowerCase();
   const prompt = [
     "Create a premium YouTube Shorts cover image, portrait 9:16 composition.", style.visual,
-    "One unmistakable focal subject and one readable threat, dramatic close or medium shot, strong silhouette, emotionally intense expression, cinematic lighting, rich contrast, detailed Indonesian setting.",
-    "Depict the strongest suspenseful moment from this story: " + subject,
-    "Keep the main character and threat inside the central 70 percent of the frame so the image can also be cropped to landscape safely.",
+    "One unmistakable focal subject that communicates the selected story genre, dramatic close or medium shot, strong silhouette, expressive emotion, cinematic lighting, rich contrast, detailed setting.",
+    "Genre: " + genre + ". Depict the most compelling and emotionally clear moment from this story: " + subject,
+    "Keep the main subject inside the central 70 percent of the frame so the image can also be cropped to landscape safely.",
     "Keep the lower 25 percent relatively dark and uncluttered for a short title overlay. No letters, typography, logo, watermark, collage, border.",
-    style.avoid + ". No gore, blood, dismemberment or explicit violence."
+    style.avoid + ". Respect the selected genre; no horror elements unless the genre is horror."
   ].join(" ");
   const imageBuffer = await generateBackground(prompt);
   const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
