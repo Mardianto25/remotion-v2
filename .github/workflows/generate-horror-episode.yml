@@ -22,7 +22,7 @@ on:
         default: "Buat serial storytelling sesuai genre yang dipilih"
         type: string
       genre:
-        description: "Genre utama season; naskah, visual, SEO dan thumbnail mengikuti genre ini"
+        description: "Pilih genre yang sama dengan season saat membuat episode; genre dari season bible tetap menjadi acuan"
         required: true
         type: choice
         default: mystery
