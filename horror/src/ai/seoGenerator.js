@@ -15,21 +15,21 @@ function fallbackSeo(story, topic) {
   const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
   const title = String(story.title || topic || "Cerita " + genre).trim().slice(0, 70);
   const tags = ["cerita " + genre, "storytelling Indonesia", "kisah inspiratif", "cerita Indonesia", "Ruang Cerita Indonesia", "video shorts"];
-  const hashtags = ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\\p{L}\\p{N}]/gu, "")];
+  const hashtags = ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\p{L}\p{N}]/gu, "")];
   const scenePrompt = Array.isArray(story.scenes) ? story.scenes.slice(0, 2).map(x => x.visualPrompt || x.heading).filter(Boolean).join("; ") : "";
   const description = [
     String(story.description || ("Sebuah cerita " + genre + ": " + title + ".")).trim(),
     "",
     story.disclaimer || "Cerita ini merupakan fiksi dan dramatisasi untuk hiburan.",
     "",
-    "Ikuti " + CHANNEL_NAME + " untuk cerita horor, misteri, dan kisah menegangkan lainnya.",
+    "Ikuti " + CHANNEL_NAME + " untuk storytelling, cerita, dan konten menarik lainnya.",
     "",
     hashtags.join(" ")
   ].join("\n").slice(0, 4900);
   return {
     title, titleAlternatives: [], selectionReason: "Metadata dibuat menggunakan template lokal karena Gemini API sedang mencapai kuota.",
     description, hashtags, tags, thumbnailText: title.split(/\s+/).slice(0, 4).join(" ").slice(0, 28),
-    thumbnailPrompt: "Cinematic Indonesian horror cover image, portrait vertical 9:16, visual style consistent with the selected episode style. " + (scenePrompt || title) + ". One clear focal subject, visible suspenseful threat, mysterious atmosphere, dramatic cinematic lighting, empty space on the left for thumbnail text, no text, no logo, no watermark, no gore."
+    thumbnailPrompt: "Cinematic " + genre + " story cover image, portrait vertical 9:16, visual style consistent with the selected episode style. " + (scenePrompt || title) + ". One clear focal subject, genre-appropriate atmosphere, dramatic cinematic lighting, empty space for thumbnail text, no text, no logo, no watermark."
   };
 }
 
@@ -74,7 +74,7 @@ Naskah: ${String(story.narration || "").slice(0, 9000)}`;
   }
   const baseDescription = String(value.description || story.description || "");
   const disclaimer = story.disclaimer || "Sebagian bagian cerita dapat berupa legenda atau dramatisasi.";
-  const description = [baseDescription, "", disclaimer, "", `Ikuti ${CHANNEL_NAME} untuk cerita misteri, legenda, sejarah, dan kisah menarik lainnya.`, "", hashtags.join(" ")].join("\n").slice(0, 4900);
+  const description = [baseDescription, "", disclaimer, "", `Ikuti ${CHANNEL_NAME} untuk cerita dan konten menarik lainnya.`, "", hashtags.join(" ")].join("\n").slice(0, 4900);
   const thumbnailText = String(value.thumbnailText || title).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
   return {
     title, titleAlternatives: Array.isArray(value.titleAlternatives) ? value.titleAlternatives.slice(0, 2) : [],
