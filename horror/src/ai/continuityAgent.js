@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { config } from "../config.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 function parseJson(raw) {
   const fence = String.fromCharCode(96).repeat(3);
   const text = String(raw || "").replace(new RegExp("^" + fence + "(?:json)?\\s*", "i"), "").replace(new RegExp("\\s*" + fence + "$"), "").trim();
@@ -23,7 +24,7 @@ export async function reviewContinuity(story, context) {
     "Beri score 0-100. Kontradiksi canon fatal harus membuat score di bawah 75. Jangan menganggap detail belum diketahui sebagai fakta. Jangan menambahkan canon yang tidak ada di naskah.",
     "JSON valid saja: {\"score\":0,\"contradictions\":[{\"location\":\"...\",\"canon\":\"...\",\"newVersion\":\"...\",\"fix\":\"...\"}],\"unresolvedThreads\":[\"...\"],\"resolvedThreads\":[\"...\"],\"revisionBrief\":\"...\",\"verdict\":\"pass|revise\"}"
   ].join("\n");
-  const response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json" } });
+  const response = await generateGeminiContent(ai, { contents: prompt, config: { responseMimeType: "application/json" } });
   const review = parseJson(response.text);
   const score = Math.max(0, Math.min(100, Number(review.score) || 0));
   return { ...review, score, verdict: score >= 85 && !(review.contradictions || []).length ? "pass" : "revise", reviewedAt: new Date().toISOString() };
