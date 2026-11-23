@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
+import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { config } from "../config.js";
 
@@ -13,7 +14,7 @@ function run(args) {
 
 export async function generateNarration(text, audioPath, subtitlePath) {
   if (!String(text || "").trim()) throw new Error("Teks narasi kosong; Edge TTS tidak dijalankan.");
-  await fs.mkdir(new URL(".", "file://" + audioPath).pathname, { recursive: true }).catch(() => {});
+  await Promise.all([fs.mkdir(path.dirname(audioPath), { recursive: true }), fs.mkdir(path.dirname(subtitlePath), { recursive: true })]);
 
   // Kirim teks langsung melalui --text agar file input tidak mungkin tertimpa
   // atau terhapus ketika file output dibersihkan sebelum percobaan.
