@@ -13,6 +13,8 @@ on:
         default: "1"
         type: choice
         options: ["1","2","3","4","5","6","7","8"]
+permissions:
+  contents: write
 jobs:
   thumbnail:
     runs-on: ubuntu-latest
@@ -34,6 +36,7 @@ jobs:
           CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
         run: node scripts/episode-stage.js thumbnail --season "${{ inputs.season_id }}" --episode "${{ inputs.episode_number }}"
       - name: Persist thumbnail and metadata
+        if: always()
         env:
           SEASON_ID: ${{ inputs.season_id }}
           EPISODE_NUMBER: ${{ inputs.episode_number }}
