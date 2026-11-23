@@ -151,7 +151,7 @@ jobs:
           WIDTH=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=s=x:p=0 out/indonesian-horror.mp4)
           HEIGHT=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=s=x:p=0 out/indonesian-horror.mp4)
           echo "Duration: ${DURATION}s; resolution: ${WIDTH}x${HEIGHT}"
-          awk -v d="$DURATION" 'BEGIN { if (d > 60.5) { print "Video melebihi batas 60 detik"; exit 1 } }'
+          awk -v d="$DURATION" 'BEGIN { if (d > 60.05) { print "Video melebihi batas 60 detik"; exit 1 } }'
           test "$WIDTH" -eq 1080
           test "$HEIGHT" -eq 1920
       - name: Archive rendered episode without touching previous episodes
