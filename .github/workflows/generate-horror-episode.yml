@@ -191,6 +191,16 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "data/seasons/$SEASON_ID/continuity-ledger.json" "data/seasons/$SEASON_ID/production-state.json" "$DIR/story.json" "$DIR/retention-review.json" "$DIR/continuity-review.json" "$DIR/continuity-ledger-after.json"
           git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID episode $EP" && git push)
+      - name: Restore previous upload state to prevent duplicate uploads
+        if: ${{ inputs.publish_to_youtube }}
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          SAVED="data/seasons/$SEASON_ID/episodes/episode-$EP/youtube-upload.json"
+          if [ -f "$SAVED" ]; then cp "$SAVED" data/episode-youtube-upload.json; fi
+
       - name: Upload episode to YouTube (optional, private by default)
         if: ${{ inputs.publish_to_youtube }}
         env:
