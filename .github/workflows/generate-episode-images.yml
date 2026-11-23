@@ -1,4 +1,4 @@
-name: Ruang Cerita — Generate Episode Images (Resume)
+name: 03 - Episode Images | Generate & Resume
 on:
   workflow_dispatch:
     inputs:
