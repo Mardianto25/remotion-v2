@@ -88,25 +88,25 @@ export async function pexelsImage(query, destination) {
   return { provider: "pexels", sourceUrl: item.url, creator: item.photographer || null, fileName: path.basename(destination) };
 }
 
-export async function getSceneImage(scene, index) {
-  await fs.mkdir(ASSETS_DIR, { recursive: true });
+export async function getSceneImage(scene, index, destinationDir = ASSETS_DIR) {
+  await fs.mkdir(destinationDir, { recursive: true });
   const stem = "scene-" + String(index + 1).padStart(3, "0");
   const prompt = scene.visualPrompt || scene.narration || "Misty Indonesian forest at night";
   const query = scene.searchQuery || "Indonesian misty forest cinematic";
   const strictStyle = (process.env.HORROR_STRICT_VISUAL_STYLE || "").toLowerCase() === "true";
-  const cloudflareProvider = () => cloudflareImage(prompt, path.join(ASSETS_DIR, stem + ".jpg"));
+  const cloudflareProvider = () => cloudflareImage(prompt, path.join(destinationDir, stem + ".jpg"));
   const providers = strictStyle
     ? [cloudflareProvider]
     : [
         cloudflareProvider,
-        () => pixabayImage(query, path.join(ASSETS_DIR, stem + ".jpg")),
-        () => pexelsImage(query, path.join(ASSETS_DIR, stem + "-pexels.jpg"))
+        () => pixabayImage(query, path.join(destinationDir, stem + ".jpg")),
+        () => pexelsImage(query, path.join(destinationDir, stem + "-pexels.jpg"))
       ];
   const errors = [];
   for (const provider of providers) {
     try {
       const result = await provider();
-      return { ...result, localPath: path.join(ASSETS_DIR, result.fileName) };
+      return { ...result, localPath: path.join(destinationDir, result.fileName) };
     } catch (error) {
       errors.push(error.message);
       console.warn("[visual] " + error.message);
