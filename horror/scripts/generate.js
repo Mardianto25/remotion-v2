@@ -125,6 +125,7 @@ console.log("[1/6] " + (storyFile ? "Menggunakan naskah episode yang disetujui" 
 const story = storyFile
   ? JSON.parse(await fs.readFile(path.join(DATA_DIR, "story.json"), "utf8"))
   : await generateStory(topic);
+process.env.STORY_GENRE = String(story.genre || process.env.STORY_GENRE || "mystery");
 await fs.writeFile(path.join(DATA_DIR, "story.json"), JSON.stringify(story, null, 2));
 
 console.log("[2/6] Generate metadata SEO dari isi cerita");
