@@ -29,12 +29,23 @@ let state = { channelId: channel.id, channelTitle };
 try { state = { ...state, ...JSON.parse(await fs.readFile(statePath, "utf8")) }; }
 catch (error) { if (error.code !== "ENOENT") throw error; }
 if (state.channelId !== channel.id) throw new Error("State upload berasal dari channel berbeda. Upload dibatalkan.");
+
+async function saveState() {
+  await fs.writeFile(statePath, JSON.stringify(state, null, 2) + "\n");
+}
+async function setThumbnail() {
+  await youtube.thumbnails.set({
+    videoId: state.videoId,
+    media: { mimeType: "image/jpeg", body: createReadStream(thumbnailPath) }
+  });
+  state.thumbnailUploaded = true;
+  state.thumbnailUpdatedAt = new Date().toISOString();
+  await saveState();
+}
+
 if (state.videoId) {
   if (!state.thumbnailUploaded) {
-    await youtube.thumbnails.set({ videoId: state.videoId, media: { mimeType: "image/jpeg", body: createReadStream(thumbnailPath) } });
-    state.thumbnailUploaded = true;
-    state.thumbnailUpdatedAt = new Date().toISOString();
-    await fs.writeFile(statePath, JSON.stringify(state, null, 2) + "\\n");
+    await setThumbnail();
     console.log("Thumbnail berhasil diperbarui untuk video: " + state.url);
   } else {
     console.log("Episode ini sudah pernah di-upload: " + state.url);
@@ -60,8 +71,16 @@ const { data } = await youtube.videos.insert({
   media: { body: createReadStream(videoPath) }
 });
 if (!data.id) throw new Error("YouTube tidak mengembalikan video ID.");
-await youtube.thumbnails.set({ videoId: data.id, media: { mimeType: "image/jpeg", body: createReadStream(thumbnailPath) } });
-state = { ...state, videoId: data.id, title: metadata.title, privacyStatus: "private", uploadedAt: new Date().toISOString(), url: "https://www.youtube.com/shorts/" + data.id, thumbnailUploaded: true };
-await fs.writeFile(statePath, JSON.stringify(state, null, 2) + "\n");
+state = {
+  ...state,
+  videoId: data.id,
+  title: metadata.title,
+  privacyStatus: "private",
+  uploadedAt: new Date().toISOString(),
+  url: "https://www.youtube.com/shorts/" + data.id,
+  thumbnailUploaded: false
+};
+await saveState();
+await setThumbnail();
 console.log("Upload berhasil sebagai PRIVATE: " + state.url);
 console.log("Thumbnail landscape dikirim ke YouTube. Cover vertikal tersedia sebagai shorts-cover.jpg.");
