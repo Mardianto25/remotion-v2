@@ -63,20 +63,32 @@ Jumlah Shorts dapat kurang dari tiga jika subtitle tidak menyediakan potongan ya
 Metadata dan thumbnail dihasilkan AI, sehingga tetap perlu ditinjau. Hindari klaim "kisah nyata" atau fakta yang tidak terverifikasi. Pastikan lisensi aset visual sesuai penggunaan.
 
 
-## Serial POV Survival & Mystery (8 episode per season)
+## Serial Story Production — Multi-Genre, Resumable
 
-Workflow serial tersedia di **Actions > Ruang Cerita Indonesia — Episode Generator** atau melalui tab **Cerita Episode** pada Auto-Shorts Studio. Setiap episode diproduksi sebagai YouTube Short vertikal 1080x1920 (9:16), dengan durasi audio dan video maksimal 60 detik. Workflow dispatch berada di branch default (`main`), sehingga bisa dijalankan langsung dari GitHub Actions.
+Season Planner menyiapkan **seluruh 8 naskah episode dan seluruh scene** dalam satu kali perencanaan. Setiap workflow produksi berikutnya hanya membaca hasil yang tersimpan; workflow Generate Episode Script tidak memanggil Gemini untuk menulis ulang naskah atau scene.
 
-1. Pilih `create-season`, tentukan genre (`horror`, `mystery`, `islamic`, `inspirational`, `drama`, `history`, `adventure`, `fantasy`, atau `education`), isi `season_id` (contoh `season-01`) dan konsep. Gemini membuat series bible, world rules, character bible, dan outline 8 episode.
-2. Pilih `generate-episode`, gunakan season ID yang sama dan pilih satu episode. Episode 2-8 hanya bisa dibuat jika episode sebelumnya sudah berhasil dirender.
-3. Gemini Episode Writer menulis naskah POV orang kedua, lalu Retention Agent dan Continuity Agent menilai naskah. Maksimal tiga draft; skor minimal 85/100 untuk kedua pemeriksaan.
-4. Jika lolos, pipeline existing membuat narasi Edge-TTS sekitar 100-125 kata, 5-8 scene, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Target durasi 45-55 detik; proses dihentikan jika audio lebih dari 60 detik. Hasil dirender vertikal 1080x1920 (9:16), lalu workflow memvalidasi durasi dan resolusinya. Pilih visual style **cinematic-3d** (default) atau **2d-animation** saat menjalankan workflow. Genre diterapkan ke naskah, mood visual FLUX, SEO, thumbnail, dan metadata YouTube; pipeline tidak lagi otomatis menambahkan unsur horor untuk genre lain. Style dijaga konsisten; jika FLUX gagal, workflow tidak mengganti scene dengan foto stok.
-5. Hasil episode, review, aset, video, dan continuity ledger disimpan di `data/seasons/<season-id>/episodes/episode-XX/`. Workflow menyimpan data season ke branch `main` agar run berikutnya dapat melanjutkan cerita.
+### Workflow terpisah
 
-Perintah lokal dari folder `horror/` (episode Shorts maksimal 60 detik):
-- `npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"`
-- `npm run generate:episode -- --season season-01 --episode 1`
-- `npm run generate:episode-assets`
-- `npx remotion render remotion/index.jsx HorrorVideo out/indonesian-horror.mp4 --codec=h264 --crf=22`
+1. [Generate Season Plan](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-season-plan.yml) — Gemini membuat series bible, karakter, aturan dunia, 8 naskah final, dan 5-8 scene per episode.
+2. [Generate Episode Script](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-script.yml) — menyalin naskah dan scene dari season plan ke folder episode. Tidak ada AI call.
+3. [Generate Episode Images](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-images.yml) — membuat gambar scene yang belum tersedia. Gambar yang valid dilewati. Jika scene 4 gagal, jalankan workflow yang sama lagi: scene 1-3 dilewati, scene 4 dicoba ulang, lalu lanjut scene berikutnya.
+4. [Generate Episode Audio](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-audio.yml) — Edge-TTS membuat narasi dan subtitle; file valid digunakan kembali.
+5. [Render Episode Video](https://github.com/Mardianto25/remotion-v2/actions/workflows/render-episode-video.yml) — Remotion memakai gambar dan audio tersimpan; hasil MP4 menjadi artifact.
+6. [Generate Episode Thumbnail](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-thumbnail.yml) — membuat SEO metadata dan thumbnail terpisah; hasil tersimpan agar tidak perlu dibuat ulang.
+7. [Upload Episode YouTube](https://github.com/Mardianto25/remotion-v2/actions/workflows/upload-episode-youtube.yml) — mengunduh artifact video dan thumbnail dari run yang dipilih, lalu upload sebagai PRIVATE menggunakan credential channel 3N.
 
-Jalankan workflow dari branch default `main`. Workflow episodik membutuhkan izin GitHub Actions untuk menulis commit agar season bible dan progres episode bertahan di antara workflow run. Pastikan Actions memiliki izin **Read and write permissions** pada Settings > Actions > General. Jangan aktifkan `force_regenerate` untuk episode yang sudah dirender; perubahan episode lama memerlukan rekonsiliasi continuity dan episode setelahnya.
+### Urutan penggunaan
+
+- Jalankan Season Plan satu kali untuk season baru. Season plan lama yang hanya memiliki outline perlu dibuat ulang karena belum menyimpan naskah dan scene final.
+- Jalankan Episode Script untuk episode yang akan diproduksi.
+- Jalankan Images, Audio, Render, dan Thumbnail secara terpisah. Isi season ID dan nomor episode yang sama di setiap workflow.
+- Jika Images gagal, buka ulang workflow Images dengan season ID, episode, dan visual style yang sama. File gambar yang sudah valid tidak akan digenerate ulang.
+- Upload membutuhkan dua run ID: run ID workflow Render Episode Video dan run ID workflow Generate Episode Thumbnail. Ambil angka run ID dari URL halaman run GitHub Actions. Artifact disimpan 30 hari.
+- Pastikan GitHub Actions memiliki izin **Read and write permissions** karena naskah, gambar, audio, thumbnail, dan status produksi disimpan ke repository. Upload YouTube tetap PRIVATE dan membutuhkan YOUTUBE_CLIENT_ID_3N, YOUTUBE_CLIENT_SECRET_3N, serta YOUTUBE_REFRESH_TOKEN_3N.
+
+### Data dan checkpoint
+
+Semua data episode berada di data/seasons/<season-id>/episodes/episode-XX/. Gambar disimpan per scene dan audio disimpan per episode. image-progress.json, image-manifest.json, audio-manifest.json, dan production-state.json mencatat progres. Video MP4 dipertukarkan sebagai GitHub Actions artifact agar tidak menambah ukuran Git repository.
+
+Workflow lama generate-horror-episode.yml sekarang hanya menjadi entry point Season Planner. Produksi episode dilakukan melalui workflow terpisah di atas.
+
