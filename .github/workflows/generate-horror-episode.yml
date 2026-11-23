@@ -21,6 +21,14 @@ on:
         required: false
         default: "POV: Terjebak di sekolah saat kiamat zombie"
         type: string
+      visual_style:
+        description: "Gaya visual untuk seluruh episode"
+        required: true
+        type: choice
+        default: cinematic-3d
+        options:
+          - cinematic-3d
+          - 2d-animation
       episode_number:
         description: "Episode yang dibuat (1-8); episode sebelumnya harus sudah ada"
         required: true
@@ -117,14 +125,15 @@ jobs:
           FORCE=""
           if [ "${{ inputs.force_regenerate }}" = "true" ]; then FORCE="--force"; fi
           node scripts/series.js episode --season "${{ inputs.season_id }}" --episode "${{ inputs.episode_number }}" $FORCE
-      - name: Generate narration, 2D FLUX scenes, sound design and thumbnail
+      - name: Generate narration, styled FLUX scenes, sound design and thumbnail
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
           CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
-          HORROR_VISUAL_STYLE: "2d"
+          HORROR_VISUAL_STYLE: ${{ inputs.visual_style }}
+          HORROR_STRICT_VISUAL_STYLE: "true"
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           EDGE_TTS_VOICE: id-ID-ArdiNeural
