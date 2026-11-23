@@ -1,0 +1,53 @@
+name: Ruang Cerita — Generate Episode Audio
+on:
+  workflow_dispatch:
+    inputs:
+      season_id:
+        description: Season ID
+        required: true
+        default: season-01
+        type: string
+      episode_number:
+        description: Nomor episode
+        required: true
+        default: "1"
+        type: choice
+        options: ["1","2","3","4","5","6","7","8"]
+jobs:
+  audio:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: npm install
+      - run: python -m pip install --upgrade edge-tts
+      - name: Generate narration and subtitles (reuse existing valid files)
+        env:
+          EDGE_TTS_VOICE: id-ID-ArdiNeural
+          EDGE_TTS_RATE: "-8%"
+          EDGE_TTS_PITCH: "-5Hz"
+          PYTHON_BIN: python
+        run: node scripts/episode-stage.js audio --season "${{ inputs.season_id }}" --episode "${{ inputs.episode_number }}"
+      - name: Persist audio checkpoint
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "horror/data/seasons/$SEASON_ID/episodes/episode-$EP/audio" "horror/data/seasons/$SEASON_ID/episodes/episode-$EP/audio-manifest.json" "horror/data/seasons/$SEASON_ID/production-state.json"
+          git diff --cached --quiet || (git commit -m "chore(audio): save $SEASON_ID episode $EP narration" && git push)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: episode-audio-${{ inputs.season_id }}-${{ inputs.episode_number }}
+          path: horror/data/seasons/${{ inputs.season_id }}/episodes/episode-${{ inputs.episode_number }}/audio/
+          retention-days: 30
