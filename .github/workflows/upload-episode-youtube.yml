@@ -65,8 +65,12 @@ jobs:
           YOUTUBE_CLIENT_SECRET_3N: ${{ secrets.YOUTUBE_CLIENT_SECRET_3N }}
           YOUTUBE_REFRESH_TOKEN_3N: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3N }}
           YOUTUBE_CHANNEL_NAME: Ruang Cerita Indonesia
-          EPISODE_UPLOAD_STATE: data/seasons/${{ inputs.season_id }}/episodes/episode-${{ inputs.episode_number }}/youtube-upload.json
-        run: node scripts/uploadEpisode.js
+          SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          export EPISODE_UPLOAD_STATE="data/seasons/$SEASON_ID/episodes/episode-$EP/youtube-upload.json"
+          node scripts/uploadEpisode.js
       - name: Persist upload state
         env:
           SEASON_ID: ${{ inputs.season_id }}
