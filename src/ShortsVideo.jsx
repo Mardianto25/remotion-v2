@@ -111,7 +111,7 @@ export const ShortsVideo = ({ subtitles = [] }) => {
   const textTranslateY = interpolate(
     textSpring,
     [0, 1],
-    [40, 0],
+    [12, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
@@ -163,21 +163,21 @@ export const ShortsVideo = ({ subtitles = [] }) => {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '0 60px',
+            padding: '0 100px',
             textAlign: 'center'
           }}
         >
           <div
             style={{
               color: '#fff',
-              fontSize: 52,
-              fontWeight: 800,
+              fontSize: 28,
+              fontWeight: 400,
               fontFamily: 'system-ui, sans-serif',
-              lineHeight: 1.35,
+              lineHeight: 1.4,
               opacity: textSpring,
               transform: `translateY(${textTranslateY}px)`,
               textShadow:
-                '3px 3px 12px rgba(0,0,0,0.95), 0 0 25px rgba(0,0,0,0.8)',
+                '1px 2px 6px rgba(0,0,0,0.9)',
               padding: '0 15px',
               maxWidth: '90%'
             }}
