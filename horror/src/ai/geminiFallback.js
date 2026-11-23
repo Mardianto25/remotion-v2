@@ -3,7 +3,7 @@ import { config } from "../config.js";
 function errorDetails(error) {
   const status = Number(error?.status || error?.statusCode || error?.code || 0);
   const message = String(error?.message || error || "");
-  return { status, message, retryable: status === 429 || status >= 500 || /RESOURCE_EXHAUSTED|UNAVAILABLE|OVERLOADED|quota|rate.?limit|too many requests|\\b429\\b|model.*not found|not found/i.test(message) };
+  return { status, message, retryable: status === 429 || status >= 500 || /RESOURCE_EXHAUSTED|UNAVAILABLE|OVERLOADED|quota|rate.?limit|too many requests|429|model.*not found|not found/i.test(message) };
 }
 
 export async function generateGeminiContent(ai, request) {
