@@ -2,7 +2,7 @@ import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { planSeason } from "../src/ai/seriesPlanner.js";
-import { createInitialLedger, applyEpisodeToLedger } from "../src/ai/continuityLedger.js";
+import { createInitialLedger } from "../src/ai/continuityLedger.js";
 import { DATA_DIR } from "../src/config.js";
 
 const [command, ...args] = process.argv.slice(2);
