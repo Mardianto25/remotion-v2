@@ -14,16 +14,18 @@ export async function planSeason(concept, options = {}) {
   const seasonId = options.seasonId || "season-01";
   const genre = String(options.genre || "mystery").trim();
   const requestedTitle = String(options.seriesTitle || "").trim();
+  const episodeCount = Number(options.episodeCount || 8);
+  if (![4, 6, 8, 10, 12].includes(episodeCount)) throw new Error("Jumlah episode harus 4, 6, 8, 10, atau 12.");
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
     "Anda adalah showrunner serial profesional untuk channel Ruang Cerita Indonesia.",
     "GENRE UTAMA season ini: " + genre + ". Seluruh premis, konflik, karakter, visual, tone, dan payoff wajib mengikuti genre ini. Jangan otomatis memasukkan hantu, pembunuhan, jumpscare, atau unsur horor kecuali genre yang dipilih memang horor.",
-    "Buat rancangan SATU season tepat 8 episode dalam satu genre yang konsisten. Genre bisa berupa horor, misteri, Islami/inspiratif, drama keluarga, sejarah, legenda, petualangan, fantasi, edukasi, atau genre lain dari pengguna. Jangan mencampur genre secara acak.",
+    "Buat rancangan SATU season tepat " + episodeCount + " episode dalam satu genre yang konsisten. Genre bisa berupa horor, misteri, Islami/inspiratif, drama keluarga, sejarah, legenda, petualangan, fantasi, edukasi, atau genre lain dari pengguna. Jangan mencampur genre secara acak.",
     "Judul serial yang diminta pengguna: " + (requestedTitle || "Buat judul yang paling sesuai dengan konsep") + ". Gunakan judul ini sebagai seriesTitle; jangan menggantinya dengan judul lain.",
     "Konsep season dari pengguna: " + concept,
     "FORMAT: pilih sudut pandang dan struktur yang paling cocok untuk genre. Gunakan bahasa Indonesia luwes, visual, mudah dinarasikan, tidak seperti esai. Premis harus langsung mudah dipahami dan memiliki konflik atau tujuan utama yang jelas.",
     "Buat cerita orisinal dan sesuai genre. Jangan menyalin karya, tokoh, atau plot terkenal. Jika membahas agama, sejarah, atau fakta, hindari klaim yang tidak terverifikasi. Hindari gore eksplisit dan eksploitasi anak.",
-    "STRUKTUR 8 EPISODE: susun arc yang sesuai genre. Episode 1 memperkenalkan premis dan hook; episode 2-3 mengembangkan karakter, tujuan dan konflik; episode 4 memberi perubahan besar; episode 5-6 memperdalam konsekuensi dan pilihan; episode 7 menyiapkan klimaks; episode 8 memberi payoff yang memuaskan dan benih cerita opsional untuk season berikutnya.",
+    "STRUKTUR " + episodeCount + " EPISODE: rancang arc serial lengkap untuk jumlah episode yang diminta. Episode awal memperkenalkan premis dan hook; bagian tengah mengembangkan karakter, konflik, konsekuensi dan turning point; episode-episode akhir membangun klimaks; episode terakhir wajib memberi payoff utama yang memuaskan dan boleh menyisakan benih cerita untuk season berikutnya. Atur pembagian beat secara proporsional terhadap jumlah episode, jangan memaksakan struktur 8 episode.",
     "PENTING: saat membuat season, rencanakan SELURUH MATERI PRODUKSI untuk kedelapan episode sekarang. Jangan hanya membuat outline. Untuk SETIAP episode tulis naskah final lengkap dan 5-8 scene final beserta narration per scene dan visualPrompt final. Tahap produksi episode berikutnya hanya membaca data ini dan DILARANG memanggil AI untuk menulis ulang episode atau membuat ulang scene.",
     "Setiap naskah episode adalah YouTube Shorts 45-55 detik, maksimal 60 detik, bahasa Indonesia sekitar 100-125 kata. Gabungan scenes[].narration harus sama persis dengan narration utama. Tiap scene wajib memiliki id berurutan, heading, narration verbatim, visualPrompt berbahasa Inggris dengan karakter/lokasi konsisten, searchQuery, dan mood.",
     "Setiap episode harus memiliki perkembangan atau konflik mini yang mendapat payoff, tetapi tetap mendorong penonton ke episode berikutnya. Variasikan ending; simpan payoff serial utama untuk episode 8.",
@@ -32,11 +34,11 @@ export async function planSeason(concept, options = {}) {
     "Visual bible: berikan deskripsi karakter dan lokasi yang konkret serta stabil. Jangan mengunci series bible ke gaya 2D, anime, atau 3D; visual renderer akan menerapkan style yang dipilih pengguna. FLUX.1 Schnell adalah text-to-image; jangan mengklaim dapat memakai image reference atau menjamin wajah identik. Konsistensi dijaga lewat deskripsi teks yang sama.",
     "KELUARAN JSON valid tanpa markdown dengan struktur tepat:",
     "{\"seriesTitle\":\"...\",\"genre\":\"" + genre + "\",\"logline\":\"...\",\"premise\":\"...\",\"audiencePromise\":\"...\",\"pointOfView\":\"sesuai genre\",\"tone\":\"...\",\"mainMystery\":\"konflik atau pertanyaan utama\",\"finalReveal\":\"payoff akhir\",\"seasonArc\":\"...\",\"worldRules\":[\"...\"],\"characters\":[{\"id\":\"char-01\",\"name\":\"...\",\"role\":\"...\",\"motivation\":\"...\",\"personality\":\"...\",\"secret\":\"...\",\"visualBible\":\"...\"}],\"episodes\":[{\"episodeNumber\":1,\"title\":\"...\",\"logline\":\"...\",\"openingHook\":\"...\",\"mainConflict\":\"...\",\"turningPoint\":\"...\",\"episodePayoff\":\"...\",\"cliffhanger\":\"...\",\"continuityQuestions\":[\"...\"],\"narration\":\"naskah lengkap 100-125 kata\",\"description\":\"...\",\"hook\":\"...\",\"revelation\":\"...\",\"storySummary\":\"...\",\"disclaimer\":\"...\",\"continuityUpdate\":{\"canonEvents\":[\"...\"],\"characterStates\":[{\"characterId\":\"char-01\",\"state\":\"...\"}],\"unresolvedThreads\":[\"...\"],\"resolvedThreads\":[\"...\"]},\"scenes\":[{\"id\":1,\"heading\":\"...\",\"narration\":\"potongan verbatim dari narration\",\"visualPrompt\":\"English portrait 9:16 prompt with consistent character and location details\",\"searchQuery\":\"...\",\"mood\":\"...\"}]}",
-    "Pastikan episodeNumber berurutan 1 sampai 8, judul berbeda dan tidak generik. seasonId internal: " + seasonId
+    "Pastikan episodeNumber berurutan 1 sampai " + episodeCount + ", jumlah episode tepat " + episodeCount + ", judul berbeda dan tidak generik. seasonId internal: " + seasonId
   ].join("\n");
-  const response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json", maxOutputTokens: 16000 } });
+  const response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json", maxOutputTokens: 30000 } });
   const plan = parseJson(response.text);
-  if (!Array.isArray(plan.episodes) || plan.episodes.length !== 8) throw new Error("Season Planner wajib menghasilkan tepat 8 episode.");
+  if (!Array.isArray(plan.episodes) || plan.episodes.length !== episodeCount) throw new Error("Season Planner wajib menghasilkan tepat " + episodeCount + " episode.");
   plan.episodes = plan.episodes.map((episode, index) => ({ ...episode, episodeNumber: index + 1 }));
   for (const [index, episode] of plan.episodes.entries()) {
     if (!String(episode.narration || "").trim() || !Array.isArray(episode.scenes) || episode.scenes.length < 5 || episode.scenes.length > 8) throw new Error("Episode " + (index + 1) + " belum memiliki naskah final dan 5-8 scene.");
@@ -46,5 +48,5 @@ export async function planSeason(concept, options = {}) {
   }
   if (!Array.isArray(plan.characters) || !plan.characters.length) throw new Error("Season Planner tidak menghasilkan character bible.");
   if (!Array.isArray(plan.worldRules) || !plan.worldRules.length) throw new Error("Season Planner tidak menghasilkan world rules.");
-  return { ...plan, seriesTitle: requestedTitle || plan.seriesTitle, genre, seasonId, createdAt: new Date().toISOString(), status: "planned" };
+  return { ...plan, seriesTitle: requestedTitle || plan.seriesTitle, genre, seasonId, createdAt: new Date().toISOString(), status: "planned", episodeCount };
 }
