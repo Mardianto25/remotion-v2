@@ -12,7 +12,7 @@ function parseJson(raw) {
 export async function reviewRetention(story, episodePlan) {
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
-    "Anda adalah editor retention YouTube yang kritis. Evaluasi naskah POV Survival & Mystery Stories. Jangan memuji secara basa-basi dan jangan memberi skor tinggi hanya karena tata bahasa rapi.",
+    "Anda adalah editor retention YouTube yang kritis. Evaluasi naskah serial sesuai genre yang dipilih. Jangan memuji secara basa-basi dan jangan memberi skor tinggi hanya karena tata bahasa rapi.",
     "Episode plan:\n" + JSON.stringify(episodePlan, null, 2),
     "Naskah:\n" + story.narration,
     "Hook:\n" + story.hook,
