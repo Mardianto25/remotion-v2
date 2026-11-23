@@ -1,4 +1,4 @@
-name: Ruang Cerita — Season Planner (Legacy Entry)
+name: 99 - LEGACY | Season Planner (gunakan workflow 01)
 on:
   workflow_dispatch:
     inputs:
