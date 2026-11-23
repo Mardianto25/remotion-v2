@@ -59,7 +59,11 @@ async function durationOf(file) {
 }
 
 if (stage === "images") {
-  await setEpisodeState("images_in_progress");
+  const visualStyle = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d");
+  const currentState = await readJson(statePath);
+  const currentEpisode = currentState.episodes.find(item => item.episodeNumber === episodeNumber) || {};
+  if (currentEpisode.visualStyle && currentEpisode.visualStyle !== visualStyle) throw new Error("Visual style episode sudah dikunci ke " + currentEpisode.visualStyle + ". Gunakan style yang sama saat resume agar gambar tidak tercampur.");
+  await setEpisodeState("images_in_progress", { visualStyle });
   for (let i = 0; i < story.scenes.length; i++) {
     const filename = "scene-" + String(i + 1).padStart(3, "0") + ".jpg";
     const destination = path.join(assetsDir, filename);
@@ -76,7 +80,7 @@ if (stage === "images") {
   }
   const manifest = story.scenes.map((scene, i) => ({ id: scene.id, fileName: "scene-" + String(i+1).padStart(3,"0") + ".jpg", visualPrompt: scene.visualPrompt }));
   await writeJson(path.join(episodeDir, "image-manifest.json"), manifest);
-  await setEpisodeState("images_ready", { imageCount: story.scenes.length });
+  await setEpisodeState("images_ready", { imageCount: story.scenes.length, visualStyle });
   console.log("[image] Semua " + story.scenes.length + " scene tersedia. File yang valid tidak dibuat ulang.");
 } else if (stage === "audio") {
   await setEpisodeState("audio_in_progress");
