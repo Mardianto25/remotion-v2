@@ -95,11 +95,15 @@ export async function getSceneImage(scene, index) {
   const stem = "scene-" + String(index + 1).padStart(3, "0");
   const prompt = scene.visualPrompt || scene.narration || "Misty Indonesian forest at night";
   const query = scene.searchQuery || "Indonesian misty forest cinematic";
-  const providers = [
-    () => cloudflareImage(prompt, path.join(ASSETS_DIR, stem + ".jpg")),
-    () => pixabayImage(query, path.join(ASSETS_DIR, stem + ".jpg")),
-    () => pexelsImage(query, path.join(ASSETS_DIR, stem + "-pexels.jpg"))
-  ];
+  const strictStyle = (process.env.HORROR_STRICT_VISUAL_STYLE || "").toLowerCase() === "true";
+  const cloudflareProvider = () => cloudflareImage(prompt, path.join(ASSETS_DIR, stem + ".jpg"));
+  const providers = strictStyle
+    ? [cloudflareProvider]
+    : [
+        cloudflareProvider,
+        () => pixabayImage(query, path.join(ASSETS_DIR, stem + ".jpg")),
+        () => pexelsImage(query, path.join(ASSETS_DIR, stem + "-pexels.jpg"))
+      ];
   const errors = [];
   for (const provider of providers) {
     try {
@@ -110,7 +114,7 @@ export async function getSceneImage(scene, index) {
       console.warn("[visual] " + error.message);
     }
   }
-  if ((process.env.HORROR_STRICT_VISUAL_STYLE || "").toLowerCase() === "true") {
+  if (strictStyle) {
     throw new Error("FLUX gagal membuat visual sesuai style " + (process.env.HORROR_VISUAL_STYLE || "cinematic-3d") + " pada scene " + (index + 1) + ". Fallback foto stok dinonaktifkan agar style serial tetap konsisten. " + errors.join(" | "));
   }
   throw new Error("Semua provider visual gagal pada scene " + (index + 1) + ": " + errors.join(" | "));
