@@ -1,0 +1,51 @@
+name: Ruang Cerita — Generate Season Plan
+on:
+  workflow_dispatch:
+    inputs:
+      season_id:
+        description: Season ID (contoh season-01)
+        required: true
+        default: season-01
+        type: string
+      concept:
+        description: Konsep serial
+        required: true
+        type: string
+      genre:
+        description: Genre serial
+        required: true
+        default: mystery
+        type: choice
+        options: [mystery, horror, islamic, inspirational, drama, history, adventure, fantasy, education]
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Generate complete season bible, scripts and scenes
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+        run: node scripts/series.js plan --season "${{ inputs.season_id }}" --genre "${{ inputs.genre }}" --concept "${{ inputs.concept }}"
+      - name: Persist season plan
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "data/seasons/$SEASON_ID"
+          git diff --cached --quiet || (git commit -m "chore(series): save complete $SEASON_ID plan" && git push)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: season-plan-${{ inputs.season_id }}
+          path: horror/data/seasons/${{ inputs.season_id }}/
+          retention-days: 30
