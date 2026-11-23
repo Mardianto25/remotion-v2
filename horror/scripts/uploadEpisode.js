@@ -5,7 +5,7 @@ import { createReadStream } from "node:fs";
 import { google } from "googleapis";
 import { CHANNEL_NAME, DATA_DIR, OUT_DIR } from "../src/config.js";
 
-for (const key of ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN_3N"]) {
+for (const key of ["YOUTUBE_CLIENT_ID_3N", "YOUTUBE_CLIENT_SECRET_3N", "YOUTUBE_REFRESH_TOKEN_3N"]) {
   if (!process.env[key]) throw new Error("GitHub Secret belum diatur: " + key);
 }
 const videoPath = path.join(OUT_DIR, "indonesian-horror.mp4");
@@ -15,7 +15,7 @@ const statePath = path.join(DATA_DIR, "episode-youtube-upload.json");
 for (const file of [videoPath, thumbnailPath, metadataPath]) await fs.access(file);
 const metadata = JSON.parse(await fs.readFile(metadataPath, "utf8"));
 
-const oauth = new google.auth.OAuth2(process.env.YOUTUBE_CLIENT_ID, process.env.YOUTUBE_CLIENT_SECRET);
+const oauth = new google.auth.OAuth2(process.env.YOUTUBE_CLIENT_ID_3N, process.env.YOUTUBE_CLIENT_SECRET_3N);
 oauth.setCredentials({ refresh_token: process.env.YOUTUBE_REFRESH_TOKEN_3N });
 const youtube = google.youtube({ version: "v3", auth: oauth });
 const { data: channelData } = await youtube.channels.list({ part: ["snippet"], mine: true });
