@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { config } from "../config.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 
 const ALLOWED_BEDS = ["drone.wav", "night-wind.wav", "rain.wav", "suspense.wav", "climax.wav"];
 const ALLOWED_EFFECTS = [
@@ -18,7 +19,7 @@ export async function generateSoundDesign(story, duration, scenes) {
     "Buat bed berubah mengikuti mood: awal tipis, ketegangan meningkat, klimaks intens, akhir menyisakan rasa ganjil. Efek maksimal 3 per scene dan prioritaskan momen penting, jangan menumpuk. Offset harus berada di dalam scene dan maksimal 12 detik. Volume bed 0.06-0.18, efek 0.12-0.38 agar narasi tetap jelas. SceneId harus persis dari daftar. Cue hanya label singkat untuk log. Jangan membuat dialog atau mengubah narasi.";
   let response;
   try {
-    response = await ai.models.generateContent({ model: config.geminiModel, contents: prompt, config: { responseMimeType: "application/json" } });
+    response = await generateGeminiContent(ai, { contents: prompt, config: { responseMimeType: "application/json" } });
   } catch (error) {
     console.warn("[sound] Gemini tidak tersedia/kuota habis. Menggunakan sound design lokal:", error.message);
     return {
