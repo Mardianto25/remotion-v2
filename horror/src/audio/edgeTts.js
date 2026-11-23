@@ -12,13 +12,16 @@ function run(args) {
 }
 
 export async function generateNarration(text, audioPath, subtitlePath) {
-  const textPath = audioPath.replace(/\\.mp3$/i, ".txt");
-  await fs.writeFile(textPath, text, "utf8");
+  if (!String(text || "").trim()) throw new Error("Teks narasi kosong; Edge TTS tidak dijalankan.");
+  await fs.mkdir(new URL(".", "file://" + audioPath).pathname, { recursive: true }).catch(() => {});
 
+  // Kirim teks langsung melalui --text agar file input tidak mungkin tertimpa
+  // atau terhapus ketika file output dibersihkan sebelum percobaan.
   const args = [
     "-m", "edge_tts", "--voice", config.edgeVoice,
     "--rate=" + (config.edgeRate || "-8%"), "--pitch=" + (config.edgePitch || "-5Hz"),
-    "--file", textPath, "--write-media", audioPath,
+    "--text", String(text).trim(),
+    "--write-media", audioPath,
     "--write-subtitles", subtitlePath
   ];
 
@@ -31,16 +34,15 @@ export async function generateNarration(text, audioPath, subtitlePath) {
       await run(args);
       const audio = await fs.stat(audioPath);
       const subtitles = await fs.stat(subtitlePath);
-      if (audio.size === 0 || subtitles.size === 0) {
-        throw new Error("Edge TTS menghasilkan file audio/subtitle kosong.");
+      if (audio.size <= 1024 || subtitles.size === 0) {
+        throw new Error("Edge TTS menghasilkan file audio/subtitle kosong atau tidak valid.");
       }
       return { audioPath, subtitlePath };
     } catch (error) {
       if (attempt === maxAttempts) {
         throw new Error(
           "Edge TTS gagal setelah " + maxAttempts + " percobaan. " +
-          "Layanan TTS mungkin sedang membatasi koneksi atau tidak mengirim audio. " +
-          "Detail: " + error.message
+          "Periksa koneksi atau ketersediaan layanan TTS. Detail: " + error.message
         );
       }
       const delaySeconds = attempt * 5;
