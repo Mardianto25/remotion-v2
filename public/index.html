@@ -44,6 +44,13 @@
     <!-- Form 2: Input Link Instagram -->
     <form id="igForm" class="form-section">
       <input type="url" id="igUrl" placeholder="https://www.instagram.com/reel/..." required />
+      <label for="visualStyle" style="display:block; margin: 8px 0 6px;">Gaya visual gambar</label>
+      <select id="visualStyle" style="width:100%; margin:0 0 15px; padding:12px; background:#334155; color:#fff; border:1px solid #475569; border-radius:8px;">
+        <option value="cinematic-3d" selected>3D Cinematic — seperti film animasi 3D</option>
+        <option value="photorealistic">Photorealistic — seperti film nyata</option>
+        <option value="anime">Anime — ilustrasi anime sinematik</option>
+        <option value="documentary">Documentary — dokumenter realistis</option>
+      </select>
       <label>
         <input type="checkbox" id="autoPushIg" checked />
         Otomatis Git Push (Trigger GitHub Actions)
@@ -114,6 +121,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             igUrl: igUrl,
+            visualStyle: document.getElementById('visualStyle').value,
             autoPush: document.getElementById('autoPushIg').checked
           })
         });
