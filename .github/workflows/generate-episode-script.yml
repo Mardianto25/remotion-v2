@@ -1,4 +1,4 @@
-name: Ruang Cerita — Generate Episode Script
+name: 02 - Episode Script | Ambil Naskah Tanpa AI
 on:
   workflow_dispatch:
     inputs:
