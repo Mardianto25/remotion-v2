@@ -13,7 +13,11 @@
     "generate:season": "node scripts/series.js plan",
     "generate:episode": "node scripts/series.js episode",
     "generate:episode-assets": "node scripts/generate.js --story-file data/story.json",
-    "upload:episode": "node scripts/uploadEpisode.js"
+    "upload:episode": "node scripts/uploadEpisode.js",
+    "stage:images": "node scripts/episode-stage.js images",
+    "stage:audio": "node scripts/episode-stage.js audio",
+    "stage:render": "node scripts/episode-stage.js render",
+    "stage:thumbnail": "node scripts/episode-stage.js thumbnail"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
