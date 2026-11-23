@@ -48,6 +48,11 @@ on:
         required: true
         default: false
         type: boolean
+      publish_to_youtube:
+        description: "Upload episode ke YouTube sebagai PRIVATE"
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -164,6 +169,7 @@ jobs:
           mkdir -p "$DEST"
           cp out/indonesian-horror.mp4 "$DEST/indonesian-horror.mp4"
           cp out/youtube-thumbnail.jpg "$DEST/youtube-thumbnail.jpg"
+          cp out/shorts-cover.jpg "$DEST/shorts-cover.jpg"
           cp "$DEST/continuity-ledger-after.json" "data/seasons/$SEASON_ID/continuity-ledger.json"
           node --input-type=module -e '
             import fs from "node:fs/promises";
@@ -185,6 +191,39 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "data/seasons/$SEASON_ID/continuity-ledger.json" "data/seasons/$SEASON_ID/production-state.json" "$DIR/story.json" "$DIR/retention-review.json" "$DIR/continuity-review.json" "$DIR/continuity-ledger-after.json"
           git diff --cached --quiet || (git commit -m "chore(horror): save $SEASON_ID episode $EP" && git push)
+      - name: Upload episode to YouTube (optional, private by default)
+        if: ${{ inputs.publish_to_youtube }}
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN_V2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_V2 }}
+          YOUTUBE_CHANNEL_NAME: Ruang Cerita Indonesia
+        run: node scripts/uploadEpisode.js
+
+      - name: Persist YouTube upload record
+        if: ${{ inputs.publish_to_youtube }}
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          DEST="data/seasons/$SEASON_ID/episodes/episode-$EP"
+          cp data/episode-youtube-upload.json "$DEST/youtube-upload.json"
+          node --input-type=module -e '
+            import fs from "node:fs/promises";
+            const dir = "data/seasons/" + process.env.SEASON_ID;
+            const state = JSON.parse(await fs.readFile(dir + "/production-state.json", "utf8"));
+            const n = Number(process.env.EPISODE_NUMBER);
+            const upload = JSON.parse(await fs.readFile(dir + "/episodes/episode-" + String(n).padStart(2,"0") + "/youtube-upload.json", "utf8"));
+            state.episodes = state.episodes.map(e => e.episodeNumber === n ? {...e, youtubeVideoId: upload.videoId, youtubeUrl: upload.url, youtubePrivacyStatus: upload.privacyStatus} : e);
+            state.updatedAt = new Date().toISOString();
+            await fs.writeFile(dir + "/production-state.json", JSON.stringify(state, null, 2) + "\\n");
+          '
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$DEST/youtube-upload.json" "data/seasons/$SEASON_ID/production-state.json"
+          git diff --cached --quiet || (git commit -m "chore(horror): record YouTube upload for $SEASON_ID episode $EP" && git push)
+
       - name: Upload episode deliverables
         uses: actions/upload-artifact@v4
         with:
@@ -193,6 +232,7 @@ jobs:
             horror/data/seasons/${{ inputs.season_id }}/
             horror/out/indonesian-horror.mp4
             horror/out/youtube-thumbnail.jpg
+            horror/out/shorts-cover.jpg
             horror/data/youtube-metadata.json
             horror/data/story.json
           if-no-files-found: error
