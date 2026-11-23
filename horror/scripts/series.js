@@ -30,7 +30,7 @@ if (command === "plan") {
   } catch (error) {
     if (error.message.includes("Season plan sudah ada")) throw error;
   }
-  console.log("[season] Membuat series bible dan outline tepat 8 episode...");
+  console.log("[season] Membuat series bible, 8 naskah final, dan seluruh scene...");
   const bible = await planSeason(concept, { seasonId, genre });
   await writeJson(biblePath, bible);
   await writeJson(path.join(seasonDir, "characters.json"), bible.characters);
