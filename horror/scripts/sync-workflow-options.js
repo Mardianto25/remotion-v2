@@ -24,14 +24,14 @@ for (const name of await fs.readdir(dataDir).catch(() => [])) {
 }
 entries.sort((a, b) => a.id.localeCompare(b.id));
 
-const seriesOptions = entries.length ? entries.map(item => item.id) : ["no-plan-yet"];
+const seriesOptions = ["no-plan-yet", ...entries.map(item => item.id)];
 const episodeOptions = entries.flatMap(({ id, bible }) =>
   (Array.isArray(bible.episodes) ? bible.episodes : []).map(episode => {
     const number = String(episode.episodeNumber).padStart(2, "0");
     return id + " | " + number + " - " + String(episode.title || "Episode " + number).replace(/\s+/g, " ").trim();
   })
 );
-if (!episodeOptions.length) episodeOptions.push("no-episode-yet");
+episodeOptions.unshift("no-episode-yet");
 
 function replaceOptions(source, marker, values) {
   const start = "          # " + marker + "_START";
