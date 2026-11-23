@@ -231,7 +231,13 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index, targetDir =
 
   // ----------------------------------------------------------
   // 2. PIXABAY - FALLBACK
+  // Foto stok hanya untuk style fotografi. Untuk 3D/anime,
+  // hentikan proses daripada mencampur style yang tidak konsisten.
   // ----------------------------------------------------------
+
+  if (visualStyle === 'cinematic-3d' || visualStyle === 'anime') {
+    throw new Error(`FLUX gagal membuat gambar bergaya ${visualStyle} pada scene ${index + 1}; fallback foto stok dinonaktifkan agar style video tetap konsisten.`);
+  }
 
   const apiKey = process.env.PIXABAY_API_KEY;
 
@@ -348,7 +354,11 @@ export async function executePipeline(autoPushGit = true, visualStyle = 'cinemat
     - Jika perempuan harus ditampilkan, wajib berhijab menutup rambut dan leher serta berpakaian sopan.
     - Jangan tambahkan simbol agama lain yang tidak disebut atau tidak relevan.
     - Tidak boleh ada tulisan, subtitle, logo, watermark, atau tipografi di gambar.
-    - Image prompt berbahasa Inggris, spesifik terhadap scene, cinematic photorealistic, vertical 9:16.
+    - Image prompt berbahasa Inggris, spesifik terhadap scene, dan WAJIB mengikuti visual style yang dipilih: ${styleInstructions}
+    - Jangan menulis "photorealistic" kecuali style yang dipilih adalah photorealistic atau documentary.
+    - CHARACTER CONTINUITY: sebelum membuat daftar scene, identifikasi karakter yang benar-benar disebut audio beserta ciri visual tetapnya. Jika karakter yang sama muncul lagi, ulangi ciri yang sama secara eksplisit di setiap imagePrompt (rentang usia, warna kulit, bentuk rambut atau hijab, pakaian, warna pakaian, dan detail pembeda). Jangan mengubah wajah, pakaian, usia, atau identitas karakter antar-scene. Jika karakter tidak disebut audio, jangan menciptakan karakter manusia.
+    - STYLE CONTINUITY: semua imagePrompt harus memakai gaya render, palet warna, material, pencahayaan, dan tingkat detail yang konsisten. Hanya subjek, aksi, dan lokasi yang berubah sesuai narasi.
+    - Komposisi vertical 9:16, satu frame sinematik, tanpa teks.
 
     KEYWORD:
     - keyword singkat, spesifik, bahasa Inggris, dan sesuai objek/kejadian scene.
