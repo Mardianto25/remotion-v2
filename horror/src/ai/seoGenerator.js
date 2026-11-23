@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { CHANNEL_NAME, config } from "../config.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 
 function parseJson(text) {
   const clean = String(text || "").replace(/^\x60{3}json\s*/i, "").replace(/\s*\x60{3}$/, "").trim();
@@ -51,8 +52,7 @@ Disclaimer: ${story.disclaimer || ""}
 Naskah: ${String(story.narration || "").slice(0, 9000)}`;
   let value;
   try {
-    const response = await ai.models.generateContent({
-      model: config.geminiModel,
+    const response = await generateGeminiContent(ai, {
       contents: prompt,
       config: { responseMimeType: "application/json" }
     });
