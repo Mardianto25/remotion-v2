@@ -65,12 +65,12 @@ Metadata dan thumbnail dihasilkan AI, sehingga tetap perlu ditinjau. Hindari kla
 
 ## Serial POV Survival & Mystery (8 episode per season)
 
-Workflow baru yang terpisah dari workflow horror lama: **Actions > Ruang Cerita Indonesia — Episode Generator**. Workflow ini tersedia setelah branch fitur di-merge ke default branch, karena GitHub memerlukan file workflow_dispatch berada di default branch.
+Workflow serial tersedia di **Actions > Ruang Cerita Indonesia — Episode Generator** atau melalui tab **Cerita Episode** pada Auto-Shorts Studio. Workflow dispatch berada di branch default (`main`), sehingga bisa dijalankan langsung dari GitHub Actions.
 
 1. Pilih `create-season`, isi `season_id` (contoh `season-01`) dan konsep. Gemini membuat series bible, world rules, character bible, dan outline 8 episode.
 2. Pilih `generate-episode`, gunakan season ID yang sama dan pilih satu episode. Episode 2-8 hanya bisa dibuat jika episode sebelumnya sudah berhasil dirender.
 3. Gemini Episode Writer menulis naskah POV orang kedua, lalu Retention Agent dan Continuity Agent menilai naskah. Maksimal tiga draft; skor minimal 85/100 untuk kedua pemeriksaan.
-4. Jika lolos, pipeline existing membuat Edge-TTS, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Workflow episodik mengaktifkan prompt ilustrasi 2D. Workflow lama tetap memakai gaya 3D default.
+4. Jika lolos, pipeline existing membuat Edge-TTS, FLUX.1 Schnell, sound design, thumbnail, dan Remotion video. Pilih visual style **cinematic-3d** (default) atau **2d-animation** saat menjalankan workflow. Style dijaga konsisten; jika FLUX gagal, workflow tidak mengganti scene dengan foto stok. Workflow cerita lama tetap memakai perilaku default-nya.
 5. Hasil episode, review, aset, video, dan continuity ledger disimpan di `data/seasons/<season-id>/episodes/episode-XX/`. Workflow menyimpan data season ke branch yang dipilih agar run berikutnya dapat melanjutkan cerita.
 
 Perintah lokal dari folder `horror/`:
@@ -79,4 +79,4 @@ Perintah lokal dari folder `horror/`:
 - `npm run generate:episode-assets`
 - `npx remotion render remotion/index.jsx HorrorVideo out/indonesian-horror.mp4 --codec=h264 --crf=22`
 
-Pilih branch `feat/episodic-story-engine` saat menjalankan workflow baru. Workflow episodik membutuhkan izin GitHub Actions untuk menulis commit ke branch agar season bible dan progres episode bertahan di antara workflow run. Jangan aktifkan `force_regenerate` untuk episode yang sudah dirender; perubahan episode lama memerlukan rekonsiliasi continuity dan episode setelahnya.
+Jalankan workflow dari branch default `main`. Workflow episodik membutuhkan izin GitHub Actions untuk menulis commit agar season bible dan progres episode bertahan di antara workflow run. Pastikan Actions memiliki izin **Read and write permissions** pada Settings > Actions > General. Jangan aktifkan `force_regenerate` untuk episode yang sudah dirender; perubahan episode lama memerlukan rekonsiliasi continuity dan episode setelahnya.
