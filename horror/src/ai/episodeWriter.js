@@ -32,7 +32,6 @@ function normalizeEpisode(value, episodeNumber, planEpisode, genre) {
   const wordCount = narration.split(/\s+/).filter(Boolean).length;
   // Panjang naskah tidak lagi menjadi hard validation; durasi ditentukan oleh kebutuhan cerita.
   return {
-    genre: String(value.genre || genre || "storytelling"),
     episodeNumber, title: String(value.title || planEpisode.title || "Episode " + episodeNumber),
     description: String(value.description || planEpisode.logline || ""),
     genre: String(value.genre || "storytelling"),
@@ -65,7 +64,7 @@ export async function writeEpisode(input) {
     "EPISODE SEBELUMNYA:\n" + JSON.stringify(previousSummaries, null, 2),
     "CONTINUITY LEDGER:\n" + JSON.stringify(continuityLedger, null, 2),
     "CATATAN REVISI EDITOR:\n" + (revisionNotes || "Tidak ada. Buat draft pertama terbaik."),
-    "GAYA: narasi orang kedua menggunakan 'kamu', seolah penonton mengalami langsung kejadian. Bahasa Indonesia luwes, sederhana, emosional, tidak seperti esai. Hindari pembukaan channel, salam, ajakan subscribe di awal, dan eksposisi panjang.",
+    "GAYA: ikuti sudut pandang series bible (" + String(seriesBible.pointOfView || "sesuai genre") + "). Bahasa Indonesia luwes, sederhana, emosional, tidak seperti esai. Hindari pembukaan channel, salam, ajakan subscribe di awal, dan eksposisi panjang.",
     "RETENTION: kalimat pertama berupa cold open spesifik; sebelum 30 detik penonton memahami konflik dan taruhan; setiap 20-35 detik ada informasi baru, keputusan, bahaya, perubahan tujuan, atau pertanyaan; setiap adegan mengubah situasi; dialog singkat dan fungsional; hindari repetisi dan filler; berikan payoff kecil di episode ini; akhiri dengan cliffhanger yang berasal dari kejadian, bukan sekadar kata bersambung.",
     "DURASI: ini YouTube Shorts vertikal dengan durasi audio final maksimal 60 detik. Tulis narasi bahasa Indonesia sekitar 100-125 kata (target 45-55 detik pada kecepatan narasi normal), ringkas dan langsung ke konflik. Gunakan tepat 5-8 scene. Jangan membuat intro channel, outro panjang, atau CTA. Cerita harus memiliki satu mini-arc yang terasa selesai sebagian, lalu cliffhanger kuat. Audio tidak boleh melebihi 60 detik. Narasi lengkap dan gabungan scene.narration harus sama persis, urut, tanpa kalimat hilang/tambahan/parafrase.",
     "KONTINUITAS: jangan mengubah fakta episode sebelumnya, jangan mengubah karakter atau aturan dunia, jangan mengulang hook/plot twist. Payoff utama mengikuti series bible dan boleh terjawab di episode 8. Jawab sebagian pertanyaan lama dan tanam pertanyaan baru bila sesuai genre.",
