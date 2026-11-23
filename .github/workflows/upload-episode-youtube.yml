@@ -2,10 +2,24 @@ name: 07 - Upload YouTube | PRIVATE
 on:
   workflow_dispatch:
     inputs:
-      series_title:
-        description: Masukkan judul serial yang sama persis seperti pada workflow 01 - Season Plan
+      series_id:
+        description: Pilih Series ID yang sudah dibuat oleh workflow 01 - Season Plan
         required: true
-        type: string
+        default: no-plan-yet
+        type: choice
+        options:
+          # SERIES_ID_OPTIONS_START
+          - no-plan-yet
+          # SERIES_ID_OPTIONS_END
+      episode_title:
+        description: Pilih saran judul episode dari semua plan yang tersedia
+        required: true
+        default: no-episode-yet
+        type: choice
+        options:
+          # EPISODE_TITLE_OPTIONS_START
+          - no-episode-yet
+          # EPISODE_TITLE_OPTIONS_END
       episode_number:
         description: Nomor episode
         required: true
@@ -34,42 +48,41 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Resolve Series ID from title
-        id: resolve-series
+      - name: Validate selected episode title
         env:
-          SERIES_TITLE: ${{ inputs.series_title }}
+          SERIES_ID: ${{ inputs.series_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+          EPISODE_TITLE: ${{ inputs.episode_title }}
         run: |
           node <<'NODE'
           const fs = require('node:fs');
-          const title = (process.env.SERIES_TITLE || '').trim();
-          const slug = title.normalize('NFKD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '')
-            .slice(0, 80)
-            .replace(/-+$/g, '');
-          if (!slug) throw new Error('Judul serial tidak valid untuk dibuat menjadi Series ID.');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, 'season_id=' + slug + '\n');
+          const id = process.env.SERIES_ID;
+          const number = Number(process.env.EPISODE_NUMBER);
+          const bible = JSON.parse(fs.readFileSync('data/seasons/' + id + '/series-bible.json', 'utf8'));
+          const episode = bible.episodes.find(item => Number(item.episodeNumber) === number);
+          if (!episode) throw new Error('Episode tidak ditemukan di plan ' + id);
+          const expected = id + ' | ' + String(number).padStart(2, '0') + ' - ' + String(episode.title || 'Episode ' + number).replace(/\\s+/g, ' ').trim();
+          if (process.env.EPISODE_TITLE !== expected) throw new Error('Judul episode tidak cocok. Pilih judul yang sesuai dengan Series ID dan nomor episode. Seharusnya: ' + expected);
+          console.log('[episode] ' + expected);
           NODE
       - run: npm install
       - name: Download rendered video from selected run
         uses: actions/download-artifact@v4
         with:
-          name: episode-video-${{ steps.resolve-series.outputs.season_id }}-${{ inputs.episode_number }}
+          name: episode-video-${{ inputs.series_id }}-${{ inputs.episode_number }}
           run-id: ${{ inputs.render_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: horror/out
       - name: Download thumbnail from selected run
         uses: actions/download-artifact@v4
         with:
-          name: episode-thumbnail-${{ steps.resolve-series.outputs.season_id }}-${{ inputs.episode_number }}
+          name: episode-thumbnail-${{ inputs.series_id }}-${{ inputs.episode_number }}
           run-id: ${{ inputs.thumbnail_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: /tmp/episode-thumbnail
       - name: Prepare episode metadata and thumbnail
         env:
-          SEASON_ID: ${{ steps.resolve-series.outputs.season_id }}
+          SEASON_ID: ${{ inputs.series_id }}
           EPISODE_NUMBER: ${{ inputs.episode_number }}
         run: |
           EP=$(printf "%02d" "$EPISODE_NUMBER")
@@ -83,7 +96,7 @@ jobs:
           YOUTUBE_CLIENT_SECRET_3N: ${{ secrets.YOUTUBE_CLIENT_SECRET_3N }}
           YOUTUBE_REFRESH_TOKEN_3N: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3N }}
           YOUTUBE_CHANNEL_NAME: Ruang Cerita Indonesia
-          SEASON_ID: ${{ steps.resolve-series.outputs.season_id }}
+          SEASON_ID: ${{ inputs.series_id }}
           EPISODE_NUMBER: ${{ inputs.episode_number }}
         run: |
           EP=$(printf "%02d" "$EPISODE_NUMBER")
@@ -91,7 +104,7 @@ jobs:
           node scripts/uploadEpisode.js
       - name: Update episode production state
         env:
-          SEASON_ID: ${{ steps.resolve-series.outputs.season_id }}
+          SEASON_ID: ${{ inputs.series_id }}
           EPISODE_NUMBER: ${{ inputs.episode_number }}
         run: |
           EP=$(printf "%02d" "$EPISODE_NUMBER")
