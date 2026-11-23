@@ -2,32 +2,10 @@ name: 06 - Thumbnail & SEO
 on:
   workflow_dispatch:
     inputs:
-      season_id:
-        description: Pilih ID serial yang sama dengan workflow sebelumnya
+      series_title:
+        description: Masukkan judul serial yang sama persis seperti pada workflow 01 - Season Plan
         required: true
-        default: season-01
-        type: choice
-        options:
-          - season-01
-          - season-02
-          - season-03
-          - season-04
-          - season-05
-          - season-06
-          - season-07
-          - season-08
-          - season-09
-          - season-10
-          - season-11
-          - season-12
-          - season-13
-          - season-14
-          - season-15
-          - season-16
-          - season-17
-          - season-18
-          - season-19
-          - season-20
+        type: string
       episode_number:
         description: Nomor episode
         required: true
@@ -47,6 +25,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Resolve Series ID from title
+        id: resolve-series
+        env:
+          SERIES_TITLE: ${{ inputs.series_title }}
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const title = (process.env.SERIES_TITLE || '').trim();
+          const slug = title.normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 80)
+            .replace(/-+$/g, '');
+          if (!slug) throw new Error('Judul serial tidak valid untuk dibuat menjadi Series ID.');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, 'season_id=' + slug + '\n');
+          NODE
       - run: npm install
       - name: Generate SEO metadata and thumbnail only
         env:
@@ -55,11 +51,11 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
           CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
-        run: node scripts/episode-stage.js thumbnail --season "${{ inputs.season_id }}" --episode "${{ inputs.episode_number }}"
+        run: node scripts/episode-stage.js thumbnail --season "${{ steps.resolve-series.outputs.season_id }}" --episode "${{ inputs.episode_number }}"
       - name: Persist thumbnail and metadata
         if: always()
         env:
-          SEASON_ID: ${{ inputs.season_id }}
+          SEASON_ID: ${{ steps.resolve-series.outputs.season_id }}
           EPISODE_NUMBER: ${{ inputs.episode_number }}
         run: |
           EP=$(printf "%02d" "$EPISODE_NUMBER")
@@ -69,8 +65,8 @@ jobs:
           git diff --cached --quiet || (git commit -m "chore(thumbnail): save $SEASON_ID episode $EP thumbnail" && git push)
       - uses: actions/upload-artifact@v4
         with:
-          name: episode-thumbnail-${{ inputs.season_id }}-${{ inputs.episode_number }}
+          name: episode-thumbnail-${{ steps.resolve-series.outputs.season_id }}-${{ inputs.episode_number }}
           path: |
-            horror/data/seasons/${{ inputs.season_id }}/episodes/episode-${{ inputs.episode_number }}/youtube-thumbnail.jpg
-            horror/data/seasons/${{ inputs.season_id }}/episodes/episode-${{ inputs.episode_number }}/shorts-cover.jpg
+            horror/data/seasons/${{ steps.resolve-series.outputs.season_id }}/episodes/episode-${{ inputs.episode_number }}/youtube-thumbnail.jpg
+            horror/data/seasons/${{ steps.resolve-series.outputs.season_id }}/episodes/episode-${{ inputs.episode_number }}/shorts-cover.jpg
           retention-days: 30
