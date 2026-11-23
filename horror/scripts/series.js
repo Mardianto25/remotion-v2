@@ -24,7 +24,7 @@ const readJson = async file => JSON.parse(await fs.readFile(file, "utf8"));
 
 if (command === "plan") {
   const genre = arg("--genre", "mystery");
-  const concept = args.filter((value, index) => !["--season", "--concept"].includes(value) && args[index - 1] !== "--season" && args[index - 1] !== "--concept").join(" ").trim() || arg("--concept");
+  const concept = args.filter((value, index) => !["--season", "--concept", "--genre"].includes(value) && args[index - 1] !== "--season" && args[index - 1] !== "--concept" && args[index - 1] !== "--genre").join(" ").trim() || arg("--concept");
   if (!concept) throw new Error('Konsep season wajib diisi. Contoh: npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"');
   const biblePath = path.join(seasonDir, "series-bible.json");
   try {
