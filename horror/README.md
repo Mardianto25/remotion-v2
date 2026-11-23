@@ -81,10 +81,11 @@ Di tab **Actions**, workflow sudah diberi nomor di depan namanya agar tampil ber
 
 ### Urutan penggunaan
 
-- Jalankan Season Plan satu kali untuk serial baru. Isi **Series Title** dan pilih **Concept**. **Series ID dibuat otomatis dari judul** dalam format slug, misalnya `Utang yang Mengubah Takdir Keluarga` menjadi `utang-yang-mengubah-takdir-keluarga`. Tidak perlu memilih atau mengetik `season-01` lagi. Pilih jumlah episode (4, 6, 8, 10, atau 12). Untuk mengganti plan lama yang belum memiliki episode produksi, pilih `force_regenerate=true`.
-- Jalankan Episode Script untuk episode yang akan diproduksi. Pada setiap workflow 02–07, masukkan **Series Title yang sama persis** dengan judul di workflow 01; sistem akan membentuk Series ID yang sama secara otomatis.
-- Jalankan Images, Audio, Render, dan Thumbnail secara terpisah dengan judul serial dan nomor episode yang sama. Pilihan episode 1–12 akan divalidasi terhadap jumlah episode yang benar-benar tersimpan pada Season Plan.
-- Jika Images gagal, jalankan ulang workflow Images dengan judul serial, episode, dan visual style yang sama. File gambar yang sudah valid tidak akan digenerate ulang.
+- Jalankan Season Plan satu kali untuk serial baru. Isi **Series Title**, pilih **Concept**, genre, dan jumlah episode (4, 6, 8, 10, atau 12). Series ID dibuat otomatis dari judul, misalnya `Semangat Belajar` menjadi `semangat-belajar`.
+- Setelah Season Plan berhasil, workflow akan memperbarui pilihan dropdown pada workflow 02–07 berdasarkan seluruh `series-bible.json` yang tersimpan di repository.
+- Pada workflow 02–07, pilih **Series ID** dari dropdown, pilih **Episode Number**, lalu pilih saran **Episode Title**. Judul episode divalidasi agar cocok dengan plan dan nomor episode yang dipilih. Tidak perlu mengetik ulang judul serial.
+- Naskah dan 5–8 scene per episode sudah dibuat pada tahap Season Plan. Workflow Episode Script hanya mengambil naskah yang tersimpan; tahap produksi berikutnya menggunakan data scene yang sama tanpa menulis ulang naskah dengan AI.
+- Jika Images gagal, jalankan ulang workflow Images dengan Series ID, episode, judul episode, dan visual style yang sama. File gambar yang sudah valid tidak akan digenerate ulang.
 - Upload membutuhkan dua run ID: run ID workflow Render Episode Video dan run ID workflow Generate Episode Thumbnail. Ambil angka run ID dari URL halaman run GitHub Actions. Artifact disimpan 30 hari.
 - Pastikan GitHub Actions memiliki izin **Read and write permissions** karena naskah, gambar, audio, thumbnail, dan status produksi disimpan ke repository. Upload YouTube tetap PRIVATE dan membutuhkan YOUTUBE_CLIENT_ID_3N, YOUTUBE_CLIENT_SECRET_3N, serta YOUTUBE_REFRESH_TOKEN_3N.
 
