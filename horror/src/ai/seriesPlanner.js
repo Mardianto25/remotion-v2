@@ -36,7 +36,13 @@ export async function planSeason(concept, options = {}) {
   const plan = parseJson(response.text);
   if (!Array.isArray(plan.episodes) || plan.episodes.length !== 8) throw new Error("Season Planner wajib menghasilkan tepat 8 episode.");
   plan.episodes = plan.episodes.map((episode, index) => ({ ...episode, episodeNumber: index + 1 }));
-  for (const [index, episode] of plan.episodes.entries()) {\n    if (!String(episode.narration || "").trim() || !Array.isArray(episode.scenes) || episode.scenes.length < 5 || episode.scenes.length > 8) throw new Error("Episode " + (index + 1) + " belum memiliki naskah final dan 5-8 scene.");\n    const combined = episode.scenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\\s+/g, " ").trim();\n    if (combined !== String(episode.narration).replace(/\\s+/g, " ").trim()) throw new Error("Naskah episode " + (index + 1) + " tidak sama dengan gabungan narration scene.");\n    if (episode.scenes.some(scene => !scene.heading || !scene.visualPrompt)) throw new Error("Setiap scene wajib memiliki heading dan visualPrompt.");\n  }\n  if (!Array.isArray(plan.characters) || !plan.characters.length) throw new Error("Season Planner tidak menghasilkan character bible.");
+  for (const [index, episode] of plan.episodes.entries()) {
+    if (!String(episode.narration || "").trim() || !Array.isArray(episode.scenes) || episode.scenes.length < 5 || episode.scenes.length > 8) throw new Error("Episode " + (index + 1) + " belum memiliki naskah final dan 5-8 scene.");
+    const combined = episode.scenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\s+/g, " ").trim();
+    if (combined !== String(episode.narration).replace(/\s+/g, " ").trim()) throw new Error("Naskah episode " + (index + 1) + " tidak sama dengan gabungan narration scene.");
+    if (episode.scenes.some(scene => !scene.heading || !scene.visualPrompt)) throw new Error("Setiap scene wajib memiliki heading dan visualPrompt.");
+  }
+  if (!Array.isArray(plan.characters) || !plan.characters.length) throw new Error("Season Planner tidak menghasilkan character bible.");
   if (!Array.isArray(plan.worldRules) || !plan.worldRules.length) throw new Error("Season Planner tidak menghasilkan world rules.");
   return { ...plan, genre, seasonId, createdAt: new Date().toISOString(), status: "planned" };
 }
