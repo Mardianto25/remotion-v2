@@ -45,8 +45,12 @@ async function setThumbnail() {
 
 if (state.videoId) {
   if (!state.thumbnailUploaded) {
-    await setThumbnail();
-    console.log("Thumbnail berhasil diperbarui untuk video: " + state.url);
+    try {
+      await setThumbnail();
+      console.log("Thumbnail berhasil diperbarui untuk video: " + state.url);
+    } catch (error) {
+      console.warn("Video sudah ada di YouTube, tetapi thumbnail belum berhasil dikirim. Video ID tersimpan agar tidak upload duplikat:", error.message);
+    }
   } else {
     console.log("Episode ini sudah pernah di-upload: " + state.url);
   }
@@ -81,6 +85,11 @@ state = {
   thumbnailUploaded: false
 };
 await saveState();
-await setThumbnail();
+try {
+  await setThumbnail();
+  console.log("Thumbnail landscape berhasil dikirim ke YouTube.");
+} catch (error) {
+  console.warn("Video sudah berhasil di-upload, tetapi thumbnail gagal dikirim. Status disimpan untuk mencegah upload duplikat:", error.message);
+}
 console.log("Upload berhasil sebagai PRIVATE: " + state.url);
-console.log("Thumbnail landscape dikirim ke YouTube. Cover vertikal tersedia sebagai shorts-cover.jpg.");
+console.log("Cover vertikal tersedia sebagai shorts-cover.jpg.");
