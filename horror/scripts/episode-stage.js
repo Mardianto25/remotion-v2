@@ -129,6 +129,15 @@ if (stage === "images") {
 } else if (stage === "thumbnail") {
   await setEpisodeState("thumbnail_in_progress");
   process.env.STORY_GENRE = story.genre || "mystery";
+  const verticalExisting = path.join(episodeDir,"shorts-cover.jpg");
+  const landscapeExisting = path.join(episodeDir,"youtube-thumbnail.jpg");
+  try {
+    const [v,l] = await Promise.all([fs.stat(verticalExisting), fs.stat(landscapeExisting)]);
+    if (v.size > 1024 && l.size > 1024) {
+      console.log("[thumbnail] Thumbnail sudah tersedia; tidak generate ulang.");
+      process.exit(0);
+    }
+  } catch {}
   const seoPath = path.join(episodeDir,"youtube-metadata.json");
   let seo;
   try { seo=await readJson(seoPath); console.log("[thumbnail] Metadata SEO sudah tersedia; memakai ulang."); }
