@@ -20,10 +20,10 @@ on:
         options:
           # EPISODE_TITLE_OPTIONS_START
           - "no-episode-yet"
-          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga | 01 - Demi Pamer Di Hadapan Kerabat"
-          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga | 02 - Jatuh ke Titik Terendah"
-          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga | 03 - Merintis dari Gerobak Kecil"
-          - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga | 04 - Kemenangan Sejati Tanpa Gengsi"
+          - "Demi Pamer Di Hadapan Kerabat"
+          - "Jatuh ke Titik Terendah"
+          - "Merintis dari Gerobak Kecil"
+          - "Kemenangan Sejati Tanpa Gengsi"
           # EPISODE_TITLE_OPTIONS_END
       episode_number:
         description: Nomor episode
@@ -57,9 +57,9 @@ jobs:
           const bible = JSON.parse(fs.readFileSync('data/seasons/' + id + '/series-bible.json', 'utf8'));
           const episode = bible.episodes.find(item => Number(item.episodeNumber) === number);
           if (!episode) throw new Error('Episode tidak ditemukan di plan ' + id);
-          const expected = id + ' | ' + String(number).padStart(2, '0') + ' - ' + String(episode.title || 'Episode ' + number).replace(/\s+/g, ' ').trim();
-          if (process.env.EPISODE_TITLE !== expected) throw new Error('Judul episode tidak cocok. Pilih judul yang sesuai dengan Series ID dan nomor episode. Seharusnya: ' + expected);
-          console.log('[episode] ' + expected);
+          const expected = String(episode.title || 'Episode ' + number).replace(/\s+/g, ' ').trim();
+          if (process.env.EPISODE_TITLE !== expected) throw new Error('Judul episode tidak cocok dengan Series ID dan nomor episode. Seharusnya: ' + expected);
+          console.log('[episode] ' + String(number).padStart(2, '0') + ' - ' + expected);
           NODE
       - run: npm install
       - name: Materialize pre-generated episode script (NO AI CALL)
