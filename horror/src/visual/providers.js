@@ -23,17 +23,23 @@ function buildVisualPrompt(prompt) {
     education: "clear informative visual storytelling, accurate and approachable setting"
   };
   const mood = moodByGenre[genre] || "genre-appropriate cinematic visual storytelling";
-  return String(prompt || "A cinematic scene with a clear central subject")
+  const suffix = ". " + style + ". " + mood + ". Portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark.";
+  const base = String(prompt || "A cinematic scene with a clear central subject")
     .replace(/\\b(photorealistic|cinematic)\\b/gi, "")
-    .trim() + ". " + style + ". " + mood + ". Portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark.";
+    .trim();
+  // FLUX.1 schnell accepts prompts up to 2048 characters.
+  return base.slice(0, Math.max(1, 2048 - suffix.length)) + suffix;
 }
 async function saveCloudflareImage(response, destination) {
-  if (!response.ok) throw new Error("Cloudflare HTTP " + response.status);
+  if (!response.ok) {
+    const detail = (await response.text()).slice(0, 1200);
+    throw new Error("Cloudflare HTTP " + response.status + (detail ? ": " + detail : ""));
+  }
   const type = response.headers.get("content-type") || "";
   if (type.includes("application/json")) {
     const payload = await response.json();
     const encoded = payload?.result?.image;
-    if (!encoded) throw new Error("Cloudflare response tidak berisi result.image.");
+    if (!encoded) throw new Error("Cloudflare response tidak berisi result.image: " + JSON.stringify(payload).slice(0, 800));
     await fs.writeFile(destination, Buffer.from(encoded, "base64"));
   } else {
     await fs.writeFile(destination, Buffer.from(await response.arrayBuffer()));
