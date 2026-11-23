@@ -34,7 +34,7 @@ function normalizeEpisode(value, episodeNumber, planEpisode) {
   return {
     episodeNumber, title: String(value.title || planEpisode.title || "Episode " + episodeNumber),
     description: String(value.description || planEpisode.logline || ""),
-    category: "POV Survival & Mystery",
+    category: String(value.category || value.genre || "Storytelling"),
     disclaimer: String(value.disclaimer || "Cerita fiksi untuk hiburan. Kemiripan dengan kejadian atau tokoh nyata tidak disengaja."),
     hook: String(value.hook || planEpisode.openingHook || ""),
     mainConflict: String(value.mainConflict || planEpisode.mainConflict || ""),
@@ -54,7 +54,7 @@ export async function writeEpisode(input) {
     ending: item.cliffhanger, canonEvents: item.continuityUpdate?.canonEvents || []
   }));
   const prompt = [
-    "Anda adalah penulis utama serial POV Survival & Mystery Stories Ruang Cerita Indonesia.",
+    "Anda adalah penulis utama serial untuk Ruang Cerita Indonesia. Ikuti genre, tone, sudut pandang, dan aturan dunia dari series bible. Jangan otomatis menambahkan unsur horor.",
     "Tulis HANYA episode nomor " + episodeNumber + " dari season 8 episode. Jangan menulis episode lain.",
     "SERIES BIBLE:\n" + JSON.stringify(seriesBible, null, 2),
     "CHARACTER BIBLE:\n" + JSON.stringify(characters, null, 2),
@@ -64,10 +64,10 @@ export async function writeEpisode(input) {
     "CONTINUITY LEDGER:\n" + JSON.stringify(continuityLedger, null, 2),
     "CATATAN REVISI EDITOR:\n" + (revisionNotes || "Tidak ada. Buat draft pertama terbaik."),
     "GAYA: narasi orang kedua menggunakan 'kamu', seolah penonton mengalami langsung kejadian. Bahasa Indonesia luwes, sederhana, emosional, tidak seperti esai. Hindari pembukaan channel, salam, ajakan subscribe di awal, dan eksposisi panjang.",
-    "RETENTION: kalimat pertama berupa cold open spesifik; sebelum 30 detik penonton tahu ancaman dan taruhan; setiap 20-35 detik ada informasi baru, keputusan, bahaya, perubahan tujuan, atau pertanyaan; setiap adegan mengubah situasi; dialog singkat dan fungsional; hindari repetisi dan filler; berikan payoff kecil di episode ini; akhiri dengan cliffhanger yang berasal dari kejadian, bukan sekadar kata bersambung.",
+    "RETENTION: kalimat pertama berupa cold open spesifik; sebelum 30 detik penonton memahami konflik dan taruhan; setiap 20-35 detik ada informasi baru, keputusan, bahaya, perubahan tujuan, atau pertanyaan; setiap adegan mengubah situasi; dialog singkat dan fungsional; hindari repetisi dan filler; berikan payoff kecil di episode ini; akhiri dengan cliffhanger yang berasal dari kejadian, bukan sekadar kata bersambung.",
     "DURASI: ini YouTube Shorts vertikal dengan durasi audio final maksimal 60 detik. Tulis narasi bahasa Indonesia sekitar 100-125 kata (target 45-55 detik pada kecepatan narasi normal), ringkas dan langsung ke konflik. Gunakan tepat 5-8 scene. Jangan membuat intro channel, outro panjang, atau CTA. Cerita harus memiliki satu mini-arc yang terasa selesai sebagian, lalu cliffhanger kuat. Audio tidak boleh melebihi 60 detik. Narasi lengkap dan gabungan scene.narration harus sama persis, urut, tanpa kalimat hilang/tambahan/parafrase.",
-    "KONTINUITAS: jangan mengubah fakta episode sebelumnya, jangan menghidupkan karakter yang sudah dipastikan mati, jangan mengubah aturan dunia, jangan mengulang hook/plot twist. Misteri utama hanya boleh terjawab pada episode 8 kecuali bible menyatakan lain. Jawab sebagian pertanyaan lama dan tanam pertanyaan baru.",
-    "VISUAL: setiap visualPrompt berbahasa Inggris dan menggambarkan tepat momen scene. Jelaskan subjek, aksi, lokasi, komposisi kamera, pencahayaan, suasana, dan detail karakter; jangan mengunci prompt ke gaya 2D, anime, atau 3D karena renderer akan menerapkan visual style yang dipilih pengguna. Komposisi portrait vertical 9:16, subject framed for mobile screen, no text/logo/watermark/gore. Tempel visualBible karakter yang muncul secara konsisten dari Character Bible. FLUX.1 Schnell adalah text-to-image; konsistensi dipandu prompt teks, bukan jaminan image reference.",
+    "KONTINUITAS: jangan mengubah fakta episode sebelumnya, jangan mengubah karakter atau aturan dunia, jangan mengulang hook/plot twist. Payoff utama mengikuti series bible dan boleh terjawab di episode 8. Jawab sebagian pertanyaan lama dan tanam pertanyaan baru bila sesuai genre.",
+    "VISUAL: setiap visualPrompt berbahasa Inggris dan menggambarkan tepat momen scene. Jelaskan subjek, aksi, lokasi, komposisi kamera, pencahayaan, suasana, dan detail karakter; jangan mengunci prompt ke gaya 2D, anime, atau 3D karena renderer akan menerapkan visual style yang dipilih pengguna. Komposisi portrait vertical 9:16, subject framed for mobile screen, no text/logo/watermark; visual mood and subject matter must fit the selected genre. Tempel visualBible karakter yang muncul secara konsisten dari Character Bible. FLUX.1 Schnell adalah text-to-image; konsistensi dipandu prompt teks, bukan jaminan image reference.",
     "JSON valid tanpa markdown dengan struktur:",
     "{\"title\":\"...\",\"description\":\"...\",\"hook\":\"...\",\"mainConflict\":\"...\",\"revelation\":\"...\",\"cliffhanger\":\"...\",\"storySummary\":\"...\",\"disclaimer\":\"...\",\"narration\":\"naskah lengkap\",\"scenes\":[{\"id\":1,\"heading\":\"...\",\"narration\":\"potongan verbatim dari narration\",\"visualPrompt\":\"English cinematic visual prompt including consistent character details, portrait 9:16\",\"searchQuery\":\"keyword English untuk fallback\",\"mood\":\"...\"}],\"continuityUpdate\":{\"canonEvents\":[\"...\"],\"characterStates\":[{\"characterId\":\"char-01\",\"state\":\"...\"}],\"unresolvedThreads\":[\"...\"],\"resolvedThreads\":[\"...\"]}}",
     "Judul episode harus kuat dan spesifik, bukan sekadar Episode " + episodeNumber + "."
