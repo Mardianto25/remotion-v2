@@ -75,7 +75,7 @@ if (stage === "images") {
       if (stat.size > 1024) { console.log("[image] Skip scene " + (i+1) + ", file sudah tersedia (" + stat.size + " bytes)."); continue; }
     } catch {}
     console.log("[image] Generate scene " + (i+1) + "/" + story.scenes.length);
-    await getSceneImage(story.scenes[i], i, assetsDir);
+    await getSceneImage(story.scenes[i], i, assetsDir, story.characters);
     const produced = path.join(assetsDir, filename);
     const stat = await fs.stat(produced);
     if (stat.size <= 1024) throw new Error("Image scene " + (i+1) + " kosong/tidak valid.");
