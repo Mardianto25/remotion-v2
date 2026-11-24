@@ -77,7 +77,7 @@ export async function generateStory(topic, options = {}) {
   const targetWords = Math.round(durationMinutes * 130);
   const minWords = Math.max(130, Math.round(targetWords * 0.88));
   const maxWords = Math.min(1150, Math.round(targetWords * 1.12));
-  const sceneCount = Math.max(6, Math.min(32, Math.round(durationMinutes * 4)));
+  const sceneCount = Math.max(6, Math.min(32, Math.round(durationMinutes * 4)));\n  const selectedStyle = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();\n  const visualStylePrompt = selectedStyle === "2d" || selectedStyle === "2d-animation" ? "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading" : "high-end cinematic 3D CGI, realistic 3D characters and environments, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render";
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
@@ -91,10 +91,10 @@ export async function generateStory(topic, options = {}) {
     "Kembalikan satu objek JSON valid tanpa markdown atau code fence. Gunakan tepat struktur berikut:",
     "JSON schema: {title, description, category, disclaimer, narration (sekitar " + minWords + "-" + maxWords + " kata), scenes: [{id, heading, narration, visualPrompt (English, landscape 16:9), searchQuery, mood}]}",
     "Setiap scene wajib memiliki narration dan minimal salah satu dari visualPrompt atau searchQuery.",
-    "visualPrompt wajib bahasa Inggris dan secara eksplisit mendeskripsikan adegan sebagai high-end 3D CGI horror film still, realistic 3D character and environment, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render, landscape 16:9, no text, no logo, no watermark. Jangan menulis prompt sebagai foto dokumenter atau gambar stok.",
+    "visualPrompt wajib bahasa Inggris dan memakai gaya visual berikut: " + visualStylePrompt + ", landscape 16:9, no text, no logo, no watermark. Jangan menulis prompt sebagai foto dokumenter atau gambar stok.",
     "Buat karakter utama dan entitas supernatural konsisten antar-scene: pertahankan umur, bentuk wajah, rambut, pakaian, ciri fisik, dan detail penampilan yang sama saat karakter muncul kembali. Deskripsikan kembali ciri penting tersebut di setiap visualPrompt karena setiap gambar dibuat secara terpisah.",
     "Variasikan framing antar-scene (wide establishing shot, medium shot, close-up, over-the-shoulder, low angle) sesuai momen cerita. Hindari mengulang komposisi yang sama.",
-    "Gaya visual harus serius, menyeramkan, realistis seperti film horor CGI 3D; bukan kartun, anime, ilustrasi, atau game low-poly. Hindari gore dan kekerasan eksplisit.",
+    "Jaga kualitas visual sinematik yang serius dan sesuai genre. Ikuti style yang dipilih pengguna; jangan mengubahnya menjadi anime atau kartun generik. Hindari gore dan kekerasan eksplisit.",
     "Topik: " + topic
   ].join("\n");
 
