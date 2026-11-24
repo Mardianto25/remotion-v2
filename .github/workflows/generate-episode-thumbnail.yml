@@ -46,6 +46,8 @@ jobs:
         working-directory: horror
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -130,7 +132,39 @@ jobs:
           git -C .. config user.name "github-actions[bot]"
           git -C .. config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git -C .. add -A "horror/data/seasons/$SEASON_ID/episodes/episode-$EP" "horror/data/seasons/$SEASON_ID/production-state.json" "public/episodes/$SEASON_ID/episode-$EP"
-          git -C .. diff --cached --quiet || (git -C .. commit -m "chore(thumbnail): publish $SEASON_ID episode $EP covers" && git -C .. push)
+
+          if ! git -C .. diff --cached --quiet; then
+            git -C .. commit -m "chore(thumbnail): publish $SEASON_ID episode $EP covers"
+
+            # Rebase hasil thumbnail di atas main terbaru sebelum push.
+            # Retry jika workflow lain melakukan push pada saat yang sama.
+            PUSHED=false
+            for attempt in 1 2 3 4 5; do
+              echo "[git] Push attempt $attempt/5"
+              git -C .. fetch origin main
+              if ! git -C .. rebase origin/main; then
+                git -C .. rebase --abort || true
+                echo "::error::Rebase konflik. File hasil episode tetap tersedia sebagai artifact; tidak melakukan force-push agar commit lain tidak tertimpa."
+                exit 1
+              fi
+
+              if git -C .. push origin HEAD:main; then
+                PUSHED=true
+                echo "[git] Thumbnail berhasil dipush ke main."
+                break
+              fi
+
+              echo "[git] Push ditolak karena main berubah lagi; akan mencoba ulang."
+              sleep "$attempt"
+            done
+
+            if [ "$PUSHED" != "true" ]; then
+              echo "::error::Gagal push setelah 5 percobaan. Tidak menggunakan force-push."
+              exit 1
+            fi
+          else
+            echo "[git] Tidak ada perubahan file untuk dipush."
+          fi
       - name: Resolve padded episode directory
         id: episode
         env:
