@@ -1,0 +1,140 @@
+{
+  "episodeNumber": 1,
+  "seriesTitle": "Ia Memiliki Segalanya, Kecuali Kebahagiaan",
+  "title": "Rumah yang Terlalu Sunyi",
+  "description": "Episode 1 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
+  "genre": "inspirational",
+  "category": "inspirational",
+  "disclaimer": "Cerita fiksi inspiratif. Kemiripan dengan tokoh atau peristiwa nyata tidak disengaja.",
+  "hook": "Arga memiliki gedung kantor, mobil mewah, dan perusahaan besar. Namun setiap malam, rumah luasnya terasa kosong. Ia pulang ketika istri dan anaknya hampir tidur, lalu menganggap kelelahan sebagai harga keberhasilan.",
+  "mainConflict": "Arga harus memilih antara ambisi pribadi dan tanggung jawab terhadap keluarga.",
+  "revelation": "Larut malam, Arga membuka laci berisi foto masa kecil. Dalam foto itu, Pak Seno menggendongnya di depan bengkel kecil. Arga cepat-cepat menutup laci ketika teleponnya bergetar.",
+  "cliffhanger": "Sebuah pesan dari nomor tak dikenal menampilkan foto rumah Pak Seno dan pemberitahuan tunggakan. Pesan berikutnya menyebut rumah itu akan segera dijual. Arga terdiam, lalu membaca satu kalimat: ayahnya sedang sakit.",
+  "endingType": "cliffhanger",
+  "nextEpisodeQuestion": "Apa yang akan dilakukan Arga setelah kejadian ini?",
+  "continuityFromPrevious": null,
+  "episodePayoff": "Sebuah pesan dari nomor tak dikenal menampilkan foto rumah Pak Seno dan pemberitahuan tunggakan. Pesan berikutnya menyebut rumah itu akan segera dijual. Arga terdiam, lalu membaca satu kalimat: ayahnya sedang sakit.",
+  "seasonTeaser": "",
+  "storySummary": "Arga memiliki gedung kantor, mobil mewah, dan perusahaan besar. Namun setiap malam, rumah luasnya terasa kosong. Ia pulang ketika istri dan anaknya hampir tidur, lalu menganggap kelelahan sebagai harga keberhasilan. Di meja makan, Lila menyiapkan hidangan. Nara menunjukkan gambar keluarga dengan empat orang, termasuk Kakek Seno. Arga hanya melirik sambil membalas pesan kantor dan berjanji melihatnya nanti. Janji itu sudah sering didengar Nara. Ia bertanya apakah akhir pekan mereka bisa mengunjungi kakek. Wajah Arga berubah. Ia meminta anaknya tidak membahas orang yang sudah lama tidak menjadi bagian hidup mereka. Lila mengingatkan bahwa Pak Seno tinggal sendirian. Arga menjawab ayahnya sendiri memilih hidup sederhana. Ia tidak mengakui bahwa hubungan mereka retak sejak usaha keluarga bangkrut dan ia pergi membangun bisnis sendiri. Larut malam, Arga membuka laci berisi foto masa kecil. Dalam foto itu, Pak Seno menggendongnya di depan bengkel kecil. Arga cepat-cepat menutup laci ketika teleponnya bergetar. Sebuah pesan dari nomor tak dikenal menampilkan foto rumah Pak Seno dan pemberitahuan tunggakan. Pesan berikutnya menyebut rumah itu akan segera dijual. Arga terdiam, lalu membaca satu kalimat: ayahnya sedang sakit.",
+  "narration": "Arga memiliki gedung kantor, mobil mewah, dan perusahaan besar. Namun setiap malam, rumah luasnya terasa kosong. Ia pulang ketika istri dan anaknya hampir tidur, lalu menganggap kelelahan sebagai harga keberhasilan. Di meja makan, Lila menyiapkan hidangan. Nara menunjukkan gambar keluarga dengan empat orang, termasuk Kakek Seno. Arga hanya melirik sambil membalas pesan kantor dan berjanji melihatnya nanti. Janji itu sudah sering didengar Nara. Ia bertanya apakah akhir pekan mereka bisa mengunjungi kakek. Wajah Arga berubah. Ia meminta anaknya tidak membahas orang yang sudah lama tidak menjadi bagian hidup mereka. Lila mengingatkan bahwa Pak Seno tinggal sendirian. Arga menjawab ayahnya sendiri memilih hidup sederhana. Ia tidak mengakui bahwa hubungan mereka retak sejak usaha keluarga bangkrut dan ia pergi membangun bisnis sendiri. Larut malam, Arga membuka laci berisi foto masa kecil. Dalam foto itu, Pak Seno menggendongnya di depan bengkel kecil. Arga cepat-cepat menutup laci ketika teleponnya bergetar. Sebuah pesan dari nomor tak dikenal menampilkan foto rumah Pak Seno dan pemberitahuan tunggakan. Pesan berikutnya menyebut rumah itu akan segera dijual. Arga terdiam, lalu membaca satu kalimat: ayahnya sedang sakit.",
+  "wordCount": 177,
+  "targetDurationSeconds": {
+    "min": 60,
+    "estimated": 82
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "heading": "Pembuka",
+      "narration": "Arga memiliki gedung kantor, mobil mewah, dan perusahaan besar. Namun setiap malam, rumah luasnya terasa kosong. Ia pulang ketika istri dan anaknya hampir tidur, lalu menganggap kelelahan sebagai harga keberhasilan.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, Indonesian businessman alone in a luxurious modern home at night, realistic family drama.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "reflective"
+    },
+    {
+      "id": 2,
+      "heading": "Percakapan keluarga",
+      "narration": "Di meja makan, Lila menyiapkan hidangan. Nara menunjukkan gambar keluarga dengan empat orang, termasuk Kakek Seno. Arga hanya melirik sambil membalas pesan kantor dan berjanji melihatnya nanti.",
+      "visualPrompt": "Portrait 9:16 cinematic medium shot, Indonesian family at dinner table, emotional distance, natural warm lighting.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "melancholic"
+    },
+    {
+      "id": 3,
+      "heading": "Konflik",
+      "narration": "Janji itu sudah sering didengar Nara. Ia bertanya apakah akhir pekan mereka bisa mengunjungi kakek. Wajah Arga berubah. Ia meminta anaknya tidak membahas orang yang sudah lama tidak menjadi bagian hidup mereka.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, father and daughter in a quiet emotional conversation, contemporary Indonesian home.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "tense"
+    },
+    {
+      "id": 4,
+      "heading": "Pilihan",
+      "narration": "Lila mengingatkan bahwa Pak Seno tinggal sendirian. Arga menjawab ayahnya sendiri memilih hidup sederhana. Ia tidak mengakui bahwa hubungan mereka retak sejak usaha keluarga bangkrut dan ia pergi membangun bisnis sendiri.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, elderly Indonesian father in a modest home, old photographs and personal objects.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "emotional"
+    },
+    {
+      "id": 5,
+      "heading": "Perubahan",
+      "narration": "Larut malam, Arga membuka laci berisi foto masa kecil. Dalam foto itu, Pak Seno menggendongnya di depan bengkel kecil. Arga cepat-cepat menutup laci ketika teleponnya bergetar.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, handwritten family letter and old documents on a wooden table, emotional atmosphere.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "hopeful"
+    },
+    {
+      "id": 6,
+      "heading": "Akhir episode",
+      "narration": "Sebuah pesan dari nomor tak dikenal menampilkan foto rumah Pak Seno dan pemberitahuan tunggakan. Pesan berikutnya menyebut rumah itu akan segera dijual. Arga terdiam, lalu membaca satu kalimat: ayahnya sedang sakit.",
+      "visualPrompt": "Portrait 9:16 cinematic dramatic scene, consistent characters, specific cliffhanger action visible, realistic Indonesian setting.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "suspenseful"
+    }
+  ],
+  "characters": [
+    {
+      "id": "char-01",
+      "name": "Arga Pratama",
+      "role": "Pengusaha sukses, 42 tahun; tokoh utama",
+      "motivation": "Membangun perusahaan dan membuktikan keberhasilannya",
+      "personality": "Ambisius, tertutup, perfeksionis",
+      "secret": "Ayahnya pernah menjual bengkel untuk menyelamatkan usaha pertamanya",
+      "visualBible": "Indonesian man, 42, short neatly combed black hair with slight gray temples, angular face, charcoal suit, white shirt, silver watch."
+    },
+    {
+      "id": "char-02",
+      "name": "Pak Seno",
+      "role": "Ayah Arga, pensiunan mekanik berusia 70 tahun",
+      "motivation": "Melihat keluarganya kembali dekat",
+      "personality": "Sabar, sederhana, hangat",
+      "secret": "Menyimpan surat dan bukti pengorbanan untuk usaha Arga",
+      "visualBible": "Indonesian elderly man, 70, gentle lined face, short silver hair, faded olive shirt, brown trousers, worn sandals."
+    },
+    {
+      "id": "char-03",
+      "name": "Lila",
+      "role": "Istri Arga, 39 tahun",
+      "motivation": "Menjaga keluarga dan mendekatkan Nara dengan kakeknya",
+      "personality": "Empatik, tenang, tegas",
+      "secret": "Diam-diam tetap menghubungi Pak Seno",
+      "visualBible": "Indonesian woman, 39, shoulder-length dark hair, beige blouse or muted blue dress, minimal jewelry, expressive eyes."
+    },
+    {
+      "id": "char-04",
+      "name": "Nara",
+      "role": "Putri Arga, 10 tahun",
+      "motivation": "Membuat ayah dan kakeknya kembali akrab",
+      "personality": "Peka, jujur, ingin tahu",
+      "secret": "Menyusun album foto keluarga",
+      "visualBible": "Indonesian girl, 10, straight dark hair in low ponytail, yellow cardigan, denim skirt, small sketchbook."
+    }
+  ],
+  "continuityUpdate": {
+    "canonEvents": [
+      "Episode 1: Sebuah pesan dari nomor tak dikenal menampilkan foto rumah Pak Seno dan pemberitahuan tunggakan. Pesan berikutnya menyebut rumah itu akan segera dijual. Arga terdiam, lalu membaca satu kalimat: ayahnya sedang sakit."
+    ],
+    "characterStates": [
+      {
+        "characterId": "char-01",
+        "state": "Menghadapi perkembangan konflik episode 1."
+      },
+      {
+        "characterId": "char-02",
+        "state": "Menghadapi perkembangan konflik episode 1."
+      },
+      {
+        "characterId": "char-03",
+        "state": "Menghadapi perkembangan konflik episode 1."
+      },
+      {
+        "characterId": "char-04",
+        "state": "Menghadapi perkembangan konflik episode 1."
+      }
+    ],
+    "unresolvedThreads": [
+      "Pemulihan hubungan keluarga."
+    ],
+    "resolvedThreads": []
+  }
+}
