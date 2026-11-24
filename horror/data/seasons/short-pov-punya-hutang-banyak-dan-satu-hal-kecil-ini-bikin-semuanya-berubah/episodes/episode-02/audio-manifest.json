@@ -1,0 +1,42 @@
+{
+  "durationSeconds": 39.12,
+  "captions": [
+    {
+      "start": 0.1,
+      "end": 4.829,
+      "text": "Aku memohon penundaan dua hari demi membuktikan resep warisan Ayah."
+    },
+    {
+      "start": 4.779,
+      "end": 11.1,
+      "text": "Dengan sisa uang lima puluh ribu rupiah, aku membeli bahan dan meracik sambal rempah di dapur sempitku."
+    },
+    {
+      "start": 11.1,
+      "end": 15.446,
+      "text": "Aku menjual nasi bungkus sambal ini di depan gedung perkantoran."
+    },
+    {
+      "start": 15.446,
+      "end": 22.146,
+      "text": "Tak disangka, seorang pengusaha kuliner ternama mencicipinya dan langsung terpukau oleh kelezatannya."
+    },
+    {
+      "start": 22.146,
+      "end": 29.184,
+      "text": "Tanpa ragu, dia menantangku menyediakan lima ratus porsi untuk acara besok malam dengan nilai kontrak puluhan juta!"
+    },
+    {
+      "start": 29.184,
+      "end": 32.157,
+      "text": "Dadaku bergemuruh penuh semangat."
+    },
+    {
+      "start": 32.157,
+      "end": 39.062,
+      "text": "Tetapi saat aku hendak pulang untuk mulai memasak, Aris mendadak muncul dan menyita seluruh peralatan dapur utama milikku!"
+    }
+  ],
+  "audio": "audio/narration.mp3",
+  "subtitles": "audio/narration.vtt"
+}
