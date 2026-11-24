@@ -79,7 +79,19 @@ jobs:
           STORY_GENRE: ${{ inputs.genre }}
           STORY_GENRE: ${{ inputs.genre }}
         run: test -n "$TOPIC" || (echo "topic wajib diisi untuk Single Video" && exit 1)
+      - name: Validate JavaScript syntax before spending generation credits
+        run: |
+          node --check scripts/long-video.js
+          node --check scripts/series.js
+          node --check src/ai/storyGenerator.js
+          node --check src/ai/seriesPlanner.js
+          node --check src/ai/seoGenerator.js
+          node --check src/visual/providers.js
+          node --check src/visual/thumbnail.js
       - name: Ensure Remotion browser
+        
+      - name: Validate Remotion compositions
+        run: npx remotion compositions remotion/index.jsx
         run: npx remotion browser ensure
       - name: Generate images, narration, thumbnail and 16:9 video
         env:
