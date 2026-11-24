@@ -143,34 +143,59 @@ ${styleInstructions} Detailed environments, dramatic composition, vertical 9:16.
 No text, captions, logos, or watermarks.
   `;
 
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiToken}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      prompt: `${prompt}. ${visualRules}`,
-      steps: 4
-    })
+  const requestBody = JSON.stringify({
+    prompt: `${prompt}. ${visualRules}`,
+    steps: 4
   });
+  const maxAttempts = 3;
+  let imageBase64 = null;
+  let lastError = null;
 
-  const result = await response.json();
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: requestBody,
+        signal: AbortSignal.timeout(120000)
+      });
 
-  if (
-    !response.ok ||
-    !result.success ||
-    !result.result?.image
-  ) {
-    throw new Error(
-      `Cloudflare FLUX gagal: ${JSON.stringify(result.errors || result)}`
-    );
+      const responseText = await response.text();
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch {
+        throw new Error(`Cloudflare FLUX mengembalikan respons bukan JSON (HTTP ${response.status}).`);
+      }
+
+      if (!response.ok || !result.success || !result.result?.image) {
+        const detail = JSON.stringify(result.errors || result);
+        const error = new Error(`Cloudflare FLUX gagal (HTTP ${response.status}): ${detail}`);
+        error.retryable = response.status === 408 || response.status === 429 || response.status >= 500;
+        throw error;
+      }
+
+      imageBase64 = result.result.image;
+      break;
+    } catch (error) {
+      lastError = error;
+      const retryable = error.retryable !== false;
+      if (!retryable || attempt === maxAttempts) break;
+
+      const delayMs = attempt * 3000;
+      console.warn(`[FLUX] Percobaan ${attempt}/${maxAttempts} gagal: ${error.message}. Coba ulang dalam ${delayMs / 1000} detik.`);
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
   }
 
-  const imageBuffer = Buffer.from(
-    result.result.image,
-    'base64'
-  );
+  if (!imageBase64) {
+    throw new Error(`FLUX gagal setelah ${maxAttempts} percobaan: ${lastError?.message || 'Tidak ada gambar yang diterima.'}`);
+  }
+
+  const imageBuffer = Buffer.from(imageBase64, 'base64');
 
   if (!imageBuffer.length) {
     throw new Error('Hasil gambar FLUX kosong.');
