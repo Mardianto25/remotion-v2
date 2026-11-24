@@ -65,7 +65,8 @@ function normalizeStory(input, topic, selectedGenre = "mystery") {
   return {
     title: value.title || value.videoTitle || topic,
     description: value.description || value.summary || "",
-    category: value.category || selectedGenre,\n    genre: value.genre || selectedGenre,
+    category: value.category || selectedGenre,
+    genre: value.genre || selectedGenre,
     disclaimer: value.disclaimer || "Kisah ini memuat legenda dan dramatisasi. Bagian yang belum terverifikasi tidak disajikan sebagai fakta.",
     narration,
     scenes
@@ -73,12 +74,15 @@ function normalizeStory(input, topic, selectedGenre = "mystery") {
 }
 
 export async function generateStory(topic, options = {}) {
-  const durationMinutes = Math.max(1, Math.min(8, Number(options.durationMinutes || 5)));\n  const longVideo = options.longVideo === true;\n  const selectedGenre = String(options.genre || process.env.STORY_GENRE || "mystery");
+  const durationMinutes = Math.max(1, Math.min(8, Number(options.durationMinutes || 5)));
+  const longVideo = options.longVideo === true;
+  const selectedGenre = String(options.genre || process.env.STORY_GENRE || "mystery");
   const targetWords = Math.round(durationMinutes * 130);
   const minWords = Math.max(130, Math.round(targetWords * 0.88));
   const maxWords = Math.min(1150, Math.round(targetWords * 1.12));
   const sceneCount = Math.max(6, Math.min(32, Math.round(durationMinutes * 4)));
-  const selectedStyle = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();\n  const visualStylePrompt = selectedStyle === "2d" || selectedStyle === "2d-animation" ? "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading" : "high-end cinematic 3D CGI, realistic 3D characters and environments, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render";
+  const selectedStyle = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
+  const visualStylePrompt = selectedStyle === "2d" || selectedStyle === "2d-animation" ? "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading" : "high-end cinematic 3D CGI, realistic 3D characters and environments, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render";
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
