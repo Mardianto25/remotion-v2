@@ -25,6 +25,8 @@ const story = await readJson(storyPath);
 story.contentId = "short-" + seasonId + "-episode-" + String(episodeNumber).padStart(2, "0");
 story.format = "shorts";
 story.characters = Array.isArray(bible.characters) ? bible.characters : [];
+story.seriesTitle = String(bible.seriesTitle || story.seriesTitle || story.themeTitle || "").trim();
+story.themeTitle = story.seriesTitle;
 // Shorts standard: flexible narration length, with a minimum estimated word floor.
 // Actual duration is validated from generated audio/video and must be at least 60 seconds.
 const SHORTS_STANDARD = { minWords: 100, maxWords: 1000, minScenes: 6, maxScenes: 8, minDurationSeconds: 60 };
@@ -186,7 +188,7 @@ if (stage === "images") {
   const thumbnailStyle = String(process.env.HORROR_THUMBNAIL_STYLE || currentEpisode.thumbnailVisualStyle || currentEpisode.visualStyle || "cinematic-3d").toLowerCase();
   process.env.HORROR_THUMBNAIL_STYLE = thumbnailStyle;
   const styleKey = thumbnailStyle === "2d" || thumbnailStyle === "2d-animation" ? "2d-animation" : "cinematic-3d";
-  const expectedThumbnailVersion = "episode-ctr-v9-" + styleKey + "-portrait";
+  const expectedThumbnailVersion = "episode-ctr-v11-" + styleKey + "-portrait";
   console.log("[thumbnail] Menggunakan visual style thumbnail: " + styleKey);
   const verticalExisting = path.join(episodeDir,"shorts-cover.jpg");
   try {
