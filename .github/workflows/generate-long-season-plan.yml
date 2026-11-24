@@ -49,7 +49,7 @@ jobs:
         env:
           TITLE: ${{ inputs.series_title }}
         run: |
-          node -e 'const s=(process.env.TITLE||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,80); if(!s) throw Error("Judul tidak valid"); require("fs").appendFileSync(process.env.GITHUB_OUTPUT,"series_id="+s+"\n")'
+          node -e 'const s=(process.env.TITLE||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,75); if(!s) throw Error("Judul tidak valid"); require("fs").appendFileSync(process.env.GITHUB_OUTPUT,"series_id=long-"+s+"\n")'
       - name: Generate complete Long Video season
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
