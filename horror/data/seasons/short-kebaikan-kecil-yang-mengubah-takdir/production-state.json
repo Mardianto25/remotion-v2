@@ -8,10 +8,11 @@
     {
       "episodeNumber": 1,
       "title": "Tiga Puluh Juta yang Membekas",
-      "status": "images_ready",
+      "status": "audio_ready",
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
-      "imageCount": 6
+      "imageCount": 6,
+      "durationSeconds": 47.9
     },
     {
       "episodeNumber": 2,
@@ -49,5 +50,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T19:24:15.438Z"
+  "updatedAt": "2026-11-24T19:34:30.093Z"
 }
