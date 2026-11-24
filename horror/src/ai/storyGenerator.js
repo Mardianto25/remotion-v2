@@ -72,19 +72,24 @@ function normalizeStory(input, topic) {
   };
 }
 
-export async function generateStory(topic) {
+export async function generateStory(topic, options = {}) {
+  const durationMinutes = Math.max(1, Math.min(8, Number(options.durationMinutes || 5)));
+  const targetWords = Math.round(durationMinutes * 130);
+  const minWords = Math.max(130, Math.round(targetWords * 0.88));
+  const maxWords = Math.min(1150, Math.round(targetWords * 1.12));
+  const sceneCount = Math.max(6, Math.min(32, Math.round(durationMinutes * 4)));
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
-    "Buat naskah cerita horor/misteri Indonesia untuk video YouTube Ruang Cerita Indonesia dengan target durasi narasi 5-6 menit (sekitar 650-750 kata; batas keras 820 kata).",
+    "Buat naskah cerita untuk video YouTube Ruang Cerita Indonesia dengan target durasi narasi " + durationMinutes + " menit (sekitar " + minWords + "-" + maxWords + " kata). Jangan melebihi " + Math.round(maxWords * 1.08) + " kata.",
     "Prioritaskan cerita yang padat, mengalir, sinematik, dan membuat penonton ingin terus menonton. Jangan memperpanjang cerita dengan pengulangan, basa-basi, atau deskripsi suasana yang tidak menambah ketegangan.",
     "Gunakan struktur alur yang jelas: (1) hook mengerikan atau pertanyaan misterius dalam 1-2 kalimat pertama, langsung memancing rasa penasaran; (2) pengenalan tokoh dan lokasi secara singkat; (3) kejadian ganjil yang mulai mengganggu; (4) ancaman meningkat dengan petunjuk baru atau konsekuensi yang makin nyata; (5) klimaks yang menjadi puncak teror; (6) ending atau twist yang kuat dan membekas.",
     "Pastikan ada perkembangan cerita atau informasi baru setiap 20-35 detik. Dalam 5-10 detik pertama, buka dengan kejadian paling ganjil/menyeramkan atau pertanyaan yang spesifik. Hindari intro channel, salam, ajakan subscribe di awal, dan latar belakang panjang. Jangan mengulang informasi yang sudah diketahui penonton, jangan terlalu cepat mengungkap sosok/rahasia utama, dan jangan menutup cerita secara terburu-buru.",
-    "Buat 20-24 scene yang mengikuti urutan narasi. Setiap scene harus mewakili satu momen visual yang jelas dan berbeda, bukan memecah satu kalimat menjadi banyak scene.",
+    "Buat " + sceneCount + "-" + Math.min(36, sceneCount + 2) + " scene yang mengikuti urutan narasi. Setiap scene harus mewakili satu momen visual yang jelas dan berbeda, bukan memecah satu kalimat menjadi banyak scene.",
     "Jika mengangkat lokasi, legenda, atau peristiwa nyata, bedakan fakta, legenda, kesaksian, dan dramatisasi. Jangan mengarang sumber, tanggal, kutipan, atau menyebut cerita sebagai kisah nyata tanpa dasar. Hindari gore eksplisit.",
     "Narasi lengkap harus konsisten dengan gabungan narration pada seluruh scene. Setiap scene.narration WAJIB berupa potongan VERBATIM yang berurutan dari narration lengkap: salin kalimat persis, jangan parafrase, jangan menambah/mengurangi kata, dan jangan mengubah urutan. Scene pertama dimulai dari awal cerita dan scene terakhir berakhir di akhir cerita.",
     "Kembalikan satu objek JSON valid tanpa markdown atau code fence. Gunakan tepat struktur berikut:",
-    '{"title":"judul video yang menarik","description":"deskripsi singkat","category":"kategori","disclaimer":"catatan fakta dan dramatisasi bila diperlukan","narration":"naskah narasi lengkap 650-750 kata, maksimal 820 kata","scenes":[{"id":1,"heading":"judul adegan","narration":"bagian narasi adegan yang merupakan potongan dari narasi lengkap","visualPrompt":"English cinematic 3D CGI Indonesian horror film still prompt, landscape 16:9, no text, no watermark","searchQuery":"kata kunci visual alternatif","mood":"misterius"}]}',
+    '{"title":"judul video yang menarik","description":"deskripsi singkat","category":"kategori","disclaimer":"catatan fakta dan dramatisasi bila diperlukan","narration":"naskah narasi lengkap sekitar " + minWords + "-" + maxWords + " kata","scenes":[{"id":1,"heading":"judul adegan","narration":"bagian narasi adegan yang merupakan potongan dari narasi lengkap","visualPrompt":"English cinematic 3D CGI Indonesian horror film still prompt, landscape 16:9, no text, no watermark","searchQuery":"kata kunci visual alternatif","mood":"misterius"}]}',
     "Setiap scene wajib memiliki narration dan minimal salah satu dari visualPrompt atau searchQuery.",
     "visualPrompt wajib bahasa Inggris dan secara eksplisit mendeskripsikan adegan sebagai high-end 3D CGI horror film still, realistic 3D character and environment, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render, landscape 16:9, no text, no logo, no watermark. Jangan menulis prompt sebagai foto dokumenter atau gambar stok.",
     "Buat karakter utama dan entitas supernatural konsisten antar-scene: pertahankan umur, bentuk wajah, rambut, pakaian, ciri fisik, dan detail penampilan yang sama saat karakter muncul kembali. Deskripsikan kembali ciri penting tersebut di setiap visualPrompt karena setiap gambar dibuat secara terpisah.",
