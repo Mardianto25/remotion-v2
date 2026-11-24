@@ -140,23 +140,25 @@ if (stage === "images") {
 } else if (stage === "thumbnail") {
   await setEpisodeState("thumbnail_in_progress");
   process.env.STORY_GENRE = story.genre || "mystery";
+  const currentState = await readJson(statePath);
+  const currentEpisode = currentState.episodes.find(item => Number(item.episodeNumber) === episodeNumber) || {};
+  const thumbnailStyle = String(process.env.HORROR_THUMBNAIL_STYLE || currentEpisode.thumbnailVisualStyle || currentEpisode.visualStyle || "cinematic-3d").toLowerCase();
+  process.env.HORROR_THUMBNAIL_STYLE = thumbnailStyle;
+  const styleKey = thumbnailStyle === "2d" || thumbnailStyle === "2d-animation" ? "2d-animation" : "cinematic-3d";
+  const expectedThumbnailVersion = "episode-ctr-v9-" + styleKey + "-portrait";
+  console.log("[thumbnail] Menggunakan visual style thumbnail: " + styleKey);
   const verticalExisting = path.join(episodeDir,"shorts-cover.jpg");
   try {
     const v = await fs.stat(verticalExisting);
     const cachedMetadata = await readJson(path.join(episodeDir,"youtube-metadata.json"));
     const forceRegenerate = String(process.env.FORCE_THUMBNAIL_REGENERATE || "no").toLowerCase() === "yes";
-    if (v.size > 1024 && cachedMetadata.thumbnail?.version === "episode-ctr-v8-shorts-portrait-ctr" && !forceRegenerate) {
-      console.log("[thumbnail] Shorts cover 9:16 versi CTR terbaru sudah tersedia; tidak generate ulang.");
-      await setEpisodeState("thumbnail_ready");
+    if (v.size > 1024 && cachedMetadata.thumbnail?.version === expectedThumbnailVersion && !forceRegenerate) {
+      console.log("[thumbnail] Shorts cover 9:16 " + styleKey + " sudah tersedia; tidak generate ulang.");
+      await setEpisodeState("thumbnail_ready", { thumbnailVisualStyle: styleKey });
       process.exit(0);
     }
     if (forceRegenerate) console.log("[thumbnail] Regenerate dipaksa oleh input workflow.");
   } catch {}
-  const currentState = await readJson(statePath);
-  const currentEpisode = currentState.episodes.find(item => Number(item.episodeNumber) === episodeNumber) || {};
-  const episodeVisualStyle = String(currentEpisode.visualStyle || "cinematic-3d").toLowerCase();
-  process.env.HORROR_VISUAL_STYLE = episodeVisualStyle;
-  console.log("[thumbnail] Menggunakan visual style episode: " + episodeVisualStyle);
 
   const seoPath = path.join(episodeDir,"youtube-metadata.json");
   let seo;
@@ -175,7 +177,7 @@ if (stage === "images") {
   await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"shorts-cover.jpg"));
   // Legacy filename remains available as a copy of the same portrait Shorts cover.
   await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"youtube-thumbnail.jpg"));
-  await setEpisodeState("thumbnail_ready");
+  await setEpisodeState("thumbnail_ready", { thumbnailVisualStyle: styleKey });
   console.log("[thumbnail] Shorts cover 9:16 + metadata CTR berhasil dibuat; hanya satu gambar AI yang digenerate.");
 } else {
   throw new Error("Stage tidak dikenal. Gunakan images|audio|render|thumbnail.");
