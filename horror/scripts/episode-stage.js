@@ -72,7 +72,9 @@ if (stage === "images") {
     const destination = path.join(assetsDir, filename);
     try {
       const stat = await fs.stat(destination);
-      if (stat.size > 1024) { console.log("[image] Skip scene " + (i+1) + ", file sudah tersedia (" + stat.size + " bytes)."); continue; }
+      const forceRegenerate = String(process.env.FORCE_REGENERATE_IMAGES || "no").toLowerCase() === "yes";
+      if (stat.size > 1024 && !forceRegenerate) { console.log("[image] Skip scene " + (i+1) + ", file sudah tersedia (" + stat.size + " bytes)."); continue; }
+      if (stat.size > 1024 && forceRegenerate) console.log("[image] Generate ulang scene " + (i+1) + " sesuai pilihan workflow.");
     } catch {}
     console.log("[image] Generate scene " + (i+1) + "/" + story.scenes.length);
     await getSceneImage(story.scenes[i], i, assetsDir, story.characters);
