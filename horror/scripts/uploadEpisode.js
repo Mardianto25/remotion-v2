@@ -14,6 +14,8 @@ const metadataPath = path.join(DATA_DIR, "youtube-metadata.json");
 const statePath = process.env.EPISODE_UPLOAD_STATE ? path.resolve(process.env.EPISODE_UPLOAD_STATE) : path.join(DATA_DIR, "episode-youtube-upload.json");
 for (const file of [videoPath, thumbnailPath, metadataPath]) await fs.access(file);
 const metadata = JSON.parse(await fs.readFile(metadataPath, "utf8"));
+const uploadMode = String(process.env.EPISODE_UPLOAD_MODE || "retry_thumbnail").toLowerCase();
+if (!["retry_thumbnail", "new_video"].includes(uploadMode)) throw new Error("EPISODE_UPLOAD_MODE harus retry_thumbnail atau new_video.");
 
 const oauth = new google.auth.OAuth2(process.env.YOUTUBE_CLIENT_ID_3N, process.env.YOUTUBE_CLIENT_SECRET_3N);
 oauth.setCredentials({ refresh_token: process.env.YOUTUBE_REFRESH_TOKEN_3N });
@@ -44,7 +46,7 @@ async function setThumbnail() {
   await saveState();
 }
 
-if (state.videoId) {
+if (state.videoId && uploadMode === "retry_thumbnail") {
   // A rerun retries only the thumbnail; it never uploads a duplicate video.
   await setThumbnail();
   console.log("Thumbnail 16:9 berhasil dikirim ulang untuk video: " + state.url);
@@ -69,8 +71,11 @@ const { data } = await youtube.videos.insert({
   media: { body: createReadStream(videoPath) }
 });
 if (!data.id) throw new Error("YouTube tidak mengembalikan video ID.");
+const previousUploads = Array.isArray(state.previousUploads) ? state.previousUploads : [];
+if (state.videoId) previousUploads.push({ videoId: state.videoId, url: state.url, title: state.title, uploadedAt: state.uploadedAt, supersededAt: new Date().toISOString() });
 state = {
   ...state,
+  previousUploads,
   videoId: data.id,
   title: metadata.title,
   privacyStatus: "private",
@@ -81,7 +86,7 @@ state = {
 await saveState();
 try {
   await setThumbnail();
-  console.log("Shorts cover vertikal berhasil dikirim ke YouTube (jika format diterima YouTube).");
+  console.log("Thumbnail landscape 16:9 berhasil dipasang pada video baru.");
 } catch (error) {
   console.error("Video sudah berhasil di-upload, tetapi thumbnail gagal dikirim. Jalankan ulang workflow 07 untuk mencoba memasang thumbnail tanpa meng-upload video duplikat:", error.message);
   throw error;
