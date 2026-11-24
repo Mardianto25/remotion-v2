@@ -1,4 +1,4 @@
-name: Long Video - 01 Season Plan
+name: 08 - LONG 01 | Season Plan
 on:
   workflow_dispatch:
     inputs:
