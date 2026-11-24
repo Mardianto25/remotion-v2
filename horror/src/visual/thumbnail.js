@@ -16,7 +16,7 @@ function selectedStyle() {
 async function generateBackground(prompt) {
   if (!config.cloudflareAccountId || !config.cloudflareApiToken) throw new Error("CF_ACCOUNT_ID dan CF_API_TOKEN wajib tersedia untuk membuat thumbnail.");
   const endpoint = "https://api.cloudflare.com/client/v4/accounts/" + config.cloudflareAccountId + "/ai/run/" + config.cloudflareModel;
-  const response = await fetch(endpoint, { method: "POST", headers: { Authorization: "Bearer " + config.cloudflareApiToken, "Content-Type": "application/json" }, body: JSON.stringify({ prompt, steps: 4 }) });
+  const response = await fetch(endpoint, { method: "POST", headers: { Authorization: "Bearer " + config.cloudflareApiToken, "Content-Type": "application/json" }, body: JSON.stringify({ prompt: String(prompt).slice(0, 2048), steps: 4 }) });
   if (!response.ok) throw new Error("Cloudflare thumbnail HTTP " + response.status + ": " + (await response.text()).slice(0, 400));
   const type = response.headers.get("content-type") || "";
   if (type.includes("application/json")) {
