@@ -16,6 +16,7 @@ if (!Number.isFinite(durationMinutes) || durationMinutes < 1 || durationMinutes 
 const storyFile = arg("--story-file");
 const topic = arg("--topic");
 const id = String(arg("--output-id", topic || path.basename(storyFile || "single-video", ".json"))).toLowerCase().normalize("NFKD").replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 70) || "long-video";
+if (!id.startsWith("long-")) throw new Error("output_id wajib diawali long- agar tidak tertukar dengan Shorts.");
 const dataDir = path.join(LONG_DATA_DIR, id);
 const assetsDir = path.join(LONG_PUBLIC_DIR, id, "assets");
 const audioDir = path.join(LONG_PUBLIC_DIR, id, "audio");
@@ -47,6 +48,8 @@ if (stage === "story") {
  }
  if (!story.narration || !Array.isArray(story.scenes) || !story.scenes.length) throw new Error("Naskah tidak memiliki narration/scenes.");
  story.outputId=id;
+ story.contentId=id;
+ story.format="long";
  await writeJson(storyPath,story);
  await writeJson(path.join(dataDir,"stage-state.json"),{story:"completed",updatedAt:new Date().toISOString()});
  console.log("[long-video] Naskah tersimpan:",storyPath);
@@ -74,6 +77,7 @@ if (stage === "story") {
 } else if (stage === "thumbnail") {
  const story=await getStory();process.env.STORY_GENRE=String(story.genre||story.category||"mystery");
  const seo=await generateSeo(story,topic||story.title,{format:"long"});
+ seo.contentId=id;seo.format="long";
  await writeJson(path.join(dataDir,"youtube-metadata.json"),seo);
  const thumbnail=await generateLongThumbnail(story,seo,topic||story.title,outDir);
  await writeJson(path.join(dataDir,"thumbnail-manifest.json"),{path:thumbnail.landscapePath,updatedAt:new Date().toISOString()});
@@ -93,6 +97,6 @@ if (stage === "story") {
  const video=path.join(outDir,"long-video.mp4");
  await run("npx",["remotion","render","remotion/index.jsx","LongVideo",video,"--codec=h264","--crf=22"]);
  const actual=await durationOf(video);if(actual>510.5)throw new Error("Render melebihi 8:30.");
- await writeJson(path.join(dataDir,"production-manifest.json"),{outputId:id,targetDurationMinutes:durationMinutes,durationSeconds:Number(actual.toFixed(2)),aspectRatio:"16:9",visualStyle:process.env.HORROR_VISUAL_STYLE||"cinematic-3d",video,thumbnail:path.join(outDir,"youtube-thumbnail.jpg"),sceneCount:scenes.length});
+ await writeJson(path.join(dataDir,"production-manifest.json"),{outputId:id,targetDurationMinutes:durationMinutes,durationSeconds:Number(actual.toFixed(2)),aspectRatio:"16:9",contentId:id,format:"long",visualStyle:process.env.HORROR_VISUAL_STYLE||"cinematic-3d",video,thumbnail:path.join(outDir,"youtube-thumbnail.jpg"),sceneCount:scenes.length});
  console.log("[render] Selesai:",video,actual.toFixed(1),"detik, 1920x1080.");
 } else throw new Error("Stage harus story|images|audio|thumbnail|render.");
