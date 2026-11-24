@@ -39,8 +39,8 @@ export async function generateSeo(story, topic) {
   const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
   const prompt = `Anda adalah YouTube packaging agent senior untuk channel Indonesia "${CHANNEL_NAME}". Tugas Anda bukan sekadar mengisi SEO, tetapi memilih kemasan video yang paling membuat penonton target ingin mengeklik tanpa menipu.
 Genre konten: ${genre}. Analisis keseluruhan premis, konflik, emosi, lokasi, dan payoff cerita. Jangan otomatis memakai keyword horor jika genre bukan horor. Buat 3 kandidat judul secara internal, nilai masing-masing dari sisi rasa penasaran, kejelasan, relevansi dengan cerita, dan naturalitas bahasa Indonesia. Pilih satu pemenang.
-Buat 2-4 kata untuk teks thumbnail. Teks thumbnail harus melengkapi judul, bukan mengulang judul. Buat prompt cover khusus YouTube Shorts berdasarkan momen paling kuat/unik dari cerita: satu focal subject yang langsung terbaca pada layar HP, ancaman terlihat jelas tetapi misterinya tidak dibocorkan, komposisi portrait vertical 9:16, subjek utama berada di area tengah agar aman saat di-crop. Prompt harus bahasa Inggris, mengikuti visual style yang dipilih (cinematic 3D atau 2D animation), konsisten dengan detail tokoh/entitas dalam cerita, tanpa tulisan/logo/watermark/gore.
-Judul maksimal 70 karakter agar ringkas di feed Shorts, spesifik dan memancing rasa ingin tahu sesuai genre. Hindari judul generik, keyword stuffing, kapital berlebihan, dan clickbait yang tidak dibayar oleh isi cerita. Jangan mengklaim kisah nyata atau fakta yang tidak didukung materi.
+Buat packaging khusus YouTube Shorts, bukan video panjang. Pilih judul yang terasa natural di feed Shorts, maksimal 60 karakter, langsung mengangkat konflik atau konsekuensi paling menarik dari cerita, memancing rasa ingin tahu tanpa clickbait palsu. Buat 2-4 kata untuk teks cover sebagai hook visual yang melengkapi judul. Optimalkan CTR melalui satu momen emosional/konflik yang mudah dipahami dalam 1 detik, ekspresi tokoh kuat, focal subject besar, kontras jelas, dan komposisi portrait 9:16 untuk layar HP. Jangan menambahkan nama channel, branding, logo, watermark, tulisan tambahan, atau elemen dekoratif. Prompt gambar harus bahasa Inggris, mengikuti visual style yang dipilih (cinematic 3D atau 2D animation), konsisten dengan detail tokoh/entitas, tanpa teks/logo/watermark/gore.
+Judul maksimal 60 karakter agar ringkas di feed Shorts, spesifik dan memancing rasa ingin tahu sesuai konflik cerita. Hindari judul generik, keyword stuffing, kapital berlebihan, dan clickbait yang tidak dibayar oleh isi cerita. Jangan mengklaim kisah nyata atau fakta yang tidak didukung materi.
 Deskripsi 2-3 paragraf: kalimat pembuka kuat dan memuat keyword utama secara alami, ringkasan singkat tanpa membocorkan twist, konteks legenda/fiksi bila relevan, ajakan subscribe yang tidak berlebihan.
 Hashtags 3-5 buah. Tags 10-18 keyword pendek yang benar-benar relevan.
 Kembalikan JSON valid saja dengan struktur:
@@ -61,7 +61,7 @@ Naskah: ${String(story.narration || "").slice(0, 9000)}`;
     console.warn("[seo] Gemini tidak tersedia/kuota habis. Menggunakan metadata lokal:", error.message);
     return fallbackSeo(story, topic);
   }
-  const title = String(value.title || story.title || topic).trim().slice(0, 70);
+  const title = String(value.title || story.title || topic).trim().slice(0, 60);
   const hashtags = [...new Set((Array.isArray(value.hashtags) ? value.hashtags : []).map(x => String(x).trim().replace(/\s+/g, "")).filter(x => /^#[\p{L}\p{N}_]+$/u.test(x)))].slice(0, 5);
   const uniqueTags = [...new Set((Array.isArray(value.tags) ? value.tags : []).map(x => String(x).trim()).filter(Boolean))].slice(0, 18);
   const tags = [];
