@@ -1,0 +1,54 @@
+name: Long Video - 07 Upload YouTube | PRIVATE
+on:
+  workflow_dispatch:
+    inputs:
+      output_id:
+        description: ID output Long Video yang sudah dirender
+        required: true
+        type: string
+      upload_mode:
+        description: Upload video baru atau retry thumbnail saja
+        required: true
+        default: new_video
+        type: choice
+        options: [new_video, retry_thumbnail]
+permissions:
+  contents: write
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install && npm install googleapis
+      - name: Upload standard landscape video
+        env:
+          YOUTUBE_CLIENT_ID_3N: ${{ secrets.YOUTUBE_CLIENT_ID_3N }}
+          YOUTUBE_CLIENT_SECRET_3N: ${{ secrets.YOUTUBE_CLIENT_SECRET_3N }}
+          YOUTUBE_REFRESH_TOKEN_3N: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3N }}
+          YOUTUBE_CHANNEL_NAME_3N: Ruang Cerita Indonesia
+          LONG_VIDEO_ID: ${{ inputs.output_id }}
+          LONG_VIDEO_UPLOAD_MODE: ${{ inputs.upload_mode }}
+        run: node scripts/uploadLongVideo.js
+      - name: Persist YouTube upload state
+        if: always()
+        env:
+          OUTPUT_ID: ${{ inputs.output_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C .. add -A "horror/data/long-video/$OUTPUT_ID/youtube-upload.json" || true
+          git diff --cached --quiet || (git commit -m "chore(long-video): save YouTube upload state $OUTPUT_ID" && git push)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: long-video-upload-${{ inputs.output_id }}-${{ github.run_id }}
+          path: horror/data/long-video/${{ inputs.output_id }}/youtube-upload.json
+          if-no-files-found: ignore
+          retention-days: 30
