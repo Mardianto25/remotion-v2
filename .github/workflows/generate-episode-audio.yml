@@ -19,6 +19,12 @@ on:
         default: "1"
         type: choice
         options: ["1","2","3","4","5","6","7","8","9","10","11","12"]
+      regenerate_audio:
+        description: Buat ulang narasi audio dan subtitle dari story.json terbaru
+        required: true
+        default: "no"
+        type: choice
+        options: ["no", "yes"]
 permissions:
   contents: write
 jobs:
@@ -60,6 +66,7 @@ jobs:
           EDGE_TTS_RATE: "-8%"
           EDGE_TTS_PITCH: "-5Hz"
           PYTHON_BIN: python
+          FORCE_REGENERATE_AUDIO: ${{ inputs.regenerate_audio }}
         run: node scripts/episode-stage.js audio --season "${{ inputs.series_id }}" --episode "${{ inputs.episode_number }}"
       - name: Persist audio checkpoint
         env:
