@@ -1,0 +1,69 @@
+name: Long Video - 03 Images
+on:
+  workflow_dispatch:
+    inputs:
+      output_id:
+        description: ID output; gunakan ID yang sama di semua tahap
+        required: true
+        type: string
+      duration_minutes:
+        description: Target durasi 1-8 menit
+        required: true
+        default: "5"
+        type: choice
+        options: ["1","2","3","4","5","6","7","8"]
+      visual_style:
+        description: Gaya visual
+        required: true
+        default: cinematic-3d
+        type: choice
+        options: [cinematic-3d, 2d-animation]
+
+permissions:
+  contents: write
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          npm install
+      - name: Generate landscape scene images (resume supported)
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
+          CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
+          HORROR_VISUAL_STYLE: ${{ inputs.visual_style }}
+          HORROR_STRICT_VISUAL_STYLE: "true"
+          OUTPUT_ID: ${{ inputs.output_id }}
+          DURATION: ${{ inputs.duration_minutes }}
+        run: node scripts/long-video-stage.js images --output-id "$OUTPUT_ID" --duration "$DURATION"
+      - name: Persist Long Video checkpoint
+        if: always()
+        env:
+          OUTPUT_ID: ${{ inputs.output_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A "horror/data/long-video/$OUTPUT_ID" "horror/public/long-video/$OUTPUT_ID" "horror/long-out/$OUTPUT_ID" "horror/remotion/generatedLongStory.js" || true
+          git diff --cached --quiet || (git commit -m "chore(long-video): checkpoint $OUTPUT_ID images" && git push)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: long-video-images-${{ inputs.output_id }}-${{ github.run_id }}
+          path: |
+            horror/data/long-video/${{ inputs.output_id }}/
+            horror/public/long-video/${{ inputs.output_id }}/
+            horror/long-out/${{ inputs.output_id }}/
+            horror/remotion/generatedLongStory.js
+          if-no-files-found: ignore
+          retention-days: 30
