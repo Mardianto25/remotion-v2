@@ -45,11 +45,16 @@ if (command === "plan") {
   await writeJson(path.join(seasonDir, "world-rules.json"), bible.worldRules);
   await writeJson(path.join(seasonDir, "continuity-ledger.json"), createInitialLedger(bible));
   await writeJson(path.join(seasonDir, "production-state.json"), {
-    seasonId, genre, format, durationMinutes: format === "long" ? durationMinutes : null, episodeCount: bible.episodes.length, status: "planned", episodes: bible.episodes.map(item => ({
+    seasonId, genre, format, durationMinutes: format === "long" ? durationMinutes : null, episodeCount: bible.episodes.length, productionStandard: bible.productionStandard || null, status: "planned", episodes: bible.episodes.map(item => ({
       episodeNumber: item.episodeNumber, title: item.title, status: "not_started"
     })), updatedAt: new Date().toISOString()
   });
   console.log("[season] Season plan tersimpan: " + bible.seriesTitle + " (" + bible.episodes.length + " episode).");
+  if (format === "shorts" && bible.productionStandard) {
+    const standard = bible.productionStandard;
+    console.log("[season] Standar Shorts: " + standard.scenesPerEpisode + " scene/episode, " + standard.minWordsPerEpisode + "-" + standard.maxWordsPerEpisode + " kata/episode, 115-125 detik/episode.");
+    console.log("[season] Total season: " + standard.totalScenes + " scene, " + standard.minSeasonWords + "-" + standard.maxSeasonWords + " kata, " + Math.floor(standard.minSeasonDurationSeconds / 60) + ":" + String(standard.minSeasonDurationSeconds % 60).padStart(2, "0") + "-" + Math.floor(standard.maxSeasonDurationSeconds / 60) + ":" + String(standard.maxSeasonDurationSeconds % 60).padStart(2, "0") + " durasi total.");
+  }
   for (const episode of bible.episodes) console.log(String(episode.episodeNumber).padStart(2, "0") + ". " + episode.title);
   process.exit(0);
 }
