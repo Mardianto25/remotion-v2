@@ -111,3 +111,36 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   }, null, 2));
   return { verticalPath, landscapePath };
 }
+
+
+export async function generateLongThumbnail(story, seo, topic, outputDir) {
+  await fs.mkdir(outputDir, { recursive: true });
+  const selected = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
+  const is2d = selected === "2d" || selected === "2d-animation";
+  const style = is2d
+    ? "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading"
+    : "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting";
+  const subject = String(seo.thumbnailPrompt || story.scenes?.[0]?.visualPrompt || story.title || topic);
+  const characters = Array.isArray(story.characters) ? story.characters.map(c => c.name + ": " + c.visualBible).join(" | ") : "";
+  const prompt = [
+    "Create a premium standard YouTube thumbnail, landscape 16:9, 1280x720.",
+    style,
+    "Genre: " + String(story.genre || process.env.STORY_GENRE || "storytelling") + ".",
+    "Depict this story moment: " + subject,
+    characters ? "Keep recurring character appearance consistent with this reference: " + characters : "",
+    "Strong cinematic focal subject on the right half, readable emotion, dramatic lighting, clear negative space on the left and lower third for a separately added title.",
+    "No text, letters, numbers, logos, watermark, collage or border."
+  ].filter(Boolean).join(" ");
+  const buffer = await generateBackground(prompt);
+  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\\s+/).slice(0, 6).join(" ").slice(0, 48);
+  const outputPath = path.join(outputDir, "youtube-thumbnail.jpg");
+  await sharp(buffer).resize(1280, 720, { fit: "cover", position: "attention" })
+    .composite([{ input: makeOverlay(1280, 720, label, story.episodeNumber) }])
+    .jpeg({ quality: 92, mozjpeg: true }).toFile(outputPath);
+  const metadataPath = path.join(outputDir, "youtube-metadata.json");
+  await fs.writeFile(metadataPath, JSON.stringify({
+    ...seo,
+    thumbnail: { version: "long-video-16x9-v1", format: "16:9", youtube: "youtube-thumbnail.jpg", visualStyle: is2d ? "2d-animation" : "cinematic-3d" }
+  }, null, 2));
+  return { landscapePath: outputPath, metadataPath };
+}
