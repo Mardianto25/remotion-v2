@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { createReadStream } from "node:fs";
 import { google } from "googleapis";
-import { CHANNEL_NAME, DATA_DIR, OUT_DIR } from "../src/config.js";
+import { DATA_DIR, OUT_DIR } from "../src/config.js";
 
 for (const key of ["YOUTUBE_CLIENT_ID_3N", "YOUTUBE_CLIENT_SECRET_3N", "YOUTUBE_REFRESH_TOKEN_3N"]) {
   if (!process.env[key]) throw new Error("GitHub Secret belum diatur: " + key);
@@ -22,8 +22,9 @@ const { data: channelData } = await youtube.channels.list({ part: ["snippet"], m
 const channel = channelData.items?.[0];
 if (!channel) throw new Error("Token OAuth tidak memiliki akses ke channel YouTube.");
 const channelTitle = channel.snippet?.title || "";
-if (!channelTitle.toLocaleLowerCase("id-ID").includes(CHANNEL_NAME.toLocaleLowerCase("id-ID"))) {
-  throw new Error(`Channel tujuan tidak cocok. Diharapkan "${CHANNEL_NAME}", token mengarah ke "${channelTitle}". Upload dibatalkan.`);
+const expectedChannelName = process.env.YOUTUBE_CHANNEL_NAME_3N || "3n";
+if (channelTitle.trim().toLocaleLowerCase("id-ID") !== expectedChannelName.trim().toLocaleLowerCase("id-ID")) {
+  throw new Error(`Channel tujuan tidak cocok. Diharapkan "${expectedChannelName}", token mengarah ke "${channelTitle}". Upload dibatalkan.`);
 }
 let state = { channelId: channel.id, channelTitle };
 try { state = { ...state, ...JSON.parse(await fs.readFile(statePath, "utf8")) }; }
