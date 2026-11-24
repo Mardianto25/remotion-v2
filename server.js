@@ -579,9 +579,9 @@ export async function executePipeline(autoPushGit = true, visualStyle = 'cinemat
       });
 
       let alignmentJson = String(alignmentResponse?.text || '').trim()
-        .replace(/^\`\`\`json\s*/i, '')
-        .replace(/^\`\`\`\s*/i, '')
-        .replace(/\s*\`\`\`$/, '');
+        .replace(/^```json\s*/i, '')
+        .replace(/^```\s*/i, '')
+        .replace(/\s*```$/, '');
       const alignedTimes = JSON.parse(alignmentJson);
 
       if (!Array.isArray(alignedTimes) || alignedTimes.length !== normalizedSegments.length) {
