@@ -45,13 +45,9 @@ async function setThumbnail() {
 }
 
 if (state.videoId) {
-  // A rerun of workflow 07 must refresh the cover even when the video was uploaded earlier.
-  try {
-    await setThumbnail();
-    console.log("Thumbnail terbaru berhasil dikirim ulang untuk video: " + state.url);
-  } catch (error) {
-    console.warn("Video sudah ada di YouTube, tetapi pembaruan thumbnail gagal. Video tidak di-upload ulang:", error.message);
-  }
+  // A rerun retries only the thumbnail; it never uploads a duplicate video.
+  await setThumbnail();
+  console.log("Thumbnail 16:9 berhasil dikirim ulang untuk video: " + state.url);
   process.exit(0);
 }
 
@@ -87,7 +83,8 @@ try {
   await setThumbnail();
   console.log("Shorts cover vertikal berhasil dikirim ke YouTube (jika format diterima YouTube).");
 } catch (error) {
-  console.warn("Video sudah berhasil di-upload, tetapi thumbnail gagal dikirim. Status disimpan untuk mencegah upload duplikat:", error.message);
+  console.error("Video sudah berhasil di-upload, tetapi thumbnail gagal dikirim. Jalankan ulang workflow 07 untuk mencoba memasang thumbnail tanpa meng-upload video duplikat:", error.message);
+  throw error;
 }
 console.log("Upload berhasil sebagai PRIVATE: " + state.url);
-console.log("Cover yang disiapkan khusus Shorts: vertikal 9:16, tanpa branding channel.");
+console.log("Thumbnail YouTube landscape 16:9 berhasil dipasang.");
