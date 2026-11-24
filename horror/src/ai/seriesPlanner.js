@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { config } from "../config.js";
-import { generateGeminiContent, generateOpenRouterContent } from "./geminiFallback.js";
+import { generateGeminiContent } from "./geminiFallback.js";
 function parseJson(raw) {
   const fence = String.fromCharCode(96).repeat(3);
   const text = String(raw || "").replace(new RegExp("^" + fence + "(?:json)?\\s*", "i"), "").replace(new RegExp("\\s*" + fence + "$"), "").trim();
@@ -115,7 +115,8 @@ export async function planSeason(concept, options = {}) {
     ai,
     { contents: prompt, config: { responseMimeType: "application/json", maxOutputTokens: format === "long" ? 60000 : 30000 } },
     {
-      validateResponse: validateSeasonPlan}
+      validateResponse: validateSeasonPlan
+    }
   );
   const plan = parseJson(response.text);
   if (!Array.isArray(plan.episodes) || plan.episodes.length !== episodeCount) throw new Error("Season Planner wajib menghasilkan tepat " + episodeCount + " episode.");
