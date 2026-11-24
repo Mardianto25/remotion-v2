@@ -1,0 +1,926 @@
+{
+"seriesTitle": "Kebaikan Kecil yang Mengubah Takdir",
+"genre": "INSPIRATIF",
+"logline": "Demi menyelamatkan bengkel kayu kecilnya, seorang ayah mengambil pinjaman cepat tiga puluh juta rupiah yang tiga tahun kemudian membelit keuangan dan keutuhan keluarganya, hingga kebaikan kecil yang pernah ia tanam membuka jalan pemulihan tak terduga.",
+"premise": "Tiga tahun lalu, Hendra mengambil pinjaman cepat sebesar tiga puluh juta rupiah demi mempertahankan usaha bengkel kayu kecilnya agar dapur keluarga tetap mengepul. Kini bunga dan denda pinjaman itu membengkak berkali lipat, memicu ketegangan dengan istrinya dan mengancam rumah serta masa depan anak mereka, tepat ketika kebaikan kecil Hendra di masa lalu mulai membuahkan balasan tak terduga.",
+"audiencePromise": "Penonton akan merasakan ketegangan emosional sebuah keluarga yang terhimpit utang dan melihat bagaimana ketulusan, kejujuran, serta kebaikan kecil yang sering dianggap remeh dapat menumbuhkan harapan dan jalan keluar yang bermartabat.",
+"pointOfView": "Orang ketiga terbatas yang mengikuti perjalanan batin dan langkah nyata Hendra sebagai kepala keluarga.",
+"tone": "Hangat, emosional, realistis, membumi, dan penuh harapan tanpa melodrama murahan atau horor.",
+"mainMystery": "Bagaimana Hendra melunasi kewajiban pinjaman yang sudah membengkak tanpa mengorbankan keutuhan keluarganya, dan kebaikan lama apa yang ternyata menyimpan kunci penyelamat.",
+"finalReveal": "Kebaikan kecil Hendra tiga tahun lalu yang membantu seorang kurir dan perajin lokal menyelamatkan anaknya dari kecelakaan ternyata mempertemukannya kembali dengan sosok mitra usaha yang menawarkan restrukturisasi adil dan pesanan kerja sama berkelanjutan.",
+"seasonArc": "Dari keputusan darurat meminjam tiga puluh juta rupiah dan membengkaknya utang setelah tiga tahun, memuncak pada konflik rumah tangga dan ancaman penyitaan aset, berbalik lewat terungkapnya dampak kebaikan lama dan krisis kepercayaan, lalu tuntas pada penyelesaian utang secara terhormat dan pulihnya keharmonisan keluarga.",
+"worldRules": [
+"Cerita berlatar kehidupan keluarga dan usaha mikro di Indonesia dengan aturan ekonomi nyata, beban bunga pinjaman, dan tanggung jawab hukum perdata.",
+"Tidak ada unsur supranatural, hantu, mistik, atau keajaiban instan tanpa usaha nyata.",
+"Setiap keputusan finansial Hendra membawa konsekuensi langsung terhadap waktu kerja, kondisi bengkel, dan emosi anggota keluarga.",
+"Hendra memiliki keterampilan pertukangan kayu presisi dan ketulusan membantu sesama, namun memiliki keterbatasan modal awal dan kecenderungan menyembunyikan tekanan finansial demi melindungi keluarga."
+],
+"characters": [
+{
+"id": "char-01",
+"name": "Hendra",
+"role": "Ayah dan pemilik bengkel kayu kecil",
+"motivation": "Melunasi utang yang membengkak, mempertahankan bengkel, dan menjaga keluarganya tetap utuh dan aman.",
+"personality": "Pekerja keras, penyayang, penuh rasa tanggung jawab, tetapi cenderung memendam beban sendirian.",
+"secret": "Ia pernah mengambil pinjaman cepat tiga puluh juta rupiah tiga tahun lalu tanpa menghitung dampak bunga jangka panjang dan menyembunyikan besarnya sisa tagihan dari istrinya.",
+"visualBible": "Pria Indonesia usia 38 tahun dengan postur tegap berotot karena kerja fisik, wajah oval berahang tegas dengan kerutan lelah di sekitar mata, rambut hitam pendek rapi sedikit beruban di pelipis, mengenakan kemeja flanel kotak biru tua atau kaus polo abu-abu gelap dengan celana kain kerja cokelat tua, warna dominan biru tua dan cokelat kayu, dengan ciri khas jam tangan kulit cokelat usang di pergelangan kiri dan bekas goresan tipis di punggung tangan kanan."
+},
+{
+"id": "char-02",
+"name": "Ratna",
+"role": "Istri Hendra dan ibu rumah tangga sekaligus pengelola kas harian keluarga",
+"motivation": "Menjaga ketenangan rumah tangga, memastikan kebutuhan anak terpenuhi, dan membangun keterbukaan finansial bersama suaminya.",
+"personality": "Tegas, peka, rasional, setia, dan berani menyuarakan kebenaran saat melihat ketidakjujuran.",
+"secret": "Ia sudah lama curiga ada tagihan tersembunyi karena uang belanja dan kas usaha selalu tersendat meski bengkel tampak bekerja.",
+"visualBible": "Wanita Indonesia usia 36 tahun bertubuh ramping, wajah bulat lembut dengan sorot mata tajam dan penuh perhatian, rambut hitam sepunggung diikat setengah rapi, mengenakan gamis atau tunik katun warna sage hijau lembut atau krem dengan jilbab polos senada, warna dominan hijau sage dan krem, dengan ciri khas gelang tipis perak di tangan kanan dan buku catatan kecil bersampul cokelat."
+},
+{
+"id": "char-03",
+"name": "Bima",
+"role": "Anak laki-laki Hendra dan Ratna",
+"motivation": "Melihat ayah dan ibunya kembali tersenyum rukun serta bisa melanjutkan sekolah dengan tenang.",
+"personality": "Peka, polos, ingin membantu, dan mudah merasakan perubahan suasana hati orang tuanya.",
+"secret": "Ia pernah melihat surat tagihan yang jatuh di lantai bengkel dan menyimpannya diam-diam karena takut membuat ayahnya marah.",
+"visualBible": "Anak laki-laki Indonesia usia 9 tahun dengan tubuh proporsional aktif, wajah oval ceria dengan mata bulat besar, rambut hitam pendek cepak rapi, mengenakan kaus katun garis biru putih dan celana pendek abu-abu, warna dominan biru muda dan abu-abu, dengan ciri khas tas ransel kecil warna merah marun dan sepatu kets hitam putih."
+},
+{
+"id": "char-04",
+"name": "Pak Darma",
+"role": "Pemilik toko bahan bangunan dan perajin mebel senior",
+"motivation": "Menjalankan usaha yang adil dan bermartabat sambil membalas kebaikan yang pernah diterimanya.",
+"personality": "Bijaksana, tenang, to the point, dan menghargai integritas kerja.",
+"secret": "Anak laki-lakinya pernah ditolong Hendra saat terjatuh dari sepeda dan terluka di jalan tiga tahun lalu, sebuah kejadian yang membuat Pak Darma berutang budi pada Hendra.",
+"visualBible": "Pria Indonesia usia 58 tahun dengan tubuh sedikit berisi, wajah persegi berwibawa dengan kumis tipis abu-abu dan senyum teduh, rambut putih pendek tersisir rapi, mengenakan kemeja batik lengan pendek cokelat keemasan dan celana bahan hitam, warna dominan cokelat keemasan dan hitam, dengan ciri khas kacamata baca berbingkai tipis dan kalung tanda pengenal bengkel kayu."
+},
+{
+"id": "char-05",
+"name": "Raka",
+"role": "Penagih resmi dari lembaga pinjaman cepat",
+"motivation": "Menyelesaikan target penagihan sesuai prosedur perusahaan sambil menghindari keributan fisik.",
+"personality": "Tegas, terukur, kadang sinis karena tekanan pekerjaan, namun masih memiliki nurani.",
+"secret": "Ia sendiri tertekan oleh target perusahaan dan pernah berhadapan dengan nasabah yang kehilangan segalanya akibat bunga pinjaman.",
+"visualBible": "Pria Indonesia usia 32 tahun dengan perawakan sedang, wajah lonjong bersudut tegas dengan rahang kaku dan tatapan menyelidik, rambut hitam pendek bergelombang tipis, mengenakan kemeja kemeja kasual abu-abu tua lengan digulung dan celana chino hitam, warna dominan abu-abu tua dan hitam, dengan ciri khas map dokumen tebal warna biru dongker dan tas selempang hitam."
+}
+],
+"episodes": [
+{
+"episodeNumber": 1,
+"title": "Tiga Puluh Juta yang Membekas",
+"logline": "Tiga tahun setelah meminjam tiga puluh juta rupiah demi bengkel kayunya, Hendra menghadapi tagihan membengkak yang mulai mengguncang ketenangan keluarganya.",
+"openingHook": "Pinjaman tiga puluh juta rupiah yang dulu menyelamatkan bengkelnya kini berubah menjadi bayangan yang menuntut harga berlipat.",
+"mainConflict": "Hendra harus menutupi kekurangan setoran bulanan bengkel sementara tagihan pinjaman cepat terus menekan.",
+"turningPoint": "Surat peringatan jatuh tempo datang lebih cepat dari perkiraan saat Hendra sedang mengerjakan pesanan meja kayu di bengkel.",
+"episodePayoff": "Hendra menyadari bahwa utang lamanya tidak bisa lagi ditutup dengan tambal sulam kas harian tanpa memicu pertengkaran di rumah.",
+"endingType": "cliffhanger",
+"cliffhanger": "Raka tiba-tiba datang langsung ke depan bengkel kayu Hendra sambil membawa map tagihan dan mengetuk pintu papan di hadapan Hendra.",
+"nextEpisodeQuestion": "Bagaimana Hendra menghadapi Raka di depan bengkel tanpa membuat Ratna dan Bima panik?",
+"continuityBridge": null,
+"seasonTeaser": "",
+"continuityQuestions": [],
+"narration": "Tiga tahun lalu, Hendra mengambil pinjaman cepat tiga puluh juta rupiah demi mempertahankan bengkel kayunya. Waktu itu, uang tersebut terasa seperti penyelamat agar dapur keluarga tetap mengepul. Namun tiga tahun berlalu, bunga dan denda membuat angka itu membengkak jauh melampaui kemampuannya. Setiap pagi Hendra menyerut kayu dengan senyum tipis, menyembunyikan lelah dan cemas di balik suara mesin. Ratna mulai menyadari ada yang tidak beres ketika uang belanja sering tersendat. Sore itu, saat Hendra menata kayu pesanan, sebuah amplop tagihan jatuh dari saku kerjanya. Belum sempat ia menyimpannya, langkah kaki berhenti di depan bengkel. Pintu papan diketuk keras, dan Raka berdiri di ambang pintu dengan map tebal di tangan.",
+"description": "Episode pembuka yang memperkenalkan Hendra, bengkel kayunya, dampak pinjaman tiga puluh juta rupiah setelah tiga tahun, dan kedatangan penagih.",
+"hook": "Pinjaman tiga puluh juta rupiah tiga tahun lalu kini berubah menjadi beban yang mengancam keluarga Hendra.",
+"revelation": "Utang awal tiga puluh juta rupiah telah membengkak akibat bunga dan denda selama tiga tahun.",
+"storySummary": "Hendra berjuang menjaga bengkel kayunya tetap berjalan sambil menyembunyikan tekanan utang lama dari Ratna, hingga Raka datang menagih langsung ke bengkel.",
+"disclaimer": "",
+"continuityUpdate": {
+"canonEvents": [
+"Tiga tahun lalu Hendra meminjam tiga puluh juta rupiah lewat pinjaman cepat untuk menyelamatkan bengkel kayunya.",
+"Saldo tagihan sudah membengkak akibat bunga dan denda selama tiga tahun.",
+"Ratna mulai curiga karena kas belanja sering tersendat.",
+"Raka datang menagih langsung ke depan bengkel kayu Hendra."
+],
+"characterStates": [
+{
+"characterId": "char-01",
+"state": "Tegang dan terkejut di depan pintu bengkel kayu setelah amplop tagihan terjatuh dan Raka muncul."
+},
+{
+"characterId": "char-02",
+"state": "Berada di rumah dengan rasa curiga terhadap kondisi keuangan keluarga."
+},
+{
+"characterId": "char-03",
+"state": "Berada di rumah dengan suasana hati peka terhadap ketegangan orang tuanya."
+},
+{
+"characterId": "char-04",
+"state": "Belum muncul langsung, berada di toko bahan bangunan dan bengkel mebelnya."
+},
+{
+"characterId": "char-05",
+"state": "Berdiri di depan pintu bengkel kayu Hendra memegang map tagihan biru dongker."
+}
+],
+"unresolvedThreads": [
+"Bagaimana Hendra melunasi tagihan pinjaman yang sudah membengkak.",
+"Apakah rahasia besarnya tagihan akan terbongkar di hadapan Ratna."
+],
+"resolvedThreads": []
+},
+"scenes": [
+{
+"id": 1,
+"heading": "Kilas Balik dan Realitas Bengkel",
+"narration": "Tiga tahun lalu, Hendra mengambil pinjaman cepat tiga puluh juta rupiah demi mempertahankan bengkel kayunya.",
+"visualPrompt": "Vertical 9:16 medium shot inside a modest Indonesian wooden workshop in warm afternoon light, a 38-year-old man with short black hair slightly graying at the temples wearing a dark blue plaid flannel shirt and worn brown leather watch on his left wrist, sanding a wooden plank while looking thoughtful and determined, shallow depth of field, natural workshop dust motes in sunlight, no text or subtitles.",
+"searchQuery": "carpenter wooden workshop man working afternoon light",
+"mood": "Reflective"
+},
+{
+"id": 2,
+"heading": "Harapan Awal Pinjaman",
+"narration": "Waktu itu, uang tersebut terasa seperti penyelamat agar dapur keluarga tetap mengepul.",
+"visualPrompt": "Vertical 9:16 close-up of calloused hands holding fresh wooden boards and a measuring tape on a workbench, warm golden sunlight streaming through open wooden shutters, subtle expression of relief mixed with quiet focus on the 38-year-old man in a dark blue plaid flannel shirt, natural cinema framing, no text or watermarks.",
+"searchQuery": "hands measuring wood carpenter workshop warm light",
+"mood": "Hopeful"
+},
+{
+"id": 3,
+"heading": "Beban Tiga Tahun",
+"narration": "Namun tiga tahun berlalu, bunga dan denda membuat angka itu membengkak jauh melampaui kemampuannya.",
+"visualPrompt": "Vertical 9:16 over-the-shoulder shot of a 38-year-old Indonesian man in a dark blue plaid flannel shirt sitting on a wooden stool at dusk in a small workshop, staring down at a printed billing paper with a heavy furrowed brow and tired eyes, dim tungsten bulb overhead casting soft shadows, no text or logos.",
+"searchQuery": "man looking at bill tired lighting workshop",
+"mood": "Somber"
+},
+{
+"id": 4,
+"heading": "Senyum di Balik Lelah",
+"narration": "Setiap pagi Hendra menyerut kayu dengan senyum tipis, menyembunyikan lelah dan cemas di balik suara mesin.",
+"visualPrompt": "Vertical 9:16 medium close-up of a 38-year-old Indonesian man with a slight scar on his right hand and dark blue plaid flannel shirt planing wood in morning light, offering a faint forced smile toward the side while eyes show fatigue, wood shavings flying in slow motion, crisp focus, no text or captions.",
+"searchQuery": "woodworker planing wood morning light portrait",
+"mood": "Bittersweet"
+},
+{
+"id": 5,
+"heading": "Kecurigaan Ratna di Rumah",
+"narration": "Ratna mulai menyadari ada yang tidak beres ketika uang belanja sering tersendat.",
+"visualPrompt": "Vertical 9:16 medium shot in a cozy modest Indonesian living room in late afternoon, a 36-year-old woman with hair half-tied wearing a soft sage green tunic and matching plain headscarf with a thin silver bracelet on her right wrist, looking thoughtfully at a small brown notebook in her hand, soft natural window light, no text or subtitles.",
+"searchQuery": "indonesian woman sage headscarf notebook living room",
+"mood": "Tense"
+},
+{
+"id": 6,
+"heading": "Amplop Jatuh dan Ketukan Pintu",
+"narration": "Sore itu, saat Hendra menata kayu pesanan, sebuah amplop tagihan jatuh dari saku kerjanya. Belum sempat ia menyimpannya, langkah kaki berhenti di depan bengkel. Pintu papan diketuk keras, dan Raka berdiri di ambang pintu dengan map tebal di tangan.",
+"visualPrompt": "Vertical 9:16 dynamic low-angle shot at the open wooden doorway of the workshop at late afternoon, a 38-year-old man in a dark blue plaid flannel shirt freezes as a billing envelope lies on the dusty floor, facing a 32-year-old man with short wavy black hair in a rolled-sleeve dark grey shirt and black chinos holding a thick navy blue document folder, knocking firmly on the wooden frame, dramatic late-day side lighting, no text or watermarks.",
+"searchQuery": "man knocking wooden door confrontation late afternoon",
+"mood": "Suspenseful"
+}
+]
+},
+{
+"episodeNumber": 2,
+"title": "Tagihan di Ambang Pintu",
+"logline": "Di depan pintu bengkelnya, Hendra berhadapan langsung dengan Raka yang menuntut pembayaran dan memberi tenggat waktu sempit.",
+"openingHook": "Raka menyodorkan lembar tagihan dengan angka yang membuat napas Hendra terasa tertahan.",
+"mainConflict": "Hendra tidak memiliki dana tunai untuk memenuhi tuntutan pembayaran langsung dari Raka.",
+"turningPoint": "Raka mengancam akan meneruskan berkas ke tindakan penagihan lanjutan jika tidak ada kepastian pembayaran dalam tiga hari.",
+"episodePayoff": "Hendra berhasil menenangkan situasi di depan bengkel agar tidak menarik perhatian warga, tetapi tenggat tiga hari kini menggantung di kepalanya.",
+"endingType": "cliffhanger",
+"cliffhanger": "Saat Hendra pulang larut malam, Ratna sudah menunggu di ruang tengah dengan memegang amplop tagihan yang tercecer dan menuntut penjelasan jujur.",
+"nextEpisodeQuestion": "Apa yang akan dikatakan Hendra ketika Ratna menuntut kejujuran soal utang tersebut?",
+"continuityBridge": {
+"previousEpisodeEnding": "Raka berdiri di ambang pintu bengkel kayu Hendra sambil mengetuk pintu dan membawa map tagihan biru dongker setelah amplop tagihan Hendra jatuh.",
+"openingContinuation": "Hendra melangkah mendekati ambang pintu bengkel dan berbicara pelan dengan Raka tepat di depan pintu papan tersebut.",
+"timeAndLocation": "Menjelang senja di ambang pintu dan teras depan bengkel kayu Hendra.",
+"characterStatesAtOpening": [
+"Hendra tegang namun berusaha mengendalikan emosi di depan pintu bengkel.",
+"Raka bersikap tegas dan serius dengan map tagihan biru dongker di tangan."
+],
+"carriedElements": [
+"Amplop tagihan yang terjatuh di lantai bengkel",
+"Map dokumen tebal biru dongker milik Raka",
+"Pesanan meja kayu yang belum selesai di dalam bengkel"
+],
+"unresolvedQuestion": "Bagaimana cara Hendra mendapatkan dana dalam waktu singkat saat kas bengkel menipis?"
+},
+"seasonTeaser": "",
+"continuityQuestions": [],
+"narration": "Di ambang pintu bengkel yang mulai remang, Hendra menatap Raka dengan dada berdegup kencang. Raka membuka map biru dongkernya dan menyebutkan total tagihan yang sudah membengkak berkali lipat. Hendra mencoba menjelaskan bahwa bengkelnya sedang berjalan, namun Raka menolak alasan lisan. Jika dalam tiga hari tidak ada pembayaran nyata, proses penagihan akan naik ke tahap berikutnya. Hendra menahan napas, berusaha menjaga suaranya tetap pelan agar tetangga tidak mendengar. Setelah Raka pergi, Hendra mengemasi alat dengan tangan gemetar dan pulang ke rumah saat malam turun. Di ruang tengah, lampu menyala redup, dan Ratna duduk menunggu sambil memegang amplop tagihan yang luput dari perhatian Hendra.",
+"description": "Hendra menghadapi penagihan langsung dari Raka di depan bengkel dan pulang malam untuk menghadapi kecurigaan Ratna.",
+"hook": "Tenggat tiga hari dari penagih membuat Hendra kehabisan waktu.",
+"revelation": "Raka menetapkan batas waktu tiga hari sebelum eskalasi penagihan berjalan.",
+"storySummary": "Hendra bernegosiasi dengan Raka di depan bengkel dan mendapat tenggat tiga hari, lalu pulang malam dan mendapati Ratna memegang amplop tagihan.",
+"disclaimer": "",
+"continuityUpdate": {
+"canonEvents": [
+"Raka menyampaikan besaran tagihan yang membengkak dan memberi tenggat tiga hari kepada Hendra.",
+"Hendra pulang larut malam setelah bengkel tutup.",
+"Ratna menemukan amplop tagihan dan menunggu Hendra di ruang tengah."
+],
+"characterStates": [
+{
+"characterId": "char-01",
+"state": "Lelah, tertekan tenggat tiga hari, dan terkejut melihat Ratna memegang amplop tagihan di ruang tengah."
+},
+{
+"characterId": "char-02",
+"state": "Kecewa sekaligus waspada di ruang tengah sambil memegang amplop tagihan."
+},
+{
+"characterId": "char-03",
+"state": "Sudah beranjak tidur di kamar namun merasakan suasana tegang di rumah."
+},
+{
+"characterId": "char-04",
+"state": "Berada di toko bahan bangunan dan bengkel mebelnya."
+},
+{
+"characterId": "char-05",
+"state": "Pergi meninggalkan bengkel setelah menyerahkan peringatan tenggat tiga hari."
+}
+],
+"unresolvedThreads": [
+"Tenggat pembayaran tiga hari dari Raka.",
+"Konfrontasi terbuka antara Hendra dan Ratna mengenai amplop tagihan."
+],
+"resolvedThreads": []
+},
+"scenes": [
+{
+"id": 1,
+"heading": "Tatapan di Ambang Pintu",
+"narration": "Di ambang pintu bengkel yang mulai remang, Hendra menatap Raka dengan dada berdegup kencang.",
+"visualPrompt": "Vertical 9:16 medium two-shot at the wooden doorway of a small workshop in fading twilight, 38-year-old Indonesian man in a dark blue plaid flannel shirt with worn brown leather watch on his left wrist facing 32-year-old man with short wavy black hair in a rolled-sleeve dark grey shirt and black chinos, tense serious expressions, soft amber twilight sky behind, no text or subtitles.",
+"searchQuery": "two men talking doorway twilight serious expression",
+"mood": "Tense"
+},
+{
+"id": 2,
+"heading": "Map Tagihan Terbuka",
+"narration": "Raka membuka map biru dongkernya dan menyebutkan total tagihan yang sudah membengkak berkali lipat.",
+"visualPrompt": "Vertical 9:16 close-up of a 32-year-old man in a rolled-sleeve dark grey shirt and black chinos opening a thick navy blue document folder, fingers pointing to printed figures while looking sternly toward the workshop entrance, dim evening light, crisp focus, no text or watermarks.",
+"searchQuery": "man opening blue folder serious expression evening light",
+"mood": "Serious"
+},
+{
+"id": 3,
+"heading": "Tenggat Tiga Hari",
+"narration": "Hendra mencoba menjelaskan bahwa bengkelnya sedang berjalan, namun Raka menolak alasan lisan. Jika dalam tiga hari tidak ada pembayaran nyata, proses penagihan akan naik ke tahap berikutnya.",
+"visualPrompt": "Vertical 9:16 medium close-up of 38-year-old Indonesian man in a dark blue plaid flannel shirt with a slight scar on his right hand pleading earnestly with furrowed brows while the dark grey-shirted man stands firm in the foreground, warm workshop interior glow contrasted with cool dusk light, no text or captions.",
+"searchQuery": "man pleading serious conversation dusk lighting",
+"mood": "Urgent"
+},
+{
+"id": 4,
+"heading": "Menjaga Tenang di Depan Tetangga",
+"narration": "Hendra menahan napas, berusaha menjaga suaranya tetap pelan agar tetangga tidak mendengar.",
+"visualPrompt": "Vertical 9:16 over-the-shoulder shot from behind the dark grey-shirted man looking at 38-year-old Indonesian man in a dark blue plaid flannel shirt pressing his lips together and glancing cautiously toward the quiet neighborhood lane, subtle evening shadows, no text or logos.",
+"searchQuery": "man looking cautiously quiet street evening",
+"mood": "Cautious"
+},
+{
+"id": 5,
+"heading": "Pulang Saat Malam Turun",
+"narration": "Setelah Raka pergi, Hendra mengemasi alat dengan tangan gemetar dan pulang ke rumah saat malam turun.",
+"visualPrompt": "Vertical 9:16 wide portrait shot of 38-year-old Indonesian man in a dark blue plaid flannel shirt and brown trousers walking along a quiet tree-lined residential street at night under a streetlamp, shoulders slumped with exhaustion, calm night atmosphere, no text or subtitles.",
+"searchQuery": "man walking home streetlamp night tired",
+"mood": "Melancholic"
+},
+{
+"id": 6,
+"heading": "Ratna Menunggu di Ruang Tengah",
+"narration": "Di ruang tengah, lampu menyala redup, dan Ratna duduk menunggu sambil memegang amplop tagihan yang luput dari perhatian Hendra.",
+"visualPrompt": "Vertical 9:16 medium shot inside a dimly lit modest Indonesian living room at night, 36-year-old woman with hair half-tied wearing a soft sage green tunic and plain headscarf with a thin silver bracelet on her right wrist sitting on a sofa holding a paper billing envelope, looking straight toward the entrance door with calm intensity, warm low lamp light, no text or watermarks.",
+"searchQuery": "woman sitting living room night holding envelope",
+"mood": "Dramatic"
+}
+]
+},
+{
+"episodeNumber": 3,
+"title": "Rahasia yang Terbuka",
+"logline": "Ratna mendesak Hendra menjelaskan isi amplop tagihan itu, memaksa Hendra mengakui asal-usul utang tiga puluh juta rupiah tersebut.",
+"openingHook": "Di ruang tengah yang sunyi, Ratna menyodorkan amplop tagihan tepat di depan mata Hendra.",
+"mainConflict": "Retaknya kepercayaan rumah tangga karena Hendra menyembunyikan utang selama tiga tahun.",
+"turningPoint": "Hendra akhirnya mengakui bahwa ia meminjam tiga puluh juta rupiah tiga tahun lalu demi menyelamatkan bengkel saat usaha nyaris gulung tikar.",
+"episodePayoff": "Ratna marah karena merasa dikucilkan dari masalah besar, namun mulai memahami niat Hendra melindungi keluarga.",
+"endingType": "cliffhanger",
+"cliffhanger": "Saat keduanya mencoba meredakan emosi, Bima keluar dari balik tirai kamar sambil menyodorkan selembar kertas tagihan lain yang pernah ia temukan di bengkel.",
+"nextEpisodeQuestion": "Apa isi kertas tagihan yang ditemukan Bima, dan bagaimana dampaknya pada rencana mereka?",
+"continuityBridge": {
+"previousEpisodeEnding": "Hendra pulang larut malam dan mendapati Ratna duduk di ruang tengah yang redup sambil memegang amplop tagihan.",
+"openingContinuation": "Hendra berhenti di dekat pintu ruang tengah dan menatap amplop tagihan di tangan Ratna sebelum melangkah mendekat.",
+"timeAndLocation": "Malam hari di ruang tengah rumah keluarga Hendra.",
+"characterStatesAtOpening": [
+"Hendra merasa bersalah dan terdesak di ruang tengah.",
+"Ratna menuntut penjelasan langsung dengan ekspresi kecewa dan tegas."
+],
+"carriedElements": [
+"Amplop tagihan yang dipegang Ratna",
+"Tenggat pembayaran tiga hari dari Raka",
+"Kas bengkel yang menipis"
+],
+"unresolvedQuestion": "Apakah kejujuran Hendra cukup untuk mulai memulihkan kepercayaan Ratna?"
+},
+"seasonTeaser": "",
+"continuityQuestions": [],
+"narration": "Ratna mengangkat amplop tagihan itu tanpa berkedip. Suaranya bergetar menahan kecewa saat menanyakan sejak kapan utang ini ada. Hendra menunduk lama sebelum akhirnya mengaku. Tiga tahun lalu, saat pesanan sepi dan kas kosong, ia mengambil pinjaman cepat tiga puluh juta rupiah agar bengkel tidak tutup dan Bima tetap sekolah. Ratna menangis lirih, bukan hanya karena angkanya yang membesar, tapi karena Hendra memikul beban itu sendirian. Di tengah keheningan yang menyakitkan, tirai kamar bergeser pelan. Bima muncul dengan wajah cemas, mengulurkan selembar kertas tagihan kusut yang selama ini ia simpan diam-diam dari lantai bengkel.",
+"description": "Hendra mengakui rahasia pinjaman tiga puluh juta rupiah kepada Ratna, lalu Bima mengungkap kertas tagihan lain yang ia simpan.",
+"hook": "Pengakuan jujur Hendra membuka luka lama di dalam rumah.",
+"revelation": "Ratna mengetahui bahwa pinjaman tiga puluh juta rupiah itu diambil tiga tahun lalu demi mempertahankan bengkel dan kebutuhan Bima.",
+"storySummary": "Hendra mengakui utang tiga tahun lalu kepada Ratna di ruang tengah, lalu Bima muncul membawa lembar tagihan lain yang ia temukan di bengkel.",
+"disclaimer": "",
+"continuityUpdate": {
+"canonEvents": [
+"Hendra mengaku kepada Ratna bahwa ia meminjam tiga puluh juta rupiah tiga tahun lalu untuk menyelamatkan bengkel.",
+"Ratna mengungkapkan rasa kecewanya karena beban itu disembunyikan darinya.",
+"Bima keluar dari kamar dan menyerahkan lembar tagihan lain yang pernah ia temukan di lantai bengkel."
+],
+"characterStates": [
+{
+"characterId": "char-01",
+"state": "Jujur namun terpukul dan terkejut melihat kertas tagihan yang dibawa Bima."
+},
+{
+"characterId": "char-02",
+"state": "Emosional dan terharu bercampur cemas setelah mendengar pengakuan Hendra dan melihat kertas dari Bima."
+},
+{
+"characterId": "char-03",
+"state": "Cemas dan merasa bersalah karena menyimpan lembar tagihan namun ingin membantu orang tuanya."
+},
+{
+"characterId": "char-04",
+"state": "Tetap berada di toko bahan bangunan dan bengkel mebelnya."
+},
+{
+"characterId": "char-05",
+"state": "Berada di luar rumah; tenggat tiga hari yang ia berikan terus berjalan."
+}
+],
+"unresolvedThreads": [
+"Isi dan konsekuensi dari lembar tagihan yang ditemukan Bima.",
+"Mencari dana dalam tenggat waktu yang semakin sempit."
+],
+"resolvedThreads": [
+"Ketidaktahuan Ratna mengenai asal mula pinjaman tiga puluh juta rupiah."
+]
+},
+"scenes": [
+{
+"id": 1,
+"heading": "Amplop di Hadapan Hendra",
+"narration": "Ratna mengangkat amplop tagihan itu tanpa berkedip. Suaranya bergetar menahan kecewa saat menanyakan sejak kapan utang ini ada.",
+"visualPrompt": "Vertical 9:16 medium close-up of 36-year-old Indonesian woman with hair half-tied wearing a soft sage green tunic and plain headscarf with a thin silver bracelet on her right wrist, holding up a paper billing envelope in a dimly lit living room at night, earnest hurt expression, warm lamp light, no text or subtitles.",
+"searchQuery": "woman holding letter emotional expression indoor night",
+"mood": "Emotional"
+},
+{
+"id": 2,
+"heading": "Pengakuan Tiga Tahun Lalu",
+"narration": "Hendra menunduk lama sebelum akhirnya mengaku. Tiga tahun lalu, saat pesanan sepi dan kas kosong, ia mengambil pinjaman cepat tiga puluh juta rupiah agar bengkel tidak tutup dan Bima tetap sekolah.",
+"visualPrompt": "Vertical 9:16 medium shot of 38-year-old Indonesian man in a dark blue plaid flannel shirt with worn brown leather watch on his left wrist sitting across from Ratna at night, head bowed and speaking candidly with remorseful sincerity, warm intimate indoor lighting, no text or watermarks.",
+"searchQuery": "man confessing remorseful living room night lighting",
+"mood": "Vulnerable"
+},
+{
+"id": 3,
+"heading": "Air Mata dan Pemahaman Ratna",
+"narration": "Ratna menangis lirih, bukan hanya karena angkanya yang membesar, tapi karena Hendra memikul beban itu sendirian.",
+"visualPrompt": "Vertical 9:16 close-up of 36-year-old Indonesian woman in a sage green tunic and headscarf wiping a quiet tear with her fingers while looking empathetically toward her husband in soft lamplight, poignant family drama framing, no text or captions.",
+"searchQuery": "woman wiping tear soft lamp light portrait",
+"mood": "Poignant"
+},
+{
+"id": 4,
+"heading": "Bima Muncul dari Balik Tirai",
+"narration": "Di tengah keheningan yang menyakitkan, tirai kamar bergeser pelan. Bima muncul dengan wajah cemas, mengulurkan selembar kertas tagihan kusut yang selama ini ia simpan diam-diam dari lantai bengkel.",
+"visualPrompt": "Vertical 9:16 medium shot in a modest home hallway and living room at night, a 9-year-old Indonesian boy with short neat black hair wearing a light blue-and-white striped t-shirt, grey shorts, and carrying a small maroon backpack steps past a curtain holding a crumpled paper bill out toward his parents, dramatic warm shadow contrast, no text or logos.",
+"searchQuery": "young boy holding paper standing doorway night",
+"mood": "Surprising"
+}
+]
+},
+{
+"episodeNumber": 4,
+"title": "Beban yang Bertumpuk",
+"logline": "Kertas tagihan dari Bima menunjukkan adanya tunggakan tambahan, membuat situasi keuangan semakin rumit tepat saat tenggat kian dekat.",
+"openingHook": "Lembar tagihan lusuh di tangan Bima membuktikan bahwa masalahnya lebih pelik dari yang baru saja dibicarakan.",
+"mainConflict": "Kekurangan dana mendesak membesar sementara Hendra harus menyelesaikan pesanan kayu agar bengkel tidak kehilangan reputasi.",
+"turningPoint": "Saat memeriksa bahan kayu di toko langganan, Hendra melihat papan nama besar Pak Darma dan teringat kebaikan kecil yang pernah ia lakukan tiga tahun silam.",
+"episodePayoff": "Hendra dan Ratna sepakat menyusun rencana darurat bersama, meski waktu yang tersisa tinggal satu hari.",
+"endingType": "cliffhanger",
+"cliffhanger": "Ketika Hendra melangkah masuk ke toko bahan bangunan milik Pak Darma untuk mencari pinjaman bahan atau pekerjaan, Pak Darma menatapnya tajam dan langsung menyebut peristiwa tiga tahun lalu di jalan raya.",
+"nextEpisodeQuestion": "Bagaimana reaksi Pak Darma saat mengingat kebaikan Hendra tiga tahun lalu, dan maukah ia membantu?",
+"continuityBridge": {
+"previousEpisodeEnding": "Bima muncul dari balik tirai kamar dengan wajah cemas dan mengulurkan selembar kertas tagihan kusut yang ia simpan dari lantai bengkel.",
+"openingContinuation": "Ratna mengambil kertas tagihan kusut dari tangan Bima di ruang tengah dan membacanya bersama Hendra.",
+"timeAndLocation": "Dari malam hari di ruang tengah rumah keluarga menuju siang hari di toko bahan bangunan Pak Darma.",
+"characterStatesAtOpening": [
+"Hendra bertekad mencari solusi nyata bersama Ratna.",
+"Ratna meneliti kertas tagihan bersama Hendra dan membantu menata ulang catatan keuangan.",
+"Bima merasa lega karena akhirnya bisa menyampaikan kertas yang ia simpan."
+],
+"carriedElements": [
+"Lembar tagihan kusut yang ditemukan Bima",
+"Buku catatan kecil bersampul cokelat milik Ratna",
+"Sisa tenggat pembayaran dari Raka yang tinggal satu hari"
+],
+"unresolvedQuestion": "Dari mana Hendra bisa memperoleh dana atau pesanan cepat sebelum tenggat berakhir?"
+},
+"seasonTeaser": "",
+"continuityQuestions": [],
+"narration": "Kertas yang dibawa Bima ternyata adalah surat pemberitahuan biaya keterlambatan yang menambah berat hitungan utang. Malam itu, Hendra dan Ratna duduk berdampingan, menata ulang catatan keuangan dan membagi tugas agar bengkel tetap mengepul. Keesokan harinya, waktu tinggal satu hari. Hendra mengejar sisa pekerjaan kayu di bengkel lalu singgah ke toko bahan bangunan milik Pak Darma, berharap mendapat keringanan bahan atau upah kerja borongan. Begitu Hendra melangkah masuk, Pak Darma menoleh, menatap wajahnya lama, lalu menyebut sebuah kejadian tiga tahun lalu di pinggir jalan yang tak pernah ia lupakan.",
+"description": "Temuan kertas dari Bima menambah kerumitan hitungan utang, mendorong Hendra menemui Pak Darma hingga terungkap ingatan masa lalu.",
+"hook": "Satu lembar kertas kusut mengubah hitungan utang tepat menjelang hari penentuan.",
+"revelation": "Terdapat catatan biaya keterlambatan tambahan, dan Pak Darma menyimpan ingatan khusus tentang Hendra sejak tiga tahun lalu.",
+"storySummary": "Hendra dan Ratna menyusun rencana bersama setelah melihat kertas tagihan dari Bima, lalu Hendra mendatangi toko Pak Darma dan disambut ingatan peristiwa tiga tahun lalu.",
+"disclaimer": "",
+"continuityUpdate": {
+"canonEvents": [
+"Kertas tagihan dari Bima menunjukkan adanya rincian biaya keterlambatan tambahan.",
+"Hendra dan Ratna mulai berdiskusi terbuka menyusun langkah keuangan bersama.",
+"Hendra mengunjungi toko bahan bangunan milik Pak Darma saat sisa tenggat tinggal satu hari.",
+"Pak Darma mengenali Hendra dan mengungkit kejadian tiga tahun lalu di jalan raya."
+],
+"characterStates": [
+{
+"characterId": "char-01",
+"state": "Berada di dalam toko bahan bangunan Pak Darma dengan sikap waspada dan berharap mendapat jalan keluar."
+},
+{
+"characterId": "char-02",
+"state": "Berada di rumah mendampingi Bima dan menata catatan keuangan keluarga."
+},
+{
+"characterId": "char-03",
+"state": "Berada di rumah dalam kondisi lebih tenang setelah kertas tagihan diserahkan."
+},
+{
+"characterId": "char-04",
+"state": "Berada di toko bahan bangunannya dengan tatapan penuh makna saat mengenali Hendra."
+},
+{
+"characterId": "char-05",
+"state": "Menunggu batas akhir tenggat tiga hari yang tinggal satu hari lagi."
+}
+],
+"unresolvedThreads": [
+"Kejadian tiga tahun lalu di jalan raya yang diingat Pak Darma.",
+"Pemenuhan tenggat pembayaran yang tinggal satu hari."
+],
+"resolvedThreads": [
+"Kerahasiaan lembar tagihan tambahan yang sebelumnya disimpan Bima."
+]
+},
+"scenes": [
+{
+"id": 1,
+"heading": "Rincian Biaya Tambahan",
+"narration": "Kertas yang dibawa Bima ternyata adalah surat pemberitahuan biaya keterlambatan yang menambah berat hitungan utang.",
+"visualPrompt": "Vertical 9:16 close-up of a crumpled financial notice sheet held by 38-year-old Indonesian man in a dark blue plaid flannel shirt with worn brown leather watch on his left wrist under warm indoor lamp light, fingers tracing the paper edge with serious focus, shallow depth of field, no text or subtitles.",
+"searchQuery": "hands holding crumpled paper bill warm light",
+"mood": "Grim"
+},
+{
+"id": 2,
+"heading": "Langkah Bersama di Meja Rumah",
+"narration": "Malam itu, Hendra dan Ratna duduk berdampingan, menata ulang catatan keuangan dan membagi tugas agar bengkel tetap mengepul.",
+"visualPrompt": "Vertical 9:16 medium shot at a small wooden table at night, 38-year-old Indonesian man in a dark blue plaid flannel shirt and 36-year-old Indonesian woman with hair half-tied wearing a sage green tunic and headscarf with a thin silver bracelet sitting side by side reviewing a small brown notebook together with calm resolve, warm lamp light, no text or watermarks.",
+"searchQuery": "husband and wife reviewing notebook table night",
+"mood": "Determined"
+},
+{
+"id": 3,
+"heading": "Satu Hari Tersisa di Bengkel",
+"narration": "Keesokan harinya, waktu tinggal satu hari. Hendra mengejar sisa pekerjaan kayu di bengkel lalu singgah ke toko bahan bangunan milik Pak Darma, berharap mendapat keringanan bahan atau upah kerja borongan.",
+"visualPrompt": "Vertical 9:16 medium tracking shot of 38-year-old Indonesian man in a dark blue plaid flannel shirt and brown trousers walking past stacked timber toward a bustling Indonesian building materials shop in bright midday sunlight, focused expression carrying quiet hope, realistic street and shop detail, no text or captions.",
+"searchQuery": "man walking building materials store daytime street",
+"mood": "Anticipatory"
+},
+{
+"id": 4,
+"heading": "Sapaan yang Mengagetkan",
+"narration": "Begitu Hendra melangkah masuk, Pak Darma menoleh, menatap wajahnya lama, lalu menyebut sebuah kejadian tiga tahun lalu di pinggir jalan yang tak pernah ia lupakan.",
+"visualPrompt": "Vertical 9:16 medium shot inside a timber and building supply shop in daytime light, 58-year-old Indonesian man with short white hair, thin grey mustache, thin-rimmed reading glasses, and brown-and-gold batik shirt turning around with a knowing, deeply moved expression toward 38-year-old Indonesian man in a dark blue plaid flannel shirt at the entrance, warm natural light, no text or logos.",
+"searchQuery": "older man batik glasses looking surprised shop",
+"mood": "Revelatory"
+}
+]
+},
+{
+"episodeNumber": 5,
+"title": "Akar Kebaikan Tiga Tahun Lalu",
+"logline": "Terungkap bahwa kebaikan kecil Hendra tiga tahun lalu menolong anak Pak Darma, mengubah cara pandang seluruh cerita tentang utang dan balas budi.",
+"openingHook": "Ternyata orang yang paling diingat Pak Darma atas kebaikannya adalah Hendra sendiri.",
+"mainConflict": "Hendra harus memilih antara gengsi karena sedang terhimpit utang atau menerima uluran tangan kerja sama yang tulus dari Pak Darma.",
+"turningPoint": "Pak Darma menceritakan bagaimana Hendra pernah mengantar anaknya yang terluka ke puskesmas dan menolak imbalan uang saat itu.",
+"episodePayoff": "Sudut pandang cerita berbalik: kebaikan kecil tanpa pamrih yang dulu tampak biasa ternyata menjadi jembatan kepercayaan besar.",
+"endingType": "cliffhanger",
+"cliffhanger": "Tepat saat Pak Darma menawarkan kontrak pembuatan perabot kayu untuk proyek renovasi miliknya, Raka datang ke bengkel Hendra lebih awal dari jadwal dan mendapati bengkel sedang tutup.",
+"nextEpisodeQuestion": "Apa yang akan dilakukan Raka saat mendapati bengkel tutup dan Hendra sedang bersama Pak Darma?",
+"continuityBridge": {
+"previousEpisodeEnding": "Hendra melangkah masuk ke toko bahan bangunan Pak Darma, lalu Pak Darma menoleh dan menyebut kejadian tiga tahun lalu di pinggir jalan.",
+"openingContinuation": "Pak Darma melanjutkan ceritanya di dalam toko bahan bangunan sambil menjelaskan perannya sebagai ayah dari anak yang ditolong Hendra.",
+"timeAndLocation": "Siang menjelang sore di dalam toko bahan bangunan dan bengkel mebel milik Pak Darma.",
+"characterStatesAtOpening": [
+"Hendra terkejut dan terharu mendengar cerita Pak Darma.",
+"Pak Darma berbicara penuh rasa hormat dan ketulusan kepada Hendra."
+],
+"carriedElements": [
+"Ingatan peristiwa pertolongan di pinggir jalan tiga tahun lalu",
+"Tenggat pembayaran yang hampir habis",
+"Map tagihan biru dongker yang dibawa Raka"
+],
+"unresolvedQuestion": "Bagaimana cara memanfaatkan tawaran proyek Pak Darma agar mencairkan dana tepat waktu?"
+},
+"seasonTeaser": "",
+"continuityQuestions": [],
+"narration": "Pak Darma mengisahkan bagaimana tiga tahun lalu putranya terjatuh di jalan basah dan terluka parah. Hendra menghentikan pekerjaannya, mengantar anak itu hingga ditangani medis, lalu menolak uang terima kasih yang disodorkan. Baginya, menolong sesama tidak perlu balasan. Kini, Pak Darma justru menawarkan kontrak kerja pembuatan satu set meja dan lemari kayu bernilai layak untuk proyek tokonya. Hendra tertegun, merasakan kebaikan kecilnya dulu kembali menghidupkan harapan. Namun di waktu yang sama, Raka tiba di bengkel kayu Hendra lebih cepat dari janji, mendapati pintu papan tertutup rapat dengan raut wajah semakin keras.",
+"description": "Terungkapnya twist bahwa kebaikan kecil Hendra tiga tahun lalu menolong anak Pak Darma, sementara Raka mendatangi bengkel yang tertutup.",
+"hook": "Kebaikan kecil yang dulu ditolak imbalannya justru membuka pintu kepercayaan besar.",
+"revelation": "Anak laki-laki Pak Darma adalah pihak yang pernah ditolong Hendra tiga tahun lalu tanpa mengharap balasan.",
+"storySummary": "Pak Darma menceritakan pertolongan Hendra tiga tahun lalu dan menawarkan kontrak kerja kayu, sementara Raka datang ke bengkel Hendra dan menemukannya tutup.",
+"disclaimer": "",
+"continuityUpdate": {
+"canonEvents": [
+"Terungkap bahwa tiga tahun lalu Hendra menolong anak Pak Darma yang jatuh di jalan dan menolak imbalan.",
+"Pak Darma menawarkan kontrak kerja pembuatan perabot kayu kepada Hendra.",
+"Raka datang ke bengkel Hendra lebih awal dan mendapati bengkel dalam keadaan tertutup."
+],
+"characterStates": [
+{
+"characterId": "char-01",
+"state": "Terharu dan bersemangat baru setelah mendapat tawaran kontrak kerja dari Pak Darma."
+},
+{
+"characterId": "char-02",
+"state": "Berada di rumah mendampingi Bima dan menunggu kabar dari Hendra."
+},
+{
+"characterId": "char-03",
+"state": "Berada di rumah dalam kondisi tenang dan penuh harap."
+},
+{
+"characterId": "char-04",
+"state": "Tulus dan suportif setelah menawarkan kontrak kerja kayu kepada Hendra."
+},
+{
+"characterId": "char-05",
+"state": "Berdiri di depan bengkel Hendra yang tertutup dengan ekspresi tidak sabar dan tegas."
+}
+],
+"unresolvedThreads": [
+"Keputusan Raka saat mendapati bengkel tutup dan tenggat hampir berakhir.",
+"Pencairan dana awal dari kontrak kerja Pak Darma."
+],
+"resolvedThreads": [
+"Misteri alasan Pak Darma mengenali Hendra dan mengungkit kejadian tiga tahun lalu."
+]
+},
+"scenes": [
+{
+"id": 1,
+"heading": "Kisah di Pinggir Jalan",
+"narration": "Pak Darma mengisahkan bagaimana tiga tahun lalu putranya terjatuh di jalan basah dan terluka parah. Hendra menghentikan pekerjaannya, mengantar anak itu hingga ditangani medis, lalu menolak uang terima kasih yang disodorkan.",
+"visualPrompt": "Vertical 9:16 medium shot inside a wooden supply shop in afternoon light, 58-year-old Indonesian man with short white hair, thin grey mustache, thin-rimmed reading glasses, and brown-and-gold batik shirt speaking warmly with grateful emotion toward 38-year-old Indonesian man in a dark blue plaid flannel shirt with worn brown leather watch on his left wrist, natural depth of field, no text or subtitles.",
+"searchQuery": "older man speaking gratefully wood shop afternoon",
+"mood": "Moved"
+},
+{
+"id": 2,
+"heading": "Prinsip Tanpa Pamrih",
+"narration": "Baginya, menolong sesama tidak perlu balasan.",
+"visualPrompt": "Vertical 9:16 close-up of 38-year-old Indonesian man in a dark blue plaid flannel shirt with a slight scar on his right hand looking calm and humble with a gentle nod, soft warm side light, clean background, no text or watermarks.",
+"searchQuery": "humble man gentle nod close up warm light",
+"mood": "Sincere"
+},
+{
+"id": 3,
+"heading": "Tawaran Kontrak Kerja",
+"narration": "Kini, Pak Darma justru menawarkan kontrak kerja pembuatan satu set meja dan lemari kayu bernilai layak untuk proyek tokonya.",
+"visualPrompt": "Vertical 9:16 medium two-shot in the shop as Pak Darma in a brown-and-gold batik shirt gestures toward timber and woodworking plans while Hendra in a dark blue plaid flannel shirt listens attentively with renewed hope, bright daytime lighting, no text or captions.",
+"searchQuery": "two men discussing wood project shop daylight",
+"mood": "Hopeful"
+},
+{
+"id": 4,
+"heading": "Harapan dan Ketegangan Bersamaan",
+"narration": "Hendra tertegun, merasakan kebaikan kecilnya dulu kembali menghidupkan harapan.",
+"visualPrompt": "Vertical 9:16 close-up of 38-year-old Indonesian man in a dark blue plaid flannel shirt with eyes glistening and a quiet determined smile, warm afternoon sunlight illuminating his face, no text or logos.",
+"searchQuery": "man hopeful smile close up afternoon sunlight",
+"mood": "Uplifting"
+},
+{
+"id": 5,
+"heading": "Raka di Depan Bengkel Tertutup",
+"narration": "Namun di waktu yang sama, Raka tiba di bengkel kayu Hendra lebih cepat dari janji, mendapati pintu papan tertutup rapat dengan raut wajah semakin keras.",
+"visualPrompt": "Vertical 9:16 medium shot in front of a closed wooden workshop at late afternoon, 32-year-old man with short wavy black hair in a rolled-sleeve dark grey shirt and black chinos holding a thick navy blue document folder, frowning sharply at the shut wooden door, overcast late-day light, no text or subtitles.",
+"searchQuery": "man frowning closed wooden door late afternoon",
+"mood": "Suspenseful"
+}
+]
+},
+{
+"episodeNumber": 6,
+"title": "Krisis di Ambang Kehilangan",
+"logline": "Tenggat tiba saat uang muka proyek belum cair sepenuhnya, memicu krisis ketegangan antara penagihan, kondisi bengkel, dan keselamatan keluarga.",
+"openingHook": "Batas waktu habis sementara dana yang siap di tangan masih jauh dari total tagihan.",
+"mainConflict": "Hendra terjepit antara kewajiban melunasi tunggakan dan kebutuhan mempertahankan keberlangsungan bengkel serta ketenangan rumah.",
+"turningPoint": "Raka mendatangi rumah saat Ratna dan Bima ada di sana, membuat situasi memanas sebelum Hendra tiba dan menengahi.",
+"episodePayoff": "Hendra memilih bersikap terbuka dan ksatria di depan keluarganya serta Raka, tidak lari dari tanggung jawab meski posisinya sulit.",
+"endingType": "cliffhanger",
+"cliffhanger": "Raka menuntut penyerahan surat perjanjian aset bengkel hari itu juga, tepat ketika ponsel Hendra berdering dan panggilan dari Pak Darma masuk dengan kabar mendesak soal dana proyek.",
+"nextEpisodeQuestion": "Apa isi kabar mendesak dari Pak Darma, dan apakah Hendra bisa mencegah penyerahan aset bengkel?",
+"continuityBridge": {
+"previousEpisodeEnding": "Raka tiba di bengkel kayu Hendra lebih cepat dari janji dan mendapati pintu papan tertutup rapat dengan raut wajah keras.",
+"openingContinuation": "Raka bergegas menyusul ke arah rumah keluarga Hendra setelah mendapati bengkel tertutup, tepat ketika Hendra kembali dengan membawa kayu dan dokumen kerja.",
+"timeAndLocation": "Menjelang sore hingga malam di depan rumah dan ruang tamu keluarga Hendra.",
+"characterStatesAtOpening": [
+"Hendra tergesa-gesa kembali untuk menghadapi situasi sebelum tenggat berakhir.",
+"Ratna dan Bima berada di rumah dan terkejut saat Raka datang menagih.",
+"Raka bersikap tegas menuntut kejelasan pembayaran atau jaminan tertulis."
+],
+"carriedElements": [
+"Kesepakatan awal kontrak kerja kayu dengan Pak Darma",
+"Map dokumen biru dongker milik Raka",
+"Catatan keuangan dan kertas tagihan keluarga"
+],
+"unresolvedQuestion": "Apakah dana awal proyek dari Pak Darma bisa segera mencair sebelum Raka mengambil tindakan keras?"
+},
+"seasonTeaser": "",
+"continuityQuestions": [],
+"narration": "Hari penentuan tiba saat dana proyek belum sepenuhnya cair. Raka mendatangi rumah Hendra, membuat suasana berubah tegang di hadapan Ratna dan Bima. Ratna berdiri tegak mendampingi suaminya, menolak intimidasi yang tidak wajar namun tetap mengakui adanya kewajiban. Hendra menenangkan keluarganya dan meminta waktu bicara jujur kepada Raka mengenai skema pelunasan bertahap yang sedang ia upayakan. Raka tetap bersikeras meminta surat penyerahan jaminan bengkel hari itu juga. Tepat saat ketegangan memuncak, ponsel Hendra bergetar keras. Nama Pak Darma muncul di layar dengan panggilan mendesak yang bisa mengubah keadaan.",
+"description": "Krisis memuncak saat Raka menagih ke rumah dan menuntut jaminan aset bengkel, tepat ketika panggilan mendesak dari Pak Darma masuk.",
+"hook": "Penagihan di depan keluarga memaksa Hendra berdiri tegak mempertahankan harga diri dan rumah tangganya.",
+"revelation": "Raka menuntut jaminan tertulis atas bengkel jika pembayaran tunai belum tersedia saat itu juga.",
+"storySummary": "Raka menagih ke rumah Hendra dan menuntut surat jaminan bengkel, lalu panggilan mendesak dari Pak Darma masuk di saat kritis.",
+"disclaimer": "",
+"continuityUpdate": {
+"canonEvents": [
+"Raka mendatangi rumah keluarga Hendra saat tenggat berakhir.",
+"Ratna mendampingi Hendra dengan sikap tegas dan bermartabat.",
+"Raka menuntut surat jaminan aset bengkel, lalu panggilan mendesak dari Pak Darma masuk ke ponsel Hendra."
+],
+"characterStates": [
+{
+"characterId": "char-01",
+"state": "Tegang namun berdiri tegap di ruang tamu sambil mengangkat panggilan mendesak dari Pak Darma."
+},
+{
+"characterId": "char-02",
+"state": "Waspada dan solid mendampingi Hendra di samping Bima."
+},
+{
+"characterId": "char-03",
+"state": "Berada dekat Ratna dengan raut cemas mengamati situasi."
+},
+{
+"characterId": "char-04",
+"state": "Menghubungi Hendra secara mendesak terkait dukungan proyek dan solusi dana."
+},
+{
+"characterId": "char-05",
+"state": "Menekan agar surat jaminan ditandatangani sebelum ia melangkah lebih jauh."
+}
+],
+"unresolvedThreads": [
+"Isi panggilan mendesak dari Pak Darma.",
+"Penolakan atau penerimaan tuntutan surat jaminan aset bengkel oleh Hendra."
+],
+"resolvedThreads": [
+"Tenggat awal tiga hari yang telah mencapai batas waktunya."
+]
+},
+"scenes": [
+{
+"id": 1,
+"heading": "Tamu Tegang di Rumah",
+"narration": "Hari penentuan tiba saat dana proyek belum sepenuhnya cair. Raka mendatangi rumah Hendra, membuat suasana berubah tegang di hadapan Ratna dan Bima.",
+"visualPrompt": "Vertical 9:16 medium shot in a modest Indonesian living room in late afternoon light, 32-year-old man with short wavy black hair in a rolled-sleeve dark grey shirt and black chinos holding a navy blue folder standing opposite 38-year-old Indonesian man in a dark blue plaid flannel shirt with worn brown leather watch on his left wrist while 36-year-old woman in a sage green tunic and headscarf stands beside a 9-year-old boy in a striped shirt and maroon backpack, taut atmosphere, no text or subtitles.",
+"searchQuery": "tense confrontation living room family standing",
+"mood": "Tense"
+},
+{
+"id": 2,
+"heading": "Keteguhan Ratna",
+"narration": "Ratna berdiri tegak mendampingi suaminya, menolak intimidasi yang tidak wajar namun tetap mengakui adanya kewajiban.",
+"visualPrompt": "Vertical 9:16 close-up of 36-year-old Indonesian woman with hair half-tied wearing a sage green tunic and plain headscarf with a thin silver bracelet on her right wrist, speaking firmly and composedly with steady eyes, soft late-afternoon room light, no text or watermarks.",
+"searchQuery": "composed woman speaking firmly indoor portrait",
+"mood": "Resolute"
+},
+{
+"id": 3,
+"heading": "Permintaan Skema Adil",
+"narration": "Hendra menenangkan keluarganya dan meminta waktu bicara jujur kepada Raka mengenai skema pelunasan bertahap yang sedang ia upayakan.",
+"visualPrompt": "Vertical 9:16 medium shot of 38-year-old Indonesian man in a dark blue plaid flannel shirt with a slight scar on his right hand gesturing calmly with open palms toward Raka while looking reassuringly toward his family, warm-to-cool balanced room lighting, no text or captions.",
+"searchQuery": "man speaking calmly open hands indoor room",
+"mood": "Earnest"
+},
+{
+"id": 4,
+"heading": "Tuntutan Jaminan dan Panggilan Masuk",
+"narration": "Raka tetap bersikeras meminta surat penyerahan jaminan bengkel hari itu juga. Tepat saat ketegangan memuncak, ponsel Hendra bergetar keras. Nama Pak Darma muncul di layar dengan panggilan mendesak yang bisa mengubah keadaan.",
+"visualPrompt": "Vertical 9:16 close-up of a smartphone vibrating on a wooden table beside a pen and document while 38-year-old Indonesian man in a dark blue plaid flannel shirt reaches for it with an intense expectant expression, shallow depth of field, moody indoor lighting, no text or logos.",
+"searchQuery": "phone ringing table hand reaching tense moment",
+"mood": "Climactic"
+}
+]
+},
+{
+"episodeNumber": 7,
+"title": "Jalan Terang di Ujung Tekanan",
+"logline": "Panggilan Pak Darma membawa dukungan nyata untuk mencairkan dana proyek dan merundingkan penyelesaian utang yang lebih adil bersama Raka.",
+"openingHook": "Di balik panggilan Pak Darma tersimpan solusi konkret yang membuat Hendra kembali berdiri tegak.",
+"mainConflict": "Hendra harus meyakinkan Raka agar menerima skema restrukturisasi dan pembayaran bertahap yang didukung kontrak resmi proyek.",
+"turningPoint": "Pak Darma datang langsung ke rumah membawa bukti kontrak kerja sama dan kesediaan mencairkan dana awal secara terukur.",
+"episodePayoff": "Raka mulai melunak setelah melihat dokumen kerja sama yang jelas dan niat baik Hendra untuk melunasi kewajiban secara bertanggung jawab.",
+"endingType": "cliffhanger",
+"cliffhanger": "Saat kesepakatan restrukturisasi hampir ditandatangani, Bima menunjuk ke arah tumpukan kayu pesanan di halaman belakang yang ternyata mengalami kerusakan akibat air hujan yang merembes.",
+"nextEpisodeQuestion": "Apakah kerusakan kayu di halaman belakang bisa diatasi tepat waktu untuk menuntaskan penyelesaian utama di episode terakhir?",
+"continuityBridge": {
+"previousEpisodeEnding": "Raka menuntut surat jaminan aset bengkel hari itu juga, tepat ketika ponsel Hendra berdering dengan panggilan mendesak dari Pak Darma.",
+"openingContinuation": "Hendra menjawab panggilan Pak Darma di ruang tamu dan mendengarkan kabar dukungan proyek yang membuat ketegangan seketika berubah arah.",
+"timeAndLocation": "Malam hari di ruang tamu dan halaman belakang rumah keluarga Hendra.",
+"characterStatesAtOpening": [
+"Hendra fokus mendengarkan panggilan Pak Darma dengan harapan yang mulai pulih.",
+"Ratna dan Bima mengikuti jalannya pembicaraan dengan penuh harap.",
+"Raka menunggu keputusan akhir terkait surat jaminan."
+],
+"carriedElements": [
+"Kontrak kerja sama pembuatan perabot kayu dari Pak Darma",
+"Dokumen tagihan dan skema pembayaran bertahap",
+"Surat jaminan aset yang belum ditandatangani"
+],
+"unresolvedQuestion": "Apakah Raka bersedia beralih dari tuntutan jaminan aset ke skema pelunasan bertahap yang sah?"
+},
+"seasonTeaser": "",
+"continuityQuestions": [],
+"narration": "Pak Darma mengabarkan bahwa dana awal kontrak telah disiapkan dan ia segera datang untuk mendampingi prosesnya. Tak lama kemudian, Pak Darma tiba di rumah Hendra membawa berkas kontrak resmi. Melihat dokumen kerja sama yang jelas dan itikad baik Hendra, ketegangan Raka mulai mencair. Ia setuju meninjau ulang skema pelunasan bertahap tanpa harus langsung merampas bengkel yang menjadi sumber nafkah. Suasana ruang tamu perlahan terasa lebih lega. Namun tepat ketika pena hampir digoreskan di atas lembar kesepakatan, Bima berlari kecil dari arah belakang dan menunjuk kayu pesanan yang basah terkena rembesan air hujan.",
+"description": "Pak Darma datang membawa dukungan kontrak dan dana awal sehingga Raka bersedia membahas skema bertahap, sebelum Bima menemukan kayu pesanan yang basah.",
+"hook": "Kehadiran Pak Darma mengubah arah perundingan dari ancaman penyitaan menjadi peluang penyelesaian.",
+"revelation": "Raka bersedia mempertimbangkan skema pelunasan bertahap berbasis kontrak kerja sama yang sah.",
+"storySummary": "Pak Darma datang membawa kontrak kerja sehingga Raka melunak pada skema bertahap, namun Bima menemukan kayu pesanan basah terkena rembesan hujan.",
+"disclaimer": "",
+"continuityUpdate": {
+"canonEvents": [
+"Pak Darma datang ke rumah Hendra membawa berkas kontrak resmi dan dukungan dana awal.",
+"Raka melunak dan bersedia membahas skema pelunasan bertahap.",
+"Bima menemukan kayu pesanan di bagian belakang basah terkena rembesan air hujan."
+],
+"characterStates": [
+{
+"characterId": "char-01",
+"state": "Bersemangat menghadapi solusi namun langsung waspada melihat kayu pesanan yang basah."
+},
+{
+"characterId": "char-02",
+"state": "Merasa lega atas dukungan Pak Darma namun ikut cemas melihat kondisi kayu di bagian belakang."
+},
+{
+"characterId": "char-03",
+"state": "Bergegas memberi tahu orang tuanya setelah melihat kayu yang terkena rembesan air."
+},
+{
+"characterId": "char-04",
+"state": "Mendampingi Hendra dengan sikap tenang dan siap membantu mencari solusi teknis."
+},
+{
+"characterId": "char-05",
+"state": "Lebih terbuka pada perundingan bertahap namun menunggu kepastian kelancaran penyelesaian."
+}
+],
+"unresolvedThreads": [
+"Cara menyelamatkan atau mengganti kayu pesanan yang basah terkena rembesan air agar pekerjaan tidak macet.",
+"Penuntasan kesepakatan resmi pelunasan utang."
+],
+"resolvedThreads": [
+"Tuntutan sepihak penyerahan aset bengkel secara langsung tanpa perundingan."
+]
+},
+"scenes": [
+{
+"id": 1,
+"heading": "Dukungan Nyata Pak Darma",
+"narration": "Pak Darma mengabarkan bahwa dana awal kontrak telah disiapkan dan ia segera datang untuk mendampingi prosesnya. Tak lama kemudian, Pak Darma tiba di rumah Hendra membawa berkas kontrak resmi.",
+"visualPrompt": "Vertical 9:16 medium shot inside a warm-lit Indonesian living room at night, 58-year-old Indonesian man with short white hair, thin grey mustache, thin-rimmed reading glasses, and brown-and-gold batik shirt holding a neat contract folder while greeting 38-year-old Indonesian man in a dark blue plaid flannel shirt with worn brown leather watch on his left wrist, supportive warm lighting, no text or subtitles.",
+"searchQuery": "older man handing contract folder living room night",
+"mood": "Encouraging"
+},
+{
+"id": 2,
+"heading": "Ketegangan yang Mulai Mencair",
+"narration": "Melihat dokumen kerja sama yang jelas dan itikad baik Hendra, ketegangan Raka mulai mencair. Ia setuju meninjau ulang skema pelunasan bertahap tanpa harus langsung merampas bengkel yang menjadi sumber nafkah.",
+"visualPrompt": "Vertical 9:16 medium two-shot in the living room at night, 32-year-old man with short wavy black hair in a rolled-sleeve dark grey shirt and black chinos reviewing contract papers with a slightly softened expression as 38-year-old Indonesian man in a dark blue plaid flannel shirt and 36-year-old woman in a sage green tunic and headscarf watch attentively, warm evening light, no text or watermarks.",
+"searchQuery": "two men reviewing agreement paper evening room",
+"mood": "Relieved"
+},
+{
+"id": 3,
+"heading": "Kabar dari Bagian Belakang",
+"narration": "Suasana ruang tamu perlahan terasa lebih lega. Namun tepat ketika pena hampir digoreskan di atas lembar kesepakatan, Bima berlari kecil dari arah belakang dan menunjuk kayu pesanan yang basah terkena rembesan air hujan.",
+"visualPrompt": "Vertical 9:16 medium shot near the back door and wet yard at night, a 9-year-old Indonesian boy with short neat black hair wearing a light blue-and-white striped t-shirt, grey shorts, and small maroon backpack pointing urgently toward damp stacked wooden planks glistening from rainwater seepage, dramatic contrast of warm interior light and cool wet night air, no text or captions.",
+"searchQuery": "boy pointing wet wood planks night rain",
+"mood": "Urgent"
+}
+]
+},
+{
+"episodeNumber": 8,
+"title": "Kebaikan yang Kembali Menyapa",
+"logline": "Dengan gotong royong dan dukungan tulus, Hendra menyelesaikan pesanan tepat waktu, menuntaskan skema pelunasan utang, dan memulihkan keharmonisan keluarganya.",
+"openingHook": "Kebaikan lama yang ditanam Hendra kini berbuah kerja sama nyata yang menuntaskan ujian terberat keluarganya.",
+"mainConflict": "Menyelesaikan pengerjaan kayu tepat waktu dan mengesahkan rencana pelunasan utang yang adil demi masa depan keluarga.",
+"turningPoint": "Pak Darma menyediakan stok kayu kering cadangan dari tokonya dan membantu Hendra menata jadwal kerja agar pesanan rampung tanpa cacat.",
+"episodePayoff": "Kesepakatan pelunasan resmi ditandatangani, bengkel tetap beroperasi, dan keluarga Hendra kembali utuh dengan pelajaran berharga tentang kejujuran dan kebaikan.",
+"endingType": "finale_resolution",
+"cliffhanger": "",
+"nextEpisodeQuestion": "",
+"continuityBridge": {
+"previousEpisodeEnding": "Bima berlari kecil dari arah belakang dan menunjuk kayu pesanan yang basah terkena rembesan air hujan tepat saat kesepakatan akan ditandatangani.",
+"openingContinuation": "Hendra dan Pak Darma segera memeriksa kayu yang basah di bagian belakang lalu menyusun langkah cepat menggunakan stok kayu kering dari toko Pak Darma.",
+"timeAndLocation": "Dari malam hari di halaman belakang rumah menuju beberapa hari kemudian di bengkel kayu Hendra saat pagi cerah.",
+"characterStatesAtOpening": [
+"Hendra bertindak sigap dan tenang mengatasi kendala kayu basah bersama Pak Darma.",
+"Ratna mendukung penuh proses penyelesaian dengan pencatatan yang rapi dan transparan.",
+"Bima membantu sesuai kemampuannya dengan rasa bangga pada ayahnya."
+],
+"carriedElements": [
+"Kontrak kerja sama perabot kayu milik Pak Darma",
+"Kesepakatan skema pelunasan bertahap dengan Raka",
+"Kayu pesanan yang sempat terkena rembesan hujan"
+],
+"unresolvedQuestion": "Apakah Hendra mampu menuntaskan pesanan dan kesepakatan pelunasan hingga tuntas?"
+},
+"seasonTeaser": "Setiap kebaikan kecil yang dilakukan dengan tulus tidak pernah benar-benar hilang; ia selalu menemukan jalannya kembali.",
+"continuityQuestions": [],
+"narration": "Hendra tidak panik melihat kayu yang basah. Pak Darma segera menyediakan papan kayu kering dari tokonya agar proses kerja tetap berjalan lancar. Dengan kerja keras terukur dan dukungan Ratna yang menata pembukuan secara terbuka, pesanan rampung tepat waktu. Kesepakatan pelunasan bertahap yang adil akhirnya ditandatangani bersama Raka, membebaskan keluarga Hendra dari ancaman kehilangan tempat usaha. Pagi itu, cahaya matahari masuk hangat ke bengkel kayu. Hendra tersenyum tulus di samping Ratna dan Bima. Pinjaman tiga puluh juta rupiah itu memang pernah menjadi ujian berat, tetapi kebaikan kecil yang pernah ia tanam tiga tahun lalu kini mengubah takdir keluarganya menjadi lebih kuat dan saling menguatkan.",
+"description": "Penyelesaian konflik utama season: kayu kering tercukupi, pesanan selesai, perjanjian pelunasan resmi tercapai, dan keluarga Hendra kembali harmonis.",
+"hook": "Kejujuran, kerja keras, dan kebaikan lama menyatukan kembali langkah keluarga Hendra.",
+"revelation": "Kebaikan tulus Hendra tiga tahun lalu menjadi fondasi dukungan yang membantunya menyelesaikan krisis utang secara terhormat.",
+"storySummary": "Dengan bantuan kayu kering dari Pak Darma dan keterbukaan bersama Ratna, Hendra menyelesaikan pesanan, menandatangani skema pelunasan dengan Raka, dan memulihkan keharmonisan keluarganya.",
+"disclaimer": "",
+"continuityUpdate": {
+"canonEvents": [
+"Pak Darma menyediakan papan kayu kering sehingga pekerjaan tidak terhambat oleh kayu yang basah.",
+"Pesanan perabot kayu selesai dikerjakan dan kesepakatan pelunasan bertahap resmi ditandatangani bersama Raka.",
+"Keluarga Hendra kembali harmonis dengan komunikasi yang terbuka dan penuh saling percaya."
+],
+"characterStates": [
+{
+"characterId": "char-01",
+"state": "Lega, dewasa, dan penuh syukur di bengkel kayu bersama keluarga."
+},
+{
+"characterId": "char-02",
+"state": "Tenang, harmonis, dan saling percaya mendampingi Hendra dan Bima."
+},
+{
+"characterId": "char-03",
+"state": "Ceria dan merasa aman berada di dekat kedua orang tuanya."
+},
+{
+"characterId": "char-04",
+"state": "Puas melihat kerja sama berjalan adil dan bermanfaat bagi kedua pihak."
+},
+{
+"characterId": "char-05",
+"state": "Menyelesaikan proses administrasi kesepakatan bertahap secara tertib dan profesional."
+}
+],
+"unresolvedThreads": [],
+"resolvedThreads": [
+"Ancaman gagal bayar mendadak dan penyitaan aset bengkel.",
+"Ketertutupan finansial antara Hendra dan Ratna.",
+"Dampak kebaikan tiga tahun lalu yang kini membuahkan penyelesaian nyata."
+]
+},
+"scenes": [
+{
+"id": 1,
+"heading": "Solusi Cepat Kayu Kering",
+"narration": "Hendra tidak panik melihat kayu yang basah. Pak Darma segera menyediakan papan kayu kering dari tokonya agar proses kerja tetap berjalan lancar.",
+"visualPrompt": "Vertical 9:16 medium shot at the back yard and workshop entrance at night, 58-year-old Indonesian man with short white hair, thin grey mustache, thin-rimmed reading glasses, and brown-and-gold batik shirt helping stack dry timber next to 38-year-old Indonesian man in a dark blue plaid flannel shirt with worn brown leather watch on his left wrist and a slight scar on his right hand, calm problem-solving mood, warm-cool balanced lighting, no text or subtitles.",
+"searchQuery": "two men stacking dry wood planks evening help",
+"mood": "Steady"
+},
+{
+"id": 2,
+"heading": "Keterbukaan dan Kerja Keras",
+"narration": "Dengan kerja keras terukur dan dukungan Ratna yang menata pembukuan secara terbuka, pesanan rampung tepat waktu.",
+"visualPrompt": "Vertical 9:16 medium shot inside the workshop in daytime light, 38-year-old Indonesian man in a dark blue plaid flannel shirt crafting a finished wooden table while 36-year-old woman with hair half-tied wearing a sage green tunic and plain headscarf with a thin silver bracelet on her right wrist checks neat ledger notes beside him, warm natural daylight, no text or watermarks.",
+"searchQuery": "craftsman finishing wood table woman checking notebook",
+"mood": "Productive"
+},
+{
+"id": 3,
+"heading": "Kesepakatan Pelunasan yang Adil",
+"narration": "Kesepakatan pelunasan bertahap yang adil akhirnya ditandatangani bersama Raka, membebaskan keluarga Hendra dari ancaman kehilangan tempat usaha.",
+"visualPrompt": "Vertical 9:16 medium shot at a small table inside the room, 32-year-old man with short wavy black hair in a rolled-sleeve dark grey shirt and black chinos shaking hands respectfully with 38-year-old Indonesian man in a dark blue plaid flannel shirt over signed agreement papers, calm relieved atmosphere, natural indoor light, no text or captions.",
+"searchQuery": "two men shaking hands over agreement indoor",
+"mood": "Relieved"
+},
+{
+"id": 4,
+"heading": "Pagi Penuh Harapan di Bengkel",
+"narration": "Pagi itu, cahaya matahari masuk hangat ke bengkel kayu. Hendra tersenyum tulus di samping Ratna dan Bima. Pinjaman tiga puluh juta rupiah itu memang pernah menjadi ujian berat, tetapi kebaikan kecil yang pernah ia tanam tiga tahun lalu kini mengubah takdir keluarganya menjadi lebih kuat dan saling menguatkan.",
+"visualPrompt": "Vertical 9:16 warm family portrait medium shot inside the sunlit wooden workshop in the morning, 38-year-old Indonesian man in a dark blue plaid flannel shirt with worn brown leather watch on his left wrist smiling warmly with his arm gently around 36-year-old woman in a sage green tunic and plain headscarf with a thin silver bracelet on her right wrist and 9-year-old boy in a striped shirt and maroon backpack standing happily beside them, golden morning sunbeams streaming through the open doorway, no text or logos.",
+"searchQuery": "indonesian family smiling together sunlit workshop morning",
+"mood": "Inspirational"
+}
+]
+}
+]
+}
