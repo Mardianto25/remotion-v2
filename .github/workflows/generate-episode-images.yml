@@ -37,6 +37,12 @@ on:
         default: cinematic-3d
         type: choice
         options: [cinematic-3d, 2d-animation]
+      regenerate_images:
+        description: Generate ulang semua gambar? Gambar lama dicadangkan sebagai artifact.
+        required: true
+        default: "no"
+        type: choice
+        options: ["no", "yes"]
 permissions:
   contents: write
 jobs:
@@ -69,13 +75,22 @@ jobs:
           console.log('[episode] ' + String(number).padStart(2, '0') + ' - ' + expected);
           NODE
       - run: npm install
-      - name: Generate missing scene images only
+      - name: Backup existing scene images
+        if: inputs.regenerate_images == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: episode-images-backup-${{ inputs.series_id }}-${{ inputs.episode_number }}-${{ github.run_id }}
+          path: horror/data/seasons/${{ inputs.series_id }}/episodes/episode-${{ inputs.episode_number }}/assets/scene-*.jpg
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Generate scene images
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
           CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
           HORROR_VISUAL_STYLE: ${{ inputs.visual_style }}
           HORROR_STRICT_VISUAL_STYLE: "true"
+          FORCE_REGENERATE_IMAGES: ${{ inputs.regenerate_images }}
         run: |
           SEASON_DIR="data/seasons/${{ inputs.series_id }}"
           node -e 'const fs=require("fs"); const p=process.argv[1]; const b=JSON.parse(fs.readFileSync(p)); process.stdout.write(b.genre||"mystery")' "$SEASON_DIR/series-bible.json" > /tmp/story-genre
