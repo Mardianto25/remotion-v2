@@ -41,7 +41,7 @@
     {
       "episodeNumber": 2,
       "title": "Janji yang Selalu Ditunda",
-      "status": "uploaded",
+      "status": "thumbnail_ready",
       "wordCount": 169,
       "estimatedDurationSeconds": 78,
       "sceneCount": 6,
@@ -98,5 +98,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-24T23:03:08.776Z"
+  "updatedAt": "2026-11-24T23:10:03.446Z"
 }
