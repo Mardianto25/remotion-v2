@@ -1,4 +1,4 @@
-name: 03 - SHORT 03 | Images
+name: 03 - SHORT | Images
 on:
   workflow_dispatch:
     inputs:
