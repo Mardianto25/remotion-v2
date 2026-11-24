@@ -1,0 +1,82 @@
+{
+  "seasonId": "short-ia-memiliki-segalanya-kecuali-kebahagiaan",
+  "genre": "inspirational",
+  "format": "shorts",
+  "durationMinutes": null,
+  "episodeCount": 8,
+  "productionStandard": {
+    "minScenesPerEpisode": 6,
+    "maxScenesPerEpisode": 8,
+    "minWordsPerEpisode": 100,
+    "maxWordsPerEpisode": null,
+    "minDurationSeconds": 60,
+    "maxDurationSeconds": null,
+    "estimatedWordsPerMinute": 130,
+    "minSeasonScenes": 48,
+    "maxSeasonScenes": 64,
+    "minSeasonWords": 800,
+    "maxSeasonWords": null,
+    "minSeasonDurationSeconds": 480,
+    "maxSeasonDurationSeconds": null
+  },
+  "status": "planned",
+  "episodes": [
+    {
+      "episodeNumber": 1,
+      "title": "Rumah yang Terlalu Sunyi",
+      "status": "not_started",
+      "wordCount": 177,
+      "estimatedDurationSeconds": 82
+    },
+    {
+      "episodeNumber": 2,
+      "title": "Janji yang Selalu Ditunda",
+      "status": "not_started",
+      "wordCount": 169,
+      "estimatedDurationSeconds": 78
+    },
+    {
+      "episodeNumber": 3,
+      "title": "Harga Sebuah Kesibukan",
+      "status": "not_started",
+      "wordCount": 158,
+      "estimatedDurationSeconds": 73
+    },
+    {
+      "episodeNumber": 4,
+      "title": "Kunci dari Masa Lalu",
+      "status": "not_started",
+      "wordCount": 156,
+      "estimatedDurationSeconds": 72
+    },
+    {
+      "episodeNumber": 5,
+      "title": "Surat yang Tak Pernah Dibaca",
+      "status": "not_started",
+      "wordCount": 157,
+      "estimatedDurationSeconds": 73
+    },
+    {
+      "episodeNumber": 6,
+      "title": "Saat Semuanya Terasa Kosong",
+      "status": "not_started",
+      "wordCount": 150,
+      "estimatedDurationSeconds": 70
+    },
+    {
+      "episodeNumber": 7,
+      "title": "Waktu yang Tidak Bisa Dibeli",
+      "status": "not_started",
+      "wordCount": 151,
+      "estimatedDurationSeconds": 70
+    },
+    {
+      "episodeNumber": 8,
+      "title": "Segalanya yang Berarti",
+      "status": "not_started",
+      "wordCount": 171,
+      "estimatedDurationSeconds": 79
+    }
+  ],
+  "updatedAt": "2026-11-24T21:50:59.312Z"
+}
