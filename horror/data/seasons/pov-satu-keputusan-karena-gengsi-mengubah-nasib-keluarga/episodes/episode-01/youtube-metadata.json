@@ -1,31 +1,38 @@
 {
-  "title": "Demi Gengsi Ayah, Masa Depanku Hancur",
+  "title": "Demi Dipuji Kerabat, Rumah Kami Disita",
   "titleAlternatives": [
-    "Demi Dipuji Kerabat, Rumah Kami Disita",
-    "Nekat Pamer Mewah, Akhirnya Rumah Disita"
+    "Gengsi Ayah Menghancurkan Masa Depanku",
+    "Nekat Berutang Demi Pamer ke Keluarga"
   ],
-  "selectionReason": "Judul ini secara langsung menembak akar konflik emosional utama—dampak gengsi orang tua terhadap masa depan anak—menggunakan bahasa yang alami, ringkas, dan sangat relevan untuk feed Shorts tanpa perlu clickbait berlebihan.",
-  "description": "Demi terlihat sukses di mata keluarga besar, seorang ayah nekat menolak pekerjaan sederhana dan membuka usaha mewah menggunakan utang bank. Namun gengsi tidak bisa memberi makan; dalam hitungan bulan toko sepi dan cicilan menumpuk hingga rumah menjadi taruhan.\n\nKisah ini menjadi perenungan mendalam tentang bahaya menuruti gengsi sosial dan tingginya harga yang harus dibayar ketika kejujuran hidup diabaikan demi pujian sesaat.\n\nDukung terus Ruang Cerita Indonesia dengan like dan subscribe untuk menikmati kisah inspiratif serta pelajaran hidup lainnya. (Cerita ini adalah fiksi inspiratif).\n\nCerita ini adalah fiksi inspiratif.\n\nIkuti Ruang Cerita Indonesia untuk cerita dan konten menarik lainnya.\n\n#RuangCeritaIndonesia #CeritaInspiratif #KisahKehidupan #PelajaranHidup",
+  "selectionReason": "Judul ini secara instan menghadapkan dua kontras tajam antara motif sosial (pamer ke kerabat) dan konsekuensi riil yang menyakitkan (penyitaan rumah), membangkitkan rasa penasaran penonton feed Shorts tanpa terasa berlebihan.",
+  "description": "Demi terlihat sukses di mata keluarga besar, sebuah keputusan nekat diambil tanpa memikirkan risiko panjang. Gengsi dan pujian sesaat justru menjebak keluarga dalam jeratan utang yang perlahan merenggut segalanya, termasuk impian masa depan anak.\n\nKisah fiksi inspiratif ini menjadi cermin nyata tentang bahaya mengorbankan masa depan demi validasi orang lain. Ketika gengsi dijadikan pedoman hidup, penyesalan selalu datang terlambat saat harga diri sudah tak tersisa.\n\nSimak pelajaran hidup berharga lainnya di Ruang Cerita Indonesia. Dukung channel ini dengan subscribe, like, dan bagikan pendapatmu di kolom komentar.\n\nCerita ini adalah fiksi inspiratif.\n\nIkuti Ruang Cerita Indonesia untuk cerita dan konten menarik lainnya.\n\n#RuangCeritaIndonesia #PelajaranHidup #CeritaInspiratif #ShortsIndonesia",
   "hashtags": [
     "#RuangCeritaIndonesia",
+    "#PelajaranHidup",
     "#CeritaInspiratif",
-    "#KisahKehidupan",
-    "#PelajaranHidup"
+    "#ShortsIndonesia"
   ],
   "tags": [
     "cerita inspiratif",
-    "kisah kehidupan",
-    "bahaya utang",
-    "gengsi keluarga",
-    "drama keluarga",
-    "renungan hidup",
-    "ruang cerita indonesia",
-    "cerita sedih",
     "pelajaran hidup",
-    "motivasi diri",
-    "shorts inspirasi",
-    "gaya hidup"
+    "bahaya gengsi",
+    "kisah keluarga",
+    "jeratan utang",
+    "drama keluarga",
+    "kisah sedih",
+    "penyesalan",
+    "cerita kehidupan",
+    "ruang cerita indonesia",
+    "shorts inspiratif",
+    "gengsi dan utang"
   ],
-  "thumbnailText": "GENGSI MERUSAK SEGALANYA",
-  "thumbnailPrompt": "Cinematic 3D animation style, 9:16 vertical portrait composition. A distressed middle-aged Indonesian father sitting hopelessly on the floor in a dimly lit room, clutching a bank foreclosure notice in his hand with a devastated expression. In the foreground, a teenage daughter looks on with tears in her eyes. Dramatic contrast, moody blue and warm amber lighting, high emotional expression, ultra-detailed textures, clean background, no text, no logo, no watermark."
+  "thumbnailText": "Harga Sebuah Gengsi",
+  "thumbnailPrompt": "Cinematic 3D animation style, 9:16 vertical composition. A middle-aged Southeast Asian father sitting slumped on the bare floor in despair, head bowed low, emotional tears of regret on his face. An official red-stamped foreclosure paper lies on the wooden floor beside him. In the dim background, a teenage son looks at him with a heartbroken expression. Moody indoor lighting, deep shadows contrasting with soft dramatic rim light, highly expressive facial details, clean rendered style, 8k resolution, no text, no watermark, no logos.",
+  "format": "youtube-shorts",
+  "thumbnail": {
+    "version": "shorts-ctr-v3",
+    "format": "9:16",
+    "vertical": "shorts-cover.jpg",
+    "youtube": "youtube-thumbnail.jpg"
+  }
 }
