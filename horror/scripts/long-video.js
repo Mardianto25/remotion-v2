@@ -7,7 +7,7 @@ import { generateSeo } from "../src/ai/seoGenerator.js";
 import { getSceneImage } from "../src/visual/providers.js";
 import { generateNarration } from "../src/audio/edgeTts.js";
 import { generateLongThumbnail } from "../src/visual/thumbnail.js";
-import { ROOT, LONG_ASSETS_DIR, LONG_AUDIO_DIR, LONG_DATA_DIR, LONG_OUT_DIR } from "../src/config.js";
+import { ROOT, LONG_PUBLIC_DIR, LONG_DATA_DIR, LONG_OUT_DIR } from "../src/config.js";
 
 const args = process.argv.slice(2);
 const arg = (name, fallback = "") => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] || fallback : fallback; };
@@ -16,7 +16,13 @@ if (!Number.isFinite(durationMinutes) || durationMinutes < 1 || durationMinutes 
 const storyFile = arg("--story-file");
 const topic = arg("--topic") || args.filter((v, i) => !["--duration", "--story-file", "--topic"].includes(v) && args[i-1] !== "--duration" && args[i-1] !== "--story-file" && args[i-1] !== "--topic").join(" ").trim();
 if (!storyFile && !topic) throw new Error('Masukkan --topic "topik cerita" atau --story-file data/long-seasons/.../story.json');
-const dirs = [LONG_ASSETS_DIR, LONG_AUDIO_DIR, LONG_DATA_DIR, LONG_OUT_DIR];
+const safeId = String(arg("--output-id", topic || path.basename(storyFile || "single-video", ".json"))).toLowerCase().normalize("NFKD").replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 70) || "long-video";
+const assetPrefix = "long-video/" + safeId;
+const assetsDir = path.join(LONG_PUBLIC_DIR, safeId, "assets");
+const audioDir = path.join(LONG_PUBLIC_DIR, safeId, "audio");
+const dataDir = path.join(LONG_DATA_DIR, safeId);
+const outDir = path.join(LONG_OUT_DIR, safeId);
+const dirs = [assetsDir, audioDir, dataDir, outDir];
 await Promise.all(dirs.map(dir => fs.mkdir(dir, { recursive: true })));
 const readJson = async file => JSON.parse(await fs.readFile(file, "utf8"));
 const writeJson = async (file, value) => fs.writeFile(file, JSON.stringify(value, null, 2) + "\n");
@@ -48,11 +54,11 @@ console.log("[long-video] Mode: " + (storyFile ? "Series/Episode" : "Single Vide
 const story = storyFile ? await readJson(path.resolve(ROOT, storyFile)) : await generateStory(topic, { durationMinutes });
 if (!story.narration || !Array.isArray(story.scenes) || !story.scenes.length) throw new Error("Naskah tidak memiliki narration/scenes.");
 process.env.STORY_GENRE = String(story.genre || story.category || process.env.STORY_GENRE || "mystery");
-await writeJson(path.join(LONG_DATA_DIR, "story.json"), story);
+await writeJson(path.join(dataDir, "story.json"), story);
 const seo = await generateSeo(story, topic || story.title);
-await writeJson(path.join(LONG_DATA_DIR, "youtube-metadata.json"), seo);
-const audioPath = path.join(LONG_AUDIO_DIR, "narration.mp3");
-const subtitlePath = path.join(LONG_AUDIO_DIR, "narration.vtt");
+await writeJson(path.join(dataDir, "youtube-metadata.json"), seo);
+const audioPath = path.join(audioDir, "narration.mp3");
+const subtitlePath = path.join(audioDir, "narration.vtt");
 await generateNarration(story.narration, audioPath, subtitlePath);
 const duration = await durationOf(audioPath);
 if (duration > 510) throw new Error("Durasi audio " + duration.toFixed(1) + " detik melebihi batas Long Video 8 menit 30 detik. Audio tidak dipotong otomatis.");
@@ -61,9 +67,9 @@ if (!captions.length) throw new Error("Subtitle VTT kosong/tidak valid.");
 const assets = [];
 for (let i = 0; i < story.scenes.length; i++) {
   console.log("[long-video] Generate landscape scene " + (i+1) + "/" + story.scenes.length);
-  assets.push(await getSceneImage(story.scenes[i], i, LONG_ASSETS_DIR, story.characters || [], { aspectRatio: "16:9" }));
+  assets.push(await getSceneImage(story.scenes[i], i, assetsDir, story.characters || [], { aspectRatio: "16:9" }));
 }
-const thumbnail = await generateLongThumbnail(story, seo, topic || story.title, LONG_OUT_DIR);
+const thumbnail = await generateLongThumbnail(story, seo, topic || story.title, outDir);
 const fps = 30, totalFrames = Math.ceil(duration * fps);
 const weights = story.scenes.map(scene => (String(scene.narration || "").match(/\\S+/g) || []).length);
 const totalWords = weights.reduce((a,b) => a+b, 0) || 1;
@@ -74,13 +80,13 @@ const scenes = story.scenes.map((scene, index) => {
   cursor += frames;
   return { ...scene, fileName: "scene-" + String(index+1).padStart(3,"0") + ".jpg", startFrame, durationInFrames: frames };
 });
-const manifest = { title: story.title, description: story.description || "", disclaimer: story.disclaimer || "", durationInFrames: totalFrames, fps, scenes, captions };
+const manifest = { assetPrefix, title: story.title, description: story.description || "", disclaimer: story.disclaimer || "", durationInFrames: totalFrames, fps, scenes, captions };
 await fs.writeFile(path.join(ROOT, "remotion", "generatedLongStory.js"), "export const generatedLongStory = " + JSON.stringify(manifest, null, 2) + ";\\n");
-const videoPath = path.join(LONG_OUT_DIR, "long-video.mp4");
+const videoPath = path.join(outDir, "long-video.mp4");
 await run("npx", ["remotion", "render", "remotion/index.jsx", "LongVideo", videoPath, "--codec=h264", "--crf=22"]);
 const renderedDuration = await durationOf(videoPath);
 if (renderedDuration > 510.5) throw new Error("Video render melebihi toleransi 8 menit 30 detik.");
-await writeJson(path.join(LONG_DATA_DIR, "production-manifest.json"), {
+await writeJson(path.join(dataDir, "production-manifest.json"), {
   mode: storyFile ? "series-episode" : "single-video", targetDurationMinutes: durationMinutes,
   durationSeconds: Number(renderedDuration.toFixed(2)), aspectRatio: "16:9", visualStyle: process.env.HORROR_VISUAL_STYLE || "cinematic-3d",
   video: videoPath, thumbnail: thumbnail.landscapePath, sceneCount: scenes.length
