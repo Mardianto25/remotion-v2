@@ -71,6 +71,15 @@ if (command === "episode") {
   try {
     const existingStory = await readJson(storyPath);
     if (!flag("--force")) {
+      if (format === "shorts") {
+        const existingNarration = String(existingStory.narration || "").trim();
+        const existingWords = existingNarration.split(/\s+/).filter(Boolean).length;
+        const existingScenes = Array.isArray(existingStory.scenes) ? existingStory.scenes : [];
+        const existingSceneNarration = existingScenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\s+/g, " ").trim();
+        if (existingWords < 240 || existingWords > 260 || existingScenes.length !== 7 || existingSceneNarration !== existingNarration.replace(/\s+/g, " ").trim()) {
+          throw new Error("story.json lama belum memenuhi standar Shorts (240-260 kata, tepat 7 scene, dan narasi scene harus identik). Jalankan ulang workflow dengan regenerate_script=yes setelah Season Plan diperbarui.");
+        }
+      }
       if (format !== "long") await fs.mkdir(DATA_DIR, { recursive: true });
       if (format !== "long") await writeJson(path.join(DATA_DIR, "story.json"), existingStory);
       if (format !== "long") await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath, format });
