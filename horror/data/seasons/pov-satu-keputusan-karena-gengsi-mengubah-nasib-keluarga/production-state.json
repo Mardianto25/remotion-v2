@@ -7,7 +7,7 @@
     {
       "episodeNumber": 1,
       "title": "Demi Pamer Di Hadapan Kerabat",
-      "status": "uploaded",
+      "status": "rendered",
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
@@ -33,5 +33,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T01:22:48.111Z"
+  "updatedAt": "2026-11-24T02:41:07.456Z"
 }
