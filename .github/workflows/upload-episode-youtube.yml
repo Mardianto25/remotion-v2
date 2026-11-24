@@ -82,11 +82,13 @@ jobs:
             for (const target of targets) {
               const runs = await github.paginate(github.rest.actions.listWorkflowRuns, {
                 owner, repo, workflow_id: target.workflow,
-                branch: "main", status: "success", per_page: 100
+                branch: "main", status: "completed", per_page: 100
               });
 
               let selectedRun = null;
               for (const run of runs) {
+                // GitHub API status "completed" berbeda dengan conclusion "success".
+                if (run.status !== "completed" || run.conclusion !== "success") continue;
                 const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
                   owner, repo, run_id: run.id, per_page: 100
                 });
