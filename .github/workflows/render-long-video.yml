@@ -1,4 +1,4 @@
-name: Long Video - 06 Render 16:9
+name: 13 - LONG 06 | Render 16:9
 on:
   workflow_dispatch:
     inputs:
