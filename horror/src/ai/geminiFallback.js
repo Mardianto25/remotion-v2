@@ -40,7 +40,7 @@ async function validateCandidate(response, validateResponse, provider) {
   }
 }
 
-async function generateOpenRouterContent(request, previousError, validateResponse) {
+export async function generateOpenRouterContent(request, previousError, validateResponse, options = {}) {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
     throw new Error(
@@ -51,7 +51,7 @@ async function generateOpenRouterContent(request, previousError, validateRespons
 
   const generationConfig = request.config || {};
   const body = {
-    model: process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini",
+    model: options.model || process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini",
     messages: toOpenRouterMessages(request.contents),
     ...(generationConfig.responseMimeType === "application/json"
       ? { response_format: { type: "json_object" } }
@@ -117,5 +117,8 @@ export async function generateGeminiContent(ai, request, options = {}) {
   }
 
   console.warn("[ai] Seluruh jalur Gemini gagal. Beralih ke OpenRouter.");
+  if (typeof options.openRouterFallback === "function") {
+    return options.openRouterFallback(request, lastError);
+  }
   return generateOpenRouterContent(request, lastError, options.validateResponse);
 }
