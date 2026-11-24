@@ -133,7 +133,7 @@ if (stage === "images") {
     await generateNarration(story.narration, audioPath, subtitlePath);
   }
   const duration = await durationOf(audioPath);
-  if (duration < 50 || duration > 120) throw new Error("Audio " + duration.toFixed(1) + " detik di luar target YouTube Shorts 50-120 detik.");
+  if (duration < 45 || duration > 180) throw new Error("Audio " + duration.toFixed(1) + " detik di luar batas durasi 45-180 detik.");
   const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
   if (!captions.length) throw new Error("Subtitle VTT kosong/tidak valid.");
   await writeJson(path.join(episodeDir, "audio-manifest.json"), { durationSeconds: Number(duration.toFixed(3)), captions, audio: "audio/narration.mp3", subtitles: "audio/narration.vtt" });
@@ -165,7 +165,7 @@ if (stage === "images") {
   await run("npx",["remotion","render","remotion/index.jsx","HorrorVideo","out/indonesian-horror.mp4","--codec=h264","--crf=22"]);
   const video=path.join(OUT_DIR,"indonesian-horror.mp4");
   const videoDuration=await durationOf(video);
-  if(videoDuration<49.5 || videoDuration>120.05) throw new Error("Hasil render harus berdurasi 50-120 detik untuk YouTube Shorts.");
+  if(videoDuration<44.5 || videoDuration>180.05) throw new Error("Hasil render harus berdurasi 45-180 detik.");
   await fs.copyFile(video,path.join(episodeDir,"indonesian-horror.mp4"));
   await setEpisodeState("rendered", { durationSeconds: Number(videoDuration.toFixed(1)), videoPath: "episodes/episode-" + String(episodeNumber).padStart(2,"0") + "/indonesian-horror.mp4" });
   console.log("[render] Video berhasil dibuat: "+video);
