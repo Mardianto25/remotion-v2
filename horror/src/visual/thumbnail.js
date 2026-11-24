@@ -26,27 +26,38 @@ async function generateBackground(prompt) {
   return Buffer.from(await response.arrayBuffer());
 }
 function makeOverlay(width, height, text) {
-  const fontSize = 104;
-  const x = 70;
-  const y = Math.round(height * 0.79);
-  const maxWidth = width - 140;
-  return Buffer.from(`<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-    <defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".42" stop-color="#000" stop-opacity=".10"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></linearGradient></defs>
-    <rect width="100%" height="100%" fill="url(#shade)"/>
-    <text x="${x}" y="${y}" fill="#fff" font-family="Arial, sans-serif" font-size="${fontSize}" textLength="${maxWidth}" lengthAdjust="spacingAndGlyphs" font-weight="900" stroke="#160b0b" stroke-width="7" paint-order="stroke" letter-spacing="1">${escapeXml(text)}</text>
-  </svg>`);
+  const words = String(text || "").trim().toUpperCase().split(/\\s+/).filter(Boolean);
+  const lines = [];
+  let line = "";
+  for (const word of words) {
+    const candidate = line ? line + " " + word : word;
+    if (candidate.length > 18 && line) { lines.push(line); line = word; }
+    else line = candidate;
+  }
+  if (line) lines.push(line);
+  const visibleLines = lines.slice(0, 2);
+  const fontSize = visibleLines.some(value => value.length > 15) ? 78 : 94;
+  const firstY = visibleLines.length > 1 ? Math.round(height * 0.835) : Math.round(height * 0.87);
+  const title = visibleLines.map((value, index) =>
+    '<text x="' + (width / 2) + '" y="' + (firstY + index * 112) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + fontSize + '" font-weight="900" stroke="#120b0b" stroke-width="8" paint-order="stroke" letter-spacing="1">' + escapeXml(value) + '</text>'
+  ).join("");
+  return Buffer.from('<svg width="' + width + '" height="' + height + '" xmlns="http://www.w3.org/2000/svg">' +
+    '<defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".92"/></linearGradient></defs>' +
+    '<rect width="100%" height="100%" fill="url(#shade)"/>' +
+    '<rect x="42" y="' + Math.round(height * 0.77) + '" width="' + (width - 84) + '" height="' + Math.round(height * 0.2) + '" rx="28" fill="#050505" fill-opacity=".30"/>' +
+    title + '</svg>');
 }
-export async function generateThumbnail(story, seo, topic) {
+export async function generateThumbnail(story, seo, topic, metadataPath = path.join(DATA_DIR, "youtube-metadata.json")) {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const style = selectedStyle();
   const subject = String(seo.thumbnailPrompt || story.scenes?.[0]?.visualPrompt || story.title + ". " + topic);
   const genre = String(process.env.STORY_GENRE || story.genre || story.category || "mystery").toLowerCase();
   const prompt = [
-    "Create a premium YouTube Shorts cover image, portrait 9:16 composition.", style.visual,
+    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Generate a clean image only, absolutely no visible writing of any kind.", style.visual,
     "One unmistakable focal subject that communicates the selected story genre, dramatic close or medium shot, strong silhouette, expressive emotion, cinematic lighting, rich contrast, detailed setting.",
     "Genre: " + genre + ". Depict the most compelling and emotionally clear moment from this story: " + subject,
     "Compose exclusively for vertical 9:16 mobile Shorts viewing. Keep the face, key object, and story action large and unmistakable in the central safe area.",
-    "Keep the lower 25 percent relatively dark and uncluttered for one short hook overlay. No letters, typography, logo, channel name, watermark, collage, border.",
+    "Do not render any text, letters, numbers, symbols, captions, signage, logos, channel names, watermarks, signatures, or typography anywhere in the image. Keep the lower 28 percent as a simple dark cinematic background reserved for a separately added title overlay. No collage, no border.",
     style.avoid + ". Respect the selected genre; no horror elements unless the genre is horror."
   ].join(" ");
   const imageBuffer = await generateBackground(prompt);
@@ -57,6 +68,6 @@ export async function generateThumbnail(story, seo, topic) {
   const landscapePath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
   await fs.copyFile(verticalPath, landscapePath);
   await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.writeFile(path.join(DATA_DIR, "youtube-metadata.json"), JSON.stringify({ ...seo, format: "youtube-shorts", thumbnail: { version: "shorts-ctr-v2", format: "9:16", vertical: "out/shorts-cover.jpg", youtube: "out/youtube-thumbnail.jpg" } }, null, 2));
+  await fs.writeFile(metadataPath, JSON.stringify({ ...seo, format: "youtube-shorts", thumbnail: { version: "shorts-ctr-v3", format: "9:16", vertical: "shorts-cover.jpg", youtube: "youtube-thumbnail.jpg" } }, null, 2));
   return { verticalPath, landscapePath };
 }
