@@ -81,10 +81,10 @@ export async function generateStory(topic, options = {}) {
   const durationMinutes = Math.max(1, Math.min(8, Number(options.durationMinutes || 5)));
   const longVideo = options.longVideo === true;
   const selectedGenre = String(options.genre || process.env.STORY_GENRE || "mystery");
-  const targetWords = longVideo ? Math.round(durationMinutes * 130) : 185;
-  const minWords = longVideo ? Math.max(130, Math.round(targetWords * 0.88)) : 110;
+  const targetWords = longVideo ? Math.round(durationMinutes * 130) : 250;
+  const minWords = longVideo ? Math.max(130, Math.round(targetWords * 0.88)) : 240;
   const maxWords = longVideo ? Math.min(1150, Math.round(targetWords * 1.12)) : 260;
-  const sceneCount = longVideo ? Math.max(6, Math.min(32, Math.round(durationMinutes * 4))) : 8;
+  const sceneCount = longVideo ? Math.max(6, Math.min(32, Math.round(durationMinutes * 4))) : 7;
   const selectedStyle = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
   const visualStylePrompt = longVideo && (selectedStyle === "2d" || selectedStyle === "2d-animation") ? "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading" : "high-end cinematic 3D CGI, realistic 3D characters and environments, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render";
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
@@ -95,7 +95,7 @@ export async function generateStory(topic, options = {}) {
     longVideo ? "Gunakan struktur alur yang sesuai genre: hook kuat, pengenalan tokoh dan tujuan, konflik berkembang, taruhan meningkat, klimaks emosional/logis, lalu ending yang kuat." : "Gunakan struktur alur yang jelas: (1) hook mengerikan atau pertanyaan misterius dalam 1-2 kalimat pertama, langsung memancing rasa penasaran; (2) pengenalan tokoh dan lokasi secara singkat; (3) kejadian ganjil yang mulai mengganggu; (4) ancaman meningkat dengan petunjuk baru atau konsekuensi yang makin nyata; (5) klimaks yang menjadi puncak teror; (6) ending atau twist yang kuat dan membekas.",
     'RETENTION ENDING WAJIB: dua scene terakhir harus memberi payoff atas konflik utama, lalu menghadirkan satu fakta, bukti, konsekuensi, atau detail baru yang mengubah pemahaman penonton. Kalimat terakhir harus memicu curiosity gap yang spesifik dan terasa alami dari cerita, bukan pertanyaan generik, bukan CTA, dan bukan sekadar kata "bersambung". Untuk cerita standalone, selesaikan konflik utama terlebih dahulu lalu sisakan satu misteri/implikasi kecil yang membuat penonton terus memikirkannya. Untuk cerita serial, akhiri dengan cliffhanger konkret yang membuka konflik episode berikutnya. Jangan mengakhiri cerita dengan tokoh hanya termenung, berjalan pergi, layar gelap, atau refleksi umum. Scene terakhir wajib menampilkan momen pemicu rasa penasaran tersebut secara visual dan naratif.',
     longVideo ? "Pastikan ada perkembangan cerita atau informasi baru setiap 20-35 detik. Buka dengan momen paling menarik atau pertanyaan spesifik yang sesuai genre." : "Pastikan ada perkembangan cerita atau informasi baru setiap 10-20 detik. Dalam 3-5 detik pertama, buka dengan kejadian paling ganjil/menyeramkan atau pertanyaan yang spesifik. Hindari intro channel, salam, ajakan subscribe di awal, dan latar belakang panjang. Jangan mengulang informasi yang sudah diketahui penonton, jangan terlalu cepat mengungkap sosok/rahasia utama, dan jangan menutup cerita secara terburu-buru.",
-    "Buat " + sceneCount + "-" + Math.min(36, sceneCount + (longVideo ? 2 : 4)) + " scene yang mengikuti urutan narasi. Setiap scene harus mewakili satu momen visual yang jelas dan berbeda, bukan memecah satu kalimat menjadi banyak scene.",
+    "Buat " + sceneCount + (longVideo ? "-" + Math.min(36, sceneCount + 2) : " scene tepat") + " yang mengikuti urutan narasi. Setiap scene harus mewakili satu momen visual yang jelas dan berbeda, bukan memecah satu kalimat menjadi banyak scene.",
     "Jika mengangkat lokasi, legenda, atau peristiwa nyata, bedakan fakta, legenda, kesaksian, dan dramatisasi. Jangan mengarang sumber, tanggal, kutipan, atau menyebut cerita sebagai kisah nyata tanpa dasar. Hindari gore eksplisit.",
     "Narasi lengkap harus konsisten dengan gabungan narration pada seluruh scene. Setiap scene.narration WAJIB berupa potongan VERBATIM yang berurutan dari narration lengkap: salin kalimat persis, jangan parafrase, jangan menambah/mengurangi kata, dan jangan mengubah urutan. Scene pertama dimulai dari awal cerita dan scene terakhir berakhir di akhir cerita.",
     "Kembalikan satu objek JSON valid tanpa markdown atau code fence. Gunakan tepat struktur berikut:",
@@ -114,5 +114,11 @@ export async function generateStory(topic, options = {}) {
   });
 
   const parsed = extractJson(response.text);
-  return normalizeStory(parsed, topic, selectedGenre);
+  const normalized = normalizeStory(parsed, topic, selectedGenre);
+  if (!longVideo) {
+    const words = normalized.narration.trim().split(/\\s+/).filter(Boolean).length;
+    if (words < 240 || words > 260) throw new Error("Naskah Shorts memiliki " + words + " kata; standar wajib 240-260 kata.");
+    if (normalized.scenes.length !== 7) throw new Error("Naskah Shorts wajib memiliki tepat 7 scene; ditemukan " + normalized.scenes.length + ".");
+  }
+  return normalized;
 }
