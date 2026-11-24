@@ -79,8 +79,27 @@ function makeOverlay(width, height, text, episodeNumber, labelOverride = "", the
   const badgeY = isLandscape ? 48 : 70;
   const badge = '<rect x="' + badgeX + '" y="' + badgeY + '" width="' + badgeWidth + '" height="' + badgeHeight + '" rx="14" fill="#b91c1c"/>' +
     '<text x="' + (badgeX + badgeWidth / 2) + '" y="' + (badgeY + badgeHeight * 0.68) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 40 : 48) + '" font-weight="900" letter-spacing="2">' + episodeLabel + '</text>';
-  const theme = String(themeTitle || "").trim().toUpperCase().slice(0, 48);
-  const themeLabel = theme ? '<text x="' + (width / 2) + '" y="' + (isLandscape ? 176 : 250) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 30 : 42) + '" font-weight="800" stroke="#120b0b" stroke-width="5" paint-order="stroke" letter-spacing="1">' + escapeXml(theme) + '</text>' : "";
+  const theme = String(themeTitle || "").trim().toUpperCase();
+  const themeMaxChars = isLandscape ? 34 : 27;
+  const themeWords = theme.split(/\\s+/).filter(Boolean);
+  const themeLines = [];
+  let themeLine = "";
+  for (const word of themeWords) {
+    const candidate = themeLine ? themeLine + " " + word : word;
+    if (candidate.length > themeMaxChars && themeLine) {
+      themeLines.push(themeLine);
+      themeLine = word;
+    } else {
+      themeLine = candidate;
+    }
+  }
+  if (themeLine) themeLines.push(themeLine);
+  const themeFontSize = isLandscape ? 30 : (themeLines.length >= 3 ? 34 : 40);
+  const themeLineHeight = isLandscape ? 42 : 52;
+  const themeFirstY = isLandscape ? 176 : 270;
+  const themeLabel = themeLines.map((value, index) =>
+    '<text x="' + (width / 2) + '" y="' + (themeFirstY + index * themeLineHeight) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + themeFontSize + '" font-weight="800" stroke="#120b0b" stroke-width="5" paint-order="stroke" letter-spacing="1">' + escapeXml(value) + '</text>'
+  ).join("");
   const shadeStart = isLandscape ? 0.60 : 0.72;
   const shadeRectY = Math.round(height * shadeStart);
   return Buffer.from('<svg width="' + width + '" height="' + height + '" xmlns="http://www.w3.org/2000/svg">' +
