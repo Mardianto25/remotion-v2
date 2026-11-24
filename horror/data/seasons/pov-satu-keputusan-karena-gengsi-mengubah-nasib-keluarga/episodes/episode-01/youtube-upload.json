@@ -7,7 +7,7 @@
   "uploadedAt": "2026-11-24T02:48:04.387Z",
   "url": "https://www.youtube.com/shorts/uZ-e_UT-KLU",
   "thumbnailUploaded": true,
-  "thumbnailUpdatedAt": "2026-11-24T02:48:09.001Z",
+  "thumbnailUpdatedAt": "2026-11-24T03:00:41.790Z",
   "previousUploads": [
     {
       "videoId": "WA-t5t3fyRc",
@@ -16,5 +16,6 @@
       "uploadedAt": "2026-11-24T01:22:45.120Z",
       "supersededAt": "2026-11-24T02:48:04.386Z"
     }
-  ]
+  ],
+  "thumbnailAspectRatio": "9:16"
 }
