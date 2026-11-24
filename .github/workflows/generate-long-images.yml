@@ -1,4 +1,4 @@
-name: Long Video - 03 Images
+name: 10 - LONG 03 | Images
 on:
   workflow_dispatch:
     inputs:
