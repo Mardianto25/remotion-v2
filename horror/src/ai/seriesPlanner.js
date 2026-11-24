@@ -18,11 +18,11 @@ export async function planSeason(concept, options = {}) {
   const episodeCount = Number(options.episodeCount || 8);
   const format = options.format === "long" ? "long" : "shorts";
   const durationMinutes = Math.max(1, Math.min(8, Number(options.durationMinutes || 5)));
-  const targetWords = format === "long" ? Math.round(durationMinutes * 130) : 115;
-  const minWords = format === "long" ? Math.max(130, Math.round(targetWords * 0.88)) : 100;
-  const maxWords = format === "long" ? Math.min(1150, Math.round(targetWords * 1.12)) : 125;
-  const minScenes = format === "long" ? Math.max(6, Math.round(durationMinutes * 3)) : 5;
-  const maxScenes = format === "long" ? Math.min(32, minScenes + 2) : 8;
+  const targetWords = format === "long" ? Math.round(durationMinutes * 130) : 250;
+  const minWords = format === "long" ? Math.max(130, Math.round(targetWords * 0.88)) : 240;
+  const maxWords = format === "long" ? Math.min(1150, Math.round(targetWords * 1.12)) : 260;
+  const minScenes = format === "long" ? Math.max(6, Math.round(durationMinutes * 3)) : 7;
+  const maxScenes = format === "long" ? Math.min(32, minScenes + 2) : 7;
   const aspectPrompt = format === "long" ? "landscape 16:9" : "portrait 9:16";
   if (![4, 6, 8, 10, 12].includes(episodeCount)) throw new Error("Jumlah episode harus 4, 6, 8, 10, atau 12.");
   const ai = config.geminiApiKey ? new GoogleGenAI({ apiKey: config.geminiApiKey }) : null;
@@ -35,8 +35,8 @@ export async function planSeason(concept, options = {}) {
     "FORMAT: pilih sudut pandang dan struktur yang paling cocok untuk genre. Gunakan bahasa Indonesia luwes, visual, mudah dinarasikan, tidak seperti esai. Premis harus langsung mudah dipahami dan memiliki konflik atau tujuan utama yang jelas.",
     "Buat cerita orisinal dan sesuai genre. Jangan menyalin karya, tokoh, atau plot terkenal. Jika membahas agama, sejarah, atau fakta, hindari klaim yang tidak terverifikasi. Hindari gore eksplisit dan eksploitasi anak.",
     "STRUKTUR " + episodeCount + " EPISODE: rancang arc serial lengkap untuk jumlah episode yang diminta. Episode awal memperkenalkan premis dan hook; bagian tengah mengembangkan karakter, konflik, konsekuensi dan turning point; episode-episode akhir membangun klimaks; episode terakhir wajib memberi payoff utama yang memuaskan dan boleh menyisakan benih cerita untuk season berikutnya. Atur pembagian beat secara proporsional terhadap jumlah episode, jangan memaksakan struktur 8 episode.",
-    "PENTING: saat membuat season, rencanakan SELURUH MATERI PRODUKSI untuk seluruh " + episodeCount + " episode sekarang. Jangan hanya membuat outline. Untuk SETIAP episode tulis naskah final lengkap dan " + minScenes + "-" + maxScenes + " scene final beserta narration per scene dan visualPrompt final. Tahap produksi episode berikutnya hanya membaca data ini dan DILARANG memanggil AI untuk menulis ulang episode atau membuat ulang scene.",
-    "Setiap naskah episode adalah video " + (format === "long" ? "Long Video landscape 16:9 berdurasi sekitar " + durationMinutes + " menit, " + minWords + "-" + maxWords + " kata" : "YouTube Shorts 45-55 detik, maksimal 60 detik, 100-125 kata") + ". Gabungan scenes[].narration harus sama persis dengan narration utama. Tiap scene wajib memiliki id berurutan, heading, narration verbatim, visualPrompt berbahasa Inggris dengan karakter/lokasi konsisten, searchQuery, dan mood.",
+    "PENTING: saat membuat season, rencanakan SELURUH MATERI PRODUKSI untuk seluruh " + episodeCount + " episode sekarang. Jangan hanya membuat outline. Untuk SETIAP episode tulis naskah final lengkap dan TEPAT " + minScenes + " scene final beserta narration per scene dan visualPrompt final. Tahap produksi episode berikutnya hanya membaca data ini dan DILARANG memanggil AI untuk menulis ulang episode atau membuat ulang scene.",
+    "Setiap naskah episode adalah video " + (format === "long" ? "Long Video landscape 16:9 berdurasi sekitar " + durationMinutes + " menit, " + minWords + "-" + maxWords + " kata" : "YouTube Shorts portrait 9:16 dengan target durasi audio dan video 115-125 detik, tepat 7 scene, dan 240-260 kata narasi bahasa Indonesia per episode") + ". Gabungan scenes[].narration harus sama persis dengan narration utama. Tiap scene wajib memiliki id berurutan, heading, narration verbatim, visualPrompt berbahasa Inggris dengan karakter/lokasi konsisten, searchQuery, dan mood. Jangan mengorbankan jumlah kata atau scene demi memperpendek cerita."
     "RETENTION DAN ENDING WAJIB: Episode 1 sampai " + (episodeCount - 1) + " TIDAK BOLEH berakhir hanya dengan tokoh termenung, berjalan pergi, suasana sedih, layar gelap, atau kalimat refleksi. Setiap episode non-finale wajib memiliki cliffhanger konkret: kejadian baru, ancaman, keputusan, pengungkapan rahasia, kedatangan seseorang, pesan/bukti tak terduga, atau konsekuensi yang langsung mengubah situasi. Kejadian tersebut harus muncul secara nyata di NARASI SCENE TERAKHIR dan divisualisasikan secara spesifik di visualPrompt scene terakhir. Jangan hanya menulis cliffhanger di metadata sementara scene terakhir tidak memperlihatkannya.",
     "Cliffhanger harus relevan dengan konflik dan genre, masuk akal berdasarkan kejadian sebelumnya, tidak terasa dipaksakan, serta membuka pertanyaan spesifik yang membuat penonton ingin menonton episode selanjutnya. Kalimat terakhir episode non-finale harus menjadi kejutan atau ancaman yang jelas, bukan CTA, bukan rangkuman moral, dan bukan sekadar 'bersambung'. Field cliffhanger harus menjelaskan kejadian yang benar-benar terjadi di scene terakhir dan nextEpisodeQuestion harus berisi pertanyaan yang timbul dari kejadian itu.",
     "KONTINUITAS WAJIB ANTAR-EPISODE: episode N+1 harus dimulai tepat dari situasi yang ditinggalkan episode N. Jangan melompat waktu, lokasi, konflik, atau kondisi karakter tanpa transisi yang dijelaskan di narasi. Scene pertama episode berikutnya harus memperlihatkan respons langsung terhadap kejadian cliffhanger sebelumnya sebelum masuk ke aktivitas/konflik baru. Jika episode sebelumnya berakhir dengan pintu didobrak dan antagonis datang membawa surat, episode berikutnya harus membuka dengan konfrontasi yang sama di lokasi dan waktu yang sama; jangan langsung melompat ke negosiasi/aktivitas lain. Pertahankan siapa hadir, posisi tokoh, benda yang sedang dipegang, kondisi tempat, ancaman, dan pertanyaan yang belum terjawab. Jangan mengulang cliffhanger sebagai ringkasan; lanjutkan aksinya. Setiap episode mulai nomor 2 wajib mengisi continuityBridge: previousEpisodeEnding (ringkasan kejadian terakhir episode sebelumnya), openingContinuation (aksi langsung yang melanjutkan adegan terakhir), timeAndLocation (waktu/lokasi pembuka yang konsisten), characterStatesAtOpening (kondisi tokoh yang hadir), carriedElements (benda/fakta/ancaman yang harus terbawa), unresolvedQuestion (pertanyaan yang harus mulai dijawab). Scene pertama harus mencerminkan openingContinuation dan tidak boleh bertentangan dengan field tersebut.",
@@ -61,6 +61,10 @@ export async function planSeason(concept, options = {}) {
               "Episode " + (index + 1) + " belum memiliki naskah final dan " +
               minScenes + "-" + maxScenes + " scene."
             );
+          }
+          const wordCount = String(episode.narration).trim().split(/\s+/).filter(Boolean).length;
+          if (format === "shorts" && (wordCount < minWords || wordCount > maxWords)) {
+            throw new Error("Episode " + (index + 1) + " memiliki " + wordCount + " kata; standar Shorts wajib " + minWords + "-" + maxWords + " kata.");
           }
           const combined = episode.scenes.map(scene => String(scene.narration || "").trim())
             .join(" ").replace(/\s+/g, " ").trim();
@@ -123,6 +127,8 @@ export async function planSeason(concept, options = {}) {
   plan.episodes = plan.episodes.map((episode, index) => ({ ...episode, episodeNumber: index + 1 }));
   for (const [index, episode] of plan.episodes.entries()) {
     if (!String(episode.narration || "").trim() || !Array.isArray(episode.scenes) || episode.scenes.length < minScenes || episode.scenes.length > maxScenes) throw new Error("Episode " + (index + 1) + " belum memiliki naskah final dan " + minScenes + "-" + maxScenes + " scene.");
+    const wordCount = String(episode.narration).trim().split(/\s+/).filter(Boolean).length;
+    if (format === "shorts" && (wordCount < minWords || wordCount > maxWords)) throw new Error("Episode " + (index + 1) + " memiliki " + wordCount + " kata; standar Shorts wajib " + minWords + "-" + maxWords + " kata.");
     const combined = episode.scenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\s+/g, " ").trim();
     if (combined !== String(episode.narration).replace(/\s+/g, " ").trim()) throw new Error("Naskah episode " + (index + 1) + " tidak sama dengan gabungan narration scene.");
     if (episode.scenes.some(scene => !scene.heading || !scene.visualPrompt)) throw new Error("Setiap scene wajib memiliki heading dan visualPrompt.");
@@ -211,5 +217,5 @@ export async function planSeason(concept, options = {}) {
     }
     plan.continuityAudit = { passed: true, transitions: audit.transitions, reviewedAt: new Date().toISOString() };
   }
-  return { ...plan, seriesTitle: requestedTitle || plan.seriesTitle, genre, seasonId, createdAt: new Date().toISOString(), status: "planned", episodeCount, format, durationMinutes: format === "long" ? durationMinutes : null };
+  return { ...plan, productionStandard: format === "shorts" ? { scenesPerEpisode: 7, minWordsPerEpisode: 240, maxWordsPerEpisode: 260, minDurationSeconds: 115, maxDurationSeconds: 125 } : undefined, seriesTitle: requestedTitle || plan.seriesTitle, genre, seasonId, createdAt: new Date().toISOString(), status: "planned", episodeCount, format, durationMinutes: format === "long" ? durationMinutes : null };
 }
