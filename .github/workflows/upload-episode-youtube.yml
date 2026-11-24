@@ -127,7 +127,7 @@ jobs:
           EP=$(printf "%02d" "$EPISODE_NUMBER")
           DIR="data/seasons/$SEASON_ID/episodes/episode-$EP"
           mkdir -p out
-          cp "/tmp/episode-thumbnail/$DIR/youtube-thumbnail.jpg" out/youtube-thumbnail.jpg 2>/dev/null || find /tmp/episode-thumbnail -name youtube-thumbnail.jpg -exec cp {} out/youtube-thumbnail.jpg \;
+          cp "/tmp/episode-thumbnail/$DIR/shorts-cover.jpg" out/youtube-thumbnail.jpg 2>/dev/null || find /tmp/episode-thumbnail -name shorts-cover.jpg -exec cp {} out/youtube-thumbnail.jpg \;
           cp "$DIR/youtube-metadata.json" data/youtube-metadata.json
       - name: Upload privately to the 3N channel
         env:
