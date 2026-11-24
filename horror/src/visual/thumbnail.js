@@ -25,49 +25,85 @@ async function generateBackground(prompt) {
   }
   return Buffer.from(await response.arrayBuffer());
 }
-function makeOverlay(width, height, text) {
+function makeOverlay(width, height, text, episodeNumber) {
+  const isLandscape = width > height;
+  const maxChars = isLandscape ? 24 : 18;
   const words = String(text || "").trim().toUpperCase().split(/\s+/).filter(Boolean);
   const lines = [];
   let line = "";
   for (const word of words) {
     const candidate = line ? line + " " + word : word;
-    if (candidate.length > 18 && line) { lines.push(line); line = word; }
+    if (candidate.length > maxChars && line) { lines.push(line); line = word; }
     else line = candidate;
   }
   if (line) lines.push(line);
   const visibleLines = lines.slice(0, 2);
-  const fontSize = visibleLines.some(value => value.length > 15) ? 78 : 94;
-  const firstY = visibleLines.length > 1 ? Math.round(height * 0.835) : Math.round(height * 0.87);
+  const fontSize = isLandscape ? (visibleLines.some(value => value.length > 20) ? 48 : 58) : (visibleLines.some(value => value.length > 15) ? 78 : 94);
+  const firstY = isLandscape
+    ? Math.round(height * (visibleLines.length > 1 ? 0.79 : 0.86))
+    : Math.round(height * (visibleLines.length > 1 ? 0.835 : 0.89));
   const title = visibleLines.map((value, index) =>
-    '<text x="' + (width / 2) + '" y="' + (firstY + index * 112) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + fontSize + '" font-weight="900" stroke="#120b0b" stroke-width="8" paint-order="stroke" letter-spacing="1">' + escapeXml(value) + '</text>'
+    '<text x="' + (width / 2) + '" y="' + (firstY + index * (isLandscape ? 66 : 112)) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + fontSize + '" font-weight="900" stroke="#120b0b" stroke-width="' + (isLandscape ? 6 : 8) + '" paint-order="stroke" letter-spacing="1">' + escapeXml(value) + '</text>'
   ).join("");
+  const episodeLabel = Number.isInteger(Number(episodeNumber)) && Number(episodeNumber) > 0
+    ? "EPS " + String(Number(episodeNumber)).padStart(2, "0")
+    : "EPISODE";
+  const badgeWidth = isLandscape ? 190 : 210;
+  const badgeHeight = isLandscape ? 58 : 68;
+  const badgeX = isLandscape ? 48 : 52;
+  const badgeY = isLandscape ? 42 : 54;
+  const badge = '<rect x="' + badgeX + '" y="' + badgeY + '" width="' + badgeWidth + '" height="' + badgeHeight + '" rx="14" fill="#b91c1c"/>' +
+    '<text x="' + (badgeX + badgeWidth / 2) + '" y="' + (badgeY + badgeHeight * 0.68) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 30 : 34) + '" font-weight="900" letter-spacing="2">' + episodeLabel + '</text>';
+  const shadeStart = isLandscape ? 0.60 : 0.72;
+  const shadeRectY = Math.round(height * shadeStart);
   return Buffer.from('<svg width="' + width + '" height="' + height + '" xmlns="http://www.w3.org/2000/svg">' +
-    '<defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".92"/></linearGradient></defs>' +
+    '<defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".94"/></linearGradient></defs>' +
     '<rect width="100%" height="100%" fill="url(#shade)"/>' +
-    '<rect x="42" y="' + Math.round(height * 0.77) + '" width="' + (width - 84) + '" height="' + Math.round(height * 0.2) + '" rx="28" fill="#050505" fill-opacity=".30"/>' +
-    title + '</svg>');
+    '<rect x="30" y="' + shadeRectY + '" width="' + (width - 60) + '" height="' + Math.round(height * (1 - shadeStart) - 24) + '" rx="22" fill="#050505" fill-opacity=".24"/>' +
+    badge + title + '</svg>');
 }
 export async function generateThumbnail(story, seo, topic, metadataPath = path.join(DATA_DIR, "youtube-metadata.json")) {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const style = selectedStyle();
   const subject = String(seo.thumbnailPrompt || story.scenes?.[0]?.visualPrompt || story.title + ". " + topic);
   const genre = String(process.env.STORY_GENRE || story.genre || story.category || "mystery").toLowerCase();
-  const prompt = [
-    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Generate a clean image only, absolutely no visible writing of any kind.", style.visual,
+  const common = [
+    style.visual,
     "One unmistakable focal subject that communicates the selected story genre, dramatic close or medium shot, strong silhouette, expressive emotion, cinematic lighting, rich contrast, detailed setting.",
     "Genre: " + genre + ". Depict the most compelling and emotionally clear moment from this story: " + subject,
-    "Compose exclusively for vertical 9:16 mobile Shorts viewing. Keep the face, key object, and story action large and unmistakable in the central safe area.",
-    "Do not render any text, letters, numbers, symbols, captions, signage, logos, channel names, watermarks, signatures, or typography anywhere in the image. Keep the lower 28 percent as a simple dark cinematic background reserved for a separately added title overlay. No collage, no border.",
+    "Do not render any text, letters, numbers, symbols, captions, signage, logos, channel names, watermarks, signatures, or typography anywhere in the image. No collage, no border.",
     style.avoid + ". Respect the selected genre; no horror elements unless the genre is horror."
   ].join(" ");
-  const imageBuffer = await generateBackground(prompt);
-  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
+  const verticalPrompt = [
+    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Generate a clean image only, absolutely no visible writing of any kind.",
+    common,
+    "Compose exclusively for vertical mobile Shorts viewing. Keep the face, key object, and story action large and unmistakable in the central safe area. Keep the lower 28 percent as a simple dark cinematic background reserved for a separately added title overlay."
+  ].join(" ");
+  const landscapePrompt = [
+    "Create a premium standard YouTube video thumbnail, landscape 16:9 composition, 1280x720 framing. Generate a clean image only, absolutely no visible writing of any kind.",
+    common,
+    "Compose for a desktop and mobile YouTube thumbnail. Use a strong cinematic focal subject on the right half, with clear negative space on the left and lower third for a separately added title overlay. Keep the main face and story action inside the central safe area."
+  ].join(" ");
+  const [verticalBuffer, landscapeBuffer] = await Promise.all([
+    generateBackground(verticalPrompt),
+    generateBackground(landscapePrompt)
+  ]);
+  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 5).join(" ").slice(0, 48);
+  const episodeNumber = story.episodeNumber;
   const verticalPath = path.join(OUT_DIR, "shorts-cover.jpg");
-  await sharp(imageBuffer).resize(1080, 1920, { fit: "cover", position: "attention" }).composite([{ input: makeOverlay(1080, 1920, label) }]).jpeg({ quality: 90, mozjpeg: true }).toFile(verticalPath);
-  // Compatibility copy: uploader reads youtube-thumbnail.jpg, but its content remains vertical 9:16.
   const landscapePath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
-  await fs.copyFile(verticalPath, landscapePath);
+  await Promise.all([
+    sharp(verticalBuffer).resize(1080, 1920, { fit: "cover", position: "attention" })
+      .composite([{ input: makeOverlay(1080, 1920, label, episodeNumber) }])
+      .jpeg({ quality: 90, mozjpeg: true }).toFile(verticalPath),
+    sharp(landscapeBuffer).resize(1280, 720, { fit: "cover", position: "attention" })
+      .composite([{ input: makeOverlay(1280, 720, label, episodeNumber) }])
+      .jpeg({ quality: 92, mozjpeg: true }).toFile(landscapePath)
+  ]);
   await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.writeFile(metadataPath, JSON.stringify({ ...seo, format: "youtube-shorts", thumbnail: { version: "shorts-ctr-v3", format: "9:16", vertical: "shorts-cover.jpg", youtube: "youtube-thumbnail.jpg" } }, null, 2));
+  await fs.writeFile(metadataPath, JSON.stringify({
+    ...seo,
+    thumbnail: { version: "episode-ctr-v4", format: "16:9", youtube: "youtube-thumbnail.jpg", shorts: "shorts-cover.jpg" }
+  }, null, 2));
   return { verticalPath, landscapePath };
 }
