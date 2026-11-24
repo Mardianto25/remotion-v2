@@ -153,6 +153,11 @@ export async function planSeason(concept, options = {}) {
               !bridge.carriedElements.length) {
             throw new Error("Continuity bridge episode " + number + " belum lengkap: " + missing.join(", "));
           }
+          const firstScene = episode.scenes[0];
+          if (String(firstScene.narration || "").trim().length < 30 ||
+              String(firstScene.visualPrompt || "").trim().length < 60) {
+            throw new Error("Scene pembuka episode " + number + " belum cukup spesifik.");
+          }
         }
         const lastScene = episode.scenes[episode.scenes.length - 1];
         if (number < episodeCount) {
