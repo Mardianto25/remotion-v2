@@ -1,4 +1,4 @@
-name: 05 - SHORT 05 | Render 9:16
+name: 05 - SHORT | Render 9:16
 on:
   workflow_dispatch:
     inputs:
