@@ -78,7 +78,9 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL || 'openai/gpt-4o-mini' }}
           OPENROUTER_FALLBACK_MODELS: ${{ vars.OPENROUTER_FALLBACK_MODELS || 'qwen/qwen3-235b-a22b-2507,deepseek/deepseek-v3.2' }}
-          OPENROUTER_EPISODE_BATCH_SIZE: ${{ vars.OPENROUTER_EPISODE_BATCH_SIZE || '2' }}
+          SEASON_PLAN_TIMEOUT_MS: ${{ vars.SEASON_PLAN_TIMEOUT_MS || '300000' }}
+          SEASON_PLAN_MAX_RETRIES: ${{ vars.SEASON_PLAN_MAX_RETRIES || '3' }}
+          SEASON_PLAN_RETRY_DELAY_MS: ${{ vars.SEASON_PLAN_RETRY_DELAY_MS || '5000' }}
           GEMINI_MODEL: gemini-3.8-flash
           GEMINI_FALLBACK_MODELS: gemini-3.5-flash,gemini-2.5-flash
         run: |
