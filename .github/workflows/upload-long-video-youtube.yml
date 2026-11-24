@@ -1,4 +1,4 @@
-name: Long Video - 07 Upload YouTube | PRIVATE
+name: 14 - LONG 07 | Upload YouTube
 on:
   workflow_dispatch:
     inputs:
