@@ -1,4 +1,4 @@
-name: Long Video - 02 Production (Single / Episode)
+concurrency:\n  group: long-video-render-${{ github.ref }}\n  cancel-in-progress: false\nname: Long Video - 02 Production (Single / Episode)
 on:
   workflow_dispatch:
     inputs:
