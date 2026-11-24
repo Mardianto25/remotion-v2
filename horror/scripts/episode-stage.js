@@ -141,13 +141,12 @@ if (stage === "images") {
   await setEpisodeState("thumbnail_in_progress");
   process.env.STORY_GENRE = story.genre || "mystery";
   const verticalExisting = path.join(episodeDir,"shorts-cover.jpg");
-  const landscapeExisting = path.join(episodeDir,"youtube-thumbnail.jpg");
   try {
-    const [v,l] = await Promise.all([fs.stat(verticalExisting), fs.stat(landscapeExisting)]);
+    const v = await fs.stat(verticalExisting);
     const cachedMetadata = await readJson(path.join(episodeDir,"youtube-metadata.json"));
     const forceRegenerate = String(process.env.FORCE_THUMBNAIL_REGENERATE || "no").toLowerCase() === "yes";
-    if (v.size > 1024 && l.size > 1024 && cachedMetadata.thumbnail?.version === "episode-ctr-v6" && !forceRegenerate) {
-      console.log("[thumbnail] Shorts cover versi terbaru sudah tersedia; tidak generate ulang (pilih regenerate_thumbnail=yes jika ingin membuat ulang).");
+    if (v.size > 1024 && cachedMetadata.thumbnail?.version === "episode-ctr-v8-shorts-portrait-ctr" && !forceRegenerate) {
+      console.log("[thumbnail] Shorts cover 9:16 versi CTR terbaru sudah tersedia; tidak generate ulang.");
       await setEpisodeState("thumbnail_ready");
       process.exit(0);
     }
@@ -163,17 +162,21 @@ if (stage === "images") {
   let seo;
   try {
     seo=await readJson(seoPath);
-    if (seo.thumbnail?.version !== "episode-ctr-v6") throw new Error("SEO lama perlu diperbarui untuk Shorts");
-    console.log("[thumbnail] Metadata Shorts terbaru sudah tersedia; memakai ulang.");
+    if (seo.format !== "shorts" || !seo.title || !seo.description || !seo.thumbnailPrompt || !seo.thumbnailText) {
+      throw new Error("Metadata Shorts belum lengkap; perlu dibuat ulang.");
+    }
+    console.log("[thumbnail] Metadata SEO/CTR Shorts tersedia; memakai ulang.");
   } catch {
-    seo=await generateSeo(story,story.title);
+    console.log("[thumbnail] Membuat metadata SEO/CTR Shorts.");
+    seo=await generateSeo(story,story.title,{ format: "shorts" });
     await writeJson(seoPath,seo);
   }
   await generateThumbnail(story,seo,story.title,seoPath);
-  await fs.copyFile(path.join(OUT_DIR,"youtube-thumbnail.jpg"),path.join(episodeDir,"youtube-thumbnail.jpg"));
   await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"shorts-cover.jpg"));
+  // Legacy filename remains available as a copy of the same portrait Shorts cover.
+  await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"youtube-thumbnail.jpg"));
   await setEpisodeState("thumbnail_ready");
-  console.log("[thumbnail] Shorts cover vertikal 9:16 berhasil dibuat tanpa branding channel.");
+  console.log("[thumbnail] Shorts cover 9:16 + metadata CTR berhasil dibuat; hanya satu gambar AI yang digenerate.");
 } else {
   throw new Error("Stage tidak dikenal. Gunakan images|audio|render|thumbnail.");
 }
