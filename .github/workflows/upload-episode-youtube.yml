@@ -129,7 +129,7 @@ jobs:
           file out/shorts-cover.jpg
           node --input-type=module -e 'import sharp from "sharp"; const m = await sharp("out/shorts-cover.jpg").metadata(); console.log("Thumbnail dimensions:", m.width + "x" + m.height); if (m.width !== 1080 || m.height !== 1920) process.exit(1);'
           cp "$DIR/youtube-metadata.json" data/youtube-metadata.json
-      - name: Upload privately to the 3N channel
+      - name: Upload and schedule publication (+24 hours) to the 3N channel
         env:
           YOUTUBE_CLIENT_ID_3N: ${{ secrets.YOUTUBE_CLIENT_ID_3N }}
           YOUTUBE_CLIENT_SECRET_3N: ${{ secrets.YOUTUBE_CLIENT_SECRET_3N }}
