@@ -15,13 +15,13 @@
   "episodePayoff": "Peluang kontrak puluhan juta untuk membebaskan Rian dari jerat hutang.",
   "seasonTeaser": "",
   "storySummary": "Malam itu, Aris menerobos masuk membawa surat penyitaan. Rian memohon penundaan dua hari sambil menggenggam buku resep warisan Ayah. Setelah mendapat waktu, ia menggunakan sisa uangnya untuk menjual sambal dan memperoleh pesanan 500 porsi. Namun, Aris kemudian menyita peralatan dapurnya.",
-  "narration": "Aris berdiri di ambang pintu yang baru didobrak, surat penyitaan masih terangkat. Aku memeluk buku resep Ayah dan memohon dua hari. Setelah menatapku lama, Aris menurunkan surat itu dan memberiku waktu sampai lusa untuk membuktikan resep warisan itu bisa menyelamatkan rumah kami. Keesokan paginya, dengan sisa uang lima puluh ribu rupiah, aku membeli bahan dan meracik sambal rempah di dapur sempitku. Aku menjual nasi bungkus sambal ini di depan gedung perkantoran. Tak disangka, seorang pengusaha kuliner ternama mencicipinya dan langsung terpukau oleh kelezatannya. Tanpa ragu, dia menantangku menyediakan lima ratus porsi untuk acara besok malam dengan nilai kontrak puluhan juta! Dadaku bergemuruh penuh semangat. Namun, Aris tetap menagih jaminan. Saat aku pulang untuk mulai memasak, ia bersama anak buahnya menyita seluruh kompor dan alat dapur utamaku!",
-  "wordCount": 126,
+  "narration": "Aris berdiri di ambang pintu yang didobrak, surat penyitaan terangkat. Aku memeluk buku resep Ayah dan memohon dua hari. Setelah menatapku lama, Aris menurunkan surat itu dan memberiku waktu sampai lusa agar resep warisan itu bisa menyelamatkan rumah kami. Keesokan paginya, dengan sisa uang lima puluh ribu rupiah, aku membeli bahan dan meracik sambal rempah di dapur sempitku. Aku menjual nasi bungkus sambal ini di depan gedung perkantoran. Tak disangka, seorang pengusaha kuliner ternama mencicipinya dan langsung terpukau oleh kelezatannya. Tanpa ragu, dia menantangku menyediakan lima ratus porsi untuk acara besok malam dengan nilai kontrak puluhan juta! Dadaku bergemuruh penuh semangat. Namun, Aris tetap menagih jaminan. Saat aku pulang untuk mulai memasak, ia bersama anak buahnya menyita seluruh kompor dan alat dapur utamaku!",
+  "wordCount": 123,
   "scenes": [
     {
       "id": 1,
       "heading": "INT. RUANG TAMU RUMAH RIAN - MALAM",
-      "narration": "Aris berdiri di ambang pintu yang baru didobrak, surat penyitaan masih terangkat. Aku memeluk buku resep Ayah dan memohon dua hari. Setelah menatapku lama, Aris menurunkan surat itu dan memberiku waktu sampai lusa untuk membuktikan resep warisan itu bisa menyelamatkan rumah kami.",
+      "narration": "Aris berdiri di ambang pintu yang didobrak, surat penyitaan terangkat. Aku memeluk buku resep Ayah dan memohon dua hari. Setelah menatapku lama, Aris menurunkan surat itu dan memberiku waktu sampai lusa agar resep warisan itu bisa menyelamatkan rumah kami.",
       "visualPrompt": "Vertical 9:16 portrait, direct continuation of the previous episode's final shot, same night and same living room. The wooden front door has just been broken open. Aris, the same 35-year-old Indonesian man in a black leather jacket, stands in the doorway holding the official emergency seizure notice. Rian, the same 28-year-old Indonesian man in a faded navy denim jacket, clutches his father's old recipe book and pleads for two days. Keep the exact same character appearances, clothing, room layout and dramatic lighting as the previous episode.",
       "searchQuery": "young man pleading with stern man holding papers indoor",
       "mood": "intense"
@@ -120,8 +120,8 @@
   },
   "continuityFromPrevious": {
     "previousEpisodeEnding": "Episode 1 berakhir pada malam hari di ruang tamu rumah Rian. Aris baru saja mendobrak pintu dan berdiri di ambang pintu sambil membawa surat perintah penyitaan darurat. Rian sedang menggenggam buku resep sambal warisan Ayah.",
-    "openingContinuation": "Episode 2 dimulai pada detik yang sama: pintu masih rusak dan terbuka, Aris masih di ambang pintu dengan surat penyitaan, dan Rian memeluk buku resep. Rian memohon dua hari. Aris akhirnya menurunkan surat dan memberi waktu sampai lusa untuk membuktikan resep warisan dapat menyelamatkan rumah. Setelah konfrontasi selesai, cerita berpindah ke pagi berikutnya.",
-    "timeAndLocation": "Malam yang sama, ruang tamu rumah peninggalan Ayah milik Rian untuk pembuka; adegan baru berpindah ke dapur pada pagi berikutnya setelah Aris memberi penundaan.",
+    "openingContinuation": "Episode 2 dimulai pada detik yang sama: pintu masih rusak dan terbuka, Aris masih di ambang pintu dengan surat penyitaan, dan Rian memeluk buku resep. Rian memohon dua hari. Aris akhirnya menurunkan surat dan memberi waktu sampai lusa agar resep warisan dapat menyelamatkan rumah. Setelah konfrontasi selesai, cerita berpindah ke pagi berikutnya.",
+    "timeAndLocation": "Malam yang sama di ruang tamu rumah peninggalan Ayah milik Rian untuk pembuka; cerita berpindah ke dapur pada pagi berikutnya setelah Aris memberi penundaan.",
     "characterStatesAtOpening": [
       "Rian ketakutan tetapi berusaha mempertahankan rumah dan menggenggam buku resep warisan.",
       "Aris berada di ambang pintu setelah mendobraknya, membawa surat penyitaan darurat."
