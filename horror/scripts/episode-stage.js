@@ -27,6 +27,33 @@ story.format = "shorts";
 story.characters = Array.isArray(bible.characters) ? bible.characters : [];
 const seasonDir = path.dirname(path.dirname(episodeDir));
 const statePath = path.join(seasonDir, "production-state.json");
+
+// Manual season-bible imports may not include production-state.json.
+// Initialize it once from the bible so every stage can safely update progress.
+async function ensureProductionState() {
+  try {
+    await fs.access(statePath);
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+    const initialState = {
+      seasonId,
+      genre: bible.genre || story.genre || "storytelling",
+      format: "shorts",
+      episodeCount: bible.episodes.length,
+      status: "planned",
+      episodes: bible.episodes.map(item => ({
+        episodeNumber: Number(item.episodeNumber),
+        title: item.title || "Episode " + item.episodeNumber,
+        status: "not_started"
+      })),
+      updatedAt: new Date().toISOString()
+    };
+    await writeJson(statePath, initialState);
+    console.log("[state] production-state.json belum ada; state awal dibuat dari series-bible.json.");
+  }
+}
+await ensureProductionState();
+
 async function setEpisodeState(status, extra = {}) {
   const state = await readJson(statePath);
   state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? { ...item, status, ...extra } : item);
