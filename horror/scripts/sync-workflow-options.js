@@ -25,13 +25,6 @@ for (const name of await fs.readdir(dataDir).catch(() => [])) {
 entries.sort((a, b) => a.id.localeCompare(b.id));
 
 const seriesOptions = ["no-plan-yet", ...entries.map(item => item.id)];
-const episodeOptions = entries.flatMap(({ id, bible }) =>
-  (Array.isArray(bible.episodes) ? bible.episodes : []).map(episode =>
-    String(episode.title || "Episode " + String(episode.episodeNumber).padStart(2, "0")).replace(/\s+/g, " ").trim()
-  )
-);
-const uniqueEpisodeOptions = [...new Set(episodeOptions)];
-uniqueEpisodeOptions.unshift("no-episode-yet");
 
 function replaceOptions(source, marker, values) {
   const start = "          # " + marker + "_START";
@@ -47,16 +40,20 @@ for (const file of workflowFiles) {
   const target = path.join(workflowDir, file);
   let source = await fs.readFile(target, "utf8");
   source = replaceOptions(source, "SERIES_ID_OPTIONS", seriesOptions);
-  // Workflow 02 resolves its episode title dynamically from the selected Series ID + episode number.
+
+  // Workflow 02 resolves the title from the selected Series ID and episode number.
+  // Other workflows retain their existing title dropdowns for compatibility.
   if (file !== "generate-episode-script.yml") {
     const episodeOptions = entries.flatMap(({ bible }) =>
       (Array.isArray(bible.episodes) ? bible.episodes : []).map(episode =>
-        String(episode.title || "Episode " + String(episode.episodeNumber).padStart(2, "0")).replace(/\\s+/g, " ").trim()
+        String(episode.title || "Episode " + String(episode.episodeNumber).padStart(2, "0")).replace(/\s+/g, " ").trim()
       )
     );
     const uniqueEpisodeOptions = ["no-episode-yet", ...new Set(episodeOptions)];
     source = replaceOptions(source, "EPISODE_TITLE_OPTIONS", uniqueEpisodeOptions);
   }
+
   await fs.writeFile(target, source);
-  console.log("[catalog] " + file + ": " + seriesOptions.length + " serial" + (file === "generate-episode-script.yml" ? ", judul episode di-resolve otomatis" : ", dropdown judul episode diperbarui"));
+  console.log("[catalog] " + file + ": " + seriesOptions.length + " serial" +
+    (file === "generate-episode-script.yml" ? ", judul episode di-resolve otomatis" : ", dropdown judul episode diperbarui"));
 }
