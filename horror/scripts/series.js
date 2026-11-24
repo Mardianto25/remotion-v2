@@ -13,7 +13,9 @@ const arg = (name, fallback = "") => {
 const flag = name => args.includes(name);
 const seasonId = arg("--season", "season-01").replace(/[^a-zA-Z0-9_-]/g, "");
 if (!seasonId) throw new Error("Season ID tidak valid.");
-const seasonDir = path.join(DATA_DIR, "seasons", seasonId);
+const format = arg("--format", "shorts") === "long" ? "long" : "shorts";
+const seasonRoot = format === "long" ? "long-seasons" : "seasons";
+const seasonDir = path.join(DATA_DIR, seasonRoot, seasonId);
 const episodesDir = path.join(seasonDir, "episodes");
 await fs.mkdir(episodesDir, { recursive: true });
 const writeJson = (file, value) => fs.writeFile(file, JSON.stringify(value, null, 2) + "\n", "utf8");
@@ -24,6 +26,7 @@ if (command === "plan") {
   const concept = arg("--concept");
   const seriesTitle = arg("--title");
   const episodeCount = Number(arg("--episodes", "8"));
+  const durationMinutes = Number(arg("--duration", "5"));
   if (![4, 6, 8, 10, 12].includes(episodeCount)) throw new Error("--episodes harus 4, 6, 8, 10, atau 12.");
   if (!concept) throw new Error('Konsep season wajib diisi. Contoh: npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"');
   const biblePath = path.join(seasonDir, "series-bible.json");
@@ -36,7 +39,7 @@ if (command === "plan") {
     if (error.code !== "ENOENT") throw error;
   }
   console.log("[season] Membuat series bible, " + episodeCount + " naskah final, dan seluruh scene...");
-  const bible = await planSeason(concept, { seasonId, genre, seriesTitle, episodeCount });
+  const bible = await planSeason(concept, { seasonId, genre, seriesTitle, episodeCount, format, durationMinutes });
   await writeJson(biblePath, bible);
   await writeJson(path.join(seasonDir, "characters.json"), bible.characters);
   await writeJson(path.join(seasonDir, "world-rules.json"), bible.worldRules);
@@ -70,7 +73,7 @@ if (command === "episode") {
     if (!flag("--force")) {
       await fs.mkdir(DATA_DIR, { recursive: true });
       await writeJson(path.join(DATA_DIR, "story.json"), existingStory);
-      await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath });
+      await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath, format });
       state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? { ...item, title: existingStory.title, status: "script_ready", sceneCount: existingStory.scenes.length } : item);
       state.updatedAt = new Date().toISOString();
       await writeJson(statePath, state);
