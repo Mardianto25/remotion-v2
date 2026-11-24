@@ -81,7 +81,7 @@ function makeOverlay(width, height, text, episodeNumber, labelOverride = "", the
     '<text x="' + (badgeX + badgeWidth / 2) + '" y="' + (badgeY + badgeHeight * 0.68) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 40 : 48) + '" font-weight="900" letter-spacing="2">' + episodeLabel + '</text>';
   const theme = String(themeTitle || "").trim().toUpperCase();
   const themeMaxChars = isLandscape ? 34 : 27;
-  const themeWords = theme.split(/\\s+/).filter(Boolean);
+  const themeWords = theme.split(/\s+/).filter(Boolean);
   const themeLines = [];
   let themeLine = "";
   for (const word of themeWords) {
@@ -146,7 +146,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v10-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: style.id, characterContinuity: "series-bible" }
+    thumbnail: { version: "episode-ctr-v11-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: style.id, characterContinuity: "series-bible" }
   }, null, 2));
   return { verticalPath, compatibilityPath };
 }
