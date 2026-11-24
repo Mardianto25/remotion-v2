@@ -49,10 +49,6 @@ export async function planSeason(concept, options = {}) {
     "{\"seriesTitle\":\"...\",\"genre\":\"" + genre + "\",\"logline\":\"...\",\"premise\":\"...\",\"audiencePromise\":\"...\",\"pointOfView\":\"sesuai genre\",\"tone\":\"...\",\"mainMystery\":\"konflik atau pertanyaan utama\",\"finalReveal\":\"payoff akhir\",\"seasonArc\":\"...\",\"worldRules\":[\"...\"],\"characters\":[{\"id\":\"char-01\",\"name\":\"...\",\"role\":\"...\",\"motivation\":\"...\",\"personality\":\"...\",\"secret\":\"...\",\"visualBible\":\"...\"}],\"episodes\":[{\"episodeNumber\":1,\"title\":\"...\",\"logline\":\"...\",\"openingHook\":\"...\",\"mainConflict\":\"...\",\"turningPoint\":\"...\",\"episodePayoff\":\"...\",\"endingType\":\"cliffhanger untuk episode non-finale, finale_resolution untuk episode terakhir\",\"cliffhanger\":\"kejadian konkret di scene terakhir\",\"nextEpisodeQuestion\":\"pertanyaan pemancing episode berikutnya; kosong untuk finale tanpa teaser\",\"continuityBridge\":{\"previousEpisodeEnding\":\"ringkasan akhir episode sebelumnya\",\"openingContinuation\":\"aksi langsung yang melanjutkan adegan terakhir\",\"timeAndLocation\":\"waktu dan lokasi pembuka yang sama\",\"characterStatesAtOpening\":[\"kondisi tokoh\"],\"carriedElements\":[\"benda/fakta/ancaman yang terbawa\"],\"unresolvedQuestion\":\"pertanyaan dari cliffhanger sebelumnya\"},\"seasonTeaser\":\"opsional, hanya untuk finale\",\"continuityQuestions\":[\"...\"],\"narration\":\"naskah lengkap sekitar " + minWords + "-" + maxWords + " kata\",\"description\":\"...\",\"hook\":\"...\",\"revelation\":\"...\",\"storySummary\":\"...\",\"disclaimer\":\"...\",\"continuityUpdate\":{\"canonEvents\":[\"...\"],\"characterStates\":[{\"characterId\":\"char-01\",\"state\":\"...\"}],\"unresolvedThreads\":[\"...\"],\"resolvedThreads\":[\"...\"]},\"scenes\":[{\"id\":1,\"heading\":\"...\",\"narration\":\"potongan verbatim dari narration\",\"visualPrompt\":\"English " + aspectPrompt + " prompt with consistent character/location and exact cliffhanger action when this is the final scene\",\"searchQuery\":\"...\",\"mood\":\"...\"}]}",
     "Pastikan episodeNumber berurutan 1 sampai " + episodeCount + ", jumlah episode tepat " + episodeCount + ", judul berbeda dan tidak generik. Untuk episode 1 continuityBridge boleh null atau berisi setup awal; untuk episode 2 sampai finale continuityBridge wajib lengkap dan scene pertama harus benar-benar melanjutkan episode sebelumnya. seasonId internal: " + seasonId
   ].join("\n");
-  const response = await generateGeminiContent(
-    ai,
-    { contents: prompt, config: { responseMimeType: "application/json", maxOutputTokens: format === "long" ? 60000 : 30000 } },
-
   const validateSeasonPlan = candidate => {
         const draft = parseJson(candidate.text);
         if (!Array.isArray(draft.episodes) || draft.episodes.length !== episodeCount) {
@@ -137,8 +133,8 @@ export async function planSeason(concept, options = {}) {
             minScenes + "-" + maxScenes + " scene.");
         }
         const combined = episode.scenes.map(scene => String(scene.narration || "").trim())
-          .join(" ").replace(/\\s+/g, " ").trim();
-        if (combined !== String(episode.narration).replace(/\\s+/g, " ").trim()) {
+          .join(" ").replace(/\s+/g, " ").trim();
+        if (combined !== String(episode.narration).replace(/\s+/g, " ").trim()) {
           throw new Error("Narration episode " + number + " tidak sama dengan gabungan scene.");
         }
         if (episode.scenes.some(scene => !scene.heading || !scene.visualPrompt)) {
