@@ -17,9 +17,9 @@ function toOpenRouterMessages(contents) {
     const text = contents.map(item => {
       if (typeof item === "string") return item;
       if (typeof item?.text === "string") return item.text;
-      if (Array.isArray(item?.parts)) return item.parts.map(part => part.text || "").join("\\n");
+      if (Array.isArray(item?.parts)) return item.parts.map(part => part.text || "").join("\n");
       return "";
-    }).filter(Boolean).join("\\n");
+    }).filter(Boolean).join("\n");
     return [{ role: "user", content: text || JSON.stringify(contents) }];
   }
   return [{ role: "user", content: JSON.stringify(contents ?? "") }];
