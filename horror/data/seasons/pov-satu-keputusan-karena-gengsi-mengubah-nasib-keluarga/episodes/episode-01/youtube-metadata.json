@@ -30,11 +30,12 @@
     "motivasi hidup"
   ],
   "thumbnailText": "RUMAH DISITA DEMI GENGSI",
-  "thumbnailPrompt": "Cinematic 3D animation style, 9:16 vertical portrait composition. A heartbroken Indonesian middle-aged father sitting slumped and defeated on the floor at the corner of a living room, clutching an official foreclosure notice document. In the background, his teenage child stands devastated with teary eyes. Moody dramatic interior lighting, high emotional intensity on the father's face, deep shadows, cinematic warm and cool color contrast, high detail, no text, no logos, no watermarks.",
+  "thumbnailPrompt": "Cinematic 3D animation, dramatic close-up of Arya, Indonesian father age 45 with short neat black hair and slightly gray sides, sharp facial structure, blue button-up shirt rolled at sleeves, warm eyes, now devastated sitting on an empty living room floor holding foreclosure notice. Maya, his 19-year-old Indonesian daughter with shoulder-length black hair tied in a neat ponytail, gentle expression, modest yellow apron over simple clothes, stands behind him tearful. Preserve these exact character designs and wardrobe. Dramatic warm-cool cinematic lighting, clear facial emotions, no text or lettering.",
   "thumbnail": {
-    "version": "episode-ctr-v4",
+    "version": "episode-ctr-v5",
     "format": "16:9",
     "youtube": "youtube-thumbnail.jpg",
-    "shorts": "shorts-cover.jpg"
+    "shorts": "shorts-cover.jpg",
+    "characterContinuity": "series-bible"
   }
 }
