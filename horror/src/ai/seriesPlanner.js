@@ -67,12 +67,44 @@ export async function planSeason(concept, options = {}) {
             );
           }
           const combined = episode.scenes.map(scene => String(scene.narration || "").trim())
-            .join(" ").replace(/\\s+/g, " ").trim();
-          if (combined !== String(episode.narration).replace(/\\s+/g, " ").trim()) {
+            .join(" ").replace(/\s+/g, " ").trim();
+          if (combined !== String(episode.narration).replace(/\s+/g, " ").trim()) {
             throw new Error("Naskah episode " + (index + 1) + " tidak sama dengan gabungan narration scene.");
           }
           if (episode.scenes.some(scene => !scene.heading || !scene.visualPrompt)) {
             throw new Error("Episode " + (index + 1) + " memiliki scene tanpa heading atau visualPrompt.");
+          }
+          if (index > 0) {
+            const bridge = episode.continuityBridge || {};
+            const requiredBridge = ["previousEpisodeEnding", "openingContinuation", "timeAndLocation", "unresolvedQuestion"];
+            const missingBridge = requiredBridge.filter(key => String(bridge[key] || "").trim().length < 12);
+            if (missingBridge.length || !Array.isArray(bridge.characterStatesAtOpening) ||
+                !bridge.characterStatesAtOpening.length || !Array.isArray(bridge.carriedElements) ||
+                !bridge.carriedElements.length) {
+              throw new Error("Episode " + (index + 1) + " continuityBridge belum lengkap: " + missingBridge.join(", "));
+            }
+            const firstScene = episode.scenes[0];
+            if (String(firstScene.narration || "").trim().length < 30 ||
+                String(firstScene.visualPrompt || "").trim().length < 60) {
+              throw new Error("Scene pembuka episode " + (index + 1) + " belum cukup spesifik.");
+            }
+          }
+          const finalEpisode = index === episodeCount - 1;
+          const lastScene = episode.scenes[episode.scenes.length - 1];
+          if (!finalEpisode) {
+            if (String(episode.endingType || "").trim() !== "cliffhanger") {
+              throw new Error("Episode " + (index + 1) + " wajib memiliki endingType=cliffhanger.");
+            }
+            if (String(episode.cliffhanger || "").trim().length < 20 ||
+                String(episode.nextEpisodeQuestion || "").trim().length < 12 ||
+                String(lastScene.narration || "").trim().length < 20 ||
+                String(lastScene.visualPrompt || "").trim().length < 40) {
+              throw new Error("Episode " + (index + 1) + " belum memiliki cliffhanger lengkap pada scene terakhir.");
+            }
+          } else if (String(episode.endingType || "").trim() !== "finale_resolution" ||
+                     String(episode.episodePayoff || "").trim().length < 20 ||
+                     String(lastScene.narration || "").trim().length < 20) {
+            throw new Error("Episode finale belum memiliki payoff dan ending yang tuntas.");
           }
         }
         if (!Array.isArray(draft.characters) || !draft.characters.length) {
