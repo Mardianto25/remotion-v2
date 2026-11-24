@@ -26,7 +26,7 @@ async function generateBackground(prompt) {
   }
   return Buffer.from(await response.arrayBuffer());
 }
-function makeOverlay(width, height, text, episodeNumber) {
+function makeOverlay(width, height, text, episodeNumber, labelOverride = "") {
   const isLandscape = width > height;
   const maxChars = isLandscape ? 24 : 18;
   const words = String(text || "").trim().toUpperCase().split(/\s+/).filter(Boolean);
@@ -46,9 +46,9 @@ function makeOverlay(width, height, text, episodeNumber) {
   const title = visibleLines.map((value, index) =>
     '<text x="' + (width / 2) + '" y="' + (firstY + index * (isLandscape ? 66 : 112)) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + fontSize + '" font-weight="900" stroke="#120b0b" stroke-width="' + (isLandscape ? 6 : 8) + '" paint-order="stroke" letter-spacing="1">' + escapeXml(value) + '</text>'
   ).join("");
-  const episodeLabel = Number.isInteger(Number(episodeNumber)) && Number(episodeNumber) > 0
+  const episodeLabel = labelOverride || (Number.isInteger(Number(episodeNumber)) && Number(episodeNumber) > 0
     ? "EPS " + String(Number(episodeNumber)).padStart(2, "0")
-    : (isLandscape ? "VIDEO" : "EPISODE");
+    : "EPISODE");
   const badgeWidth = isLandscape ? 250 : 300;
   const badgeHeight = isLandscape ? 76 : 92;
   const badgeX = isLandscape ? 56 : 64;
@@ -135,7 +135,7 @@ export async function generateLongThumbnail(story, seo, topic, outputDir) {
   const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 6).join(" ").slice(0, 48);
   const outputPath = path.join(outputDir, "youtube-thumbnail.jpg");
   await sharp(buffer).resize(1280, 720, { fit: "cover", position: "attention" })
-    .composite([{ input: makeOverlay(1280, 720, label, story.episodeNumber) }])
+    .composite([{ input: makeOverlay(1280, 720, label, story.episodeNumber, story.episodeNumber ? "" : "VIDEO") }])
     .jpeg({ quality: 92, mozjpeg: true }).toFile(outputPath);
   const metadataPath = path.join(outputDir, "youtube-metadata.json");
   await fs.writeFile(metadataPath, JSON.stringify({
