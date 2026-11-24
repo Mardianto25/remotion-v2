@@ -39,6 +39,8 @@ jobs:
       - name: Create complete season plan (all 8 scripts and scene prompts)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: openai/gpt-4o-mini
           GEMINI_MODEL: gemini-2.5-flash
         run: |
           FORCE=""
