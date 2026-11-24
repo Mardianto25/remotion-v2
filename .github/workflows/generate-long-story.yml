@@ -16,10 +16,16 @@ on:
         description: Topik untuk Single Video (kosongkan jika memakai story_file)
         required: false
         type: string
-      story_file:
-        description: Path story.json episode Long Season Plan (opsional)
+      series_id:
+        description: Isi untuk mode Episode dari Long Season Plan
         required: false
         type: string
+      episode_number:
+        description: Nomor episode jika menggunakan series_id
+        required: false
+        default: "1"
+        type: choice
+        options: ["1","2","3","4","5","6","7","8","9","10","11","12"]
       visual_style:
         description: Gaya visual yang akan dipakai di seluruh tahap
         required: true
@@ -61,21 +67,35 @@ jobs:
           STORY_GENRE: ${{ inputs.genre }}
           HORROR_VISUAL_STYLE: ${{ inputs.visual_style }}
           TOPIC: ${{ inputs.topic }}
-          STORY_FILE: ${{ inputs.story_file }}
+          SERIES_ID: ${{ inputs.series_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
           OUTPUT_ID: ${{ inputs.output_id }}
           DURATION: ${{ inputs.duration_minutes }}
         run: |
           ARGS=(story --output-id "$OUTPUT_ID" --duration "$DURATION")
-          if [ -n "$STORY_FILE" ]; then ARGS+=(--story-file "$STORY_FILE"); else ARGS+=(--topic "$TOPIC"); fi
+          if [ -n "$SERIES_ID" ]; then
+            EP=$(printf "%02d" "$EPISODE_NUMBER")
+            EXPECTED_ID="$SERIES_ID-episode-$EP"
+            test "$OUTPUT_ID" = "$EXPECTED_ID" || { echo "Untuk episode, output_id harus $EXPECTED_ID"; exit 1; }
+            node scripts/series.js episode --format long --season "$SERIES_ID" --episode "$EPISODE_NUMBER"
+            STORY_FILE="data/long-seasons/$SERIES_ID/episodes/episode-$EP/story.json"
+            test -s "$STORY_FILE"
+            ARGS+=(--story-file "$STORY_FILE")
+          else
+            test -n "$TOPIC" || { echo "topic wajib diisi untuk Single Video"; exit 1; }
+            ARGS+=(--topic "$TOPIC")
+          fi
           node scripts/long-video-stage.js "${ARGS[@]}"
       - name: Persist Long Video checkpoint
         if: always()
         env:
           OUTPUT_ID: ${{ inputs.output_id }}
+          SERIES_ID: ${{ inputs.series_id }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git -C .. add -A "horror/data/long-video/$OUTPUT_ID" "public/long-video/$OUTPUT_ID" "horror/long-out/$OUTPUT_ID" "horror/remotion/generatedLongStory.js" || true
+          if [ -n "$SERIES_ID" ]; then git -C .. add -A "horror/data/long-seasons/$SERIES_ID" || true; fi
           git diff --cached --quiet || (git commit -m "chore(long-video): checkpoint $OUTPUT_ID story" && git push)
       - uses: actions/upload-artifact@v4
         if: always()
