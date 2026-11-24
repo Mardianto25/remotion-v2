@@ -109,7 +109,7 @@ if (command === "episode") {
   const narration = String(episodePlan.narration).trim();
   const wordCount = narration.split(/\s+/).filter(Boolean).length;
   if (format === "shorts" && (wordCount < 240 || wordCount > 270)) throw new Error("Episode " + episodeNumber + " memiliki " + wordCount + " kata. Standar Shorts baru wajib 240-270 kata. Perbaiki/regenerate season plan sebelum produksi.");
-  if (format === "shorts" && scenes.length < 6 || scenes.length > 8) throw new Error("Standar Shorts baru wajib 6-8 scene; ditemukan " + scenes.length + ".");
+  if (format === "shorts" && (scenes.length < 6 || scenes.length > 8)) throw new Error("Standar Shorts baru wajib 6-8 scene; ditemukan " + scenes.length + ".");
   if (scenes.map(scene => scene.narration).join(" ").replace(/\s+/g, " ").trim() !== narration.replace(/\s+/g, " ").trim()) {
     throw new Error("Naskah utama tidak sama dengan gabungan narration setiap scene. Perbaiki season plan sebelum produksi.");
   }
