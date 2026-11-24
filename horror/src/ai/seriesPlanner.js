@@ -217,5 +217,5 @@ export async function planSeason(concept, options = {}) {
     }
     plan.continuityAudit = { passed: true, transitions: audit.transitions, reviewedAt: new Date().toISOString() };
   }
-  return { ...plan, productionStandard: format === "shorts" ? { scenesPerEpisode: 7, minWordsPerEpisode: 240, maxWordsPerEpisode: 260, minDurationSeconds: 115, maxDurationSeconds: 125 } : undefined, seriesTitle: requestedTitle || plan.seriesTitle, genre, seasonId, createdAt: new Date().toISOString(), status: "planned", episodeCount, format, durationMinutes: format === "long" ? durationMinutes : null };
+  return { ...plan, productionStandard: format === "shorts" ? { scenesPerEpisode: 7, minWordsPerEpisode: 240, maxWordsPerEpisode: 260, minDurationSeconds: 115, maxDurationSeconds: 125, totalScenes: episodeCount * 7, minSeasonWords: episodeCount * 240, maxSeasonWords: episodeCount * 260, minSeasonDurationSeconds: episodeCount * 115, maxSeasonDurationSeconds: episodeCount * 125 } : undefined, seriesTitle: requestedTitle || plan.seriesTitle, genre, seasonId, createdAt: new Date().toISOString(), status: "planned", episodeCount, format, durationMinutes: format === "long" ? durationMinutes : null };
 }
