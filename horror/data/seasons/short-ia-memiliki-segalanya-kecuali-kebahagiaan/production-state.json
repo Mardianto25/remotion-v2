@@ -41,12 +41,14 @@
     {
       "episodeNumber": 2,
       "title": "Janji yang Selalu Ditunda",
-      "status": "images_ready",
+      "status": "audio_ready",
       "wordCount": 169,
       "estimatedDurationSeconds": 78,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
-      "imageCount": 6
+      "imageCount": 6,
+      "durationSeconds": 82.8,
+      "productionStandard": "shorts-minimum-60s-v2"
     },
     {
       "episodeNumber": 3,
@@ -91,5 +93,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-24T22:22:15.860Z"
+  "updatedAt": "2026-11-24T22:24:37.905Z"
 }
