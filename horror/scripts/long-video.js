@@ -74,7 +74,7 @@ if (!story.narration || !Array.isArray(story.scenes) || !story.scenes.length) {
 }
 process.env.STORY_GENRE = String(story.genre || story.category || process.env.STORY_GENRE || "mystery");
 await writeJson(path.join(dataDir, "story.json"), story);
-const seo = await generateSeo(story, topic || story.title);
+const seo = await generateSeo(story, topic || story.title, { format: "long" });
 await writeJson(path.join(dataDir, "youtube-metadata.json"), seo);
 
 const audioPath = path.join(audioDir, "narration.mp3");
