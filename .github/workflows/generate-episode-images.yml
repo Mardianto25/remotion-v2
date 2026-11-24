@@ -13,25 +13,8 @@ on:
           - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga"
           - "short-pov-punya-hutang-banyak-dan-satu-hal-kecil-ini-bikin-semuanya-berubah"
           # SERIES_ID_OPTIONS_END
-      episode_title:
-        description: Pilih saran judul episode dari semua plan yang tersedia
-        required: true
-        default: no-episode-yet
-        type: choice
-        options:
-          # EPISODE_TITLE_OPTIONS_START
-          - "no-episode-yet"
-          - "Demi Pamer Di Hadapan Kerabat"
-          - "Jatuh ke Titik Terendah"
-          - "Merintis dari Gerobak Kecil"
-          - "Kemenangan Sejati Tanpa Gengsi"
-          - "Kunci Tembaga di Dapur Tua"
-          - "Ujian Lima Ratus Porsi"
-          - "Cobek Tua dan Fitnah Baru"
-          - "Dapur Rekarsa Berdiri"
-          # EPISODE_TITLE_OPTIONS_END
       episode_number:
-        description: Nomor episode
+        description: Nomor episode pada Series ID terpilih; judul diambil otomatis dari Series Bible
         required: true
         default: "1"
         type: choice
@@ -62,11 +45,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Validate selected episode title
+      - name: Resolve episode title from selected series
+        id: resolve-episode
         env:
           SERIES_ID: ${{ inputs.series_id }}
           EPISODE_NUMBER: ${{ inputs.episode_number }}
-          EPISODE_TITLE: ${{ inputs.episode_title }}
         run: |
           node <<'NODE'
           const fs = require('node:fs');
@@ -76,7 +59,8 @@ jobs:
           const episode = bible.episodes.find(item => Number(item.episodeNumber) === number);
           if (!episode) throw new Error('Episode tidak ditemukan di plan ' + id);
           const expected = String(episode.title || 'Episode ' + number).replace(/\s+/g, ' ').trim();
-          if (process.env.EPISODE_TITLE !== expected) throw new Error('Judul episode tidak cocok dengan Series ID dan nomor episode. Seharusnya: ' + expected);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, 'title=' + expected.replace(/[\r\n]+/g, ' ') + '\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '### Episode yang dipilih\n- **Serial:** ' + (bible.seriesTitle || id) + '\n- **Episode:** ' + String(number).padStart(2, '0') + ' - ' + expected + '\n');
           console.log('[episode] ' + String(number).padStart(2, '0') + ' - ' + expected);
           NODE
       - run: npm install
