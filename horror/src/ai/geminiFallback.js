@@ -123,7 +123,7 @@ export async function generateGeminiContent(ai, request, options = {}) {
 
   const primaryModel = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
   const fallbackModels = (process.env.OPENROUTER_FALLBACK_MODELS ||
-    "qwen/qwen3-235b-a22b,deepseek/deepseek-chat")
+    "qwen/qwen3-235b-a22b-2507,deepseek/deepseek-v3.2")
     .split(",").map(value => value.trim()).filter(Boolean);
   const openRouterModels = [...new Set([primaryModel, ...fallbackModels])];
   let lastOpenRouterError;
