@@ -12,13 +12,13 @@ function parseJson(text) {
   }
 }
 
-function fallbackSeo(story, topic) {
+function fallbackSeo(story, topic, isLong = false) {
   const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
   const baseTitle = String(story.title || topic || "Cerita " + genre).trim();
   const episodePrefix = Number.isInteger(Number(story.episodeNumber)) && Number(story.episodeNumber) > 0 ? "EPS " + String(Number(story.episodeNumber)).padStart(2, "0") + " | " : "";
-  const title = (episodePrefix + baseTitle).slice(0, 60);
-  const tags = ["cerita " + genre, "storytelling Indonesia", "cerita Indonesia", "Ruang Cerita Indonesia", "video shorts"];
-  const hashtags = ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\p{L}\p{N}]/gu, "")];
+  const title = (episodePrefix + baseTitle).slice(0, isLong ? 90 : 60);
+  const tags = ["cerita " + genre, "storytelling Indonesia", "cerita Indonesia", "Ruang Cerita Indonesia", isLong ? "video cerita panjang" : "video shorts"];
+  const hashtags = isLong ? ["#CeritaIndonesia", "#Storytelling", "#" + genre.replace(/[^\\p{L}\\p{N}]/gu, "")] : ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\\p{L}\\p{N}]/gu, "")];
   const scenePrompt = Array.isArray(story.scenes) ? story.scenes.slice(0, 2).map(x => x.visualPrompt || x.heading).filter(Boolean).join("; ") : "";
   const description = [
     String(story.description || ("Sebuah cerita " + genre + ": " + title + ".")).trim(),
@@ -32,16 +32,17 @@ function fallbackSeo(story, topic) {
   return {
     title, titleAlternatives: [], selectionReason: "Metadata dibuat menggunakan template lokal karena Gemini API sedang mencapai kuota.",
     description, hashtags, tags, thumbnailText: baseTitle.split(/\s+/).slice(0, 5).join(" ").slice(0, 48),
-    thumbnailPrompt: "Cinematic " + genre + " story cover image, portrait vertical 9:16, visual style consistent with the selected episode style. " + (scenePrompt || title) + ". One clear focal subject, genre-appropriate atmosphere, dramatic cinematic lighting, empty space for thumbnail text, no text, no logo, no watermark."
+    thumbnailPrompt: "Cinematic " + genre + " story cover image, " + (isLong ? "landscape 16:9" : "portrait vertical 9:16") + ", visual style consistent with the selected episode style. " + (scenePrompt || title) + ". One clear focal subject, genre-appropriate atmosphere, dramatic cinematic lighting, empty space for thumbnail text, no text, no logo, no watermark."
   };
 }
 
-export async function generateSeo(story, topic) {
+export async function generateSeo(story, topic, options = {}) {
+  const isLong = options.format === "long";
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
   const prompt = `Anda adalah YouTube packaging agent senior untuk channel Indonesia "${CHANNEL_NAME}". Tugas Anda bukan sekadar mengisi SEO, tetapi memilih kemasan video yang paling membuat penonton target ingin mengeklik tanpa menipu.
 Genre konten: ${genre}. Analisis keseluruhan premis, konflik, emosi, lokasi, dan payoff cerita. Jangan otomatis memakai keyword horor jika genre bukan horor. Buat 3 kandidat judul secara internal, nilai masing-masing dari sisi rasa penasaran, kejelasan, relevansi dengan cerita, dan naturalitas bahasa Indonesia. Pilih satu pemenang.
-Buat packaging khusus YouTube Shorts, bukan video panjang. Pilih judul yang terasa natural di feed Shorts, maksimal 60 karakter, langsung mengangkat konflik atau konsekuensi paling menarik dari cerita, memancing rasa ingin tahu tanpa clickbait palsu. Buat 2-4 kata untuk teks cover sebagai hook visual yang melengkapi judul. Optimalkan CTR melalui satu momen emosional/konflik yang mudah dipahami dalam 1 detik, ekspresi tokoh kuat, focal subject besar, kontras jelas, dan komposisi portrait 9:16 untuk layar HP. Jangan menambahkan nama channel, branding, logo, watermark, tulisan tambahan, atau elemen dekoratif. Prompt gambar harus bahasa Inggris, mengikuti visual style yang dipilih (cinematic 3D atau 2D animation), konsisten dengan detail tokoh/entitas, tanpa teks/logo/watermark/gore.
+${isLong ? "Buat packaging untuk video panjang YouTube standar, bukan Shorts. Pilih judul natural maksimal 90 karakter yang mengangkat konflik utama. Buat 2-4 kata untuk teks thumbnail. Optimalkan CTR dengan komposisi landscape 16:9, focal subject jelas, ekspresi kuat, kontras dan ruang aman untuk overlay judul." : "Buat packaging khusus YouTube Shorts, bukan video panjang. Pilih judul yang terasa natural di feed Shorts, maksimal 60 karakter, langsung mengangkat konflik atau konsekuensi paling menarik dari cerita, memancing rasa ingin tahu tanpa clickbait palsu. Buat 2-4 kata untuk teks cover sebagai hook visual yang melengkapi judul. Optimalkan CTR melalui satu momen emosional/konflik yang mudah dipahami dalam 1 detik, ekspresi tokoh kuat, focal subject besar, kontras jelas, dan komposisi portrait 9:16 untuk layar HP."}
 Judul maksimal 60 karakter agar ringkas di feed Shorts, spesifik dan memancing rasa ingin tahu sesuai konflik cerita. Hindari judul generik, keyword stuffing, kapital berlebihan, dan clickbait yang tidak dibayar oleh isi cerita. Jangan mengklaim kisah nyata atau fakta yang tidak didukung materi.
 Deskripsi 2-3 paragraf: kalimat pembuka kuat dan memuat keyword utama secara alami, ringkasan singkat tanpa membocorkan twist, konteks legenda/fiksi bila relevan, ajakan subscribe yang tidak berlebihan.
 Hashtags 3-5 buah. Tags 10-18 keyword pendek yang benar-benar relevan.
@@ -61,11 +62,11 @@ Naskah: ${String(story.narration || "").slice(0, 9000)}`;
     value = parseJson(response.text);
   } catch (error) {
     console.warn("[seo] Gemini tidak tersedia/kuota habis. Menggunakan metadata lokal:", error.message);
-    return fallbackSeo(story, topic);
+    return fallbackSeo(story, topic, isLong);
   }
   const baseTitle = String(value.title || story.title || topic).trim();
   const episodePrefix = Number.isInteger(Number(story.episodeNumber)) && Number(story.episodeNumber) > 0 ? "EPS " + String(Number(story.episodeNumber)).padStart(2, "0") + " | " : "";
-  const title = (episodePrefix + baseTitle).slice(0, 60);
+  const title = (episodePrefix + baseTitle).slice(0, isLong ? 90 : 60);
   const hashtags = [...new Set((Array.isArray(value.hashtags) ? value.hashtags : []).map(x => String(x).trim().replace(/\s+/g, "")).filter(x => /^#[\p{L}\p{N}_]+$/u.test(x)))].slice(0, 5);
   const uniqueTags = [...new Set((Array.isArray(value.tags) ? value.tags : []).map(x => String(x).trim()).filter(Boolean))].slice(0, 18);
   const tags = [];
