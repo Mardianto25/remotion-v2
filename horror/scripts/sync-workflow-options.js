@@ -47,7 +47,16 @@ for (const file of workflowFiles) {
   const target = path.join(workflowDir, file);
   let source = await fs.readFile(target, "utf8");
   source = replaceOptions(source, "SERIES_ID_OPTIONS", seriesOptions);
-  source = replaceOptions(source, "EPISODE_TITLE_OPTIONS", uniqueEpisodeOptions);
+  // Workflow 02 resolves its episode title dynamically from the selected Series ID + episode number.
+  if (file !== "generate-episode-script.yml") {
+    const episodeOptions = entries.flatMap(({ bible }) =>
+      (Array.isArray(bible.episodes) ? bible.episodes : []).map(episode =>
+        String(episode.title || "Episode " + String(episode.episodeNumber).padStart(2, "0")).replace(/\\s+/g, " ").trim()
+      )
+    );
+    const uniqueEpisodeOptions = ["no-episode-yet", ...new Set(episodeOptions)];
+    source = replaceOptions(source, "EPISODE_TITLE_OPTIONS", uniqueEpisodeOptions);
+  }
   await fs.writeFile(target, source);
-  console.log("[catalog] " + file + ": " + seriesOptions.length + " serial, " + uniqueEpisodeOptions.length + " judul episode");
+  console.log("[catalog] " + file + ": " + seriesOptions.length + " serial" + (file === "generate-episode-script.yml" ? ", judul episode di-resolve otomatis" : ", dropdown judul episode diperbarui"));
 }
