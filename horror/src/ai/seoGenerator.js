@@ -18,7 +18,7 @@ function fallbackSeo(story, topic, isLong = false) {
   const episodePrefix = Number.isInteger(Number(story.episodeNumber)) && Number(story.episodeNumber) > 0 ? "EPS " + String(Number(story.episodeNumber)).padStart(2, "0") + " | " : "";
   const title = (episodePrefix + baseTitle).slice(0, isLong ? 90 : 60);
   const tags = ["cerita " + genre, "storytelling Indonesia", "cerita Indonesia", "Ruang Cerita Indonesia", isLong ? "video cerita panjang" : "video shorts"];
-  const hashtags = isLong ? ["#CeritaIndonesia", "#Storytelling", "#" + genre.replace(/[^\p{L}\p{N}]/gu, "")] : ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\\p{L}\\p{N}]/gu, "")];
+  const hashtags = isLong ? ["#CeritaIndonesia", "#Storytelling", "#" + genre.replace(/[^\p{L}\p{N}]/gu, "")] : ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\p{L}\p{N}]/gu, "")];
   const scenePrompt = Array.isArray(story.scenes) ? story.scenes.slice(0, 2).map(x => x.visualPrompt || x.heading).filter(Boolean).join("; ") : "";
   const description = [
     String(story.description || ("Sebuah cerita " + genre + ": " + title + ".")).trim(),
