@@ -25,7 +25,22 @@ function toOpenRouterMessages(contents) {
   return [{ role: "user", content: JSON.stringify(contents ?? "") }];
 }
 
-async function generateOpenRouterContent(request, previousError) {
+async function validateCandidate(response, validateResponse, provider) {
+  if (typeof validateResponse !== "function") return response;
+  try {
+    await validateResponse(response);
+    return response;
+  } catch (error) {
+    const validationError = new Error(
+      "Output " + provider + " tidak memenuhi validasi: " +
+      String(error?.message || error)
+    );
+    validationError.outputValidationError = true;
+    throw validationError;
+  }
+}
+
+async function generateOpenRouterContent(request, previousError, validateResponse) {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
     throw new Error(
@@ -75,10 +90,11 @@ async function generateOpenRouterContent(request, previousError) {
     throw new Error("OpenRouter mengembalikan respons kosong atau format tidak dikenal.");
   }
 
-  return { text, response: result };
+  const normalized = { text, response: result };
+  return validateCandidate(normalized, validateResponse, "OpenRouter");
 }
 
-export async function generateGeminiContent(ai, request) {
+export async function generateGeminiContent(ai, request, options = {}) {
   const models = [...new Set([config.geminiModel, ...config.geminiFallbackModels].filter(Boolean))];
   let lastError;
 
@@ -86,12 +102,13 @@ export async function generateGeminiContent(ai, request) {
     for (const model of models) {
       try {
         console.log("[gemini] Menggunakan model: " + model);
-        return await ai.models.generateContent({ ...request, model });
+        const response = await ai.models.generateContent({ ...request, model });
+        return await validateCandidate(response, options.validateResponse, "Gemini " + model);
       } catch (error) {
         lastError = error;
         const details = errorDetails(error);
         console.error("[gemini] Model " + model + " gagal: " + details.message);
-        if (!details.retryable) break;
+        if (!error?.outputValidationError && !details.retryable) break;
         console.warn("[gemini] Mencoba model Gemini berikutnya.");
       }
     }
@@ -100,5 +117,5 @@ export async function generateGeminiContent(ai, request) {
   }
 
   console.warn("[ai] Seluruh jalur Gemini gagal. Beralih ke OpenRouter.");
-  return generateOpenRouterContent(request, lastError);
+  return generateOpenRouterContent(request, lastError, options.validateResponse);
 }
