@@ -71,9 +71,9 @@ if (command === "episode") {
   try {
     const existingStory = await readJson(storyPath);
     if (!flag("--force")) {
-      await fs.mkdir(DATA_DIR, { recursive: true });
-      await writeJson(path.join(DATA_DIR, "story.json"), existingStory);
-      await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath, format });
+      if (format !== "long") await fs.mkdir(DATA_DIR, { recursive: true });
+      if (format !== "long") await writeJson(path.join(DATA_DIR, "story.json"), existingStory);
+      if (format !== "long") await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath, format });
       state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? { ...item, title: existingStory.title, status: "script_ready", sceneCount: existingStory.scenes.length } : item);
       state.updatedAt = new Date().toISOString();
       await writeJson(statePath, state);
@@ -112,7 +112,7 @@ if (command === "episode") {
   };
   await writeJson(storyPath, story);
   await fs.mkdir(DATA_DIR, { recursive: true });
-  await writeJson(path.join(DATA_DIR, "story.json"), story);
+  if (format !== "long") await writeJson(path.join(DATA_DIR, "story.json"), story);
   await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath, format });
   state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber
     ? { ...item, title: story.title, status: "script_ready", sceneCount: scenes.length }
