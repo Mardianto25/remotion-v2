@@ -23,6 +23,10 @@ Atur di Settings > Secrets and variables > Actions:
 - `GEMINI_API_KEY`
 - `CF_ACCOUNT_ID_V2`
 - `CF_API_TOKEN_V2`
+- `CF_ACCOUNT_ID_V3` (opsional, akun Cloudflare kedua)
+- `CF_API_TOKEN_V3` (opsional, token akun kedua)
+- `CF_ACCOUNT_ID_V4` (opsional, akun Cloudflare ketiga)
+- `CF_API_TOKEN_V4` (opsional, token akun ketiga)
 - `PIXABAY_API_KEY`
 - `PEXELS_API_KEY` (opsional)
 - `YOUTUBE_CLIENT_ID_3N`
@@ -30,6 +34,17 @@ Atur di Settings > Secrets and variables > Actions:
 - `YOUTUBE_REFRESH_TOKEN_3N`
 
 Jangan commit credential atau token ke repository. Mode tren otomatis memerlukan kuota YouTube Data API dan scope baca YouTube. Upload video memerlukan scope YouTube Data API yang sesuai.
+
+### Pilihan akun Cloudflare dan style gambar
+Workflow **03 - SHORT | Images**, **06 - SHORT | Thumbnail & SEO**, **10 - LONG 03 | Images**, dan **12 - LONG 05 | Thumbnail & SEO** menyediakan pilihan akun Cloudflare: `v2`, `v3`, atau `v4`. Setiap pilihan menggunakan pasangan Account ID + API Token yang sesuai:
+- `v2` memakai secret `CF_ACCOUNT_ID_V2` dan `CF_API_TOKEN_V2` (konfigurasi yang sudah digunakan sebelumnya).
+- `v3` memakai secret `CF_ACCOUNT_ID_V3` dan `CF_API_TOKEN_V3`.
+- `v4` memakai secret `CF_ACCOUNT_ID_V4` dan `CF_API_TOKEN_V4`.
+
+Tambahkan pasangan secret untuk akun lain di **Settings > Secrets and variables > Actions** sebelum memilih profile tersebut. Token tidak ditampilkan di log dan tidak disimpan ke file repository. Jika secret profile yang dipilih belum lengkap, workflow berhenti dengan pesan yang jelas.
+
+Workflow 06 juga menyediakan pilihan **Thumbnail Style**: `cinematic-3d` atau `2d-animation`. Pilihan ini terpisah dari style gambar scene di workflow 03. Cache thumbnail mengikuti style yang dipilih, sehingga mengganti style akan membuat thumbnail baru saat dijalankan ulang. Long Video thumbnail juga memiliki pilihan style landscape 16:9.
+
 
 ## Menjalankan dari GitHub Actions
 Buka Actions > **Generate Ruang Cerita Indonesia Video** > Run workflow.
@@ -76,7 +91,7 @@ Di tab **Actions**, workflow sudah diberi nomor di depan namanya agar tampil ber
 3. [03 — Episode Images](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-images.yml) — membuat gambar scene yang belum tersedia. Gambar yang valid dilewati. Jika scene 4 gagal, jalankan workflow yang sama lagi: scene 1-3 dilewati, scene 4 dicoba ulang, lalu lanjut scene berikutnya.
 4. [04 — Episode Audio](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-audio.yml) — Edge-TTS membuat narasi dan subtitle; file valid digunakan kembali.
 5. [05 — Render Episode Video](https://github.com/Mardianto25/remotion-v2/actions/workflows/render-episode-video.yml) — Remotion memakai gambar dan audio tersimpan; hasil MP4 menjadi artifact.
-6. [06 — Thumbnail & SEO](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-thumbnail.yml) — membuat SEO metadata dan thumbnail terpisah; hasil tersimpan agar tidak perlu dibuat ulang.
+6. [06 — Thumbnail & SEO](https://github.com/Mardianto25/remotion-v2/actions/workflows/generate-episode-thumbnail.yml) — membuat SEO metadata dan thumbnail terpisah; pilih style 3D/2D dan profile akun Cloudflare; cache mengikuti style terpilih.
 7. [07 — Upload Episode YouTube](https://github.com/Mardianto25/remotion-v2/actions/workflows/upload-episode-youtube.yml) — mengunduh artifact video dan thumbnail dari run yang dipilih, lalu upload sebagai PRIVATE menggunakan credential channel 3N.
 
 ### Urutan penggunaan
