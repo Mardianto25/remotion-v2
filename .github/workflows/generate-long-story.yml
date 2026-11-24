@@ -1,4 +1,4 @@
-name: Long Video - 02 Story
+name: 09 - LONG 02 | Story
 on:
   workflow_dispatch:
     inputs:
