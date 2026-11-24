@@ -106,6 +106,10 @@ if (command === "episode") {
     mainConflict: String(episodePlan.mainConflict || ""),
     revelation: String(episodePlan.revelation || episodePlan.turningPoint || ""),
     cliffhanger: String(episodePlan.cliffhanger || ""),
+    endingType: String(episodePlan.endingType || (episodeNumber === bible.episodes.length ? "finale_resolution" : "cliffhanger")),
+    nextEpisodeQuestion: String(episodePlan.nextEpisodeQuestion || ""),
+    episodePayoff: String(episodePlan.episodePayoff || ""),
+    seasonTeaser: String(episodePlan.seasonTeaser || ""),
     storySummary: String(episodePlan.storySummary || episodePlan.logline || ""),
     narration, wordCount: narration.split(/\s+/).filter(Boolean).length,
     scenes, characters: bible.characters || [], continuityUpdate: episodePlan.continuityUpdate || { canonEvents: [], characterStates: [], unresolvedThreads: [], resolvedThreads: [] }
