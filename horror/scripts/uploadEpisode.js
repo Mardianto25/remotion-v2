@@ -44,15 +44,12 @@ async function setThumbnail() {
 }
 
 if (state.videoId) {
-  if (!state.thumbnailUploaded) {
-    try {
-      await setThumbnail();
-      console.log("Thumbnail berhasil diperbarui untuk video: " + state.url);
-    } catch (error) {
-      console.warn("Video sudah ada di YouTube, tetapi thumbnail belum berhasil dikirim. Video ID tersimpan agar tidak upload duplikat:", error.message);
-    }
-  } else {
-    console.log("Episode ini sudah pernah di-upload: " + state.url);
+  // A rerun of workflow 07 must refresh the cover even when the video was uploaded earlier.
+  try {
+    await setThumbnail();
+    console.log("Thumbnail terbaru berhasil dikirim ulang untuk video: " + state.url);
+  } catch (error) {
+    console.warn("Video sudah ada di YouTube, tetapi pembaruan thumbnail gagal. Video tidak di-upload ulang:", error.message);
   }
   process.exit(0);
 }
