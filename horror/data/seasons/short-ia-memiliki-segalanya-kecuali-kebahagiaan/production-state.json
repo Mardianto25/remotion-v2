@@ -24,14 +24,15 @@
     {
       "episodeNumber": 1,
       "title": "Rumah yang Terlalu Sunyi",
-      "status": "audio_ready",
+      "status": "rendered",
       "wordCount": 177,
       "estimatedDurationSeconds": 82,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
       "durationSeconds": 87.5,
-      "productionStandard": "shorts-minimum-60s-v2"
+      "productionStandard": "shorts-minimum-60s-v2",
+      "videoPath": "episodes/episode-01/indonesian-horror.mp4"
     },
     {
       "episodeNumber": 2,
@@ -83,5 +84,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-24T22:04:10.465Z"
+  "updatedAt": "2026-11-24T22:11:04.673Z"
 }
