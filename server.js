@@ -7,7 +7,6 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
-import { startWhatsApp } from './whatsapp/client.js';
 
 dotenv.config();
 
@@ -408,41 +407,51 @@ export async function executePipeline(autoPushGit = true, visualStyle = 'cinemat
   // GEMINI MODEL FALLBACK
   // ----------------------------------------------------------
 
-  for (const modelName of geminiModels) {
-    try {
-      console.log(
-        `[2/4] Menganalisis audio menggunakan Gemini: ${modelName}`
-      );
+  const geminiMaxAttempts = Math.max(1, Number.parseInt(process.env.GEMINI_RETRIES_PER_MODEL || '2', 10) || 2);
 
-      const aiResponse = await ai.models.generateContent({
-        model: modelName,
-        contents: [
-          {
-            inlineData: {
-              mimeType: 'audio/mp3',
-              data: audioBase64
-            }
-          },
-          prompt
-        ]
-      });
-
-      if (aiResponse?.text) {
-        aiResponseText = aiResponse.text;
-        successfulModel = modelName;
-
+  for (const modelName of [...new Set(geminiModels.filter(Boolean))]) {
+    for (let attempt = 1; attempt <= geminiMaxAttempts; attempt++) {
+      try {
         console.log(
-          `[Gemini] Berhasil menggunakan model ${successfulModel}`
+          `[2/4] Menganalisis audio dengan Gemini ${modelName} (percobaan ${attempt}/${geminiMaxAttempts})`
         );
 
-        break;
-      }
+        const aiResponse = await ai.models.generateContent({
+          model: modelName,
+          contents: [
+            {
+              inlineData: {
+                mimeType: 'audio/mp3',
+                data: audioBase64
+              }
+            },
+            prompt
+          ]
+        });
 
-    } catch (error) {
-      console.warn(
-        `[Gemini] Model ${modelName} gagal: ${error.message}`
-      );
+        if (!aiResponse?.text) {
+          throw new Error('Gemini mengembalikan respons kosong.');
+        }
+
+        aiResponseText = aiResponse.text;
+        successfulModel = modelName;
+        console.log(`[Gemini] Berhasil menggunakan model ${successfulModel}`);
+        break;
+      } catch (error) {
+        console.warn(
+          `[Gemini] Model ${modelName}, percobaan ${attempt}/${geminiMaxAttempts} gagal: ${error.message}`
+        );
+
+        if (attempt < geminiMaxAttempts) {
+          const delayMs = attempt * 3000;
+          console.log(`[Gemini] Retry dalam ${delayMs / 1000} detik...`);
+          await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+      }
     }
+
+    if (aiResponseText) break;
+    console.warn(`[Gemini] Beralih ke model berikutnya setelah ${modelName} gagal.`);
   }
 
   if (!aiResponseText) {
@@ -890,12 +899,5 @@ app.listen(PORT, () => {
   );
 });
 
-// ============================================================
-// WHATSAPP
-// ============================================================
-
-startWhatsApp({
-  processInstagram: (igUrl) => processInstagram(igUrl, true)
-}).catch(error => {
-  console.error('Gagal menjalankan WhatsApp:', error);
-});
+// WhatsApp tidak dijalankan dari server.js.
+// Jalankan service WhatsApp secara terpisah jika memang diperlukan.
