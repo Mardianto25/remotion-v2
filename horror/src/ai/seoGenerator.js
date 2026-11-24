@@ -4,11 +4,11 @@ import { generateGeminiContent } from "./geminiFallback.js";
 
 function cleanThumbnailText(value, fallback = "") {
   const clean = input => String(input || "")
-    .replace(/\\b(?:youtube|shorts?|videos?|episodes?|eps|subscribe)\\b/gi, " ")
-    .replace(/[^\\p{L}\\p{N}\\s'-]/gu, " ")
-    .replace(/\\s+/g, " ")
+    .replace(/\b(?:youtube|shorts?|videos?|episodes?|eps|subscribe)\b/gi, " ")
+    .replace(/[^\p{L}\p{N}\s'-]/gu, " ")
+    .replace(/\s+/g, " ")
     .trim()
-    .split(/\\s+/)
+    .split(/\s+/)
     .filter(Boolean)
     .slice(0, 4)
     .join(" ")
