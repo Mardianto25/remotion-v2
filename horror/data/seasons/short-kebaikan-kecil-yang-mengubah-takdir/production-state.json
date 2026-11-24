@@ -1,0 +1,50 @@
+{
+  "seasonId": "short-kebaikan-kecil-yang-mengubah-takdir",
+  "genre": "INSPIRATIF",
+  "format": "shorts",
+  "episodeCount": 8,
+  "status": "planned",
+  "episodes": [
+    {
+      "episodeNumber": 1,
+      "title": "Tiga Puluh Juta yang Membekas",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 2,
+      "title": "Tagihan di Ambang Pintu",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 3,
+      "title": "Rahasia yang Terbuka",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 4,
+      "title": "Beban yang Bertumpuk",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 5,
+      "title": "Akar Kebaikan Tiga Tahun Lalu",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 6,
+      "title": "Krisis di Ambang Kehilangan",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 7,
+      "title": "Jalan Terang di Ujung Tekanan",
+      "status": "not_started"
+    },
+    {
+      "episodeNumber": 8,
+      "title": "Kebaikan yang Kembali Menyapa",
+      "status": "not_started"
+    }
+  ],
+  "updatedAt": "2026-11-24T16:00:09.022Z"
+}\n

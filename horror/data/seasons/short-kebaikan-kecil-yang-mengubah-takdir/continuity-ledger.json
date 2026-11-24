@@ -1,0 +1,43 @@
+{
+  "seasonId": "short-kebaikan-kecil-yang-mengubah-takdir",
+  "updatedAt": "2026-11-24T16:00:09.022Z",
+  "lastGeneratedEpisode": 0,
+  "canonEvents": [],
+  "characterStates": [
+    {
+      "characterId": "char-01",
+      "name": "Hendra",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-02",
+      "name": "Ratna",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-03",
+      "name": "Bima",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-04",
+      "name": "Pak Darma",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-05",
+      "name": "Raka",
+      "currentState": "Belum muncul dalam episode."
+    }
+  ],
+  "unresolvedThreads": [
+    "Bagaimana Hendra melunasi kewajiban pinjaman yang sudah membengkak tanpa mengorbankan keutuhan keluarganya, dan kebaikan lama apa yang ternyata menyimpan kunci penyelamat."
+  ],
+  "resolvedThreads": [],
+  "rules": [
+    "Cerita berlatar kehidupan keluarga dan usaha mikro di Indonesia dengan aturan ekonomi nyata, beban bunga pinjaman, dan tanggung jawab hukum perdata.",
+    "Tidak ada unsur supranatural, hantu, mistik, atau keajaiban instan tanpa usaha nyata.",
+    "Setiap keputusan finansial Hendra membawa konsekuensi langsung terhadap waktu kerja, kondisi bengkel, dan emosi anggota keluarga.",
+    "Hendra memiliki keterampilan pertukangan kayu presisi dan ketulusan membantu sesama, namun memiliki keterbatasan modal awal dan kecenderungan menyembunyikan tekanan finansial demi melindungi keluarga."
+  ]
+}\n
