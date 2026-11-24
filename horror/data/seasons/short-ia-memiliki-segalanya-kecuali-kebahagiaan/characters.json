@@ -1,0 +1,38 @@
+[
+  {
+    "id": "char-01",
+    "name": "Arga Pratama",
+    "role": "Pengusaha sukses, 42 tahun; tokoh utama",
+    "motivation": "Membangun perusahaan dan membuktikan keberhasilannya",
+    "personality": "Ambisius, tertutup, perfeksionis",
+    "secret": "Ayahnya pernah menjual bengkel untuk menyelamatkan usaha pertamanya",
+    "visualBible": "Indonesian man, 42, short neatly combed black hair with slight gray temples, angular face, charcoal suit, white shirt, silver watch."
+  },
+  {
+    "id": "char-02",
+    "name": "Pak Seno",
+    "role": "Ayah Arga, pensiunan mekanik berusia 70 tahun",
+    "motivation": "Melihat keluarganya kembali dekat",
+    "personality": "Sabar, sederhana, hangat",
+    "secret": "Menyimpan surat dan bukti pengorbanan untuk usaha Arga",
+    "visualBible": "Indonesian elderly man, 70, gentle lined face, short silver hair, faded olive shirt, brown trousers, worn sandals."
+  },
+  {
+    "id": "char-03",
+    "name": "Lila",
+    "role": "Istri Arga, 39 tahun",
+    "motivation": "Menjaga keluarga dan mendekatkan Nara dengan kakeknya",
+    "personality": "Empatik, tenang, tegas",
+    "secret": "Diam-diam tetap menghubungi Pak Seno",
+    "visualBible": "Indonesian woman, 39, shoulder-length dark hair, beige blouse or muted blue dress, minimal jewelry, expressive eyes."
+  },
+  {
+    "id": "char-04",
+    "name": "Nara",
+    "role": "Putri Arga, 10 tahun",
+    "motivation": "Membuat ayah dan kakeknya kembali akrab",
+    "personality": "Peka, jujur, ingin tahu",
+    "secret": "Menyusun album foto keluarga",
+    "visualBible": "Indonesian girl, 10, straight dark hair in low ponytail, yellow cardigan, denim skirt, small sketchbook."
+  }
+]
