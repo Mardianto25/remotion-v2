@@ -1,0 +1,165 @@
+name: "00B - SHORT | Initialize Manual Season Files"
+
+on:
+  workflow_dispatch:
+    inputs:
+      season_id:
+        description: "Folder ID di horror/data/seasons/ (contoh: short-kebaikan-kecil-yang-mengubah-takdir)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  initialize:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: horror
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate missing companion files from series-bible.json
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs/promises';
+          import path from 'node:path';
+
+          const seasonId = process.env.SEASON_ID?.trim() || '';
+          if (!/^[a-zA-Z0-9_-]+$/.test(seasonId)) {
+            throw new Error('Season ID tidak valid. Gunakan huruf, angka, tanda minus, atau underscore.');
+          }
+
+          const seasonDir = path.join('data', 'seasons', seasonId);
+          const biblePath = path.join(seasonDir, 'series-bible.json');
+          const bible = JSON.parse(await fs.readFile(biblePath, 'utf8'));
+
+          if (!Array.isArray(bible.episodes) || bible.episodes.length === 0) {
+            throw new Error('series-bible.json harus memiliki array episodes yang tidak kosong.');
+          }
+
+          const episodeNumbers = bible.episodes.map((item) => Number(item.episodeNumber));
+          if (episodeNumbers.some((n) => !Number.isInteger(n) || n < 1 || n > 12)) {
+            throw new Error('Setiap episode harus memiliki episodeNumber berupa angka 1–12.');
+          }
+          if (new Set(episodeNumbers).size !== episodeNumbers.length) {
+            throw new Error('Ditemukan episodeNumber duplikat di series-bible.json.');
+          }
+
+          const now = new Date().toISOString();
+          const files = [
+            {
+              name: 'characters.json',
+              value: Array.isArray(bible.characters) ? bible.characters : []
+            },
+            {
+              name: 'world-rules.json',
+              value: Array.isArray(bible.worldRules) ? bible.worldRules : []
+            },
+            {
+              name: 'continuity-ledger.json',
+              value: {
+                seasonId: bible.seasonId || seasonId,
+                updatedAt: now,
+                lastGeneratedEpisode: 0,
+                canonEvents: [],
+                characterStates: (bible.characters || []).map((character) => ({
+                  characterId: character.id,
+                  name: character.name,
+                  currentState: 'Belum muncul dalam episode.'
+                })),
+                unresolvedThreads: bible.mainMystery ? [bible.mainMystery] : [],
+                resolvedThreads: [],
+                rules: bible.worldRules || []
+              }
+            },
+            {
+              name: 'production-state.json',
+              value: {
+                seasonId,
+                genre: bible.genre || 'storytelling',
+                format: 'shorts',
+                episodeCount: bible.episodes.length,
+                status: 'planned',
+                episodes: bible.episodes
+                  .slice()
+                  .sort((a, b) => Number(a.episodeNumber) - Number(b.episodeNumber))
+                  .map((episode) => ({
+                    episodeNumber: Number(episode.episodeNumber),
+                    title: episode.title || 'Episode ' + episode.episodeNumber,
+                    status: 'not_started'
+                  })),
+                updatedAt: now
+              }
+            }
+          ];
+
+          await fs.mkdir(seasonDir, { recursive: true });
+          const created = [];
+          const preserved = [];
+
+          for (const file of files) {
+            const target = path.join(seasonDir, file.name);
+            try {
+              await fs.access(target);
+              preserved.push(file.name);
+            } catch (error) {
+              if (error.code !== 'ENOENT') throw error;
+              await fs.writeFile(target, JSON.stringify(file.value, null, 2) + '\\n', 'utf8');
+              created.push(file.name);
+            }
+          }
+
+          await fs.appendFile(
+            process.env.GITHUB_STEP_SUMMARY,
+            '## Inisialisasi season manual\n' +
+            '- **Season:** ' + seasonId + '\n' +
+            '- **Judul:** ' + (bible.seriesTitle || seasonId) + '\n' +
+            '- **Episode:** ' + bible.episodes.length + '\n' +
+            '- **Dibuat:** ' + (created.length ? created.map((name) => '`' + name + '`').join(', ') : 'Tidak ada file baru') + '\n' +
+            '- **Dipertahankan:** ' + (preserved.length ? preserved.map((name) => '`' + name + '`').join(', ') : 'Tidak ada') + '\n'
+          );
+
+          console.log('Created:', created);
+          console.log('Preserved:', preserved);
+          NODE
+
+      - name: Refresh season dropdowns
+        run: node scripts/sync-workflow-options.js
+
+      - name: Commit generated files and dropdowns
+        env:
+          SEASON_ID: ${{ inputs.season_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add "data/seasons/$SEASON_ID/characters.json" \
+                  "data/seasons/$SEASON_ID/world-rules.json" \
+                  "data/seasons/$SEASON_ID/continuity-ledger.json" \
+                  "data/seasons/$SEASON_ID/production-state.json" \
+                  ../.github/workflows/generate-episode-script.yml \
+                  ../.github/workflows/generate-episode-images.yml \
+                  ../.github/workflows/generate-episode-audio.yml \
+                  ../.github/workflows/render-episode-video.yml \
+                  ../.github/workflows/generate-episode-thumbnail.yml \
+                  ../.github/workflows/upload-episode-youtube.yml
+
+          if git diff --cached --quiet; then
+            echo "Semua file pendamping sudah tersedia. Tidak ada perubahan."
+          else
+            git commit -m "chore(series): initialize manual season files"
+            git push
+          fi
