@@ -2,6 +2,20 @@ import { GoogleGenAI } from "@google/genai";
 import { CHANNEL_NAME, config } from "../config.js";
 import { generateGeminiContent } from "./geminiFallback.js";
 
+function cleanThumbnailText(value, fallback = "") {
+  const clean = input => String(input || "")
+    .replace(/\\b(?:youtube|shorts?|videos?|episodes?|eps|subscribe)\\b/gi, " ")
+    .replace(/[^\\p{L}\\p{N}\\s'-]/gu, " ")
+    .replace(/\\s+/g, " ")
+    .trim()
+    .split(/\\s+/)
+    .filter(Boolean)
+    .slice(0, 4)
+    .join(" ")
+    .slice(0, 28);
+  return clean(value) || clean(fallback) || "CERITA MENEGANGKAN";
+}
+
 function parseJson(text) {
   const clean = String(text || "").replace(/^\x60{3}json\s*/i, "").replace(/\s*\x60{3}$/, "").trim();
   try { return JSON.parse(clean); } catch {
@@ -42,7 +56,7 @@ export async function generateSeo(story, topic, options = {}) {
   const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
   const prompt = `Anda adalah YouTube packaging agent senior untuk channel Indonesia "${CHANNEL_NAME}". Tugas Anda bukan sekadar mengisi SEO, tetapi memilih kemasan video yang paling membuat penonton target ingin mengeklik tanpa menipu.
 Genre konten: ${genre}. Analisis keseluruhan premis, konflik, emosi, lokasi, dan payoff cerita. Jangan otomatis memakai keyword horor jika genre bukan horor. Buat 3 kandidat judul secara internal, nilai masing-masing dari sisi rasa penasaran, kejelasan, relevansi dengan cerita, dan naturalitas bahasa Indonesia. Pilih satu pemenang.
-${isLong ? "Buat packaging untuk video panjang YouTube standar, bukan Shorts. Pilih judul natural maksimal 90 karakter yang mengangkat konflik utama. Buat 2-4 kata untuk teks thumbnail. Optimalkan CTR dengan komposisi landscape 16:9, focal subject jelas, ekspresi kuat, kontras dan ruang aman untuk overlay judul." : "Buat packaging khusus YouTube Shorts, bukan video panjang. Pilih judul yang terasa natural di feed Shorts, maksimal 60 karakter, langsung mengangkat konflik atau konsekuensi paling menarik dari cerita, memancing rasa ingin tahu tanpa clickbait palsu. Buat hook cover 2-4 kata yang singkat, spesifik, emosional, dan menimbulkan pertanyaan di benak penonton; jangan mengulang judul, jangan membocorkan twist, dan hindari frasa generik. Optimalkan CTR Shorts melalui satu momen konflik/emosi yang terbaca dalam 1 detik, wajah/aksi tokoh besar dan jelas, satu focal subject, siluet kuat, kontras foreground-background, serta komposisi portrait 9:16 yang aman untuk layar HP. Hook harus melengkapi judul, bukan menyalinnya."}
+${isLong ? "Buat packaging untuk video panjang YouTube standar, bukan Shorts. Pilih judul natural maksimal 90 karakter yang mengangkat konflik utama. Buat 2-4 kata untuk teks thumbnail. Optimalkan CTR dengan komposisi landscape 16:9, focal subject jelas, ekspresi kuat, kontras dan ruang aman untuk overlay judul." : "Buat packaging khusus YouTube Shorts, bukan video panjang. Pilih judul yang terasa natural di feed Shorts, maksimal 60 karakter, langsung mengangkat konflik atau konsekuensi paling menarik dari cerita, memancing rasa ingin tahu tanpa clickbait palsu. Buat hook cover 2-4 kata yang singkat, spesifik, emosional, dan menimbulkan pertanyaan di benak penonton; jangan mengulang judul, jangan membocorkan twist, dan hindari frasa generik. Optimalkan CTR Shorts melalui satu momen konflik/emosi yang terbaca dalam 1 detik, wajah/aksi tokoh besar dan jelas, satu focal subject, siluet kuat, kontras foreground-background, serta komposisi portrait 9:16 yang aman untuk layar HP. Hook harus melengkapi judul, bukan menyalinnya. DILARANG memakai kata/label platform atau format seperti YouTube, Shorts, video, episode, EPS, subscribe; thumbnailText wajib berupa hook cerita yang spesifik, bukan nama platform atau format konten."}
 ${isLong ? "Judul maksimal 90 karakter untuk video panjang." : "Judul maksimal 60 karakter agar ringkas di feed Shorts."} Pilih judul spesifik dan memancing rasa ingin tahu sesuai konflik cerita. Hindari judul generik, keyword stuffing, kapital berlebihan, dan clickbait yang tidak dibayar oleh isi cerita. Jangan mengklaim kisah nyata atau fakta yang tidak didukung materi.
 Deskripsi 2-3 paragraf: kalimat pembuka kuat dan memuat keyword utama secara alami, ringkasan singkat tanpa membocorkan twist, konteks legenda/fiksi bila relevan, ajakan subscribe yang tidak berlebihan.
 Hashtags 3-5 buah. Tags 10-18 keyword pendek yang benar-benar relevan.
