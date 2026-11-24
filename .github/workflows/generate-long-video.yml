@@ -69,7 +69,7 @@ jobs:
       - name: Validate Single Video topic
         if: inputs.mode == 'single'
         env:
-          TOPIC: ${{ inputs.topic }}
+          TOPIC: ${{ inputs.topic }}\n          STORY_GENRE: ${{ inputs.genre }}
           STORY_GENRE: ${{ inputs.genre }}
         run: test -n "$TOPIC" || (echo "topic wajib diisi untuk Single Video" && exit 1)
       - name: Ensure Remotion browser
