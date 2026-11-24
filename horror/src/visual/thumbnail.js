@@ -48,7 +48,7 @@ function makeOverlay(width, height, text, episodeNumber) {
   ).join("");
   const episodeLabel = Number.isInteger(Number(episodeNumber)) && Number(episodeNumber) > 0
     ? "EPS " + String(Number(episodeNumber)).padStart(2, "0")
-    : "EPISODE";
+    : (isLandscape ? "VIDEO" : "EPISODE");
   const badgeWidth = isLandscape ? 250 : 300;
   const badgeHeight = isLandscape ? 76 : 92;
   const badgeX = isLandscape ? 56 : 64;
@@ -132,7 +132,7 @@ export async function generateLongThumbnail(story, seo, topic, outputDir) {
     "No text, letters, numbers, logos, watermark, collage or border."
   ].filter(Boolean).join(" ");
   const buffer = await generateBackground(prompt);
-  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\\s+/).slice(0, 6).join(" ").slice(0, 48);
+  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 6).join(" ").slice(0, 48);
   const outputPath = path.join(outputDir, "youtube-thumbnail.jpg");
   await sharp(buffer).resize(1280, 720, { fit: "cover", position: "attention" })
     .composite([{ input: makeOverlay(1280, 720, label, story.episodeNumber) }])
