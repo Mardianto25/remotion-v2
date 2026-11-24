@@ -75,7 +75,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_MODEL: openai/gpt-4o-mini
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL || 'openai/gpt-4o-mini' }}
           GEMINI_MODEL: gemini-3.8-flash
           GEMINI_FALLBACK_MODELS: gemini-3.5-flash,gemini-2.5-flash
           CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
