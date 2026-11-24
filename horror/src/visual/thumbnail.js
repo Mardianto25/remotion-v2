@@ -15,10 +15,10 @@ function selectedStyle() {
 async function generateBackground(prompt, label = "thumbnail") {
   if (!config.cloudflareAccountId || !config.cloudflareApiToken) throw new Error("CF_ACCOUNT_ID dan CF_API_TOKEN wajib tersedia untuk membuat thumbnail.");
   const endpoint = "https://api.cloudflare.com/client/v4/accounts/" + config.cloudflareAccountId + "/ai/run/" + config.cloudflareModel;
-  const maxAttempts = 3;
+  const maxAttempts = 2;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 90000);
+    const timeout = setTimeout(() => controller.abort(), 45000);
     try {
       console.log("[thumbnail] " + label + ": request Cloudflare (" + attempt + "/" + maxAttempts + ").");
       const response = await fetch(endpoint, {
@@ -42,9 +42,9 @@ async function generateBackground(prompt, label = "thumbnail") {
       return buffer;
     } catch (error) {
       const timedOut = error.name === "AbortError";
-      console.warn("[thumbnail] " + label + ": percobaan " + attempt + " gagal" + (timedOut ? " (timeout 90 detik)" : "") + ": " + error.message);
+      console.warn("[thumbnail] " + label + ": percobaan " + attempt + " gagal" + (timedOut ? " (timeout 45 detik)" : "") + ": " + error.message);
       if (attempt === maxAttempts) throw new Error("Gagal membuat " + label + " setelah " + maxAttempts + " percobaan: " + error.message);
-      await new Promise(resolve => setTimeout(resolve, 1500 * attempt));
+      if (attempt < maxAttempts) await new Promise(resolve => setTimeout(resolve, 1000));
     } finally {
       clearTimeout(timeout);
     }
