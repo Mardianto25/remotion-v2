@@ -1,0 +1,99 @@
+name: "00 - SHORT | Sync Manual Season"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-seasons:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: horror
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate manual season files
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs/promises';
+          import path from 'node:path';
+
+          const root = path.resolve('data/seasons');
+          const dirs = await fs.readdir(root, { withFileTypes: true }).catch(() => []);
+          const valid = [];
+
+          for (const dir of dirs.filter((entry) => entry.isDirectory())) {
+            const file = path.join(root, dir.name, 'series-bible.json');
+
+            try {
+              const bible = JSON.parse(await fs.readFile(file, 'utf8'));
+
+              if (!bible.seriesTitle || !Array.isArray(bible.episodes) || bible.episodes.length === 0) {
+                console.log('SKIP ' + dir.name + ': seriesTitle atau episodes tidak valid');
+                continue;
+              }
+
+              const numbers = bible.episodes.map((episode) => Number(episode.episodeNumber));
+              if (numbers.some((number) => !Number.isInteger(number) || number < 1)) {
+                console.log('SKIP ' + dir.name + ': episodeNumber tidak valid');
+                continue;
+              }
+
+              if (new Set(numbers).size !== numbers.length) {
+                console.log('SKIP ' + dir.name + ': episodeNumber duplikat');
+                continue;
+              }
+
+              valid.push({ id: dir.name, title: bible.seriesTitle, count: bible.episodes.length });
+              console.log('VALID ' + dir.name + ' | ' + bible.seriesTitle + ' | ' + bible.episodes.length + ' episode');
+            } catch (error) {
+              console.log('SKIP ' + dir.name + ': ' + error.message);
+            }
+          }
+
+          if (valid.length === 0) {
+            throw new Error('Tidak ada series-bible.json valid di horror/data/seasons/. Periksa lokasi dan format JSON.');
+          }
+
+          await fs.appendFile(
+            process.env.GITHUB_STEP_SUMMARY,
+            '## Season yang ditemukan\n' +
+              valid.map((item) => '- **' + item.title + '** — `' + item.id + '` (' + item.count + ' episode)').join('\n') +
+              '\n'
+          );
+          NODE
+
+      - name: Update season dropdowns in Workflow 2–7
+        run: node scripts/sync-workflow-options.js
+
+      - name: Commit updated workflow options
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            ../.github/workflows/generate-episode-script.yml \
+            ../.github/workflows/generate-episode-images.yml \
+            ../.github/workflows/generate-episode-audio.yml \
+            ../.github/workflows/render-episode-video.yml \
+            ../.github/workflows/generate-episode-thumbnail.yml \
+            ../.github/workflows/upload-episode-youtube.yml
+
+          if git diff --cached --quiet; then
+            echo "Dropdown sudah up-to-date. Tidak ada perubahan."
+          else
+            git commit -m "chore(workflows): sync manual season options"
+            git push
+          fi
