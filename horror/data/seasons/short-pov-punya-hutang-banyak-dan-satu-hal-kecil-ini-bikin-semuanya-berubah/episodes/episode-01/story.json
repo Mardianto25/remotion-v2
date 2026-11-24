@@ -1,0 +1,119 @@
+{
+  "episodeNumber": 1,
+  "seriesTitle": "POV: punya hutang banyak, dan satu hal kecil ini bikin semuanya berubah",
+  "title": "Kunci Tembaga di Dapur Tua",
+  "description": "Episode perdana memperkenalkan krisis hutang Rian dan penemuan kunci tembaga kecil yang mengubah jalan hidupnya.",
+  "genre": "inspirational",
+  "category": "inspirational",
+  "disclaimer": "Cerita ini adalah fiksi inspiratif.",
+  "hook": "Tagihan hutang melimpah dan ancaman penyitaan rumah warisan.",
+  "mainConflict": "Rian harus menemukan cara melunasi hutang ratusan juta sebelum rumah ayahnya disita.",
+  "revelation": "Kunci tembaga kecil membuka laci rahasia berisi buku resep kuliner warisan ayah Rian.",
+  "cliffhanger": "Pintu rumah Rian didobrak paksa oleh Aris yang membawa surat perintah penyitaan darurat.",
+  "endingType": "cliffhanger",
+  "nextEpisodeQuestion": "Apakah Aris akan langsung mengusir Rian dan menyita buku resep warisan tersebut?",
+  "episodePayoff": "Penemuan resep sambal rempah kuno yang menjadi satu-satunya harapan Rian untuk bangkit.",
+  "seasonTeaser": "",
+  "storySummary": "Rian terpuruk akibat ditipu rekan bisnis. Saat merapikan gudang tua, ia menemukan kunci tembaga kecil yang membuka laci rahasia meja kerja ayahnya. Di dalamnya ada buku resep sambal legendaris. Namun, Aris tiba-tiba mendobrak pintu membawa surat penyitaan darurat.",
+  "narration": "Hutang seratus lima puluh juta rupiah akibat ditipu rekan bisnis membuat hidupku hancur tanpa sisa. Malam ini, penagih hutang datang mengancam akan menyita rumah peninggalan almarhum Ayah. Dalam keputusasaan saat membereskan gudang tua, jemariku menyenggol sebuah kunci tembaga kecil yang tersembunyi di dalam kotak kayu lapuk. Kunci mungil itu membuka laci rahasia di bawah meja kerja Ayah. Di dalamnya, ada buku resep sambal rempah warisan dan dokumen perjanjian usaha lama. Satu hal kecil ini menyalakan harapan baru dalam dadaku. Namun tepat saat aku menggenggam resep itu, pintu rumahku didobrak keras! Aris berdiri di sana dengan surat perintah penyitaan darurat!",
+  "wordCount": 99,
+  "scenes": [
+    {
+      "id": 1,
+      "heading": "INT. RUANG TAMU RUMAH RIAN - MALAM",
+      "narration": "Hutang seratus lima puluh juta rupiah akibat ditipu rekan bisnis membuat hidupku hancur tanpa sisa.",
+      "visualPrompt": "Vertical 9:16 portrait. A stressed 28-year-old Indonesian man named Rian wearing a navy denim jacket sitting at a dim wooden table littered with unpaid debt bills and bank notices, head in his hands, emotional atmosphere, cinematic lighting.",
+      "searchQuery": "stressed man sitting at table with debt notices indoor dim lighting",
+      "mood": "gloomy"
+    },
+    {
+      "id": 2,
+      "heading": "INT. RUANG TAMU RUMAH RIAN - MALAM",
+      "narration": "Malam ini, penagih hutang datang mengancam akan menyita rumah peninggalan almarhum Ayah.",
+      "visualPrompt": "Vertical 9:16 portrait. Close-up on a formal legal eviction notice and debt collector demand letter resting on an old wooden table, dramatic shadows, realistic, high detail.",
+      "searchQuery": "eviction notice paper on wooden table dramatic lighting",
+      "mood": "tense"
+    },
+    {
+      "id": 3,
+      "heading": "INT. GUDANG TUA - MALAM",
+      "narration": "Dalam keputusasaan saat membereskan gudang tua, jemariku menyenggol sebuah kunci tembaga kecil yang tersembunyi di dalam kotak kayu lapuk.",
+      "visualPrompt": "Vertical 9:16 portrait. Close-up shot of Rian's hands discovering a tiny vintage antique copper key inside a dusty weather-worn wooden box in a dimly lit old storage room.",
+      "searchQuery": "hand picking small antique copper key from old wooden box",
+      "mood": "mysterious"
+    },
+    {
+      "id": 4,
+      "heading": "INT. GUDANG TUA - MALAM",
+      "narration": "Kunci mungil itu membuka laci rahasia di bawah meja kerja Ayah.",
+      "visualPrompt": "Vertical 9:16 portrait. Rian inserting the small copper key into a hidden keyhole underneath a heavy old wooden workbench, clicking mechanism opening a secret drawer.",
+      "searchQuery": "inserting tiny key into secret drawer wooden desk",
+      "mood": "hopeful"
+    },
+    {
+      "id": 5,
+      "heading": "INT. GUDANG TUA - MALAM",
+      "narration": "Di dalamnya, ada buku resep sambal rempah warisan dan dokumen perjanjian usaha lama. Satu hal kecil ini menyalakan harapan baru dalam dadaku.",
+      "visualPrompt": "Vertical 9:16 portrait. Rian lifting an old handwritten recipe notebook with Indonesian chili illustrations and vintage business documents out of the secret drawer, eyes wide with hope.",
+      "searchQuery": "man holding vintage handwritten recipe book warm light",
+      "mood": "inspiring"
+    },
+    {
+      "id": 6,
+      "heading": "INT. RUANG TAMU RUMAH RIAN - MALAM",
+      "narration": "Namun tepat saat aku menggenggam resep itu, pintu rumahku didobrak keras! Aris berdiri di sana dengan surat perintah penyitaan darurat!",
+      "visualPrompt": "Vertical 9:16 portrait. The wooden front door crashes open violently. Aris, a 35-year-old Indonesian debt collector in a black leather jacket, stands aggressively at the doorway holding an official eviction document, dramatic confrontation scene.",
+      "searchQuery": "man breaking open front door debt collector holding papers dramatic",
+      "mood": "shocking"
+    }
+  ],
+  "characters": [
+    {
+      "id": "char-01",
+      "name": "Rian",
+      "role": "Tokoh Utama (Protagonis)",
+      "motivation": "Melunasi hutang 150 juta dan mempertahankan rumah peninggalan almarhum ayahnya.",
+      "personality": "Pekerja keras, pantang menyerah, jujur, dan memiliki bakat memasak terpendam.",
+      "secret": "Menyimpan rasa bersalah mendalam karena pernah meragukan nasihat bisnis almarhum ayahnya.",
+      "visualBible": "Indonesian male, 28 years old, lean build, tired eyes with determination, short neat black hair, wearing a faded navy denim jacket over a plain white t-shirt and dark jeans."
+    },
+    {
+      "id": "char-02",
+      "name": "Pak Hadi",
+      "role": "Mentor & Sahabat Almarhum Ayah",
+      "motivation": "Membantu anak sahabatnya bangkit dari titik terendah.",
+      "personality": "Bijaksana, hangat, dermawan, ramah, dan memegang teguh tradisi.",
+      "secret": "Memiliki janji lama kepada almarhum ayah Rian untuk selalu menjaga Rian saat krisis.",
+      "visualBible": "Indonesian male, 60 years old, warm smile, graying hair, wearing a traditional brown patterned batik shirt with rolled-up sleeves."
+    },
+    {
+      "id": "char-03",
+      "name": "Aris",
+      "role": "Penagih Hutang (Antagonis Utama)",
+      "motivation": "Menagih uang 150 juta atau menyita rumah warisan Rian sesuai instruksi penipu.",
+      "personality": "Tegas, intimidatif, tidak sabaran, namun patuh pada hukum resmi.",
+      "secret": "Bekerja atas perintah mantan rekan bisnis Rian yang sebenarnya memalsukan dokumen hutang.",
+      "visualBible": "Indonesian male, 35 years old, sharp gaze, slicked back black hair, wearing a black leather jacket and carrying a brown leather folder."
+    }
+  ],
+  "continuityUpdate": {
+    "canonEvents": [
+      "Rian menemukan kunci tembaga kecil dan buku resep sambal warisan ayahnya.",
+      "Aris mendobrak rumah membawa surat penyitaan darurat."
+    ],
+    "characterStates": [
+      {
+        "characterId": "char-01",
+        "state": "Terdesak hutang namun mendapatkan resep warisan ayah."
+      },
+      {
+        "characterId": "char-03",
+        "state": "Mendobrak rumah Rian dengan surat penyitaan."
+      }
+    ],
+    "unresolvedThreads": [
+      "Negosiasi tenggat waktu penyitaan rumah."
+    ],
+    "resolvedThreads": []
+  }
+}

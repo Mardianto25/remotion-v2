@@ -9,7 +9,8 @@
     {
       "episodeNumber": 1,
       "title": "Kunci Tembaga di Dapur Tua",
-      "status": "not_started"
+      "status": "script_ready",
+      "sceneCount": 6
     },
     {
       "episodeNumber": 2,
@@ -27,5 +28,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T09:44:51.521Z"
+  "updatedAt": "2026-11-24T09:53:36.257Z"
 }
