@@ -68,12 +68,22 @@ jobs:
           console.log('[episode] ' + String(number).padStart(2, '0') + ' - ' + expected);
           NODE
       - run: npm install
-      - name: Backup existing episode script
+      - name: Prepare backup of existing episode script
+        if: inputs.regenerate_script == 'yes'
+        env:
+          SERIES_ID: ${{ inputs.series_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          mkdir -p backup/episode-script
+          SOURCE="data/seasons/$SERIES_ID/episodes/episode-$EP/story.json"
+          if [ -f "$SOURCE" ]; then cp "$SOURCE" backup/episode-script/story.json; fi
+      - name: Save old episode script backup
         if: inputs.regenerate_script == 'yes'
         uses: actions/upload-artifact@v4
         with:
           name: episode-script-backup-${{ inputs.series_id }}-${{ inputs.episode_number }}-${{ github.run_id }}
-          path: horror/data/seasons/${{ inputs.series_id }}/episodes/episode-${{ inputs.episode_number }}/story.json
+          path: horror/backup/episode-script/story.json
           if-no-files-found: ignore
           retention-days: 30
       - name: Materialize episode script from Season Plan
