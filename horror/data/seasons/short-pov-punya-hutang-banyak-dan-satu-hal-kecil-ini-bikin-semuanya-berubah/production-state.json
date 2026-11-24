@@ -9,12 +9,15 @@
     {
       "episodeNumber": 1,
       "title": "Kunci Tembaga di Dapur Tua",
-      "status": "thumbnail_ready",
+      "status": "uploaded",
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
       "durationSeconds": 43.7,
-      "videoPath": "episodes/episode-01/indonesian-horror.mp4"
+      "videoPath": "episodes/episode-01/indonesian-horror.mp4",
+      "youtubeVideoId": "DzrLmIG4jcI",
+      "youtubeUrl": "https://www.youtube.com/shorts/DzrLmIG4jcI",
+      "youtubePrivacyStatus": "private"
     },
     {
       "episodeNumber": 2,
@@ -32,5 +35,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T10:22:04.265Z"
+  "updatedAt": "2026-11-24T10:24:06.928Z"
 }
