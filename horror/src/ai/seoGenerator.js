@@ -31,7 +31,7 @@ function fallbackSeo(story, topic) {
   ].join("\n").slice(0, 4900);
   return {
     title, titleAlternatives: [], selectionReason: "Metadata dibuat menggunakan template lokal karena Gemini API sedang mencapai kuota.",
-    description, hashtags, tags, thumbnailText: title.split(/\s+/).slice(0, 4).join(" ").slice(0, 28),
+    description, hashtags, tags, thumbnailText: baseTitle.split(/\s+/).slice(0, 5).join(" ").slice(0, 48),
     thumbnailPrompt: "Cinematic " + genre + " story cover image, portrait vertical 9:16, visual style consistent with the selected episode style. " + (scenePrompt || title) + ". One clear focal subject, genre-appropriate atmosphere, dramatic cinematic lighting, empty space for thumbnail text, no text, no logo, no watermark."
   };
 }
