@@ -20,6 +20,12 @@ on:
         description: Path story.json episode Long Season Plan (opsional)
         required: false
         type: string
+      visual_style:
+        description: Gaya visual yang akan dipakai di seluruh tahap
+        required: true
+        default: cinematic-3d
+        type: choice
+        options: [cinematic-3d, 2d-animation]
       genre:
         description: Genre cerita
         required: true
@@ -45,13 +51,15 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg
           npm install
+      - name: Validate stage script syntax
+        run: node --check scripts/long-video-stage.js
       - name: Generate or materialize Long Video story
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-3.8-flash
           GEMINI_FALLBACK_MODELS: gemini-3.5-flash,gemini-2.5-flash
           STORY_GENRE: ${{ inputs.genre }}
-          HORROR_VISUAL_STYLE: cinematic-3d
+          HORROR_VISUAL_STYLE: ${{ inputs.visual_style }}
           TOPIC: ${{ inputs.topic }}
           STORY_FILE: ${{ inputs.story_file }}
           OUTPUT_ID: ${{ inputs.output_id }}
