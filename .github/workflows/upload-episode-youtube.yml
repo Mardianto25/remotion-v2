@@ -135,10 +135,11 @@ jobs:
           EP=$(printf "%02d" "$EPISODE_NUMBER")
           DIR="data/seasons/$SEASON_ID/episodes/episode-$EP"
           mkdir -p out
-          find /tmp/episode-thumbnail -name youtube-thumbnail.jpg -type f -size +1k -exec cp {} out/youtube-thumbnail.jpg \; -quit
-          test -s out/youtube-thumbnail.jpg || { echo "Thumbnail landscape 16:9 tidak ditemukan di artifact episode."; exit 1; }
+          find /tmp/episode-thumbnail -name shorts-cover.jpg -type f -size +1k -exec cp {} out/shorts-cover.jpg \; -quit
+          test -s out/shorts-cover.jpg || { echo "Thumbnail Shorts portrait 9:16 tidak ditemukan di artifact episode."; exit 1; }
           echo "Thumbnail siap dipasang:"
-          file out/youtube-thumbnail.jpg
+          file out/shorts-cover.jpg
+          node --input-type=module -e 'import sharp from "sharp"; const m = await sharp("out/shorts-cover.jpg").metadata(); console.log("Thumbnail dimensions:", m.width + "x" + m.height); if (m.width !== 1080 || m.height !== 1920) process.exit(1);'
           cp "$DIR/youtube-metadata.json" data/youtube-metadata.json
       - name: Upload privately to the 3N channel
         env:
