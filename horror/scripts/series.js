@@ -67,7 +67,7 @@ if (command === "episode") {
   const state = await readJson(statePath);
   const episodePlan = bible.episodes.find(item => Number(item.episodeNumber) === episodeNumber);
   if (!episodePlan) throw new Error("Episode tidak ditemukan di series bible.");
-  if (!episodePlan.narration || !Array.isArray(episodePlan.scenes) || episodePlan.scenes.length < (format === "long" ? Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) : 7) || episodePlan.scenes.length > (format === "long" ? Math.min(32, Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) + 2) : 7)) {
+  if (!episodePlan.narration || !Array.isArray(episodePlan.scenes) || episodePlan.scenes.length < (format === "long" ? Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) : 6) || episodePlan.scenes.length > (format === "long" ? Math.min(32, Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) + 2) : 8)) {
     throw new Error("Season plan lama/tidak lengkap: episode ini belum memiliki naskah final dan scene sesuai format. Buat ulang season plan agar semua naskah dan scene disiapkan sejak awal.");
   }
   const episodeDir = path.join(episodesDir, "episode-" + String(episodeNumber).padStart(2, "0"));
@@ -81,8 +81,8 @@ if (command === "episode") {
         const existingWords = existingNarration.split(/\s+/).filter(Boolean).length;
         const existingScenes = Array.isArray(existingStory.scenes) ? existingStory.scenes : [];
         const existingSceneNarration = existingScenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\s+/g, " ").trim();
-        if (existingWords < 240 || existingWords > 260 || existingScenes.length !== 7 || existingSceneNarration !== existingNarration.replace(/\s+/g, " ").trim()) {
-          throw new Error("story.json lama belum memenuhi standar Shorts (240-260 kata, tepat 7 scene, dan narasi scene harus identik). Jalankan ulang workflow dengan regenerate_script=yes setelah Season Plan diperbarui.");
+        if (existingWords < 240 || existingWords > 270 || existingScenes.length < 6 || existingScenes.length > 8 || existingSceneNarration !== existingNarration.replace(/\s+/g, " ").trim()) {
+          throw new Error("story.json lama belum memenuhi standar Shorts (240-270 kata, 6-8 scene, dan narasi scene harus identik). Jalankan ulang workflow dengan regenerate_script=yes setelah Season Plan diperbarui.");
         }
       }
       if (format !== "long") await fs.mkdir(DATA_DIR, { recursive: true });
@@ -108,8 +108,8 @@ if (command === "episode") {
   if (scenes.some(scene => !scene.narration || !scene.visualPrompt)) throw new Error("Season plan memiliki scene tanpa narration atau visualPrompt.");
   const narration = String(episodePlan.narration).trim();
   const wordCount = narration.split(/\s+/).filter(Boolean).length;
-  if (format === "shorts" && (wordCount < 240 || wordCount > 260)) throw new Error("Episode " + episodeNumber + " memiliki " + wordCount + " kata. Standar Shorts baru wajib 240-260 kata. Perbaiki/regenerate season plan sebelum produksi.");
-  if (format === "shorts" && scenes.length !== 7) throw new Error("Standar Shorts baru wajib tepat 7 scene; ditemukan " + scenes.length + ".");
+  if (format === "shorts" && (wordCount < 240 || wordCount > 270)) throw new Error("Episode " + episodeNumber + " memiliki " + wordCount + " kata. Standar Shorts baru wajib 240-270 kata. Perbaiki/regenerate season plan sebelum produksi.");
+  if (format === "shorts" && scenes.length < 6 || scenes.length > 8) throw new Error("Standar Shorts baru wajib 6-8 scene; ditemukan " + scenes.length + ".");
   if (scenes.map(scene => scene.narration).join(" ").replace(/\s+/g, " ").trim() !== narration.replace(/\s+/g, " ").trim()) {
     throw new Error("Naskah utama tidak sama dengan gabungan narration setiap scene. Perbaiki season plan sebelum produksi.");
   }
