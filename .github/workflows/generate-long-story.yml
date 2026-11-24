@@ -1,0 +1,83 @@
+name: Long Video - 02 Story
+on:
+  workflow_dispatch:
+    inputs:
+      output_id:
+        description: ID output; gunakan ID yang sama di semua tahap
+        required: true
+        type: string
+      duration_minutes:
+        description: Target durasi 1-8 menit
+        required: true
+        default: "5"
+        type: choice
+        options: ["1","2","3","4","5","6","7","8"]
+      topic:
+        description: Topik untuk Single Video (kosongkan jika memakai story_file)
+        required: false
+        type: string
+      story_file:
+        description: Path story.json episode Long Season Plan (opsional)
+        required: false
+        type: string
+      genre:
+        description: Genre cerita
+        required: true
+        default: mystery
+        type: choice
+        options: [mystery, horror, islamic, inspirational, drama, history, adventure, fantasy, education
+]
+
+permissions:
+  contents: write
+jobs:
+  story:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          npm install
+      - name: Generate or materialize Long Video story
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-3.8-flash
+          GEMINI_FALLBACK_MODELS: gemini-3.5-flash,gemini-2.5-flash
+          STORY_GENRE: ${{ inputs.genre }}
+          HORROR_VISUAL_STYLE: cinematic-3d
+          TOPIC: ${{ inputs.topic }}
+          STORY_FILE: ${{ inputs.story_file }}
+          OUTPUT_ID: ${{ inputs.output_id }}
+          DURATION: ${{ inputs.duration_minutes }}
+        run: |
+          ARGS=(story --output-id "$OUTPUT_ID" --duration "$DURATION")
+          if [ -n "$STORY_FILE" ]; then ARGS+=(--story-file "$STORY_FILE"); else ARGS+=(--topic "$TOPIC"); fi
+          node scripts/long-video-stage.js "${ARGS[@]}"
+      - name: Persist Long Video checkpoint
+        if: always()
+        env:
+          OUTPUT_ID: ${{ inputs.output_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A "horror/data/long-video/$OUTPUT_ID" "horror/public/long-video/$OUTPUT_ID" "horror/long-out/$OUTPUT_ID" "horror/remotion/generatedLongStory.js" || true
+          git diff --cached --quiet || (git commit -m "chore(long-video): checkpoint $OUTPUT_ID story" && git push)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: long-video-story-${{ inputs.output_id }}-${{ github.run_id }}
+          path: |
+            horror/data/long-video/${{ inputs.output_id }}/
+            horror/public/long-video/${{ inputs.output_id }}/
+            horror/long-out/${{ inputs.output_id }}/
+            horror/remotion/generatedLongStory.js
+          if-no-files-found: ignore
+          retention-days: 30
