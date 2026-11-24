@@ -1,38 +1,40 @@
 {
-  "title": "Demi Dipuji Kerabat, Rumah Kami Disita",
+  "title": "EPS 01 | Demi Gengsi di Depan Kerabat, Rumah Kami Disita",
   "titleAlternatives": [
-    "Gengsi Ayah Menghancurkan Masa Depanku",
-    "Nekat Berutang Demi Pamer ke Keluarga"
+    "Hanya Demi Dipandang Sukses, Masa Depanku Hancur",
+    "Akibat Gengsi Ayah, Surat Penyitaan Ini Datang"
   ],
-  "selectionReason": "Judul ini secara instan menghadapkan dua kontras tajam antara motif sosial (pamer ke kerabat) dan konsekuensi riil yang menyakitkan (penyitaan rumah), membangkitkan rasa penasaran penonton feed Shorts tanpa terasa berlebihan.",
-  "description": "Demi terlihat sukses di mata keluarga besar, sebuah keputusan nekat diambil tanpa memikirkan risiko panjang. Gengsi dan pujian sesaat justru menjebak keluarga dalam jeratan utang yang perlahan merenggut segalanya, termasuk impian masa depan anak.\n\nKisah fiksi inspiratif ini menjadi cermin nyata tentang bahaya mengorbankan masa depan demi validasi orang lain. Ketika gengsi dijadikan pedoman hidup, penyesalan selalu datang terlambat saat harga diri sudah tak tersisa.\n\nSimak pelajaran hidup berharga lainnya di Ruang Cerita Indonesia. Dukung channel ini dengan subscribe, like, dan bagikan pendapatmu di kolom komentar.\n\nCerita ini adalah fiksi inspiratif.\n\nIkuti Ruang Cerita Indonesia untuk cerita dan konten menarik lainnya.\n\n#RuangCeritaIndonesia #PelajaranHidup #CeritaInspiratif #ShortsIndonesia",
+  "selectionReason": "Judul terpilih langsung mengontraskan penyebab (gengsi di depan kerabat) dengan konsekuensi paling fatal dan emosional (penyitaan rumah), sangat efektif menarik perhatian di feed Shorts secara alami tanpa clickbait palsu.",
+  "description": "Pamer demi dipandang sukses oleh keluarga besar justru menjadi awal kehancuran sebuah keluarga. Ketika gengsi lebih diutamakan daripada kenyataan, keputusan nekat berutang demi usaha mewah berujung pada ancaman masa depan anak yang sirna.\n\nKisah inspiratif fiksi ini menggambarkan penyesalan mendalam seorang ayah yang mengabaikan peringatan keluarga hingga terjepit cicilan bank. Sebuah pelajaran berharga tentang bahaya mengagungkan harga diri semu demi pujian sesaat.\n\nSimak perjalanannya untuk memetik hikmah kehidupan. Dukung terus channel Ruang Cerita Indonesia dengan cara subscribe agar tidak ketinggalan cerita inspiratif lainnya.\n\nCerita ini adalah fiksi inspiratif.\n\nIkuti Ruang Cerita Indonesia untuk cerita dan konten menarik lainnya.\n\n#RuangCeritaIndonesia #KisahInspiratif #PelajaranHidup #DramaKeluarga #ShortsIndonesia",
   "hashtags": [
     "#RuangCeritaIndonesia",
+    "#KisahInspiratif",
     "#PelajaranHidup",
-    "#CeritaInspiratif",
+    "#DramaKeluarga",
     "#ShortsIndonesia"
   ],
   "tags": [
-    "cerita inspiratif",
-    "pelajaran hidup",
-    "bahaya gengsi",
-    "kisah keluarga",
-    "jeratan utang",
-    "drama keluarga",
-    "kisah sedih",
-    "penyesalan",
-    "cerita kehidupan",
     "ruang cerita indonesia",
-    "shorts inspiratif",
-    "gengsi dan utang"
+    "kisah inspiratif",
+    "pelajaran hidup",
+    "gengsi keluarga",
+    "bahaya utang",
+    "drama keluarga",
+    "cerita kehidupan",
+    "penyesalan ayah",
+    "cerita sedih",
+    "inspirasi kehidupan",
+    "shorts indonesia",
+    "cerita bermakna",
+    "akibat gengsi",
+    "motivasi hidup"
   ],
-  "thumbnailText": "Harga Sebuah Gengsi",
-  "thumbnailPrompt": "Cinematic 3D animation style, 9:16 vertical composition. A middle-aged Southeast Asian father sitting slumped on the bare floor in despair, head bowed low, emotional tears of regret on his face. An official red-stamped foreclosure paper lies on the wooden floor beside him. In the dim background, a teenage son looks at him with a heartbroken expression. Moody indoor lighting, deep shadows contrasting with soft dramatic rim light, highly expressive facial details, clean rendered style, 8k resolution, no text, no watermark, no logos.",
-  "format": "youtube-shorts",
+  "thumbnailText": "RUMAH DISITA DEMI GENGSI",
+  "thumbnailPrompt": "Cinematic 3D animation style, 9:16 vertical portrait composition. A heartbroken Indonesian middle-aged father sitting slumped and defeated on the floor at the corner of a living room, clutching an official foreclosure notice document. In the background, his teenage child stands devastated with teary eyes. Moody dramatic interior lighting, high emotional intensity on the father's face, deep shadows, cinematic warm and cool color contrast, high detail, no text, no logos, no watermarks.",
   "thumbnail": {
-    "version": "shorts-ctr-v3",
-    "format": "9:16",
-    "vertical": "shorts-cover.jpg",
-    "youtube": "youtube-thumbnail.jpg"
+    "version": "episode-ctr-v4",
+    "format": "16:9",
+    "youtube": "youtube-thumbnail.jpg",
+    "shorts": "shorts-cover.jpg"
   }
 }
