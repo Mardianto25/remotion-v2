@@ -1,4 +1,4 @@
-name: 07 - SHORT 07 | Upload YouTube
+name: 07 - SHORT | Upload YouTube
 on:
   workflow_dispatch:
     inputs:
