@@ -85,10 +85,24 @@ jobs:
           EPISODE_NUMBER: ${{ inputs.episode_number }}
         run: |
           EP=$(printf "%02d" "$EPISODE_NUMBER")
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A "data/seasons/$SEASON_ID/episodes/episode-$EP" "data/seasons/$SEASON_ID/production-state.json"
-          git diff --cached --quiet || (git commit -m "chore(thumbnail): save $SEASON_ID episode $EP thumbnail" && git push)
+          PUBLIC_EPISODE_DIR="../public/episodes/$SEASON_ID/episode-$EP"
+          SOURCE_DIR="data/seasons/$SEASON_ID/episodes/episode-$EP"
+
+          # Publish each episode's cover files separately; never overwrite another episode.
+          if [ -f "$SOURCE_DIR/shorts-cover.jpg" ]; then
+            mkdir -p "$PUBLIC_EPISODE_DIR"
+            cp "$SOURCE_DIR/shorts-cover.jpg" "$PUBLIC_EPISODE_DIR/shorts-cover.jpg"
+          fi
+          if [ -f "$SOURCE_DIR/youtube-thumbnail.jpg" ]; then
+            mkdir -p "$PUBLIC_EPISODE_DIR"
+            cp "$SOURCE_DIR/youtube-thumbnail.jpg" "$PUBLIC_EPISODE_DIR/youtube-thumbnail.jpg"
+            cp "$SOURCE_DIR/youtube-thumbnail.jpg" "$PUBLIC_EPISODE_DIR/thumbnail.jpg"
+          fi
+
+          git -C .. config user.name "github-actions[bot]"
+          git -C .. config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C .. add -A "horror/data/seasons/$SEASON_ID/episodes/episode-$EP" "horror/data/seasons/$SEASON_ID/production-state.json" "public/episodes/$SEASON_ID/episode-$EP"
+          git -C .. diff --cached --quiet || (git -C .. commit -m "chore(thumbnail): publish $SEASON_ID episode $EP covers" && git -C .. push)
       - name: Resolve padded episode directory
         id: episode
         env:
