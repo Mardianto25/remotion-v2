@@ -87,9 +87,9 @@ state = {
 await saveState();
 try {
   await setThumbnail();
-  console.log("Thumbnail landscape berhasil dikirim ke YouTube.");
+  console.log("Shorts cover vertikal berhasil dikirim ke YouTube (jika format diterima YouTube).");
 } catch (error) {
   console.warn("Video sudah berhasil di-upload, tetapi thumbnail gagal dikirim. Status disimpan untuk mencegah upload duplikat:", error.message);
 }
 console.log("Upload berhasil sebagai PRIVATE: " + state.url);
-console.log("Cover vertikal tersedia sebagai shorts-cover.jpg.");
+console.log("Cover yang disiapkan khusus Shorts: vertikal 9:16, tanpa branding channel.");
