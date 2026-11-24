@@ -7,7 +7,8 @@ function escapeXml(value) {
   return String(value).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&apos;" })[c]);
 }
 function selectedStyle() {
-  const value = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
+  // Shorts series thumbnails are locked to the established cinematic 3D character look.
+  const value = "cinematic-3d";
   return value === "2d-animation" || value === "2d"
     ? { visual: "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading, dramatic composition", avoid: "not photorealistic 3D, not anime, not childish cartoon" }
     : { visual: "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting, realistic depth and scale", avoid: "not flat illustration, not anime, not childish cartoon" };
@@ -68,7 +69,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   const subject = String(seo.thumbnailPrompt || story.scenes?.[0]?.visualPrompt || story.title + ". " + topic);
   const genre = String(process.env.STORY_GENRE || story.genre || story.category || "mystery").toLowerCase();
   const characterBible = Array.isArray(story.characters) ? story.characters.map(character => character.name + ": " + character.visualBible).join(" | ") : "";
-  const continuityInstruction = characterBible ? "STRICT CHARACTER CONTINUITY: depict these recurring characters exactly as described; do not redesign faces, age, hair, clothing, body proportions or ethnicity between episodes. Character reference canon: " + characterBible + ". If more than one character is shown, preserve each identity distinctly." : "";
+  const continuityInstruction = characterBible ? "STRICT 3D CHARACTER CONTINUITY FOR THIS SHORTS SERIES: render every recurring character as a polished high-end 3D animated film character, not a 2D illustration, not a photograph, and not anime. Keep each character model identical in every episode: same face shape, eye shape, skin tone, apparent age, hairstyle, hairline, body proportions, and signature clothing. Do not redesign or reinterpret them. Character reference canon: " + characterBible + ". Arya and Maya must remain visually distinct and recognizable whenever they appear together. Use consistent 3D facial proportions, realistic stylized skin shading, detailed 3D hair strands, physically based fabric, expressive but natural 3D facial animation aesthetic." : "Create a recurring cast in premium cinematic 3D animated-film style with stable, clearly defined character designs.";
   const common = [
     style.visual,
     continuityInstruction,
@@ -78,9 +79,9 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
     style.avoid + ". Respect the selected genre; no horror elements unless the genre is horror."
   ].join(" ");
   const verticalPrompt = [
-    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Generate a clean image only, absolutely no visible writing of any kind.",
+    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Entire scene and all people must be high-end cinematic 3D CGI animated characters with dimensional faces, sculpted 3D features, detailed 3D hair and physically based materials. Generate a clean image only, absolutely no visible writing of any kind.",
     common,
-    "Compose exclusively for vertical mobile Shorts viewing. Keep the face, key object, and story action large and unmistakable in the central safe area. Keep the lower 28 percent as a simple dark cinematic background reserved for a separately added title overlay."
+    "Compose exclusively for vertical mobile Shorts viewing (9:16). Show one clear emotional story moment with the recurring 3D characters large in frame; preserve the exact same character models and signature outfits defined in the character bible. Keep faces unobstructed and readable on a phone. Leave safe space near the top for the EPS badge and the lower quarter for the theme title overlay."
   ].join(" ");
   const landscapePrompt = [
     "Create a premium standard YouTube video thumbnail, landscape 16:9 composition, 1280x720 framing. Generate a clean image only, absolutely no visible writing of any kind.",
@@ -106,7 +107,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v5", format: "16:9", youtube: "youtube-thumbnail.jpg", shorts: "shorts-cover.jpg" }
+    thumbnail: { version: "episode-ctr-v6", format: "9:16", youtube: "youtube-thumbnail.jpg", shorts: "shorts-cover.jpg", visualStyle: "cinematic-3d", characterContinuity: "series-bible" }
   }, null, 2));
   return { verticalPath, landscapePath };
 }
