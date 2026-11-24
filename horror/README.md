@@ -21,6 +21,7 @@ Pembuatan Shorts tidak memanggil Gemini, FLUX, Pixabay, Pexels, atau Edge-TTS la
 ## GitHub Actions Secrets
 Atur di Settings > Secrets and variables > Actions:
 - `GEMINI_API_KEY`
+- `OPENROUTER_API_KEY` (fallback jika seluruh model Gemini gagal)
 - `CF_ACCOUNT_ID_V2`
 - `CF_API_TOKEN_V2`
 - `CF_ACCOUNT_ID_V3` (opsional, akun Cloudflare kedua)
@@ -100,7 +101,7 @@ Di tab **Actions**, workflow sudah diberi nomor di depan namanya agar tampil ber
 - Setelah Season Plan berhasil, workflow akan memperbarui pilihan dropdown pada workflow 02–07 berdasarkan seluruh `series-bible.json` yang tersimpan di repository.
 - Pada workflow 02–07, pilih **Series ID** dari dropdown, pilih **Episode Number**, lalu pilih saran **Episode Title**. Judul episode divalidasi agar cocok dengan plan dan nomor episode yang dipilih. Tidak perlu mengetik ulang judul serial.
 - Naskah dan 5–8 scene per episode sudah dibuat pada tahap Season Plan. Workflow Episode Script hanya mengambil naskah yang tersimpan; tahap produksi berikutnya menggunakan data scene yang sama tanpa menulis ulang naskah dengan AI.
-- Pemanggilan Gemini memakai urutan model utama `gemini-3.8-flash`, lalu fallback `gemini-3.5-flash`, kemudian `gemini-2.5-flash` saat terkena quota/rate limit, model tidak tersedia, atau gangguan server. Mekanisme ini dipakai oleh agent AI pada pipeline storytelling.
+- Pemanggilan AI memakai urutan `gemini-3.8-flash`, `gemini-3.5-flash`, dan `gemini-2.5-flash`. Jika seluruh model Gemini gagal, pipeline otomatis beralih ke OpenRouter dengan model default `openai/gpt-4o-mini`. Atur `OPENROUTER_API_KEY` di GitHub Actions Secrets; model dapat diubah melalui `OPENROUTER_MODEL`.
 - Jika Images gagal, jalankan ulang workflow Images dengan Series ID, episode, judul episode, dan visual style yang sama. File gambar yang sudah valid tidak akan digenerate ulang.
 - Upload membutuhkan dua run ID: run ID workflow Render Episode Video dan run ID workflow Generate Episode Thumbnail. Ambil angka run ID dari URL halaman run GitHub Actions. Artifact disimpan 30 hari.
 - Pastikan GitHub Actions memiliki izin **Read and write permissions** karena naskah, gambar, audio, thumbnail, dan status produksi disimpan ke repository. Upload YouTube tetap PRIVATE dan membutuhkan YOUTUBE_CLIENT_ID_3N, YOUTUBE_CLIENT_SECRET_3N, serta YOUTUBE_REFRESH_TOKEN_3N.
