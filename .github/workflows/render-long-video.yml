@@ -13,6 +13,9 @@ on:
         type: choice
         options: ["1","2","3","4","5","6","7","8"]
 
+concurrency:
+  group: long-video-render
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -61,7 +64,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C .. add -A "horror/data/long-video/$OUTPUT_ID" "public/long-video/$OUTPUT_ID" "horror/long-out/$OUTPUT_ID" "horror/remotion/generatedLongStory.js" || true
+          git -C .. add -A "horror/data/long-video/$OUTPUT_ID" "horror/public/long-video/$OUTPUT_ID" "horror/long-out/$OUTPUT_ID" "horror/remotion/generatedLongStory.js" || true
           git diff --cached --quiet || (git commit -m "chore(long-video): checkpoint $OUTPUT_ID render" && git push)
       - uses: actions/upload-artifact@v4
         if: always()
