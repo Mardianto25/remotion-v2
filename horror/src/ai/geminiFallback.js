@@ -11,6 +11,41 @@ function errorDetails(error) {
   };
 }
 
+
+async function withRetry(label, operation) {
+  const timeoutMs = Math.max(1000, Number(process.env.SEASON_PLAN_TIMEOUT_MS || 300000));
+  const maxRetries = Math.max(0, Math.min(5, Number(process.env.SEASON_PLAN_MAX_RETRIES || 3)));
+  const baseDelayMs = Math.max(250, Number(process.env.SEASON_PLAN_RETRY_DELAY_MS || 5000));
+  let lastError;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt += 1) {
+    let timeout;
+    try {
+      const timeoutPromise = new Promise((_, reject) => {
+        timeout = setTimeout(() => {
+          const error = new Error(label + " timeout setelah " + timeoutMs + " ms.");
+          error.retryable = true;
+          reject(error);
+        }, timeoutMs);
+      });
+      return await Promise.race([Promise.resolve().then(operation), timeoutPromise]);
+    } catch (error) {
+      lastError = error;
+      const details = errorDetails(error);
+      const retryable = error?.retryable || error?.outputValidationError || details.retryable;
+      if (!retryable || attempt >= maxRetries) throw error;
+      const delay = baseDelayMs * (2 ** attempt);
+      console.warn("[" + label + "] Percobaan " + (attempt + 1) + "/" +
+        (maxRetries + 1) + " gagal: " + details.message +
+        ". Retry dalam " + delay + " ms.");
+      await new Promise(resolve => setTimeout(resolve, delay));
+    } finally {
+      if (timeout) clearTimeout(timeout);
+    }
+  }
+  throw lastError;
+}
+
 function toOpenRouterMessages(contents) {
   if (typeof contents === "string") return [{ role: "user", content: contents }];
   if (Array.isArray(contents)) {
@@ -68,7 +103,7 @@ export async function generateOpenRouterContent(request, previousError, validate
   };
 
   console.warn("[openrouter] Semua model Gemini gagal. Menggunakan model: " + body.model);
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  const response = await withRetry("openrouter:" + body.model, () => fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       Authorization: "Bearer " + apiKey,
@@ -76,8 +111,9 @@ export async function generateOpenRouterContent(request, previousError, validate
       "HTTP-Referer": "https://github.com/Mardianto25/remotion-v2",
       "X-Title": "Ruang Cerita Indonesia"
     },
-    body: JSON.stringify(body)
-  });
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(Math.max(1000, Number(process.env.SEASON_PLAN_TIMEOUT_MS || 300000)))
+  }));
 
   const result = await response.json().catch(() => ({}));
   if (!response.ok) {
@@ -102,7 +138,7 @@ export async function generateGeminiContent(ai, request, options = {}) {
     for (const model of models) {
       try {
         console.log("[gemini] Menggunakan model: " + model);
-        const response = await ai.models.generateContent({ ...request, model });
+        const response = await withRetry("gemini:" + model, () => ai.models.generateContent({ ...request, model }));
         return await validateCandidate(response, options.validateResponse, "Gemini " + model);
       } catch (error) {
         lastError = error;
