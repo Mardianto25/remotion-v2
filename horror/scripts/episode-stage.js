@@ -140,11 +140,13 @@ if (stage === "images") {
   try {
     const [v,l] = await Promise.all([fs.stat(verticalExisting), fs.stat(landscapeExisting)]);
     const cachedMetadata = await readJson(path.join(episodeDir,"youtube-metadata.json"));
-    if (v.size > 1024 && l.size > 1024 && cachedMetadata.thumbnail?.version === "shorts-ctr-v2") {
-      console.log("[thumbnail] Shorts cover versi terbaru sudah tersedia; tidak generate ulang.");
+    const forceRegenerate = String(process.env.FORCE_THUMBNAIL_REGENERATE || "no").toLowerCase() === "yes";
+    if (v.size > 1024 && l.size > 1024 && cachedMetadata.thumbnail?.version === "shorts-ctr-v2" && !forceRegenerate) {
+      console.log("[thumbnail] Shorts cover versi terbaru sudah tersedia; tidak generate ulang (pilih regenerate_thumbnail=yes jika ingin membuat ulang).");
       await setEpisodeState("thumbnail_ready");
       process.exit(0);
     }
+    if (forceRegenerate) console.log("[thumbnail] Regenerate dipaksa oleh input workflow.");
   } catch {}
   const currentState = await readJson(statePath);
   const currentEpisode = currentState.episodes.find(item => Number(item.episodeNumber) === episodeNumber) || {};
