@@ -20,16 +20,7 @@ function buildCharacterContinuityPrompt(prompt, characters = []) {
   return source + ". RECURRING CHARACTER CANON — follow exactly, do not redesign: " + canon +
     ". Preserve each named character's same face, age, skin tone, hairstyle, body proportions and signature clothing in every scene.";
 }
-function buildVisualPrompt(prompt) {") + "\\b", "i").test(source);
-  });
-  if (!matched.length) return source;
-  const canon = matched.map(character =>
-    character.name + " (FIXED CHARACTER DESIGN): " + String(character.visualBible || "").trim()
-  ).filter(item => !item.endsWith(":")).join(". ");
-  return source + ". RECURRING CHARACTER CANON — follow exactly, do not redesign: " + canon +
-    ". Preserve each named character's same face, age, skin tone, hairstyle, body proportions and signature clothing in every scene.";
-}
-function buildVisualPrompt(prompt, characters = []) {
+function buildVisualPrompt(prompt) {
   const selectedStyle = (process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
   const styleKey = selectedStyle === "2d" ? "2d-animation" : selectedStyle;
   const style = VISUAL_STYLES[styleKey] || VISUAL_STYLES["cinematic-3d"];
