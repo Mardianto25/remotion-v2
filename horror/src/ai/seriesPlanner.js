@@ -112,17 +112,17 @@ export async function planSeason(concept, options = {}) {
       "FAIL jika episode baru melompat ke aktivitas/lokasi/waktu baru sebelum cliffhanger sebelumnya ditangani, mengabaikan karakter/objek penting, atau hanya mengulang ringkasan tanpa melanjutkan aksi.",
       "Nilai setiap transisi. JSON valid saja: {\"transitions\":[{\"fromEpisode\":1,\"toEpisode\":2,\"score\":0,\"pass\":false,\"issues\":[\"...\"],\"fix\":\"...\"}]}",
       "Transisi yang tidak jelas atau ada kontradiksi wajib pass=false. Jangan memberi PASS hanya karena karakter dan tema sama.",
-      "TRANSITIONS:\\n" + JSON.stringify(continuityInput, null, 2)
-    ].join("\\n");
+      "TRANSITIONS:\n" + JSON.stringify(continuityInput, null, 2)
+    ].join("\n");
     const auditResponse = await generateGeminiContent(ai, { contents: auditPrompt, config: { responseMimeType: "application/json" } });
     const audit = parseJson(auditResponse.text);
-    const failed = (audit.transitions || []).filter(item => item.pass !== true || Number(item.score) < 85 || (item.issues || []).length);
+    if (!Array.isArray(audit.transitions) || audit.transitions.length !== episodeCount - 1) {
+      throw new Error("Continuity audit tidak memeriksa semua transisi episode. Season plan tidak disimpan.");
+    }
+    const failed = audit.transitions.filter(item => item.pass !== true || Number(item.score) < 85 || (item.issues || []).length);
     if (failed.length) {
       const detail = failed.map(item => "Episode " + item.fromEpisode + " -> " + item.toEpisode + ": " + (item.issues || []).join("; ") + (item.fix ? " | Perbaikan: " + item.fix : "")).join(" || ");
       throw new Error("Continuity audit gagal. Season plan tidak disimpan agar cerita tidak terputus. " + detail);
-    }
-    if (!Array.isArray(audit.transitions) || audit.transitions.length !== episodeCount - 1) {
-      throw new Error("Continuity audit tidak memeriksa semua transisi episode. Season plan tidak disimpan.");
     }
     plan.continuityAudit = { passed: true, transitions: audit.transitions, reviewedAt: new Date().toISOString() };
   }
