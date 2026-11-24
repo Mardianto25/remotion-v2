@@ -31,6 +31,12 @@ on:
         default: "1"
         type: choice
         options: ["1","2","3","4","5","6","7","8","9","10","11","12"]
+      regenerate_script:
+        description: Buat ulang story.json dari Season Plan? File lama akan dicadangkan sebagai artifact.
+        required: true
+        default: "no"
+        type: choice
+        options: ["no", "yes"]
 permissions:
   contents: write
 jobs:
@@ -62,8 +68,21 @@ jobs:
           console.log('[episode] ' + String(number).padStart(2, '0') + ' - ' + expected);
           NODE
       - run: npm install
-      - name: Materialize pre-generated episode script (NO AI CALL)
-        run: node scripts/series.js episode --season "${{ inputs.series_id }}" --episode "${{ inputs.episode_number }}"
+      - name: Backup existing episode script
+        if: inputs.regenerate_script == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: episode-script-backup-${{ inputs.series_id }}-${{ inputs.episode_number }}-${{ github.run_id }}
+          path: horror/data/seasons/${{ inputs.series_id }}/episodes/episode-${{ inputs.episode_number }}/story.json
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Materialize episode script from Season Plan
+        env:
+          REGENERATE_SCRIPT: ${{ inputs.regenerate_script }}
+        run: |
+          ARGS=()
+          if [ "$REGENERATE_SCRIPT" = "yes" ]; then ARGS+=(--force); fi
+          node scripts/series.js episode --season "${{ inputs.series_id }}" --episode "${{ inputs.episode_number }}" "${ARGS[@]}"
       - name: Persist episode script
         env:
           SEASON_ID: ${{ inputs.series_id }}
