@@ -10,7 +10,7 @@ function selectedStyle() {
   const value = String(process.env.HORROR_THUMBNAIL_STYLE || process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
   return value === "2d-animation" || value === "2d"
     ? { id: "2d-animation", visual: "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading, dramatic composition", avoid: "not photorealistic 3D, not anime, not childish cartoon" }
-    : { id: "cinematic-3d", visual: "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting, realistic depth and scale", avoid: "not flat illustration, not anime, not childish cartoon" };
+    : { id: "cinematic-3d", visual: "photorealistic cinematic 3D CGI matching a serious live-action film frame, lifelike human anatomy and realistic facial proportions, natural skin texture with subtle pores, individually detailed hair, physically accurate clothing and materials, realistic environmental detail, dramatic film lighting, natural lens depth of field, grounded color grading", avoid: "absolutely no cartoon, no caricature, no stylized animation, no Pixar or Disney look, no oversized eyes or heads, no toy-like plastic skin, no anime, no illustration, no exaggerated facial proportions" };
 }
 async function generateBackground(prompt, label = "thumbnail") {
   if (!config.cloudflareAccountId || !config.cloudflareApiToken) throw new Error("CF_ACCOUNT_ID dan CF_API_TOKEN wajib tersedia untuk membuat thumbnail.");
@@ -97,8 +97,8 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   const characterBible = Array.isArray(story.characters) ? story.characters.map(character => character.name + ": " + character.visualBible).join(" | ") : "";
   const is2dStyle = style.id === "2d-animation";
   const continuityInstruction = characterBible
-    ? "STRICT " + style.id.toUpperCase() + " CHARACTER CONTINUITY FOR THIS SHORTS SERIES: render every recurring character consistently in " + (is2dStyle ? "premium cinematic 2D illustrated animation with stable linework, face proportions, color palette, hairstyle and signature outfits" : "polished high-end 3D animated-film style with stable dimensional facial features, skin shading, hair and physically based fabric") + ". Keep the same face shape, eye shape, skin tone, apparent age, hairstyle, body proportions, signature clothing and color palette in every episode. Do not redesign or reinterpret them. Character reference canon: " + characterBible + ". Keep all recurring characters visually distinct and recognizable."
-    : "Create a recurring cast in " + style.visual + " with stable, clearly defined character designs.";
+    ? "STRICT " + style.id.toUpperCase() + " CHARACTER CONTINUITY FOR THIS SHORTS SERIES: render every recurring character consistently in " + (is2dStyle ? "premium cinematic 2D illustrated animation with stable linework, face proportions, color palette, hairstyle and signature outfits" : "photorealistic cinematic 3D human character style with stable realistic facial anatomy, natural skin texture, lifelike hair and physically accurate fabric") + ". Keep the same face shape, eye shape, skin tone, apparent age, hairstyle, body proportions, signature clothing and color palette in every episode. Do not redesign or reinterpret them. Character reference canon: " + characterBible + ". Keep all recurring characters visually distinct and recognizable."
+    : "Create a recurring cast in " + style.visual + " with stable, realistic human anatomy and consistent facial identity.";
   const common = [
     style.visual,
     continuityInstruction,
@@ -110,7 +110,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   const verticalPrompt = [
     "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Entire scene and all people must follow this selected visual style: " + style.visual + ". Generate a clean image only, absolutely no visible writing of any kind.",
     common,
-    "Compose exclusively for vertical mobile Shorts viewing (9:16). Show one clear emotional story moment with the recurring 3D characters large in frame; preserve the exact same character models and signature outfits defined in the character bible. Keep faces unobstructed and readable on a phone. Leave safe space near the top for the EPS badge and the lower quarter for the theme title overlay."
+    "Compose exclusively for vertical mobile Shorts viewing (9:16). Match the serious photorealistic cinematic 3D visual language of the episode video, not a cartoon or animated family-film aesthetic. Show one clear emotional story moment with lifelike human characters; preserve realistic facial anatomy, skin texture, body proportions and signature outfits defined in the character bible. Keep faces unobstructed and readable on a phone. Leave safe space near the top for the EPS badge and the lower quarter for the theme title overlay."
   ].join(" ");
   // Shorts only: generate one portrait image. Do not spend a second API call on 16:9.
   const verticalBuffer = await generateBackground(verticalPrompt, "Shorts 9:16");
@@ -127,7 +127,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v9-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: style.id, characterContinuity: "series-bible" }
+    thumbnail: { version: "episode-ctr-v10-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: style.id, characterContinuity: "series-bible" }
   }, null, 2));
   return { verticalPath, compatibilityPath };
 }
