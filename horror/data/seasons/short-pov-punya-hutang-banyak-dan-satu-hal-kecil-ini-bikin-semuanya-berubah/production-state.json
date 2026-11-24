@@ -22,8 +22,10 @@
     {
       "episodeNumber": 2,
       "title": "Ujian Lima Ratus Porsi",
-      "status": "script_ready",
-      "sceneCount": 6
+      "status": "images_ready",
+      "sceneCount": 6,
+      "visualStyle": "cinematic-3d",
+      "imageCount": 6
     },
     {
       "episodeNumber": 3,
@@ -36,5 +38,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T10:32:15.397Z"
+  "updatedAt": "2026-11-24T10:34:03.415Z"
 }
