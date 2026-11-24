@@ -75,12 +75,22 @@ jobs:
           console.log('[episode] ' + String(number).padStart(2, '0') + ' - ' + expected);
           NODE
       - run: npm install
-      - name: Backup existing scene images
+      - name: Prepare backup of existing scene images
+        if: inputs.regenerate_images == 'yes'
+        env:
+          SERIES_ID: ${{ inputs.series_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        run: |
+          EP=$(printf "%02d" "$EPISODE_NUMBER")
+          SOURCE="data/seasons/$SERIES_ID/episodes/episode-$EP/assets"
+          mkdir -p backup/episode-images
+          if compgen -G "$SOURCE/scene-*.jpg" > /dev/null; then cp "$SOURCE"/scene-*.jpg backup/episode-images/; fi
+      - name: Save old scene images backup
         if: inputs.regenerate_images == 'yes'
         uses: actions/upload-artifact@v4
         with:
           name: episode-images-backup-${{ inputs.series_id }}-${{ inputs.episode_number }}-${{ github.run_id }}
-          path: horror/data/seasons/${{ inputs.series_id }}/episodes/episode-${{ inputs.episode_number }}/assets/scene-*.jpg
+          path: horror/backup/episode-images/
           if-no-files-found: ignore
           retention-days: 30
       - name: Generate scene images
