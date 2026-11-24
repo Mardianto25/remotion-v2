@@ -30,7 +30,7 @@ function fallbackSeo(story, topic, isLong = false) {
     hashtags.join(" ")
   ].join("\n").slice(0, 4900);
   return {
-    title, titleAlternatives: [], selectionReason: "Metadata dibuat menggunakan template lokal karena Gemini API sedang mencapai kuota.",
+    title, contentId: story.contentId || null, format: isLong ? "long" : "shorts", titleAlternatives: [], selectionReason: "Metadata dibuat menggunakan template lokal karena Gemini API sedang mencapai kuota.",
     description, hashtags, tags, thumbnailText: baseTitle.split(/\s+/).slice(0, 5).join(" ").slice(0, 48),
     thumbnailPrompt: "Cinematic " + genre + " story cover image, " + (isLong ? "landscape 16:9" : "portrait vertical 9:16") + ", visual style consistent with the selected episode style. " + (scenePrompt || title) + ". One clear focal subject, genre-appropriate atmosphere, dramatic cinematic lighting, empty space for thumbnail text, no text, no logo, no watermark."
   };
@@ -82,7 +82,7 @@ Naskah: ${String(story.narration || "").slice(0, 9000)}`;
   const description = [baseDescription, "", disclaimer, "", `Ikuti ${CHANNEL_NAME} untuk cerita dan konten menarik lainnya.`, "", hashtags.join(" ")].join("\n").slice(0, 4900);
   const thumbnailText = String(value.thumbnailText || title).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
   return {
-    title, titleAlternatives: Array.isArray(value.titleAlternatives) ? value.titleAlternatives.slice(0, 2) : [],
+    title, contentId: story.contentId || null, format: isLong ? "long" : "shorts", titleAlternatives: Array.isArray(value.titleAlternatives) ? value.titleAlternatives.slice(0, 2) : [],
     selectionReason: String(value.selectionReason || ""),
     description, hashtags, tags, thumbnailText,
     thumbnailPrompt: String(value.thumbnailPrompt || "")
