@@ -1,4 +1,4 @@
-name: 04 - SHORT 04 | Audio & Subtitles
+name: 04 - SHORT | Audio & Subtitles
 on:
   workflow_dispatch:
     inputs:
