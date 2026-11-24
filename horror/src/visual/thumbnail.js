@@ -48,12 +48,12 @@ function makeOverlay(width, height, text, episodeNumber) {
   const episodeLabel = Number.isInteger(Number(episodeNumber)) && Number(episodeNumber) > 0
     ? "EPS " + String(Number(episodeNumber)).padStart(2, "0")
     : "EPISODE";
-  const badgeWidth = isLandscape ? 190 : 210;
-  const badgeHeight = isLandscape ? 58 : 68;
-  const badgeX = isLandscape ? 48 : 52;
-  const badgeY = isLandscape ? 42 : 54;
+  const badgeWidth = isLandscape ? 250 : 300;
+  const badgeHeight = isLandscape ? 76 : 92;
+  const badgeX = isLandscape ? 56 : 64;
+  const badgeY = isLandscape ? 48 : 70;
   const badge = '<rect x="' + badgeX + '" y="' + badgeY + '" width="' + badgeWidth + '" height="' + badgeHeight + '" rx="14" fill="#b91c1c"/>' +
-    '<text x="' + (badgeX + badgeWidth / 2) + '" y="' + (badgeY + badgeHeight * 0.68) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 30 : 34) + '" font-weight="900" letter-spacing="2">' + episodeLabel + '</text>';
+    '<text x="' + (badgeX + badgeWidth / 2) + '" y="' + (badgeY + badgeHeight * 0.68) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 40 : 48) + '" font-weight="900" letter-spacing="2">' + episodeLabel + '</text>';
   const shadeStart = isLandscape ? 0.60 : 0.72;
   const shadeRectY = Math.round(height * shadeStart);
   return Buffer.from('<svg width="' + width + '" height="' + height + '" xmlns="http://www.w3.org/2000/svg">' +
@@ -67,8 +67,11 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   const style = selectedStyle();
   const subject = String(seo.thumbnailPrompt || story.scenes?.[0]?.visualPrompt || story.title + ". " + topic);
   const genre = String(process.env.STORY_GENRE || story.genre || story.category || "mystery").toLowerCase();
+  const characterBible = Array.isArray(story.characters) ? story.characters.map(character => character.name + ": " + character.visualBible).join(" | ") : "";
+  const continuityInstruction = characterBible ? "STRICT CHARACTER CONTINUITY: depict these recurring characters exactly as described; do not redesign faces, age, hair, clothing, body proportions or ethnicity between episodes. Character reference canon: " + characterBible + ". If more than one character is shown, preserve each identity distinctly." : "";
   const common = [
     style.visual,
+    continuityInstruction,
     "One unmistakable focal subject that communicates the selected story genre, dramatic close or medium shot, strong silhouette, expressive emotion, cinematic lighting, rich contrast, detailed setting.",
     "Genre: " + genre + ". Depict the most compelling and emotionally clear moment from this story: " + subject,
     "Do not render any text, letters, numbers, symbols, captions, signage, logos, channel names, watermarks, signatures, or typography anywhere in the image. No collage, no border.",
@@ -103,7 +106,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v4", format: "16:9", youtube: "youtube-thumbnail.jpg", shorts: "shorts-cover.jpg" }
+    thumbnail: { version: "episode-ctr-v5", format: "16:9", youtube: "youtube-thumbnail.jpg", shorts: "shorts-cover.jpg" }
   }, null, 2));
   return { verticalPath, landscapePath };
 }
