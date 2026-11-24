@@ -112,7 +112,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   ].join(" ");
   // Shorts only: generate one portrait image. Do not spend a second API call on 16:9.
   const verticalBuffer = await generateBackground(verticalPrompt, "Shorts 9:16");
-  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 5).join(" ").slice(0, 48);
+  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
   const episodeNumber = story.episodeNumber;
   const themeTitle = story.seriesTitle || story.themeTitle || story.theme || "";
   const verticalPath = path.join(OUT_DIR, "shorts-cover.jpg");
@@ -127,7 +127,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
     ...seo,
     thumbnail: { version: "episode-ctr-v8-shorts-portrait-ctr", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: "cinematic-3d", characterContinuity: "series-bible" }
   }, null, 2));
-  return { verticalPath, landscapePath };
+  return { verticalPath, compatibilityPath };
 }
 
 
