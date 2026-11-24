@@ -22,11 +22,12 @@
     {
       "episodeNumber": 2,
       "title": "Ujian Lima Ratus Porsi",
-      "status": "audio_ready",
+      "status": "rendered",
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
-      "durationSeconds": 39.1
+      "durationSeconds": 39.1,
+      "videoPath": "episodes/episode-02/indonesian-horror.mp4"
     },
     {
       "episodeNumber": 3,
@@ -39,5 +40,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T10:35:57.207Z"
+  "updatedAt": "2026-11-24T10:38:41.722Z"
 }
