@@ -8,8 +8,8 @@ const Caption = () => {
   const active = generatedStory.captions?.find(c => seconds >= c.start && seconds <= c.end);
   if (!active) return null;
   return <div style={{
-    position: "absolute", bottom: 54, left: 90, right: 90, textAlign: "center",
-    color: "white", fontSize: 34, fontWeight: 800, lineHeight: 1.25,
+    position: "absolute", top: "50%", left: 72, right: 72, transform: "translateY(-50%)", textAlign: "center",
+    color: "white", fontSize: 38, fontWeight: 900, lineHeight: 1.3,
     textShadow: "0 3px 12px #000, 0 0 4px #000", background: "rgba(0,0,0,.28)",
     padding: "12px 22px", borderRadius: 10
   }}>{active.text}</div>;
