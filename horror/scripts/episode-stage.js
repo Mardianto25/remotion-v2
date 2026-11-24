@@ -146,6 +146,12 @@ if (stage === "images") {
       process.exit(0);
     }
   } catch {}
+  const currentState = await readJson(statePath);
+  const currentEpisode = currentState.episodes.find(item => Number(item.episodeNumber) === episodeNumber) || {};
+  const episodeVisualStyle = String(currentEpisode.visualStyle || "cinematic-3d").toLowerCase();
+  process.env.HORROR_VISUAL_STYLE = episodeVisualStyle;
+  console.log("[thumbnail] Menggunakan visual style episode: " + episodeVisualStyle);
+
   const seoPath = path.join(episodeDir,"youtube-metadata.json");
   let seo;
   try {
