@@ -1,0 +1,37 @@
+{
+  "seasonId": "short-ia-memiliki-segalanya-kecuali-kebahagiaan",
+  "updatedAt": "2026-11-24T21:50:59.312Z",
+  "lastGeneratedEpisode": 0,
+  "canonEvents": [],
+  "characterStates": [
+    {
+      "characterId": "char-01",
+      "name": "Arga Pratama",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-02",
+      "name": "Pak Seno",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-03",
+      "name": "Lila",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-04",
+      "name": "Nara",
+      "currentState": "Belum muncul dalam episode."
+    }
+  ],
+  "unresolvedThreads": [
+    "Mengapa rumah Pak Seno terancam dijual dan pengorbanan apa yang selama ini disembunyikan?"
+  ],
+  "resolvedThreads": [],
+  "rules": [
+    "Cerita berlangsung di perkotaan Indonesia masa kini.",
+    "Konflik administrasi diselesaikan melalui dokumen dan proses hukum.",
+    "Kepercayaan pulih melalui tindakan berulang, bukan perubahan instan."
+  ]
+}
