@@ -17,7 +17,10 @@
     "stage:images": "node scripts/episode-stage.js images",
     "stage:audio": "node scripts/episode-stage.js audio",
     "stage:render": "node scripts/episode-stage.js render",
-    "stage:thumbnail": "node scripts/episode-stage.js thumbnail"
+    "stage:thumbnail": "node scripts/episode-stage.js thumbnail",
+    "generate:long": "node scripts/long-video.js",
+    "generate:long-season": "node scripts/series.js plan --format long",
+    "generate:long-episode": "node scripts/series.js episode --format long"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",

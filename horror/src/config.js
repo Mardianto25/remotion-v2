@@ -8,6 +8,12 @@ export const ASSETS_DIR = path.join(PUBLIC_DIR, "assets");
 export const AUDIO_DIR = path.join(PUBLIC_DIR, "audio");
 export const DATA_DIR = path.join(ROOT, "data");
 export const OUT_DIR = path.join(ROOT, "out");
+// Long Video memakai namespace aset/data/output sendiri agar tidak menyentuh Shorts.
+export const LONG_PUBLIC_DIR = path.join(PUBLIC_DIR, "long-video");
+export const LONG_ASSETS_DIR = path.join(LONG_PUBLIC_DIR, "assets");
+export const LONG_AUDIO_DIR = path.join(LONG_PUBLIC_DIR, "audio");
+export const LONG_DATA_DIR = path.join(DATA_DIR, "long-video");
+export const LONG_OUT_DIR = path.join(ROOT, "long-out");
 export const CHANNEL_NAME = process.env.YOUTUBE_CHANNEL_NAME || "Ruang Cerita Indonesia";
 export const config = {
   geminiApiKey: process.env.GEMINI_API_KEY,

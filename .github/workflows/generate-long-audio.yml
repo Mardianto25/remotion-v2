@@ -1,0 +1,66 @@
+name: 11 - LONG 04 | Audio & Subtitles
+on:
+  workflow_dispatch:
+    inputs:
+      output_id:
+        description: ID output; gunakan ID yang sama di semua tahap
+        required: true
+        type: string
+      duration_minutes:
+        description: Target durasi 1-8 menit
+        required: true
+        default: "5"
+        type: choice
+        options: ["1","2","3","4","5","6","7","8"]
+
+permissions:
+  contents: write
+jobs:
+  audio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate stage script syntax
+        run: node --check scripts/long-video-stage.js
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          npm install
+      - name: Install Edge TTS
+        run: python -m pip install --upgrade edge-tts
+      - name: Generate narration and subtitles (reuse existing files)
+        env:
+          EDGE_TTS_VOICE: id-ID-ArdiNeural
+          EDGE_TTS_RATE: "-8%"
+          EDGE_TTS_PITCH: "-5Hz"
+          PYTHON_BIN: python
+          OUTPUT_ID: ${{ inputs.output_id }}
+          DURATION: ${{ inputs.duration_minutes }}
+        run: node scripts/long-video-stage.js audio --output-id "$OUTPUT_ID" --duration "$DURATION"
+      - name: Persist Long Video checkpoint
+        if: always()
+        env:
+          OUTPUT_ID: ${{ inputs.output_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C .. add -A "horror/data/long-video/$OUTPUT_ID" "horror/public/long-video/$OUTPUT_ID" "horror/long-out/$OUTPUT_ID" "horror/remotion/generatedLongStory.js" || true
+          git diff --cached --quiet || (git commit -m "chore(long-video): checkpoint $OUTPUT_ID audio" && git push)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: long-video-audio-${{ inputs.output_id }}-${{ github.run_id }}
+          path: |
+            horror/data/long-video/${{ inputs.output_id }}/
+            horror/public/long-video/${{ inputs.output_id }}/
+            horror/long-out/${{ inputs.output_id }}/
+            horror/remotion/generatedLongStory.js
+          if-no-files-found: ignore
+          retention-days: 30

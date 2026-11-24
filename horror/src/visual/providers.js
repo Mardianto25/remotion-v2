@@ -20,7 +20,7 @@ function buildCharacterContinuityPrompt(prompt, characters = []) {
   return source + ". RECURRING CHARACTER CANON — follow exactly, do not redesign: " + canon +
     ". Preserve each named character's same face, age, skin tone, hairstyle, body proportions and signature clothing in every scene.";
 }
-function buildVisualPrompt(prompt) {
+function buildVisualPrompt(prompt, aspectRatio = "9:16") {
   const selectedStyle = (process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
   const styleKey = selectedStyle === "2d" ? "2d-animation" : selectedStyle;
   const style = VISUAL_STYLES[styleKey] || VISUAL_STYLES["cinematic-3d"];
@@ -37,7 +37,8 @@ function buildVisualPrompt(prompt) {
     education: "clear informative visual storytelling, accurate and approachable setting"
   };
   const mood = moodByGenre[genre] || "genre-appropriate cinematic visual storytelling";
-  const suffix = ". " + style + ". " + mood + ". Portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark.";
+  const orientation = aspectRatio === "16:9" ? "Landscape horizontal 16:9 cinematic composition for standard YouTube video" : "Portrait vertical 9:16 composition for mobile video";
+  const suffix = ". " + style + ". " + mood + ". " + orientation + ", no text, no logo, no watermark.";
   const base = String(prompt || "A cinematic scene with a clear central subject")
     .replace(/\\b(photorealistic|cinematic)\\b/gi, "")
     .trim();
@@ -60,14 +61,14 @@ async function saveCloudflareImage(response, destination) {
   }
 }
 
-export async function cloudflareImage(prompt, destination) {
+export async function cloudflareImage(prompt, destination, aspectRatio = "9:16") {
   if (!config.cloudflareAccountId || !config.cloudflareApiToken) throw new Error("Cloudflare credentials belum tersedia.");
   const endpoint = "https://api.cloudflare.com/client/v4/accounts/" + config.cloudflareAccountId + "/ai/run/" + config.cloudflareModel;
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { Authorization: "Bearer " + config.cloudflareApiToken, "Content-Type": "application/json" },
     body: JSON.stringify({
-      prompt: buildVisualPrompt(prompt),
+      prompt: buildVisualPrompt(prompt, aspectRatio),
       steps: 4
     })
   });
@@ -75,11 +76,11 @@ export async function cloudflareImage(prompt, destination) {
   return { provider: "cloudflare-workers-ai", model: config.cloudflareModel, visualStyle: ["2d", "2d-animation"].includes((process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase()) ? "2d-animation" : "cinematic-3d", genre: process.env.STORY_GENRE || "mystery", sourceUrl: null, fileName: path.basename(destination) };
 }
 
-export async function pixabayImage(query, destination) {
+export async function pixabayImage(query, destination, aspectRatio = "9:16") {
   if (!config.pixabayApiKey) throw new Error("PIXABAY_API_KEY belum tersedia.");
   const params = new URLSearchParams({
     key: config.pixabayApiKey, q: query, image_type: "photo",
-    orientation: "vertical", safesearch: "true", per_page: "30"
+    orientation: aspectRatio === "16:9" ? "horizontal" : "vertical", safesearch: "true", per_page: "30"
   });
   const response = await fetch("https://pixabay.com/api/?" + params);
   if (!response.ok) throw new Error("Pixabay HTTP " + response.status);
@@ -92,9 +93,9 @@ export async function pixabayImage(query, destination) {
   return { provider: "pixabay", sourceUrl: item.pageURL, creator: item.user || null, fileName: path.basename(destination) };
 }
 
-export async function pexelsImage(query, destination) {
+export async function pexelsImage(query, destination, aspectRatio = "9:16") {
   if (!config.pexelsApiKey) throw new Error("Pexels nonaktif: PEXELS_API_KEY belum tersedia.");
-  const params = new URLSearchParams({ query, orientation: "portrait", per_page: "20" });
+  const params = new URLSearchParams({ query, orientation: aspectRatio === "16:9" ? "landscape" : "portrait", per_page: "20" });
   const response = await fetch("https://api.pexels.com/v1/search?" + params, {
     headers: { Authorization: config.pexelsApiKey }
   });
@@ -108,19 +109,20 @@ export async function pexelsImage(query, destination) {
   return { provider: "pexels", sourceUrl: item.url, creator: item.photographer || null, fileName: path.basename(destination) };
 }
 
-export async function getSceneImage(scene, index, destinationDir = ASSETS_DIR, characters = []) {
+export async function getSceneImage(scene, index, destinationDir = ASSETS_DIR, characters = [], options = {}) {
+  const aspectRatio = options.aspectRatio === "16:9" ? "16:9" : "9:16";
   await fs.mkdir(destinationDir, { recursive: true });
   const stem = "scene-" + String(index + 1).padStart(3, "0");
   const prompt = buildCharacterContinuityPrompt(scene.visualPrompt || scene.narration || "Misty Indonesian forest at night", characters);
   const query = scene.searchQuery || "Indonesian misty forest cinematic";
   const strictStyle = (process.env.HORROR_STRICT_VISUAL_STYLE || "").toLowerCase() === "true";
-  const cloudflareProvider = () => cloudflareImage(prompt, path.join(destinationDir, stem + ".jpg"));
+  const cloudflareProvider = () => cloudflareImage(prompt, path.join(destinationDir, stem + ".jpg"), aspectRatio);
   const providers = strictStyle
     ? [cloudflareProvider]
     : [
         cloudflareProvider,
-        () => pixabayImage(query, path.join(destinationDir, stem + ".jpg")),
-        () => pexelsImage(query, path.join(destinationDir, stem + "-pexels.jpg"))
+        () => pixabayImage(query, path.join(destinationDir, stem + ".jpg"), aspectRatio),
+        () => pexelsImage(query, path.join(destinationDir, stem + "-pexels.jpg"), aspectRatio)
       ];
   const errors = [];
   for (const provider of providers) {

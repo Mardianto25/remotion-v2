@@ -1,4 +1,4 @@
-name: 02 - Episode Script | Ambil Naskah Tanpa AI
+name: 02 - SHORT | Episode Script
 on:
   workflow_dispatch:
     inputs:

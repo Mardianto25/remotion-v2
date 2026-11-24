@@ -1,4 +1,4 @@
-name: 03 - Episode Images | Generate & Resume
+name: 03 - SHORT | Images
 on:
   workflow_dispatch:
     inputs:

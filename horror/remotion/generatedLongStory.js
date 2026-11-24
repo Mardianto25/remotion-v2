@@ -1,0 +1,1 @@
+export const generatedLongStory = { durationInFrames: 9000, fps: 30, scenes: [], captions: [] };

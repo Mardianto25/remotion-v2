@@ -1,4 +1,4 @@
-name: 05 - Render Episode Video
+name: 05 - SHORT | Render 9:16
 on:
   workflow_dispatch:
     inputs:

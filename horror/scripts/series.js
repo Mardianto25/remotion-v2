@@ -13,7 +13,9 @@ const arg = (name, fallback = "") => {
 const flag = name => args.includes(name);
 const seasonId = arg("--season", "season-01").replace(/[^a-zA-Z0-9_-]/g, "");
 if (!seasonId) throw new Error("Season ID tidak valid.");
-const seasonDir = path.join(DATA_DIR, "seasons", seasonId);
+const format = arg("--format", "shorts") === "long" ? "long" : "shorts";
+const seasonRoot = format === "long" ? "long-seasons" : "seasons";
+const seasonDir = path.join(DATA_DIR, seasonRoot, seasonId);
 const episodesDir = path.join(seasonDir, "episodes");
 await fs.mkdir(episodesDir, { recursive: true });
 const writeJson = (file, value) => fs.writeFile(file, JSON.stringify(value, null, 2) + "\n", "utf8");
@@ -24,6 +26,7 @@ if (command === "plan") {
   const concept = arg("--concept");
   const seriesTitle = arg("--title");
   const episodeCount = Number(arg("--episodes", "8"));
+  const durationMinutes = Number(arg("--duration", "5"));
   if (![4, 6, 8, 10, 12].includes(episodeCount)) throw new Error("--episodes harus 4, 6, 8, 10, atau 12.");
   if (!concept) throw new Error('Konsep season wajib diisi. Contoh: npm run generate:season -- --season season-01 --concept "POV: Terjebak di sekolah saat kiamat zombie"');
   const biblePath = path.join(seasonDir, "series-bible.json");
@@ -36,13 +39,13 @@ if (command === "plan") {
     if (error.code !== "ENOENT") throw error;
   }
   console.log("[season] Membuat series bible, " + episodeCount + " naskah final, dan seluruh scene...");
-  const bible = await planSeason(concept, { seasonId, genre, seriesTitle, episodeCount });
+  const bible = await planSeason(concept, { seasonId, genre, seriesTitle, episodeCount, format, durationMinutes });
   await writeJson(biblePath, bible);
   await writeJson(path.join(seasonDir, "characters.json"), bible.characters);
   await writeJson(path.join(seasonDir, "world-rules.json"), bible.worldRules);
   await writeJson(path.join(seasonDir, "continuity-ledger.json"), createInitialLedger(bible));
   await writeJson(path.join(seasonDir, "production-state.json"), {
-    seasonId, genre, episodeCount: bible.episodes.length, status: "planned", episodes: bible.episodes.map(item => ({
+    seasonId, genre, format, durationMinutes: format === "long" ? durationMinutes : null, episodeCount: bible.episodes.length, status: "planned", episodes: bible.episodes.map(item => ({
       episodeNumber: item.episodeNumber, title: item.title, status: "not_started"
     })), updatedAt: new Date().toISOString()
   });
@@ -59,8 +62,8 @@ if (command === "episode") {
   const state = await readJson(statePath);
   const episodePlan = bible.episodes.find(item => Number(item.episodeNumber) === episodeNumber);
   if (!episodePlan) throw new Error("Episode tidak ditemukan di series bible.");
-  if (!episodePlan.narration || !Array.isArray(episodePlan.scenes) || episodePlan.scenes.length < 5 || episodePlan.scenes.length > 8) {
-    throw new Error("Season plan lama/tidak lengkap: episode ini belum memiliki naskah final dan 5-8 scene. Buat ulang season plan agar semua naskah dan scene disiapkan sejak awal.");
+  if (!episodePlan.narration || !Array.isArray(episodePlan.scenes) || episodePlan.scenes.length < (format === "long" ? Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) : 5) || episodePlan.scenes.length > (format === "long" ? Math.min(32, Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) + 2) : 8)) {
+    throw new Error("Season plan lama/tidak lengkap: episode ini belum memiliki naskah final dan scene sesuai format. Buat ulang season plan agar semua naskah dan scene disiapkan sejak awal.");
   }
   const episodeDir = path.join(episodesDir, "episode-" + String(episodeNumber).padStart(2, "0"));
   await fs.mkdir(episodeDir, { recursive: true });
@@ -68,9 +71,9 @@ if (command === "episode") {
   try {
     const existingStory = await readJson(storyPath);
     if (!flag("--force")) {
-      await fs.mkdir(DATA_DIR, { recursive: true });
-      await writeJson(path.join(DATA_DIR, "story.json"), existingStory);
-      await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath });
+      if (format !== "long") await fs.mkdir(DATA_DIR, { recursive: true });
+      if (format !== "long") await writeJson(path.join(DATA_DIR, "story.json"), existingStory);
+      if (format !== "long") await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath, format });
       state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber ? { ...item, title: existingStory.title, status: "script_ready", sceneCount: existingStory.scenes.length } : item);
       state.updatedAt = new Date().toISOString();
       await writeJson(statePath, state);
@@ -105,12 +108,12 @@ if (command === "episode") {
     cliffhanger: String(episodePlan.cliffhanger || ""),
     storySummary: String(episodePlan.storySummary || episodePlan.logline || ""),
     narration, wordCount: narration.split(/\s+/).filter(Boolean).length,
-    scenes, continuityUpdate: episodePlan.continuityUpdate || { canonEvents: [], characterStates: [], unresolvedThreads: [], resolvedThreads: [] }
+    scenes, characters: bible.characters || [], continuityUpdate: episodePlan.continuityUpdate || { canonEvents: [], characterStates: [], unresolvedThreads: [], resolvedThreads: [] }
   };
   await writeJson(storyPath, story);
   await fs.mkdir(DATA_DIR, { recursive: true });
-  await writeJson(path.join(DATA_DIR, "story.json"), story);
-  await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath });
+  if (format !== "long") await writeJson(path.join(DATA_DIR, "story.json"), story);
+  if (format !== "long") await writeJson(path.join(DATA_DIR, "active-episode.json"), { seasonId, episodeNumber, episodeDir, storyPath, format });
   state.episodes = state.episodes.map(item => item.episodeNumber === episodeNumber
     ? { ...item, title: story.title, status: "script_ready", sceneCount: scenes.length }
     : item);

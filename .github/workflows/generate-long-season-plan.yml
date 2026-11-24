@@ -1,0 +1,72 @@
+name: 08 - LONG 01 | Season Plan
+on:
+  workflow_dispatch:
+    inputs:
+      series_title:
+        description: Judul serial Long Video
+        required: true
+        type: string
+      concept:
+        description: Konsep utama serial
+        required: true
+        type: string
+      episode_count:
+        description: Jumlah episode
+        required: true
+        default: "4"
+        type: choice
+        options: ["4", "6", "8", "10", "12"]
+      duration_minutes:
+        description: Target durasi setiap episode (menit)
+        required: true
+        default: "5"
+        type: choice
+        options: ["1", "2", "3", "4", "5", "6", "7", "8"]
+      genre:
+        description: Genre cerita
+        required: true
+        default: mystery
+        type: choice
+        options: [mystery, horror, islamic, inspirational, drama, history, adventure, fantasy, education]
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Resolve series ID
+        id: id
+        env:
+          TITLE: ${{ inputs.series_title }}
+        run: |
+          node -e 'const s=(process.env.TITLE||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,75); if(!s) throw Error("Judul tidak valid"); require("fs").appendFileSync(process.env.GITHUB_OUTPUT,"series_id=long-"+s+"\n")'
+      - name: Generate complete Long Video season
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-3.8-flash
+          GEMINI_FALLBACK_MODELS: gemini-3.5-flash,gemini-2.5-flash
+        run: |
+          node scripts/series.js plan --format long --season "${{ steps.id.outputs.series_id }}" --episodes "${{ inputs.episode_count }}" --duration "${{ inputs.duration_minutes }}" --genre "${{ inputs.genre }}" --title "${{ inputs.series_title }}" --concept "${{ inputs.concept }}"
+      - name: Save Long Video season plan
+        env:
+          SERIES_ID: ${{ steps.id.outputs.series_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "data/long-seasons/$SERIES_ID"
+          git diff --cached --quiet || (git commit -m "chore(long-video): save season $SERIES_ID" && git push)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: long-season-plan-${{ steps.id.outputs.series_id }}
+          path: horror/data/long-seasons/${{ steps.id.outputs.series_id }}/
+          retention-days: 30

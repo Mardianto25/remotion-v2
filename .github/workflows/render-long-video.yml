@@ -1,0 +1,79 @@
+name: 13 - LONG 06 | Render 16:9
+on:
+  workflow_dispatch:
+    inputs:
+      output_id:
+        description: ID output; gunakan ID yang sama di semua tahap
+        required: true
+        type: string
+      duration_minutes:
+        description: Target durasi 1-8 menit
+        required: true
+        default: "5"
+        type: choice
+        options: ["1","2","3","4","5","6","7","8"]
+
+concurrency:
+  group: long-video-render
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: horror
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate stage script syntax
+        run: node --check scripts/long-video-stage.js
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          npm install
+      - name: Ensure Remotion browser
+        run: npx remotion browser ensure
+      - name: Validate Remotion composition
+        run: npx remotion compositions remotion/index.jsx
+      - name: Render landscape 16:9 video
+        env:
+          OUTPUT_ID: ${{ inputs.output_id }}
+          DURATION: ${{ inputs.duration_minutes }}
+        run: node scripts/long-video-stage.js render --output-id "$OUTPUT_ID" --duration "$DURATION"
+      - name: Validate video dimensions and duration
+        env:
+          OUTPUT_ID: ${{ inputs.output_id }}
+        run: |
+          VIDEO="long-out/$OUTPUT_ID/long-video.mp4"
+          test -s "$VIDEO"
+          W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=s=x:p=0 "$VIDEO")
+          H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=s=x:p=0 "$VIDEO")
+          D=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$VIDEO")
+          test "$W" -eq 1920 && test "$H" -eq 1080
+          awk -v d="$D" 'BEGIN { if (d > 510.5) exit 1 }'
+          echo "Output valid: ${W}x${H}, ${D}s"
+      - name: Persist Long Video checkpoint
+        if: always()
+        env:
+          OUTPUT_ID: ${{ inputs.output_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C .. add -A "horror/data/long-video/$OUTPUT_ID" "horror/public/long-video/$OUTPUT_ID" "horror/long-out/$OUTPUT_ID" "horror/remotion/generatedLongStory.js" || true
+          git diff --cached --quiet || (git commit -m "chore(long-video): checkpoint $OUTPUT_ID render" && git push)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: long-video-render-${{ inputs.output_id }}-${{ github.run_id }}
+          path: |
+            horror/data/long-video/${{ inputs.output_id }}/
+            horror/public/long-video/${{ inputs.output_id }}/
+            horror/long-out/${{ inputs.output_id }}/
+            horror/remotion/generatedLongStory.js
+          if-no-files-found: ignore
+          retention-days: 30

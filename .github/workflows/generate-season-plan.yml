@@ -1,4 +1,4 @@
-name: 01 - Season Plan | Tema, Naskah & Semua Scene
+name: 01 - SHORT | Season Plan
 on:
   workflow_dispatch:
     inputs:
@@ -69,7 +69,7 @@ jobs:
             .slice(0, 80)
             .replace(/-+$/g, '');
           if (!slug) throw new Error('Judul serial tidak valid untuk dibuat menjadi Series ID.');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, 'season_id=' + slug + '\n');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, 'season_id=short-' + slug + '\n');
           NODE
       - run: npm install
       - name: Generate complete season bible, scripts and scenes

@@ -1,4 +1,4 @@
-name: 06 - Thumbnail & SEO
+name: 06 - SHORT | Thumbnail & SEO
 on:
   workflow_dispatch:
     inputs:
