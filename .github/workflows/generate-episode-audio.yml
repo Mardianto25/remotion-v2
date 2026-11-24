@@ -1,4 +1,4 @@
-name: 04 - Episode Audio | Narasi & Subtitle
+name: 04 - SHORT 04 | Audio & Subtitles
 on:
   workflow_dispatch:
     inputs:
