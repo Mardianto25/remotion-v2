@@ -25,6 +25,12 @@ on:
         default: cinematic-3d
         type: choice
         options: [cinematic-3d, 2d-animation]
+      cloudflare_account:
+        description: Pilih akun Cloudflare (pastikan secret profile sudah diatur)
+        required: true
+        default: v2
+        type: choice
+        options: [v2, v3, v4]
       regenerate_images:
         description: Generate ulang semua gambar? Gambar lama dicadangkan sebagai artifact.
         required: true
@@ -82,10 +88,34 @@ jobs:
           path: horror/backup/episode-images/
           if-no-files-found: ignore
           retention-days: 30
+      - name: Select Cloudflare account and token
+        env:
+          CF_ACCOUNT_PROFILE: ${{ inputs.cloudflare_account }}
+          CF_ACCOUNT_ID_V2: ${{ secrets.CF_ACCOUNT_ID_V2 }}
+          CF_API_TOKEN_V2: ${{ secrets.CF_API_TOKEN_V2 }}
+          CF_ACCOUNT_ID_V3: ${{ secrets.CF_ACCOUNT_ID_V3 }}
+          CF_API_TOKEN_V3: ${{ secrets.CF_API_TOKEN_V3 }}
+          CF_ACCOUNT_ID_V4: ${{ secrets.CF_ACCOUNT_ID_V4 }}
+          CF_API_TOKEN_V4: ${{ secrets.CF_API_TOKEN_V4 }}
+        run: |
+          case "$CF_ACCOUNT_PROFILE" in
+            v2) ACCOUNT_ID="$CF_ACCOUNT_ID_V2"; API_TOKEN="$CF_API_TOKEN_V2" ;;
+            v3) ACCOUNT_ID="$CF_ACCOUNT_ID_V3"; API_TOKEN="$CF_API_TOKEN_V3" ;;
+            v4) ACCOUNT_ID="$CF_ACCOUNT_ID_V4"; API_TOKEN="$CF_API_TOKEN_V4" ;;
+            *) echo "Cloudflare account profile tidak dikenal: $CF_ACCOUNT_PROFILE"; exit 1 ;;
+          esac
+          if [ -z "$ACCOUNT_ID" ] || [ -z "$API_TOKEN" ]; then
+            echo "Secret Cloudflare untuk profile $CF_ACCOUNT_PROFILE belum lengkap."
+            exit 1
+          fi
+          echo "::add-mask::$ACCOUNT_ID"
+          echo "::add-mask::$API_TOKEN"
+          {
+            echo "CF_ACCOUNT_ID=$ACCOUNT_ID"
+            echo "CF_API_TOKEN=$API_TOKEN"
+          } >> "$GITHUB_ENV"
       - name: Generate scene images
         env:
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
           CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
           HORROR_VISUAL_STYLE: ${{ inputs.visual_style }}
           HORROR_STRICT_VISUAL_STYLE: "true"
