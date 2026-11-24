@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       output_id:
-        description: ID output; gunakan ID yang sama di semua tahap
+        description: ID unik wajib diawali long-; gunakan ID yang sama di semua tahap
         required: true
         type: string
       duration_minutes:
