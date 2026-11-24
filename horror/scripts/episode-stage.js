@@ -22,6 +22,8 @@ const storyPath = path.join(episodeDir, "story.json");
 const bible = await readJson(path.join(DATA_DIR, "seasons", seasonId, "series-bible.json"));
 if (!Array.isArray(bible.episodes) || !bible.episodes.some(item => Number(item.episodeNumber) === episodeNumber)) throw new Error("Episode " + episodeNumber + " tidak ada dalam Season Plan. Serial ini memiliki " + (bible.episodes || []).length + " episode.");
 const story = await readJson(storyPath);
+story.contentId = "short-" + seasonId + "-episode-" + String(episodeNumber).padStart(2, "0");
+story.format = "shorts";
 story.characters = Array.isArray(bible.characters) ? bible.characters : [];
 const seasonDir = path.dirname(path.dirname(episodeDir));
 const statePath = path.join(seasonDir, "production-state.json");
