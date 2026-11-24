@@ -1,4 +1,4 @@
-name: Long Video - 04 Audio & Subtitles
+name: 11 - LONG 04 | Audio & Subtitles
 on:
   workflow_dispatch:
     inputs:
