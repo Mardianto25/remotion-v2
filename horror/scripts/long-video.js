@@ -41,8 +41,9 @@ function durationOf(file) {
   });
 }
 function parseVtt(vtt) {
-  return vtt.replace(/\\r/g, "").split(/\\n\\n+/).flatMap(block => {
-    const lines = block.split("\\n"); const line = lines.find(value => value.includes("-->"));
+  return vtt.replace(/\r/g, "").split(/\n\n+/).flatMap(block => {
+    const lines = block.split("\n");
+    const line = lines.find(value => value.includes("-->"));
     if (!line) return [];
     const [start, end] = line.split("-->").map(value => value.trim().split(" ")[0]);
     const seconds = value => { const p = value.replace(",", ".").split(":").map(Number); return p.length === 3 ? p[0]*3600+p[1]*60+p[2] : p[0]*60+p[1]; };
@@ -50,45 +51,3 @@ function parseVtt(vtt) {
     return caption ? [{ start: seconds(start), end: seconds(end), text: caption }] : [];
   });
 }
-console.log("[long-video] Mode: " + (storyFile ? "Series/Episode" : "Single Video") + " | Target: " + durationMinutes + " menit");
-const story = storyFile ? await readJson(path.resolve(ROOT, storyFile)) : await generateStory(topic, { durationMinutes });
-if (!story.narration || !Array.isArray(story.scenes) || !story.scenes.length) throw new Error("Naskah tidak memiliki narration/scenes.");
-process.env.STORY_GENRE = String(story.genre || story.category || process.env.STORY_GENRE || "mystery");
-await writeJson(path.join(dataDir, "story.json"), story);
-const seo = await generateSeo(story, topic || story.title);
-await writeJson(path.join(dataDir, "youtube-metadata.json"), seo);
-const audioPath = path.join(audioDir, "narration.mp3");
-const subtitlePath = path.join(audioDir, "narration.vtt");
-await generateNarration(story.narration, audioPath, subtitlePath);
-const duration = await durationOf(audioPath);
-if (duration > 510) throw new Error("Durasi audio " + duration.toFixed(1) + " detik melebihi batas Long Video 8 menit 30 detik. Audio tidak dipotong otomatis.");
-const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
-if (!captions.length) throw new Error("Subtitle VTT kosong/tidak valid.");
-const assets = [];
-for (let i = 0; i < story.scenes.length; i++) {
-  console.log("[long-video] Generate landscape scene " + (i+1) + "/" + story.scenes.length);
-  assets.push(await getSceneImage(story.scenes[i], i, assetsDir, story.characters || [], { aspectRatio: "16:9" }));
-}
-const thumbnail = await generateLongThumbnail(story, seo, topic || story.title, outDir);
-const fps = 30, totalFrames = Math.ceil(duration * fps);
-const weights = story.scenes.map(scene => (String(scene.narration || "").match(/\\S+/g) || []).length);
-const totalWords = weights.reduce((a,b) => a+b, 0) || 1;
-let cursor = 0;
-const scenes = story.scenes.map((scene, index) => {
-  const startFrame = cursor;
-  const frames = index === story.scenes.length - 1 ? totalFrames - cursor : Math.max(1, Math.round(totalFrames * weights[index] / totalWords));
-  cursor += frames;
-  return { ...scene, fileName: "scene-" + String(index+1).padStart(3,"0") + ".jpg", startFrame, durationInFrames: frames };
-});
-const manifest = { assetPrefix, title: story.title, description: story.description || "", disclaimer: story.disclaimer || "", durationInFrames: totalFrames, fps, scenes, captions };
-await fs.writeFile(path.join(ROOT, "remotion", "generatedLongStory.js"), "export const generatedLongStory = " + JSON.stringify(manifest, null, 2) + ";\\n");
-const videoPath = path.join(outDir, "long-video.mp4");
-await run("npx", ["remotion", "render", "remotion/index.jsx", "LongVideo", videoPath, "--codec=h264", "--crf=22"]);
-const renderedDuration = await durationOf(videoPath);
-if (renderedDuration > 510.5) throw new Error("Video render melebihi toleransi 8 menit 30 detik.");
-await writeJson(path.join(dataDir, "production-manifest.json"), {
-  mode: storyFile ? "series-episode" : "single-video", targetDurationMinutes: durationMinutes,
-  durationSeconds: Number(renderedDuration.toFixed(2)), aspectRatio: "16:9", visualStyle: process.env.HORROR_VISUAL_STYLE || "cinematic-3d",
-  video: videoPath, thumbnail: thumbnail.landscapePath, sceneCount: scenes.length
-});
-console.log("[long-video] Selesai: " + videoPath + " (" + renderedDuration.toFixed(1) + " detik, 1920x1080).");
