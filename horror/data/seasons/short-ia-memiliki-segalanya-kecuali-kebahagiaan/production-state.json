@@ -41,7 +41,7 @@
     {
       "episodeNumber": 2,
       "title": "Janji yang Selalu Ditunda",
-      "status": "thumbnail_ready",
+      "status": "uploaded",
       "wordCount": 169,
       "estimatedDurationSeconds": 78,
       "sceneCount": 6,
@@ -50,7 +50,10 @@
       "durationSeconds": 82.9,
       "productionStandard": "shorts-minimum-60s-v2",
       "videoPath": "episodes/episode-02/indonesian-horror.mp4",
-      "thumbnailVisualStyle": "cinematic-3d"
+      "thumbnailVisualStyle": "cinematic-3d",
+      "youtubeVideoId": "5xZQtrmKu00",
+      "youtubeUrl": "https://www.youtube.com/shorts/5xZQtrmKu00",
+      "youtubePrivacyStatus": "private"
     },
     {
       "episodeNumber": 3,
@@ -95,5 +98,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-24T23:00:59.292Z"
+  "updatedAt": "2026-11-24T23:03:08.776Z"
 }
