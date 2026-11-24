@@ -1,0 +1,154 @@
+{
+  "episodeNumber": 2,
+  "seriesTitle": "Ia Memiliki Segalanya, Kecuali Kebahagiaan",
+  "title": "Janji yang Selalu Ditunda",
+  "description": "Episode 2 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
+  "genre": "inspirational",
+  "category": "inspirational",
+  "disclaimer": "Cerita fiksi inspiratif. Kemiripan dengan tokoh atau peristiwa nyata tidak disengaja.",
+  "hook": "Arga membaca pesan itu berkali-kali, tetapi tetap berangkat ke kantor. Pertemuan investor dianggapnya lebih mendesak. Ia meyakinkan diri bahwa urusan ayah bisa diselesaikan setelah target perusahaan tercapai.",
+  "mainConflict": "Arga harus memilih antara ambisi pribadi dan tanggung jawab terhadap keluarga.",
+  "revelation": "Di kantor, investor meminta keputusan final. Arga memilih perjalanan dinas dan meminta asistennya mengatur jadwal. Undangan Nara tertinggal di meja, sementara anak itu menunggu jawaban yang tidak kunjung pasti.",
+  "cliffhanger": "Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
+  "endingType": "cliffhanger",
+  "nextEpisodeQuestion": "Apa yang akan dilakukan Arga setelah kejadian ini?",
+  "continuityFromPrevious": {
+    "previousEpisodeEnding": "Pak Seno terjatuh dan dibawa ke klinik; panggilan Lila kepada Arga tidak terjawab.",
+    "openingContinuation": "Pagi berikutnya Arga masih menerima kabar tersebut dan harus memilih antara rapat investor atau keluarga.",
+    "timeAndLocation": "Pagi di rumah Arga, lalu kantor dan klinik pada hari yang sama.",
+    "characterStatesAtOpening": [
+      "Arga gelisah tetapi mengutamakan pekerjaan.",
+      "Lila menunggu kabar kondisi Pak Seno.",
+      "Nara berharap ayahnya datang."
+    ],
+    "carriedElements": [
+      "Pesan tentang kondisi Pak Seno",
+      "Undangan ulang tahun Nara"
+    ],
+    "unresolvedQuestion": "Apakah Arga akan menemui ayahnya?"
+  },
+  "episodePayoff": "Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
+  "seasonTeaser": "",
+  "storySummary": "Arga membaca pesan itu berkali-kali, tetapi tetap berangkat ke kantor. Pertemuan investor dianggapnya lebih mendesak. Ia meyakinkan diri bahwa urusan ayah bisa diselesaikan setelah target perusahaan tercapai. Nara menunjukkan foto lama dirinya bersama Pak Seno. Ia bertanya mengapa ayah tidak pernah bercerita tentang masa kecil. Arga menjawab singkat bahwa banyak hal sudah berubah. Lila mengaku masih menghubungi Pak Seno untuk memastikan lelaki tua itu makan dan minum obat. Arga merasa dikhianati. Lila menjelaskan bahwa ia hanya tidak ingin Nara kehilangan kesempatan mengenal kakeknya. Nara memberikan undangan ulang tahun sederhana untuk Pak Seno. Ia berharap seluruh keluarga datang. Arga berjanji hadir, tetapi tidak berani menentukan waktu. Lila tahu janji itu mungkin kembali ditunda. Di kantor, investor meminta keputusan final. Arga memilih perjalanan dinas dan meminta asistennya mengatur jadwal. Undangan Nara tertinggal di meja, sementara anak itu menunggu jawaban yang tidak kunjung pasti. Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
+  "narration": "Arga membaca pesan itu berkali-kali, tetapi tetap berangkat ke kantor. Pertemuan investor dianggapnya lebih mendesak. Ia meyakinkan diri bahwa urusan ayah bisa diselesaikan setelah target perusahaan tercapai. Nara menunjukkan foto lama dirinya bersama Pak Seno. Ia bertanya mengapa ayah tidak pernah bercerita tentang masa kecil. Arga menjawab singkat bahwa banyak hal sudah berubah. Lila mengaku masih menghubungi Pak Seno untuk memastikan lelaki tua itu makan dan minum obat. Arga merasa dikhianati. Lila menjelaskan bahwa ia hanya tidak ingin Nara kehilangan kesempatan mengenal kakeknya. Nara memberikan undangan ulang tahun sederhana untuk Pak Seno. Ia berharap seluruh keluarga datang. Arga berjanji hadir, tetapi tidak berani menentukan waktu. Lila tahu janji itu mungkin kembali ditunda. Di kantor, investor meminta keputusan final. Arga memilih perjalanan dinas dan meminta asistennya mengatur jadwal. Undangan Nara tertinggal di meja, sementara anak itu menunggu jawaban yang tidak kunjung pasti. Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
+  "wordCount": 169,
+  "targetDurationSeconds": {
+    "min": 60,
+    "estimated": 78
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "heading": "Pembuka",
+      "narration": "Arga membaca pesan itu berkali-kali, tetapi tetap berangkat ke kantor. Pertemuan investor dianggapnya lebih mendesak. Ia meyakinkan diri bahwa urusan ayah bisa diselesaikan setelah target perusahaan tercapai.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, Indonesian businessman alone in a luxurious modern home at night, realistic family drama.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "reflective"
+    },
+    {
+      "id": 2,
+      "heading": "Percakapan keluarga",
+      "narration": "Nara menunjukkan foto lama dirinya bersama Pak Seno. Ia bertanya mengapa ayah tidak pernah bercerita tentang masa kecil. Arga menjawab singkat bahwa banyak hal sudah berubah.",
+      "visualPrompt": "Portrait 9:16 cinematic medium shot, Indonesian family at dinner table, emotional distance, natural warm lighting.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "melancholic"
+    },
+    {
+      "id": 3,
+      "heading": "Konflik",
+      "narration": "Lila mengaku masih menghubungi Pak Seno untuk memastikan lelaki tua itu makan dan minum obat. Arga merasa dikhianati. Lila menjelaskan bahwa ia hanya tidak ingin Nara kehilangan kesempatan mengenal kakeknya.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, father and daughter in a quiet emotional conversation, contemporary Indonesian home.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "tense"
+    },
+    {
+      "id": 4,
+      "heading": "Pilihan",
+      "narration": "Nara memberikan undangan ulang tahun sederhana untuk Pak Seno. Ia berharap seluruh keluarga datang. Arga berjanji hadir, tetapi tidak berani menentukan waktu. Lila tahu janji itu mungkin kembali ditunda.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, elderly Indonesian father in a modest home, old photographs and personal objects.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "emotional"
+    },
+    {
+      "id": 5,
+      "heading": "Perubahan",
+      "narration": "Di kantor, investor meminta keputusan final. Arga memilih perjalanan dinas dan meminta asistennya mengatur jadwal. Undangan Nara tertinggal di meja, sementara anak itu menunggu jawaban yang tidak kunjung pasti.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, handwritten family letter and old documents on a wooden table, emotional atmosphere.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "hopeful"
+    },
+    {
+      "id": 6,
+      "heading": "Akhir episode",
+      "narration": "Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
+      "visualPrompt": "Portrait 9:16 cinematic dramatic scene, consistent characters, specific cliffhanger action visible, realistic Indonesian setting.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "suspenseful"
+    }
+  ],
+  "characters": [
+    {
+      "id": "char-01",
+      "name": "Arga Pratama",
+      "role": "Pengusaha sukses, 42 tahun; tokoh utama",
+      "motivation": "Membangun perusahaan dan membuktikan keberhasilannya",
+      "personality": "Ambisius, tertutup, perfeksionis",
+      "secret": "Ayahnya pernah menjual bengkel untuk menyelamatkan usaha pertamanya",
+      "visualBible": "Indonesian man, 42, short neatly combed black hair with slight gray temples, angular face, charcoal suit, white shirt, silver watch."
+    },
+    {
+      "id": "char-02",
+      "name": "Pak Seno",
+      "role": "Ayah Arga, pensiunan mekanik berusia 70 tahun",
+      "motivation": "Melihat keluarganya kembali dekat",
+      "personality": "Sabar, sederhana, hangat",
+      "secret": "Menyimpan surat dan bukti pengorbanan untuk usaha Arga",
+      "visualBible": "Indonesian elderly man, 70, gentle lined face, short silver hair, faded olive shirt, brown trousers, worn sandals."
+    },
+    {
+      "id": "char-03",
+      "name": "Lila",
+      "role": "Istri Arga, 39 tahun",
+      "motivation": "Menjaga keluarga dan mendekatkan Nara dengan kakeknya",
+      "personality": "Empatik, tenang, tegas",
+      "secret": "Diam-diam tetap menghubungi Pak Seno",
+      "visualBible": "Indonesian woman, 39, shoulder-length dark hair, beige blouse or muted blue dress, minimal jewelry, expressive eyes."
+    },
+    {
+      "id": "char-04",
+      "name": "Nara",
+      "role": "Putri Arga, 10 tahun",
+      "motivation": "Membuat ayah dan kakeknya kembali akrab",
+      "personality": "Peka, jujur, ingin tahu",
+      "secret": "Menyusun album foto keluarga",
+      "visualBible": "Indonesian girl, 10, straight dark hair in low ponytail, yellow cardigan, denim skirt, small sketchbook."
+    }
+  ],
+  "continuityUpdate": {
+    "canonEvents": [
+      "Episode 2: Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara."
+    ],
+    "characterStates": [
+      {
+        "characterId": "char-01",
+        "state": "Menghadapi perkembangan konflik episode 2."
+      },
+      {
+        "characterId": "char-02",
+        "state": "Menghadapi perkembangan konflik episode 2."
+      },
+      {
+        "characterId": "char-03",
+        "state": "Menghadapi perkembangan konflik episode 2."
+      },
+      {
+        "characterId": "char-04",
+        "state": "Menghadapi perkembangan konflik episode 2."
+      }
+    ],
+    "unresolvedThreads": [
+      "Pemulihan hubungan keluarga."
+    ],
+    "resolvedThreads": []
+  }
+}
