@@ -38,8 +38,7 @@ function buildVisualPrompt(prompt) {
   };
   const mood = moodByGenre[genre] || "genre-appropriate cinematic visual storytelling";
   const suffix = ". " + style + ". " + mood + ". Portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark.";
-  const characterPrompt = buildCharacterContinuityPrompt(prompt, characters);
-  const base = String(characterPrompt || "A cinematic scene with a clear central subject")
+  const base = String(prompt || "A cinematic scene with a clear central subject")
     .replace(/\\b(photorealistic|cinematic)\\b/gi, "")
     .trim();
   // FLUX.1 schnell accepts prompts up to 2048 characters.
