@@ -31,14 +31,6 @@ on:
         default: "1"
         type: choice
         options: ["1","2","3","4","5","6","7","8","9","10","11","12"]
-      render_run_id:
-        description: GitHub Actions run ID dari workflow Render Episode Video
-        required: true
-        type: string
-      thumbnail_run_id:
-        description: GitHub Actions run ID dari workflow Generate Episode Thumbnail
-        required: true
-        type: string
 permissions:
   contents: write
   actions: read
@@ -71,18 +63,58 @@ jobs:
           console.log('[episode] ' + String(number).padStart(2, '0') + ' - ' + expected);
           NODE
       - run: npm install
+      - name: Find latest successful video and thumbnail runs
+        id: source-runs
+        uses: actions/github-script@v7
+        env:
+          SERIES_ID: ${{ inputs.series_id }}
+          EPISODE_NUMBER: ${{ inputs.episode_number }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const episode = String(process.env.EPISODE_NUMBER).padStart(2, "0");
+            const suffix = `${process.env.SERIES_ID}-${process.env.EPISODE_NUMBER}`;
+            const targets = [
+              { key: "render", workflow: "render-episode-video.yml", artifact: `episode-video-${suffix}` },
+              { key: "thumbnail", workflow: "generate-episode-thumbnail.yml", artifact: `episode-thumbnail-${suffix}` }
+            ];
+
+            for (const target of targets) {
+              const runs = await github.paginate(github.rest.actions.listWorkflowRuns, {
+                owner, repo, workflow_id: target.workflow,
+                branch: "main", status: "success", per_page: 100
+              });
+
+              let selectedRun = null;
+              for (const run of runs) {
+                const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
+                  owner, repo, run_id: run.id, per_page: 100
+                });
+                const artifact = artifacts.find(item => item.name === target.artifact && !item.expired);
+                if (artifact) {
+                  selectedRun = run;
+                  core.info(`Selected ${target.workflow} run #${run.run_number} (ID: ${run.id}), artifact: ${target.artifact}`);
+                  break;
+                }
+              }
+
+              if (!selectedRun) {
+                throw new Error(`Tidak ditemukan workflow ${target.workflow} yang sukses dan memiliki artifact ${target.artifact}. Jalankan workflow tersebut terlebih dahulu untuk episode ini.`);
+              }
+              core.setOutput(`${target.key}_run_id`, String(selectedRun.id));
+            }
       - name: Download rendered video from selected run
         uses: actions/download-artifact@v4
         with:
           name: episode-video-${{ inputs.series_id }}-${{ inputs.episode_number }}
-          run-id: ${{ inputs.render_run_id }}
+          run-id: ${{ steps.source-runs.outputs.render_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: horror/out
       - name: Download thumbnail from selected run
         uses: actions/download-artifact@v4
         with:
           name: episode-thumbnail-${{ inputs.series_id }}-${{ inputs.episode_number }}
-          run-id: ${{ inputs.thumbnail_run_id }}
+          run-id: ${{ steps.source-runs.outputs.thumbnail_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: /tmp/episode-thumbnail
       - name: Prepare episode metadata and thumbnail
