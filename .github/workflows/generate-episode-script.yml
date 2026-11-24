@@ -53,7 +53,7 @@ jobs:
           if (!episode) throw new Error('Episode tidak ditemukan di plan ' + id);
           const expected = String(episode.title || 'Episode ' + number).replace(/\s+/g, ' ').trim();
           fs.appendFileSync(process.env.GITHUB_OUTPUT, 'title=' + expected.replace(/[\r\n]+/g, ' ') + '\n');
-          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '### Episode yang dipilih\\n- **Serial:** ' + (bible.seriesTitle || id) + '\\n- **Episode:** ' + String(number).padStart(2, '0') + ' - ' + expected + '\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '### Episode yang dipilih\n- **Serial:** ' + (bible.seriesTitle || id) + '\n- **Episode:** ' + String(number).padStart(2, '0') + ' - ' + expected + '\n');
           console.log('[episode] ' + String(number).padStart(2, '0') + ' - ' + expected);
           NODE
       - run: npm install
