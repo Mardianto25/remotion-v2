@@ -14,7 +14,7 @@ function parseJson(text) {
 
 function fallbackSeo(story, topic) {
   const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
-  const title = String(story.title || topic || "Cerita " + genre).trim().slice(0, 70);
+  const title = String(story.title || topic || "Cerita " + genre).trim().slice(0, 60);
   const tags = ["cerita " + genre, "storytelling Indonesia", "cerita Indonesia", "Ruang Cerita Indonesia", "video shorts"];
   const hashtags = ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\p{L}\p{N}]/gu, "")];
   const scenePrompt = Array.isArray(story.scenes) ? story.scenes.slice(0, 2).map(x => x.visualPrompt || x.heading).filter(Boolean).join("; ") : "";
