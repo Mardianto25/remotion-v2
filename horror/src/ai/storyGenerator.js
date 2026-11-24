@@ -116,7 +116,7 @@ export async function generateStory(topic, options = {}) {
   const parsed = extractJson(response.text);
   const normalized = normalizeStory(parsed, topic, selectedGenre);
   if (!longVideo) {
-    const words = normalized.narration.trim().split(/\\s+/).filter(Boolean).length;
+    const words = normalized.narration.trim().split(/\s+/).filter(Boolean).length;
     if (words < 240 || words > 260) throw new Error("Naskah Shorts memiliki " + words + " kata; standar wajib 240-260 kata.");
     if (normalized.scenes.length !== 7) throw new Error("Naskah Shorts wajib memiliki tepat 7 scene; ditemukan " + normalized.scenes.length + ".");
   }
