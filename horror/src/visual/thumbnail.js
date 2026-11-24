@@ -108,7 +108,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
     style.avoid + ". Respect the selected genre; no horror elements unless the genre is horror."
   ].join(" ");
   const verticalPrompt = [
-    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Entire scene and all people must be high-end cinematic 3D CGI animated characters with dimensional faces, sculpted 3D features, detailed 3D hair and physically based materials. Generate a clean image only, absolutely no visible writing of any kind.",
+    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Entire scene and all people must follow this selected visual style: " + style.visual + ". Generate a clean image only, absolutely no visible writing of any kind.",
     common,
     "Compose exclusively for vertical mobile Shorts viewing (9:16). Show one clear emotional story moment with the recurring 3D characters large in frame; preserve the exact same character models and signature outfits defined in the character bible. Keep faces unobstructed and readable on a phone. Leave safe space near the top for the EPS badge and the lower quarter for the theme title overlay."
   ].join(" ");
