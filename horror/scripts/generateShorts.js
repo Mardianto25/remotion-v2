@@ -4,7 +4,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import { AUDIO_DIR, DATA_DIR, OUT_DIR } from "../src/config.js";
 
-const TARGET = 42, MIN = 34, MAX = 48, COUNT = 3;
+const TARGET = 80, MIN = 50, MAX = 120, COUNT = 3;
 const STOPWORDS = new Set("yang dan di ke dari itu ini ada aku saya kamu dia mereka kami kita dengan untuk pada dalam saat ketika karena tetapi lalu sudah belum hanya tidak pun adalah akan jadi sangat lebih paling sebuah seorang suatu setelah sebelum oleh hingga tanpa seperti".split(" "));
 function run(command, args) {
   return new Promise((resolve, reject) => {
@@ -73,7 +73,7 @@ if(!Number.isFinite(duration)||duration<=MIN) throw new Error("Video panjang ter
 const used=[],shorts=[];
 for(let i=0;i<COUNT;i++){
   const range=pick(captions,duration*[0.12,0.43,0.73][i],duration,used);
-  if(!range){console.warn(`Shorts ${i+1} dilewati: tidak ada rentang subtitle yang cocok.`);continue;}
+  if(!range){console.warn(`Shorts ${i+1} dilewati: tidak ada rentang subtitle 50-120 detik yang cocok.`);continue;}
   used.push(range);
   const id=i+1, file=`short-${String(id).padStart(2,"0")}.mp4`, output=path.join(OUT_DIR,"shorts",file);
   const seconds=range.end-range.start;
