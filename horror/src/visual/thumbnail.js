@@ -3,6 +3,19 @@ import path from "node:path";
 import sharp from "sharp";
 import { config, DATA_DIR, OUT_DIR } from "../config.js";
 
+function cleanThumbnailLabel(value, fallback = "") {
+  const clean = input => String(input || "")
+    .replace(/\\b(?:youtube|shorts?|videos?|episodes?|eps|subscribe)\\b/gi, " ")
+    .replace(/[^\\p{L}\\p{N}\\s'-]/gu, " ")
+    .replace(/\\s+/g, " ")
+    .trim()
+    .split(/\\s+/)
+    .filter(Boolean)
+    .slice(0, 4)
+    .join(" ")
+    .slice(0, 28);
+  return clean(value) || clean(fallback) || "CERITA MENEGANGKAN";
+}
 function escapeXml(value) {
   return String(value).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&apos;" })[c]);
 }
