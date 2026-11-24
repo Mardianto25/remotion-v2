@@ -8,7 +8,8 @@
     {
       "episodeNumber": 1,
       "title": "Tiga Puluh Juta yang Membekas",
-      "status": "not_started"
+      "status": "script_ready",
+      "sceneCount": 6
     },
     {
       "episodeNumber": 2,
@@ -46,5 +47,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T16:00:09.022Z"
+  "updatedAt": "2026-11-24T19:22:05.737Z"
 }
