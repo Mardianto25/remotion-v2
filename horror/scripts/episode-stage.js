@@ -141,7 +141,7 @@ if (stage === "images") {
     const [v,l] = await Promise.all([fs.stat(verticalExisting), fs.stat(landscapeExisting)]);
     const cachedMetadata = await readJson(path.join(episodeDir,"youtube-metadata.json"));
     const forceRegenerate = String(process.env.FORCE_THUMBNAIL_REGENERATE || "no").toLowerCase() === "yes";
-    if (v.size > 1024 && l.size > 1024 && cachedMetadata.thumbnail?.version === "shorts-ctr-v2" && !forceRegenerate) {
+    if (v.size > 1024 && l.size > 1024 && cachedMetadata.thumbnail?.version === "shorts-ctr-v3" && !forceRegenerate) {
       console.log("[thumbnail] Shorts cover versi terbaru sudah tersedia; tidak generate ulang (pilih regenerate_thumbnail=yes jika ingin membuat ulang).");
       await setEpisodeState("thumbnail_ready");
       process.exit(0);
@@ -158,13 +158,13 @@ if (stage === "images") {
   let seo;
   try {
     seo=await readJson(seoPath);
-    if (seo.thumbnail?.version !== "shorts-ctr-v2") throw new Error("SEO lama perlu diperbarui untuk Shorts");
+    if (seo.thumbnail?.version !== "shorts-ctr-v3") throw new Error("SEO lama perlu diperbarui untuk Shorts");
     console.log("[thumbnail] Metadata Shorts terbaru sudah tersedia; memakai ulang.");
   } catch {
     seo=await generateSeo(story,story.title);
     await writeJson(seoPath,seo);
   }
-  await generateThumbnail(story,seo,story.title);
+  await generateThumbnail(story,seo,story.title,seoPath);
   await fs.copyFile(path.join(OUT_DIR,"youtube-thumbnail.jpg"),path.join(episodeDir,"youtube-thumbnail.jpg"));
   await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"shorts-cover.jpg"));
   await setEpisodeState("thumbnail_ready");
