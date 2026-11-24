@@ -8,12 +8,13 @@
     {
       "episodeNumber": 1,
       "title": "Tiga Puluh Juta yang Membekas",
-      "status": "rendered",
+      "status": "thumbnail_ready",
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
       "durationSeconds": 47.9,
-      "videoPath": "episodes/episode-01/indonesian-horror.mp4"
+      "videoPath": "episodes/episode-01/indonesian-horror.mp4",
+      "thumbnailVisualStyle": "cinematic-3d"
     },
     {
       "episodeNumber": 2,
@@ -51,5 +52,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T19:37:52.621Z"
+  "updatedAt": "2026-11-24T19:40:40.728Z"
 }
