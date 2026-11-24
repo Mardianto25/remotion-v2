@@ -77,10 +77,10 @@ export async function generateStory(topic, options = {}) {
   const durationMinutes = Math.max(1, Math.min(8, Number(options.durationMinutes || 5)));
   const longVideo = options.longVideo === true;
   const selectedGenre = String(options.genre || process.env.STORY_GENRE || "mystery");
-  const targetWords = Math.round(durationMinutes * 130);
-  const minWords = Math.max(130, Math.round(targetWords * 0.88));
-  const maxWords = Math.min(1150, Math.round(targetWords * 1.12));
-  const sceneCount = Math.max(6, Math.min(32, Math.round(durationMinutes * 4)));
+  const targetWords = longVideo ? Math.round(durationMinutes * 130) : 700;
+  const minWords = longVideo ? Math.max(130, Math.round(targetWords * 0.88)) : 650;
+  const maxWords = longVideo ? Math.min(1150, Math.round(targetWords * 1.12)) : 750;
+  const sceneCount = longVideo ? Math.max(6, Math.min(32, Math.round(durationMinutes * 4))) : 22;
   const selectedStyle = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
   const visualStylePrompt = longVideo && (selectedStyle === "2d" || selectedStyle === "2d-animation") ? "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading" : "high-end cinematic 3D CGI, realistic 3D characters and environments, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render";
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
