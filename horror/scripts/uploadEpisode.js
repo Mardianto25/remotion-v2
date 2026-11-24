@@ -78,6 +78,9 @@ if (state.videoId && uploadMode === "retry_thumbnail") {
 
 const hashtags = Array.isArray(metadata.hashtags) ? metadata.hashtags : [];
 const description = [metadata.description || "", "", ...hashtags, "#Shorts"].join("\n").slice(0, 4900);
+// Schedule publication exactly 24 hours after this upload workflow starts the YouTube insert.
+const scheduledPublishAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+console.log("[youtube] Video dijadwalkan tayang pada: " + scheduledPublishAt);
 const { data } = await youtube.videos.insert({
   part: ["snippet", "status"],
   requestBody: {
@@ -89,7 +92,7 @@ const { data } = await youtube.videos.insert({
       defaultLanguage: "id",
       defaultAudioLanguage: "id"
     },
-    status: { privacyStatus: "private", selfDeclaredMadeForKids: false }
+    status: { privacyStatus: "private", publishAt: scheduledPublishAt, selfDeclaredMadeForKids: false }
   },
   media: { body: createReadStream(videoPath) }
 });
@@ -102,6 +105,8 @@ state = {
   videoId: data.id,
   title: metadata.title,
   privacyStatus: "private",
+  publishAt: scheduledPublishAt,
+  scheduledPublishAt,
   uploadedAt: new Date().toISOString(),
   url: "https://www.youtube.com/shorts/" + data.id,
   thumbnailUploaded: false
