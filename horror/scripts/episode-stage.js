@@ -94,15 +94,15 @@ if (stage === "images") {
   const audioPath = path.join(audioDir, "narration.mp3");
   const subtitlePath = path.join(audioDir, "narration.vtt");
   const forceRegenerateAudio = String(process.env.FORCE_REGENERATE_AUDIO || "no").toLowerCase() === "yes";
+  let audioFilesReady = false;
   try {
     const [audioStat, subtitleStat] = await Promise.all([fs.stat(audioPath), fs.stat(subtitlePath)]);
-    if (audioStat.size > 1024 && subtitleStat.size > 0 && !forceRegenerateAudio) {
-      console.log("[audio] Audio dan subtitle sudah ada; tidak dibuat ulang.");
-    } else {
-      if (forceRegenerateAudio) console.log("[audio] Regenerate dipaksa oleh input workflow.");
-      await generateNarration(story.narration, audioPath, subtitlePath);
-    }
-  } catch {
+    audioFilesReady = audioStat.size > 1024 && subtitleStat.size > 0;
+  } catch {}
+  if (audioFilesReady && !forceRegenerateAudio) {
+    console.log("[audio] Audio dan subtitle sudah ada; tidak dibuat ulang.");
+  } else {
+    if (forceRegenerateAudio) console.log("[audio] Regenerate dipaksa oleh input workflow.");
     await generateNarration(story.narration, audioPath, subtitlePath);
   }
   const duration = await durationOf(audioPath);
