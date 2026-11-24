@@ -62,7 +62,7 @@ jobs:
       - name: Generate narration and subtitles (reuse existing valid files)
         env:
           EDGE_TTS_VOICE: id-ID-ArdiNeural
-          EDGE_TTS_RATE: "-8%"
+          EDGE_TTS_RATE: "-15%"
           EDGE_TTS_PITCH: "-5Hz"
           PYTHON_BIN: python
           FORCE_REGENERATE_AUDIO: ${{ inputs.regenerate_audio }}
