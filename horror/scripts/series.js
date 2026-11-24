@@ -52,8 +52,8 @@ if (command === "plan") {
   console.log("[season] Season plan tersimpan: " + bible.seriesTitle + " (" + bible.episodes.length + " episode).");
   if (format === "shorts" && bible.productionStandard) {
     const standard = bible.productionStandard;
-    console.log("[season] Standar Shorts: " + standard.scenesPerEpisode + " scene/episode, " + standard.minWordsPerEpisode + "-" + standard.maxWordsPerEpisode + " kata/episode, 115-125 detik/episode.");
-    console.log("[season] Total season: " + standard.totalScenes + " scene, " + standard.minSeasonWords + "-" + standard.maxSeasonWords + " kata, " + Math.floor(standard.minSeasonDurationSeconds / 60) + ":" + String(standard.minSeasonDurationSeconds % 60).padStart(2, "0") + "-" + Math.floor(standard.maxSeasonDurationSeconds / 60) + ":" + String(standard.maxSeasonDurationSeconds % 60).padStart(2, "0") + " durasi total.");
+    console.log("[season] Standar Shorts: 6-8 scene/episode, jumlah kata fleksibel (validasi awal 100-1000 kata), durasi audio/video minimal 60 detik.");
+    console.log("[season] Total scene: " + standard.minSeasonScenes + "-" + standard.maxSeasonScenes + "; estimasi durasi total minimum " + Math.floor(standard.minSeasonDurationSeconds / 60) + " menit.");
   }
   for (const episode of bible.episodes) console.log(String(episode.episodeNumber).padStart(2, "0") + ". " + episode.title);
   process.exit(0);
