@@ -7,11 +7,12 @@
     {
       "episodeNumber": 1,
       "title": "Demi Pamer Di Hadapan Kerabat",
-      "status": "audio_ready",
+      "status": "rendered",
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
-      "durationSeconds": 43.2
+      "durationSeconds": 43.2,
+      "videoPath": "episodes/episode-01/indonesian-horror.mp4"
     },
     {
       "episodeNumber": 2,
@@ -29,5 +30,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T00:02:26.197Z"
+  "updatedAt": "2026-11-24T00:11:57.865Z"
 }
