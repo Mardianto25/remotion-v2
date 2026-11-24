@@ -11,7 +11,7 @@ function parseJson(raw) {
   }
 }
 export async function planSeason(concept, options = {}) {
-  if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
+
   const seasonId = options.seasonId || "season-01";
   const genre = String(options.genre || "mystery").trim();
   const requestedTitle = String(options.seriesTitle || "").trim();
@@ -25,7 +25,7 @@ export async function planSeason(concept, options = {}) {
   const maxScenes = format === "long" ? Math.min(32, minScenes + 2) : 8;
   const aspectPrompt = format === "long" ? "landscape 16:9" : "portrait 9:16";
   if (![4, 6, 8, 10, 12].includes(episodeCount)) throw new Error("Jumlah episode harus 4, 6, 8, 10, atau 12.");
-  const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
+  const ai = config.geminiApiKey ? new GoogleGenAI({ apiKey: config.geminiApiKey }) : null;
   const prompt = [
     "Anda adalah showrunner serial profesional untuk channel Ruang Cerita Indonesia.",
     "GENRE UTAMA season ini: " + genre + ". Seluruh premis, konflik, karakter, visual, tone, dan payoff wajib mengikuti genre ini. Jangan otomatis memasukkan hantu, pembunuhan, jumpscare, atau unsur horor kecuali genre yang dipilih memang horor.",
