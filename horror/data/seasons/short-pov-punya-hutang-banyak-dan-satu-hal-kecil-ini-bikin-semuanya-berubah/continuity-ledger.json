@@ -1,0 +1,32 @@
+{
+  "seasonId": "short-pov-punya-hutang-banyak-dan-satu-hal-kecil-ini-bikin-semuanya-berubah",
+  "updatedAt": "2026-11-24T09:44:51.521Z",
+  "lastGeneratedEpisode": 0,
+  "canonEvents": [],
+  "characterStates": [
+    {
+      "characterId": "char-01",
+      "name": "Rian",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-02",
+      "name": "Pak Hadi",
+      "currentState": "Belum muncul dalam episode."
+    },
+    {
+      "characterId": "char-03",
+      "name": "Aris",
+      "currentState": "Belum muncul dalam episode."
+    }
+  ],
+  "unresolvedThreads": [
+    "Bisakah Rian melunasi hutang 150 juta dan menyelamatkan rumah ayahnya hanya bermodalkan resep sambal tua sebelum tenggat waktu penyitaan habis?"
+  ],
+  "resolvedThreads": [],
+  "rules": [
+    "Dunia nyata perkotaan Indonesia yang realistis dan relatable",
+    "Konflik finansial dan hukum berjalan sesuai aturan nyata",
+    "Hasil manis diperoleh melalui kerja keras nyata, bukan keajaiban mistis"
+  ]
+}

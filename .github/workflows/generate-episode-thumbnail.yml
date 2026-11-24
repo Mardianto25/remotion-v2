@@ -11,6 +11,7 @@ on:
           # SERIES_ID_OPTIONS_START
           - "no-plan-yet"
           - "pov-satu-keputusan-karena-gengsi-mengubah-nasib-keluarga"
+          - "short-pov-punya-hutang-banyak-dan-satu-hal-kecil-ini-bikin-semuanya-berubah"
           # SERIES_ID_OPTIONS_END
       episode_title:
         description: Pilih saran judul episode dari semua plan yang tersedia
@@ -24,6 +25,10 @@ on:
           - "Jatuh ke Titik Terendah"
           - "Merintis dari Gerobak Kecil"
           - "Kemenangan Sejati Tanpa Gengsi"
+          - "Kunci Tembaga di Dapur Tua"
+          - "Ujian Lima Ratus Porsi"
+          - "Cobek Tua dan Fitnah Baru"
+          - "Dapur Rekarsa Berdiri"
           # EPISODE_TITLE_OPTIONS_END
       episode_number:
         description: Nomor episode
