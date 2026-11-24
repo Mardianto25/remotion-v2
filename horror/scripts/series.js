@@ -62,7 +62,7 @@ if (command === "episode") {
   const state = await readJson(statePath);
   const episodePlan = bible.episodes.find(item => Number(item.episodeNumber) === episodeNumber);
   if (!episodePlan) throw new Error("Episode tidak ditemukan di series bible.");
-  if (!episodePlan.narration || !Array.isArray(episodePlan.scenes) || episodePlan.scenes.length < (format === "long" ? Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) : 5) || episodePlan.scenes.length > (format === "long" ? Math.min(32, Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) + 2) : 8)) {
+  if (!episodePlan.narration || !Array.isArray(episodePlan.scenes) || episodePlan.scenes.length < (format === "long" ? Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) : 7) || episodePlan.scenes.length > (format === "long" ? Math.min(32, Math.max(6, Math.round(Number(bible.durationMinutes || 5) * 3)) + 2) : 7)) {
     throw new Error("Season plan lama/tidak lengkap: episode ini belum memiliki naskah final dan scene sesuai format. Buat ulang season plan agar semua naskah dan scene disiapkan sejak awal.");
   }
   const episodeDir = path.join(episodesDir, "episode-" + String(episodeNumber).padStart(2, "0"));
@@ -93,6 +93,9 @@ if (command === "episode") {
   }));
   if (scenes.some(scene => !scene.narration || !scene.visualPrompt)) throw new Error("Season plan memiliki scene tanpa narration atau visualPrompt.");
   const narration = String(episodePlan.narration).trim();
+  const wordCount = narration.split(/\s+/).filter(Boolean).length;
+  if (format === "shorts" && (wordCount < 240 || wordCount > 260)) throw new Error("Episode " + episodeNumber + " memiliki " + wordCount + " kata. Standar Shorts baru wajib 240-260 kata. Perbaiki/regenerate season plan sebelum produksi.");
+  if (format === "shorts" && scenes.length !== 7) throw new Error("Standar Shorts baru wajib tepat 7 scene; ditemukan " + scenes.length + ".");
   if (scenes.map(scene => scene.narration).join(" ").replace(/\s+/g, " ").trim() !== narration.replace(/\s+/g, " ").trim()) {
     throw new Error("Naskah utama tidak sama dengan gabungan narration setiap scene. Perbaiki season plan sebelum produksi.");
   }
@@ -114,7 +117,7 @@ if (command === "episode") {
     episodePayoff: String(episodePlan.episodePayoff || ""),
     seasonTeaser: String(episodePlan.seasonTeaser || ""),
     storySummary: String(episodePlan.storySummary || episodePlan.logline || ""),
-    narration, wordCount: narration.split(/\s+/).filter(Boolean).length,
+    narration, wordCount, targetDurationSeconds: format === "shorts" ? { min: 115, max: 125 } : null,
     scenes, characters: bible.characters || [], continuityUpdate: episodePlan.continuityUpdate || { canonEvents: [], characterStates: [], unresolvedThreads: [], resolvedThreads: [] }
   };
   await writeJson(storyPath, story);
