@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { config } from "../config.js";
-import { generateGeminiContent } from "./geminiFallback.js";
+import { generateGeminiContent, generateOpenRouterContent } from "./geminiFallback.js";
 function parseJson(raw) {
   const fence = String.fromCharCode(96).repeat(3);
   const text = String(raw || "").replace(new RegExp("^" + fence + "(?:json)?\\s*", "i"), "").replace(new RegExp("\\s*" + fence + "$"), "").trim();
@@ -52,8 +52,8 @@ export async function planSeason(concept, options = {}) {
   const response = await generateGeminiContent(
     ai,
     { contents: prompt, config: { responseMimeType: "application/json", maxOutputTokens: format === "long" ? 60000 : 30000 } },
-    {
-      validateResponse: candidate => {
+
+  const validateSeasonPlan = candidate => {
         const draft = parseJson(candidate.text);
         if (!Array.isArray(draft.episodes) || draft.episodes.length !== episodeCount) {
           throw new Error("Wajib menghasilkan tepat " + episodeCount + " episode.");
@@ -113,7 +113,95 @@ export async function planSeason(concept, options = {}) {
         if (!Array.isArray(draft.worldRules) || !draft.worldRules.length) {
           throw new Error("World rules tidak tersedia.");
         }
+  };
+
+  const generateBatchedOpenRouterSeason = async (request, previousError) => {
+    const primaryModel = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
+    const fallbackModels = (process.env.OPENROUTER_FALLBACK_MODELS ||
+      "qwen/qwen3-235b-a22b,deepseek/deepseek-chat")
+      .split(",").map(value => value.trim()).filter(Boolean);
+    const models = [...new Set([primaryModel, ...fallbackModels])];
+    const batchSize = Math.max(1, Math.min(3, Number(process.env.OPENROUTER_EPISODE_BATCH_SIZE || 2)));
+    const episodes = [];
+    let seasonMetadata = null;
+
+    for (let first = 1; first <= episodeCount; first += batchSize) {
+      const last = Math.min(episodeCount, first + batchSize - 1);
+      const previous = episodes[episodes.length - 1];
+      const previousContext = previous ? {
+        episodeNumber: previous.episodeNumber,
+        title: previous.title,
+        endingType: previous.endingType,
+        cliffhanger: previous.cliffhanger,
+        nextEpisodeQuestion: previous.nextEpisodeQuestion,
+        finalScene: previous.scenes?.[previous.scenes.length - 1],
+        continuityUpdate: previous.continuityUpdate
+      } : null;
+      const batchPrompt = request.contents + "\n\n" +
+        "MODE GENERASI BERTAHAP OPENROUTER. Ini bagian " + first + "-" + last +
+        " dari total " + episodeCount + " episode. Keluarkan HANYA episode bernomor " +
+        first + " sampai " + last + " di array episodes, bukan episode lain. " +
+        "Jangan mengubah nomor episode menjadi 1 lagi. " +
+        "Tetap keluarkan series bible, characters, dan worldRules agar hasil bisa digabung. " +
+        "Untuk episode pertama batch setelah episode 1, lanjutkan langsung dari konteks episode sebelumnya berikut. " +
+        "Konteks episode sebelumnya (sumber kontinuitas wajib): " +
+        JSON.stringify(previousContext) +
+        "\nJSON valid tanpa markdown. Jangan memotong scene atau narration. " +
+        "Jumlah item episodes harus tepat " + (last - first + 1) + ".";
+      let batchResult;
+      let lastBatchError;
+      for (const model of models) {
+        try {
+          console.log("[openrouter] Batch episode " + first + "-" + last + " menggunakan model: " + model);
+          const response = await generateOpenRouterContent({
+            ...request,
+            contents: batchPrompt,
+            config: {
+              ...request.config,
+              maxOutputTokens: format === "long" ? 30000 : 14000
+            }
+          }, previousError, undefined, { model });
+          const parsed = parseJson(response.text);
+          if (!Array.isArray(parsed.episodes) || parsed.episodes.length !== last - first + 1) {
+            throw new Error("Batch " + first + "-" + last + " harus menghasilkan tepat " +
+              (last - first + 1) + " episode, tetapi menerima " +
+              (Array.isArray(parsed.episodes) ? parsed.episodes.length : 0) + ".");
+          }
+          parsed.episodes.forEach((episode, index) => {
+            const expectedNumber = first + index;
+            if (Number(episode.episodeNumber) !== expectedNumber) {
+              throw new Error("Nomor episode batch tidak sesuai. Seharusnya " + expectedNumber +
+                ", diterima " + episode.episodeNumber + ".");
+            }
+          });
+          batchResult = parsed;
+          console.log("[openrouter] Batch episode " + first + "-" + last + " berhasil.");
+          break;
+        } catch (error) {
+          lastBatchError = error;
+          console.error("[openrouter] Model " + model + " gagal pada batch " +
+            first + "-" + last + ": " + String(error?.message || error));
+        }
       }
+      if (!batchResult) {
+        throw new Error("Semua model OpenRouter gagal menghasilkan batch episode " +
+          first + "-" + last + ". " + String(lastBatchError?.message || lastBatchError));
+      }
+      if (!seasonMetadata) seasonMetadata = batchResult;
+      episodes.push(...batchResult.episodes);
+    }
+
+    const merged = { ...seasonMetadata, episodes };
+    await validateSeasonPlan({ text: JSON.stringify(merged) });
+    return { text: JSON.stringify(merged), response: { provider: "openrouter-batched", batchSize } };
+  };
+
+  const response = await generateGeminiContent(
+    ai,
+    { contents: prompt, config: { responseMimeType: "application/json", maxOutputTokens: format === "long" ? 60000 : 30000 } },
+    {
+      validateResponse: validateSeasonPlan,
+      openRouterFallback: generateBatchedOpenRouterSeason
     }
   );
   const plan = parseJson(response.text);
