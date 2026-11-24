@@ -103,23 +103,27 @@ export async function generateOpenRouterContent(request, previousError, validate
   };
 
   console.warn("[openrouter] Semua model Gemini gagal. Menggunakan model: " + body.model);
-  const response = await withRetry("openrouter:" + body.model, () => fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: "Bearer " + apiKey,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "https://github.com/Mardianto25/remotion-v2",
-      "X-Title": "Ruang Cerita Indonesia"
-    },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(Math.max(1000, Number(process.env.SEASON_PLAN_TIMEOUT_MS || 300000)))
-  }));
-
-  const result = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    const message = result?.error?.message || JSON.stringify(result) || response.statusText;
-    throw new Error("OpenRouter gagal (HTTP " + response.status + "): " + message);
-  }
+  const result = await withRetry("openrouter:" + body.model, async () => {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + apiKey,
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://github.com/Mardianto25/remotion-v2",
+        "X-Title": "Ruang Cerita Indonesia"
+      },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(Math.max(1000, Number(process.env.SEASON_PLAN_TIMEOUT_MS || 300000)))
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const error = new Error("OpenRouter gagal (HTTP " + response.status + "): " +
+        (payload?.error?.message || JSON.stringify(payload) || response.statusText));
+      error.status = response.status;
+      throw error;
+    }
+    return payload;
+  });
 
   const text = result?.choices?.[0]?.message?.content;
   if (typeof text !== "string" || !text.trim()) {
