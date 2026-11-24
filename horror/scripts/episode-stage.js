@@ -25,6 +25,13 @@ const story = await readJson(storyPath);
 story.contentId = "short-" + seasonId + "-episode-" + String(episodeNumber).padStart(2, "0");
 story.format = "shorts";
 story.characters = Array.isArray(bible.characters) ? bible.characters : [];
+const SHORTS_STANDARD = { minWords: 240, maxWords: 260, scenes: 7, minDurationSeconds: 115, maxDurationSeconds: 125 };
+const narrationWordCount = String(story.narration || "").trim().split(/\\s+/).filter(Boolean).length;
+if (story.scenes.length !== SHORTS_STANDARD.scenes) throw new Error("[standard] Episode " + episodeNumber + " memiliki " + story.scenes.length + " scene. Standar Shorts wajib tepat 7 scene. Regenerate/perbaiki Season Plan sebelum produksi.");
+if (narrationWordCount < SHORTS_STANDARD.minWords || narrationWordCount > SHORTS_STANDARD.maxWords) throw new Error("[standard] Episode " + episodeNumber + " memiliki " + narrationWordCount + " kata. Standar Shorts wajib 240-260 kata. Regenerate/perbaiki Season Plan sebelum produksi.");
+const sceneNarration = story.scenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\\s+/g, " ").trim();
+if (sceneNarration !== String(story.narration).replace(/\\s+/g, " ").trim()) throw new Error("[standard] Gabungan narasi 7 scene tidak sama persis dengan narasi utama.");
+console.log("[standard] Lolos: " + narrationWordCount + " kata, 7 scene, target durasi 115-125 detik.");
 const seasonDir = path.dirname(path.dirname(episodeDir));
 const statePath = path.join(seasonDir, "production-state.json");
 
@@ -133,11 +140,11 @@ if (stage === "images") {
     await generateNarration(story.narration, audioPath, subtitlePath);
   }
   const duration = await durationOf(audioPath);
-  if (duration < 45 || duration > 180) throw new Error("Audio " + duration.toFixed(1) + " detik di luar batas durasi 45-180 detik.");
+  if (duration < SHORTS_STANDARD.minDurationSeconds || duration > SHORTS_STANDARD.maxDurationSeconds) throw new Error("Audio " + duration.toFixed(1) + " detik di luar standar Shorts 115-125 detik. Periksa kecepatan narasi atau generate ulang audio; jangan memperlambat suara secara otomatis.");
   const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
   if (!captions.length) throw new Error("Subtitle VTT kosong/tidak valid.");
   await writeJson(path.join(episodeDir, "audio-manifest.json"), { durationSeconds: Number(duration.toFixed(3)), captions, audio: "audio/narration.mp3", subtitles: "audio/narration.vtt" });
-  await setEpisodeState("audio_ready", { durationSeconds: Number(duration.toFixed(1)) });
+  await setEpisodeState("audio_ready", { durationSeconds: Number(duration.toFixed(1)), wordCount: narrationWordCount, sceneCount: story.scenes.length, productionStandard: "shorts-115-125s-v1" });
   console.log("[audio] Selesai: " + duration.toFixed(1) + " detik.");
 } else if (stage === "render") {
   await setEpisodeState("render_in_progress");
@@ -165,9 +172,9 @@ if (stage === "images") {
   await run("npx",["remotion","render","remotion/index.jsx","HorrorVideo","out/indonesian-horror.mp4","--codec=h264","--crf=22"]);
   const video=path.join(OUT_DIR,"indonesian-horror.mp4");
   const videoDuration=await durationOf(video);
-  if(videoDuration<44.5 || videoDuration>180.05) throw new Error("Hasil render harus berdurasi 45-180 detik.");
+  if(videoDuration < SHORTS_STANDARD.minDurationSeconds || videoDuration > SHORTS_STANDARD.maxDurationSeconds + 0.05) throw new Error("Hasil render " + videoDuration.toFixed(1) + " detik di luar standar Shorts 115-125 detik.");
   await fs.copyFile(video,path.join(episodeDir,"indonesian-horror.mp4"));
-  await setEpisodeState("rendered", { durationSeconds: Number(videoDuration.toFixed(1)), videoPath: "episodes/episode-" + String(episodeNumber).padStart(2,"0") + "/indonesian-horror.mp4" });
+  await setEpisodeState("rendered", { durationSeconds: Number(videoDuration.toFixed(1)), wordCount: narrationWordCount, sceneCount: story.scenes.length, productionStandard: "shorts-115-125s-v1", videoPath: "episodes/episode-" + String(episodeNumber).padStart(2,"0") + "/indonesian-horror.mp4" });
   console.log("[render] Video berhasil dibuat: "+video);
 } else if (stage === "thumbnail") {
   await setEpisodeState("thumbnail_in_progress");
