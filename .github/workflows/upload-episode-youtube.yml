@@ -10,7 +10,7 @@ on:
         options:
           # SERIES_ID_OPTIONS_START
           - "no-plan-yet"
-          - "short-kebaikan-kecil-yang-mengubah-takdir"
+          - "short-ia-memiliki-segalanya-kecuali-kebahagiaan"
           # SERIES_ID_OPTIONS_END
       episode_number:
         description: Nomor episode pada Series ID terpilih; judul diambil otomatis dari Series Bible
