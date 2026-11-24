@@ -91,7 +91,6 @@ jobs:
         with:
           name: episode-thumbnail-${{ inputs.series_id }}-${{ inputs.episode_number }}
           path: |
-            horror/data/seasons/${{ inputs.series_id }}/episodes/episode-${{ steps.episode.outputs.padded }}/youtube-thumbnail.jpg
             horror/data/seasons/${{ inputs.series_id }}/episodes/episode-${{ steps.episode.outputs.padded }}/shorts-cover.jpg
           if-no-files-found: error
           retention-days: 30
