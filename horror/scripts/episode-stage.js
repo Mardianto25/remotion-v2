@@ -160,7 +160,7 @@ if (stage === "images") {
   await fs.copyFile(path.join(OUT_DIR,"youtube-thumbnail.jpg"),path.join(episodeDir,"youtube-thumbnail.jpg"));
   await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"shorts-cover.jpg"));
   await setEpisodeState("thumbnail_ready");
-  console.log("[thumbnail] Landscape dan vertical cover berhasil dibuat.");
+  console.log("[thumbnail] Shorts cover vertikal 9:16 berhasil dibuat tanpa branding channel.");
 } else {
   throw new Error("Stage tidak dikenal. Gunakan images|audio|render|thumbnail.");
 }
