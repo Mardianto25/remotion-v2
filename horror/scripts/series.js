@@ -110,6 +110,7 @@ if (command === "episode") {
     cliffhanger: String(episodePlan.cliffhanger || ""),
     endingType: String(episodePlan.endingType || (episodeNumber === bible.episodes.length ? "finale_resolution" : "cliffhanger")),
     nextEpisodeQuestion: String(episodePlan.nextEpisodeQuestion || ""),
+    continuityFromPrevious: episodePlan.continuityBridge || null,
     episodePayoff: String(episodePlan.episodePayoff || ""),
     seasonTeaser: String(episodePlan.seasonTeaser || ""),
     storySummary: String(episodePlan.storySummary || episodePlan.logline || ""),

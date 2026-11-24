@@ -7,11 +7,10 @@ function escapeXml(value) {
   return String(value).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&apos;" })[c]);
 }
 function selectedStyle() {
-  // Shorts series thumbnails are locked to the established cinematic 3D character look.
-  const value = "cinematic-3d";
+  const value = String(process.env.HORROR_THUMBNAIL_STYLE || process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
   return value === "2d-animation" || value === "2d"
-    ? { visual: "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading, dramatic composition", avoid: "not photorealistic 3D, not anime, not childish cartoon" }
-    : { visual: "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting, realistic depth and scale", avoid: "not flat illustration, not anime, not childish cartoon" };
+    ? { id: "2d-animation", visual: "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading, dramatic composition", avoid: "not photorealistic 3D, not anime, not childish cartoon" }
+    : { id: "cinematic-3d", visual: "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting, realistic depth and scale", avoid: "not flat illustration, not anime, not childish cartoon" };
 }
 async function generateBackground(prompt, label = "thumbnail") {
   if (!config.cloudflareAccountId || !config.cloudflareApiToken) throw new Error("CF_ACCOUNT_ID dan CF_API_TOKEN wajib tersedia untuk membuat thumbnail.");
@@ -96,7 +95,10 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   const subject = String(seo.thumbnailPrompt || story.scenes?.[0]?.visualPrompt || story.title + ". " + topic);
   const genre = String(process.env.STORY_GENRE || story.genre || story.category || "mystery").toLowerCase();
   const characterBible = Array.isArray(story.characters) ? story.characters.map(character => character.name + ": " + character.visualBible).join(" | ") : "";
-  const continuityInstruction = characterBible ? "STRICT 3D CHARACTER CONTINUITY FOR THIS SHORTS SERIES: render every recurring character as a polished high-end 3D animated film character, not a 2D illustration, not a photograph, and not anime. Keep each character model identical in every episode: same face shape, eye shape, skin tone, apparent age, hairstyle, hairline, body proportions, and signature clothing. Do not redesign or reinterpret them. Character reference canon: " + characterBible + ". Arya and Maya must remain visually distinct and recognizable whenever they appear together. Use consistent 3D facial proportions, realistic stylized skin shading, detailed 3D hair strands, physically based fabric, expressive but natural 3D facial animation aesthetic." : "Create a recurring cast in premium cinematic 3D animated-film style with stable, clearly defined character designs.";
+  const is2dStyle = style.id === "2d-animation";
+  const continuityInstruction = characterBible
+    ? "STRICT " + style.id.toUpperCase() + " CHARACTER CONTINUITY FOR THIS SHORTS SERIES: render every recurring character consistently in " + (is2dStyle ? "premium cinematic 2D illustrated animation with stable linework, face proportions, color palette, hairstyle and signature outfits" : "polished high-end 3D animated-film style with stable dimensional facial features, skin shading, hair and physically based fabric") + ". Keep the same face shape, eye shape, skin tone, apparent age, hairstyle, body proportions, signature clothing and color palette in every episode. Do not redesign or reinterpret them. Character reference canon: " + characterBible + ". Keep all recurring characters visually distinct and recognizable."
+    : "Create a recurring cast in " + style.visual + " with stable, clearly defined character designs.";
   const common = [
     style.visual,
     continuityInstruction,
@@ -106,7 +108,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
     style.avoid + ". Respect the selected genre; no horror elements unless the genre is horror."
   ].join(" ");
   const verticalPrompt = [
-    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Entire scene and all people must be high-end cinematic 3D CGI animated characters with dimensional faces, sculpted 3D features, detailed 3D hair and physically based materials. Generate a clean image only, absolutely no visible writing of any kind.",
+    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Entire scene and all people must follow this selected visual style: " + style.visual + ". Generate a clean image only, absolutely no visible writing of any kind.",
     common,
     "Compose exclusively for vertical mobile Shorts viewing (9:16). Show one clear emotional story moment with the recurring 3D characters large in frame; preserve the exact same character models and signature outfits defined in the character bible. Keep faces unobstructed and readable on a phone. Leave safe space near the top for the EPS badge and the lower quarter for the theme title overlay."
   ].join(" ");
@@ -125,7 +127,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v8-shorts-portrait-ctr", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: "cinematic-3d", characterContinuity: "series-bible" }
+    thumbnail: { version: "episode-ctr-v9-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: style.id, characterContinuity: "series-bible" }
   }, null, 2));
   return { verticalPath, compatibilityPath };
 }
