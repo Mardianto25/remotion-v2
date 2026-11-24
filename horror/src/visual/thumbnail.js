@@ -26,7 +26,7 @@ async function generateBackground(prompt) {
   }
   return Buffer.from(await response.arrayBuffer());
 }
-function makeOverlay(width, height, text, episodeNumber, labelOverride = "") {
+function makeOverlay(width, height, text, episodeNumber, labelOverride = "", themeTitle = "") {
   const isLandscape = width > height;
   const maxChars = isLandscape ? 24 : 18;
   const words = String(text || "").trim().toUpperCase().split(/\s+/).filter(Boolean);
@@ -55,13 +55,15 @@ function makeOverlay(width, height, text, episodeNumber, labelOverride = "") {
   const badgeY = isLandscape ? 48 : 70;
   const badge = '<rect x="' + badgeX + '" y="' + badgeY + '" width="' + badgeWidth + '" height="' + badgeHeight + '" rx="14" fill="#b91c1c"/>' +
     '<text x="' + (badgeX + badgeWidth / 2) + '" y="' + (badgeY + badgeHeight * 0.68) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 40 : 48) + '" font-weight="900" letter-spacing="2">' + episodeLabel + '</text>';
+  const theme = String(themeTitle || "").trim().toUpperCase().slice(0, 48);
+  const themeLabel = theme ? '<text x="' + (width / 2) + '" y="' + (isLandscape ? 176 : 250) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 30 : 42) + '" font-weight="800" stroke="#120b0b" stroke-width="5" paint-order="stroke" letter-spacing="1">' + escapeXml(theme) + '</text>' : "";
   const shadeStart = isLandscape ? 0.60 : 0.72;
   const shadeRectY = Math.round(height * shadeStart);
   return Buffer.from('<svg width="' + width + '" height="' + height + '" xmlns="http://www.w3.org/2000/svg">' +
     '<defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".94"/></linearGradient></defs>' +
     '<rect width="100%" height="100%" fill="url(#shade)"/>' +
     '<rect x="30" y="' + shadeRectY + '" width="' + (width - 60) + '" height="' + Math.round(height * (1 - shadeStart) - 24) + '" rx="22" fill="#050505" fill-opacity=".24"/>' +
-    badge + title + '</svg>');
+    badge + themeLabel + title + '</svg>');
 }
 export async function generateThumbnail(story, seo, topic, metadataPath = path.join(DATA_DIR, "youtube-metadata.json")) {
   await fs.mkdir(OUT_DIR, { recursive: true });
@@ -94,20 +96,21 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   ]);
   const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 5).join(" ").slice(0, 48);
   const episodeNumber = story.episodeNumber;
+  const themeTitle = story.seriesTitle || story.themeTitle || story.theme || "";
   const verticalPath = path.join(OUT_DIR, "shorts-cover.jpg");
   const landscapePath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
   await Promise.all([
     sharp(verticalBuffer).resize(1080, 1920, { fit: "cover", position: "attention" })
-      .composite([{ input: makeOverlay(1080, 1920, label, episodeNumber) }])
+      .composite([{ input: makeOverlay(1080, 1920, label, episodeNumber, "", themeTitle) }])
       .jpeg({ quality: 90, mozjpeg: true }).toFile(verticalPath),
     sharp(landscapeBuffer).resize(1280, 720, { fit: "cover", position: "attention" })
-      .composite([{ input: makeOverlay(1280, 720, label, episodeNumber) }])
+      .composite([{ input: makeOverlay(1280, 720, label, episodeNumber, "", themeTitle) }])
       .jpeg({ quality: 92, mozjpeg: true }).toFile(landscapePath)
   ]);
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v6", format: "9:16", youtube: "youtube-thumbnail.jpg", shorts: "shorts-cover.jpg", visualStyle: "cinematic-3d", characterContinuity: "series-bible" }
+    thumbnail: { version: "episode-ctr-v7-theme", format: "9:16", youtube: "youtube-thumbnail.jpg", shorts: "shorts-cover.jpg", visualStyle: "cinematic-3d", characterContinuity: "series-bible" }
   }, null, 2));
   return { verticalPath, landscapePath };
 }

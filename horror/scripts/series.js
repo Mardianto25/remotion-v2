@@ -97,7 +97,9 @@ if (command === "episode") {
     throw new Error("Naskah utama tidak sama dengan gabungan narration setiap scene. Perbaiki season plan sebelum produksi.");
   }
   const story = {
-    episodeNumber, title: String(episodePlan.title || "Episode " + episodeNumber),
+    episodeNumber,
+    seriesTitle: String(bible.seriesTitle || bible.themeTitle || bible.title || ""),
+    title: String(episodePlan.title || "Episode " + episodeNumber),
     description: String(episodePlan.description || episodePlan.logline || ""),
     genre: String(bible.genre || state.genre || "storytelling"),
     category: String(bible.genre || "Storytelling"),
