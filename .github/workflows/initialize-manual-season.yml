@@ -117,7 +117,7 @@ jobs:
               preserved.push(file.name);
             } catch (error) {
               if (error.code !== 'ENOENT') throw error;
-              await fs.writeFile(target, JSON.stringify(file.value, null, 2) + '\\n', 'utf8');
+              await fs.writeFile(target, JSON.stringify(file.value, null, 2) + '\n', 'utf8');
               created.push(file.name);
             }
           }
