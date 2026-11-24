@@ -22,7 +22,8 @@
     {
       "episodeNumber": 2,
       "title": "Tagihan di Ambang Pintu",
-      "status": "not_started"
+      "status": "script_ready",
+      "sceneCount": 6
     },
     {
       "episodeNumber": 3,
@@ -55,5 +56,5 @@
       "status": "not_started"
     }
   ],
-  "updatedAt": "2026-11-24T19:45:00.446Z"
+  "updatedAt": "2026-11-24T19:49:06.148Z"
 }
