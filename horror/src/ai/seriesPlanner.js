@@ -124,6 +124,52 @@ export async function planSeason(concept, options = {}) {
     const batchSize = Math.max(1, Math.min(3, Number(process.env.OPENROUTER_EPISODE_BATCH_SIZE || 2)));
     const episodes = [];
     let seasonMetadata = null;
+    const validateEpisodeBatch = (draft, firstEpisode, lastEpisode) => {
+      if (!Array.isArray(draft.characters) || !draft.characters.length ||
+          !Array.isArray(draft.worldRules) || !draft.worldRules.length) {
+        throw new Error("Batch tidak menyertakan character bible atau world rules.");
+      }
+      for (const [offset, episode] of draft.episodes.entries()) {
+        const number = firstEpisode + offset;
+        if (!String(episode.narration || "").trim() || !Array.isArray(episode.scenes) ||
+            episode.scenes.length < minScenes || episode.scenes.length > maxScenes) {
+          throw new Error("Episode " + number + " belum memiliki naskah final dan " +
+            minScenes + "-" + maxScenes + " scene.");
+        }
+        const combined = episode.scenes.map(scene => String(scene.narration || "").trim())
+          .join(" ").replace(/\\s+/g, " ").trim();
+        if (combined !== String(episode.narration).replace(/\\s+/g, " ").trim()) {
+          throw new Error("Narration episode " + number + " tidak sama dengan gabungan scene.");
+        }
+        if (episode.scenes.some(scene => !scene.heading || !scene.visualPrompt)) {
+          throw new Error("Episode " + number + " memiliki scene tanpa heading atau visualPrompt.");
+        }
+        if (number > 1) {
+          const bridge = episode.continuityBridge || {};
+          const required = ["previousEpisodeEnding", "openingContinuation", "timeAndLocation", "unresolvedQuestion"];
+          const missing = required.filter(key => String(bridge[key] || "").trim().length < 12);
+          if (missing.length || !Array.isArray(bridge.characterStatesAtOpening) ||
+              !bridge.characterStatesAtOpening.length || !Array.isArray(bridge.carriedElements) ||
+              !bridge.carriedElements.length) {
+            throw new Error("Continuity bridge episode " + number + " belum lengkap: " + missing.join(", "));
+          }
+        }
+        const lastScene = episode.scenes[episode.scenes.length - 1];
+        if (number < episodeCount) {
+          if (String(episode.endingType || "").trim() !== "cliffhanger" ||
+              String(episode.cliffhanger || "").trim().length < 20 ||
+              String(episode.nextEpisodeQuestion || "").trim().length < 12 ||
+              String(lastScene.narration || "").trim().length < 20 ||
+              String(lastScene.visualPrompt || "").trim().length < 40) {
+            throw new Error("Cliffhanger episode " + number + " belum lengkap.");
+          }
+        } else if (String(episode.endingType || "").trim() !== "finale_resolution" ||
+                   String(episode.episodePayoff || "").trim().length < 20 ||
+                   String(lastScene.narration || "").trim().length < 20) {
+          throw new Error("Episode finale belum memiliki payoff dan ending tuntas.");
+        }
+      }
+    };
 
     for (let first = 1; first <= episodeCount; first += batchSize) {
       const last = Math.min(episodeCount, first + batchSize - 1);
@@ -167,6 +213,7 @@ export async function planSeason(concept, options = {}) {
               (last - first + 1) + " episode, tetapi menerima " +
               (Array.isArray(parsed.episodes) ? parsed.episodes.length : 0) + ".");
           }
+          validateEpisodeBatch(parsed, first, last);
           parsed.episodes.forEach((episode, index) => {
             const expectedNumber = first + index;
             if (Number(episode.episodeNumber) !== expectedNumber) {
