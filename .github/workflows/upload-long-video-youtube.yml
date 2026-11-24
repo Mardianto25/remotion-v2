@@ -25,6 +25,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Validate uploader syntax
+        run: node --check scripts/uploadLongVideo.js
       - name: Install dependencies
         run: npm install && npm install googleapis
       - name: Upload standard landscape video
