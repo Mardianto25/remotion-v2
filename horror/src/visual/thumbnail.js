@@ -13,18 +13,43 @@ function selectedStyle() {
     ? { visual: "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading, dramatic composition", avoid: "not photorealistic 3D, not anime, not childish cartoon" }
     : { visual: "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting, realistic depth and scale", avoid: "not flat illustration, not anime, not childish cartoon" };
 }
-async function generateBackground(prompt) {
+async function generateBackground(prompt, label = "thumbnail") {
   if (!config.cloudflareAccountId || !config.cloudflareApiToken) throw new Error("CF_ACCOUNT_ID dan CF_API_TOKEN wajib tersedia untuk membuat thumbnail.");
   const endpoint = "https://api.cloudflare.com/client/v4/accounts/" + config.cloudflareAccountId + "/ai/run/" + config.cloudflareModel;
-  const response = await fetch(endpoint, { method: "POST", headers: { Authorization: "Bearer " + config.cloudflareApiToken, "Content-Type": "application/json" }, body: JSON.stringify({ prompt: String(prompt).slice(0, 2048), steps: 4 }) });
-  if (!response.ok) throw new Error("Cloudflare thumbnail HTTP " + response.status + ": " + (await response.text()).slice(0, 400));
-  const type = response.headers.get("content-type") || "";
-  if (type.includes("application/json")) {
-    const payload = await response.json();
-    if (!payload?.result?.image) throw new Error("Cloudflare thumbnail tidak mengembalikan result.image.");
-    return Buffer.from(payload.result.image, "base64");
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 90000);
+    try {
+      console.log("[thumbnail] " + label + ": request Cloudflare (" + attempt + "/" + maxAttempts + ").");
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { Authorization: "Bearer " + config.cloudflareApiToken, "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: String(prompt).slice(0, 2048), steps: 4 }),
+        signal: controller.signal
+      });
+      if (!response.ok) throw new Error("Cloudflare thumbnail HTTP " + response.status + ": " + (await response.text()).slice(0, 400));
+      const type = response.headers.get("content-type") || "";
+      let buffer;
+      if (type.includes("application/json")) {
+        const payload = await response.json();
+        if (!payload?.result?.image) throw new Error("Cloudflare thumbnail tidak mengembalikan result.image.");
+        buffer = Buffer.from(payload.result.image, "base64");
+      } else {
+        buffer = Buffer.from(await response.arrayBuffer());
+      }
+      if (!buffer.length) throw new Error("Cloudflare mengembalikan gambar kosong.");
+      console.log("[thumbnail] " + label + ": gambar diterima (" + buffer.length + " bytes).");
+      return buffer;
+    } catch (error) {
+      const timedOut = error.name === "AbortError";
+      console.warn("[thumbnail] " + label + ": percobaan " + attempt + " gagal" + (timedOut ? " (timeout 90 detik)" : "") + ": " + error.message);
+      if (attempt === maxAttempts) throw new Error("Gagal membuat " + label + " setelah " + maxAttempts + " percobaan: " + error.message);
+      await new Promise(resolve => setTimeout(resolve, 1500 * attempt));
+    } finally {
+      clearTimeout(timeout);
+    }
   }
-  return Buffer.from(await response.arrayBuffer());
 }
 function makeOverlay(width, height, text, episodeNumber, labelOverride = "", themeTitle = "") {
   const isLandscape = width > height;
@@ -85,34 +110,24 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
     common,
     "Compose exclusively for vertical mobile Shorts viewing (9:16). Show one clear emotional story moment with the recurring 3D characters large in frame; preserve the exact same character models and signature outfits defined in the character bible. Keep faces unobstructed and readable on a phone. Leave safe space near the top for the EPS badge and the lower quarter for the theme title overlay."
   ].join(" ");
-  const landscapePrompt = [
-    "Create a premium standard YouTube video thumbnail, landscape 16:9 composition, 1280x720 framing. Generate a clean image only, absolutely no visible writing of any kind.",
-    common,
-    "Compose for a desktop and mobile YouTube thumbnail. Use a strong cinematic focal subject on the right half, with clear negative space on the left and lower third for a separately added title overlay. Keep the main face and story action inside the central safe area."
-  ].join(" ");
-  const [verticalBuffer, landscapeBuffer] = await Promise.all([
-    generateBackground(verticalPrompt),
-    generateBackground(landscapePrompt)
-  ]);
-  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 5).join(" ").slice(0, 48);
+  // Shorts only: generate one portrait image. Do not spend a second API call on 16:9.
+  const verticalBuffer = await generateBackground(verticalPrompt, "Shorts 9:16");
+  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
   const episodeNumber = story.episodeNumber;
   const themeTitle = story.seriesTitle || story.themeTitle || story.theme || "";
   const verticalPath = path.join(OUT_DIR, "shorts-cover.jpg");
-  const landscapePath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
-  await Promise.all([
-    sharp(verticalBuffer).resize(1080, 1920, { fit: "cover", position: "attention" })
-      .composite([{ input: makeOverlay(1080, 1920, label, episodeNumber, "", themeTitle) }])
-      .jpeg({ quality: 90, mozjpeg: true }).toFile(verticalPath),
-    sharp(landscapeBuffer).resize(1280, 720, { fit: "cover", position: "attention" })
-      .composite([{ input: makeOverlay(1280, 720, label, episodeNumber, "", themeTitle) }])
-      .jpeg({ quality: 92, mozjpeg: true }).toFile(landscapePath)
-  ]);
+  const compatibilityPath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
+  await sharp(verticalBuffer).resize(1080, 1920, { fit: "cover", position: "attention" })
+    .composite([{ input: makeOverlay(1080, 1920, label, episodeNumber, "", themeTitle) }])
+    .jpeg({ quality: 90, mozjpeg: true }).toFile(verticalPath);
+  // Keep the legacy filename for existing workflow consumers, but its content is also 9:16.
+  await fs.copyFile(verticalPath, compatibilityPath);
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v7-theme", format: "9:16", youtube: "youtube-thumbnail.jpg", shorts: "shorts-cover.jpg", visualStyle: "cinematic-3d", characterContinuity: "series-bible" }
+    thumbnail: { version: "episode-ctr-v8-shorts-portrait-ctr", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: "cinematic-3d", characterContinuity: "series-bible" }
   }, null, 2));
-  return { verticalPath, landscapePath };
+  return { verticalPath, compatibilityPath };
 }
 
 
