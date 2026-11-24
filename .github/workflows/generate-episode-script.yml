@@ -1,4 +1,4 @@
-name: 02 - SHORT 02 | Episode Script
+name: 02 - SHORT | Episode Script
 on:
   workflow_dispatch:
     inputs:
