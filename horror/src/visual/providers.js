@@ -10,8 +10,17 @@ function buildCharacterContinuityPrompt(prompt, characters = []) {
   const source = String(prompt || "");
   const lower = source.toLowerCase();
   const matched = characters.filter(character => {
-    const name = String(character.name || "").trim();
-    return name && new RegExp("\\b" + name.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\function buildVisualPrompt(prompt) {") + "\\b", "i").test(source);
+    const name = String(character.name || "").trim().toLowerCase();
+    return name && lower.includes(name);
+  });
+  if (!matched.length) return source;
+  const canon = matched.map(character =>
+    character.name + " (FIXED CHARACTER DESIGN): " + String(character.visualBible || "").trim()
+  ).filter(item => !item.endsWith(":")).join(". ");
+  return source + ". RECURRING CHARACTER CANON — follow exactly, do not redesign: " + canon +
+    ". Preserve each named character's same face, age, skin tone, hairstyle, body proportions and signature clothing in every scene.";
+}
+function buildVisualPrompt(prompt) {") + "\\b", "i").test(source);
   });
   if (!matched.length) return source;
   const canon = matched.map(character =>
@@ -38,7 +47,8 @@ function buildVisualPrompt(prompt, characters = []) {
   };
   const mood = moodByGenre[genre] || "genre-appropriate cinematic visual storytelling";
   const suffix = ". " + style + ". " + mood + ". Portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark.";
-  const characterPrompt = buildCharacterContinuityPrompt(prompt, characters);\n  const base = String(characterPrompt || "A cinematic scene with a clear central subject")
+  const characterPrompt = buildCharacterContinuityPrompt(prompt, characters);
+  const base = String(characterPrompt || "A cinematic scene with a clear central subject")
     .replace(/\\b(photorealistic|cinematic)\\b/gi, "")
     .trim();
   // FLUX.1 schnell accepts prompts up to 2048 characters.
