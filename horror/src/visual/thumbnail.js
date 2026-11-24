@@ -9,8 +9,8 @@ function escapeXml(value) {
 function selectedStyle() {
   const value = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
   return value === "2d-animation" || value === "2d"
-    ? { visual: "premium cinematic 2D animation, semi-realistic dark graphic-novel illustration, expressive consistent character design, hand-painted detailed environment", avoid: "not photorealistic 3D, not anime, not childish cartoon" }
-    : { visual: "premium cinematic realistic 3D render, detailed physically based materials, lifelike character design, Unreal Engine quality, volumetric atmosphere", avoid: "not flat illustration, not anime, not childish cartoon" };
+    ? { visual: "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading, dramatic composition", avoid: "not photorealistic 3D, not anime, not childish cartoon" }
+    : { visual: "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting, realistic depth and scale", avoid: "not flat illustration, not anime, not childish cartoon" };
 }
 async function generateBackground(prompt) {
   if (!config.cloudflareAccountId || !config.cloudflareApiToken) throw new Error("CF_ACCOUNT_ID dan CF_API_TOKEN wajib tersedia untuk membuat thumbnail.");
