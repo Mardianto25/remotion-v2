@@ -26,7 +26,7 @@ async function generateBackground(prompt) {
   return Buffer.from(await response.arrayBuffer());
 }
 function makeOverlay(width, height, text) {
-  const words = String(text || "").trim().toUpperCase().split(/\\s+/).filter(Boolean);
+  const words = String(text || "").trim().toUpperCase().split(/\s+/).filter(Boolean);
   const lines = [];
   let line = "";
   for (const word of words) {
