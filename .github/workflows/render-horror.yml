@@ -63,6 +63,8 @@ jobs:
         working-directory: horror
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: openai/gpt-4o-mini
           GEMINI_MODEL: gemini-2.5-flash
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
