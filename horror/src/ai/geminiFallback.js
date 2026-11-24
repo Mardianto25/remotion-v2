@@ -156,29 +156,7 @@ export async function generateGeminiContent(ai, request, options = {}) {
     lastError = new Error("Gemini API key tidak tersedia.");
   }
 
-  console.warn("[ai] Seluruh jalur Gemini gagal. Beralih ke OpenRouter.");
-  if (typeof options.openRouterFallback === "function") {
-    return options.openRouterFallback(request, lastError);
-  }
-
-  const primaryModel = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
-  const fallbackModels = (process.env.OPENROUTER_FALLBACK_MODELS ||
-    "qwen/qwen3-235b-a22b-2507,deepseek/deepseek-v3.2")
-    .split(",").map(value => value.trim()).filter(Boolean);
-  const openRouterModels = [...new Set([primaryModel, ...fallbackModels])];
-  let lastOpenRouterError;
-  for (const model of openRouterModels) {
-    try {
-      console.warn("[openrouter] Mencoba model: " + model);
-      return await generateOpenRouterContent(
-        request, lastError, options.validateResponse, { model }
-      );
-    } catch (error) {
-      lastOpenRouterError = error;
-      console.error("[openrouter] Model " + model + " gagal: " +
-        String(error?.message || error));
-    }
-  }
-  throw new Error("Semua model OpenRouter gagal. " +
-    String(lastOpenRouterError?.message || lastOpenRouterError || ""));
+  // OpenRouter fallback dinonaktifkan sementara.
+  // Jika seluruh model Gemini gagal, proses langsung dihentikan.
+  throw lastError || new Error("Seluruh model Gemini gagal.");
 }
