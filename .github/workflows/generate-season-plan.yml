@@ -1,4 +1,4 @@
-name: 01 - Season Plan | Tema, Naskah & Semua Scene
+name: 01 - SHORT 01 | Season Plan
 on:
   workflow_dispatch:
     inputs:
