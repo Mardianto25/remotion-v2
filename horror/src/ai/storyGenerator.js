@@ -65,7 +65,7 @@ function normalizeStory(input, topic, selectedGenre = "mystery") {
   return {
     title: value.title || value.videoTitle || topic,
     description: value.description || value.summary || "",
-    category: value.category || selectedGenre,
+    category: value.category || (selectedGenre === "mystery" ? "Horror & Mystery" : selectedGenre),
     genre: value.genre || selectedGenre,
     disclaimer: value.disclaimer || "Kisah ini memuat legenda dan dramatisasi. Bagian yang belum terverifikasi tidak disajikan sebagai fakta.",
     narration,
@@ -82,11 +82,11 @@ export async function generateStory(topic, options = {}) {
   const maxWords = Math.min(1150, Math.round(targetWords * 1.12));
   const sceneCount = Math.max(6, Math.min(32, Math.round(durationMinutes * 4)));
   const selectedStyle = String(process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
-  const visualStylePrompt = selectedStyle === "2d" || selectedStyle === "2d-animation" ? "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading" : "high-end cinematic 3D CGI, realistic 3D characters and environments, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render";
+  const visualStylePrompt = longVideo && (selectedStyle === "2d" || selectedStyle === "2d-animation") ? "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading" : "high-end cinematic 3D CGI, realistic 3D characters and environments, physically based materials, detailed textures, volumetric lighting, cinematic depth, Unreal Engine quality render";
   if (!config.geminiApiKey) throw new Error("GEMINI_API_KEY belum diatur.");
   const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
   const prompt = [
-    "Buat naskah " + (longVideo ? "cerita video YouTube genre " + selectedGenre : "cerita horor/misteri Indonesia") + " untuk Ruang Cerita Indonesia dengan target durasi narasi " + durationMinutes + " menit (sekitar " + minWords + "-" + maxWords + " kata). Jangan melebihi " + Math.round(maxWords * 1.08) + " kata.",
+    longVideo ? "Buat naskah cerita video YouTube genre " + selectedGenre + " untuk Ruang Cerita Indonesia dengan target durasi " + durationMinutes + " menit (sekitar " + minWords + "-" + maxWords + " kata). Jangan melebihi " + Math.round(maxWords * 1.08) + " kata." : "Buat naskah cerita horor/misteri Indonesia untuk video YouTube Ruang Cerita Indonesia dengan target durasi narasi 5-6 menit (sekitar 650-750 kata; batas keras 820 kata).",
     "Prioritaskan cerita yang padat, mengalir, sinematik, dan membuat penonton ingin terus menonton. Jangan memperpanjang cerita dengan pengulangan, basa-basi, atau deskripsi suasana yang tidak menambah ketegangan.",
     "Gunakan struktur alur yang jelas: (1) hook kuat yang sesuai genre dalam 1-2 kalimat pertama; (2) pengenalan tokoh dan lokasi secara singkat; (3) konflik mulai berkembang; (4) konsekuensi dan taruhan meningkat dengan petunjuk atau keputusan baru; (5) klimaks yang emosional dan logis; (6) ending atau twist yang kuat dan membekas.",
     "Pastikan ada perkembangan cerita atau informasi baru setiap 20-35 detik. Dalam 5-10 detik pertama, buka dengan momen paling menarik atau pertanyaan yang spesifik. Hindari intro channel, salam, ajakan subscribe di awal, dan latar belakang panjang. Jangan mengulang informasi yang sudah diketahui penonton, jangan terlalu cepat mengungkap sosok/rahasia utama, dan jangan menutup cerita secara terburu-buru.",
