@@ -138,8 +138,8 @@ const subtitlePath = path.join(AUDIO_DIR, "narration.vtt");
 await generateNarration(story.narration, audioPath, subtitlePath);
 const captions = parseVtt(await fs.readFile(subtitlePath, "utf8"));
 const duration = await audioDuration(audioPath);
-if (duration > 60) {
-  throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik melewati batas 60 detik. Persingkat naskah episode lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);
+if (duration < 50 || duration > 120) {
+  throw new Error(`[duration] Narasi ${duration.toFixed(1)} detik di luar target YouTube Shorts 50-120 detik. Sesuaikan naskah lalu jalankan ulang; visual tidak dibuat agar biaya image generation tidak terbuang.`);
 }
 
 console.log("[4/7] Rancang sound design dan siapkan SFX");
