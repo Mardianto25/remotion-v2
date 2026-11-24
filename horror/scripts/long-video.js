@@ -68,7 +68,7 @@ function parseVtt(vtt) {
 console.log("[long-video] Mode: " + (storyFile ? "Series/Episode" : "Single Video") + " | Target: " + durationMinutes + " menit");
 const story = storyFile
   ? await readJson(path.resolve(ROOT, storyFile))
-  : await generateStory(topic, { durationMinutes });
+  : await generateStory(topic, { durationMinutes, longVideo: true, genre: process.env.STORY_GENRE || "mystery" });
 if (!story.narration || !Array.isArray(story.scenes) || !story.scenes.length) {
   throw new Error("Naskah tidak memiliki narration/scenes.");
 }
