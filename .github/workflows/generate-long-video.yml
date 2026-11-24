@@ -89,10 +89,9 @@ jobs:
           node --check src/visual/providers.js
           node --check src/visual/thumbnail.js
       - name: Ensure Remotion browser
-        
+        run: npx remotion browser ensure
       - name: Validate Remotion compositions
         run: npx remotion compositions remotion/index.jsx
-        run: npx remotion browser ensure
       - name: Generate images, narration, thumbnail and 16:9 video
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
