@@ -14,7 +14,9 @@ function parseJson(text) {
 
 function fallbackSeo(story, topic) {
   const genre = String(story.genre || story.category || process.env.STORY_GENRE || "storytelling");
-  const title = String(story.title || topic || "Cerita " + genre).trim().slice(0, 60);
+  const baseTitle = String(story.title || topic || "Cerita " + genre).trim();
+  const episodePrefix = Number.isInteger(Number(story.episodeNumber)) && Number(story.episodeNumber) > 0 ? "EPS " + String(Number(story.episodeNumber)).padStart(2, "0") + " | " : "";
+  const title = (episodePrefix + baseTitle).slice(0, 60);
   const tags = ["cerita " + genre, "storytelling Indonesia", "cerita Indonesia", "Ruang Cerita Indonesia", "video shorts"];
   const hashtags = ["#CeritaIndonesia", "#Shorts", "#" + genre.replace(/[^\p{L}\p{N}]/gu, "")];
   const scenePrompt = Array.isArray(story.scenes) ? story.scenes.slice(0, 2).map(x => x.visualPrompt || x.heading).filter(Boolean).join("; ") : "";
@@ -61,7 +63,9 @@ Naskah: ${String(story.narration || "").slice(0, 9000)}`;
     console.warn("[seo] Gemini tidak tersedia/kuota habis. Menggunakan metadata lokal:", error.message);
     return fallbackSeo(story, topic);
   }
-  const title = String(value.title || story.title || topic).trim().slice(0, 60);
+  const baseTitle = String(value.title || story.title || topic).trim();
+  const episodePrefix = Number.isInteger(Number(story.episodeNumber)) && Number(story.episodeNumber) > 0 ? "EPS " + String(Number(story.episodeNumber)).padStart(2, "0") + " | " : "";
+  const title = (episodePrefix + baseTitle).slice(0, 60);
   const hashtags = [...new Set((Array.isArray(value.hashtags) ? value.hashtags : []).map(x => String(x).trim().replace(/\s+/g, "")).filter(x => /^#[\p{L}\p{N}_]+$/u.test(x)))].slice(0, 5);
   const uniqueTags = [...new Set((Array.isArray(value.tags) ? value.tags : []).map(x => String(x).trim()).filter(Boolean))].slice(0, 18);
   const tags = [];
