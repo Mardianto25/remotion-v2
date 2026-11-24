@@ -6,7 +6,21 @@ const VISUAL_STYLES = {
   "cinematic-3d": "high-end cinematic 3D CGI, realistic physically based materials, detailed environment, expressive character design, dramatic film lighting, realistic depth and scale",
   "2d-animation": "premium cinematic 2D animation, semi-realistic illustrated characters, detailed linework, hand-painted environment, textured painterly shading, dramatic composition"
 };
-function buildVisualPrompt(prompt) {
+function buildCharacterContinuityPrompt(prompt, characters = []) {
+  const source = String(prompt || "");
+  const lower = source.toLowerCase();
+  const matched = characters.filter(character => {
+    const name = String(character.name || "").trim();
+    return name && new RegExp("\\b" + name.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\function buildVisualPrompt(prompt) {") + "\\b", "i").test(source);
+  });
+  if (!matched.length) return source;
+  const canon = matched.map(character =>
+    character.name + " (FIXED CHARACTER DESIGN): " + String(character.visualBible || "").trim()
+  ).filter(item => !item.endsWith(":")).join(". ");
+  return source + ". RECURRING CHARACTER CANON — follow exactly, do not redesign: " + canon +
+    ". Preserve each named character's same face, age, skin tone, hairstyle, body proportions and signature clothing in every scene.";
+}
+function buildVisualPrompt(prompt, characters = []) {
   const selectedStyle = (process.env.HORROR_VISUAL_STYLE || "cinematic-3d").toLowerCase();
   const styleKey = selectedStyle === "2d" ? "2d-animation" : selectedStyle;
   const style = VISUAL_STYLES[styleKey] || VISUAL_STYLES["cinematic-3d"];
@@ -24,7 +38,7 @@ function buildVisualPrompt(prompt) {
   };
   const mood = moodByGenre[genre] || "genre-appropriate cinematic visual storytelling";
   const suffix = ". " + style + ". " + mood + ". Portrait vertical 9:16 composition for mobile video, no text, no logo, no watermark.";
-  const base = String(prompt || "A cinematic scene with a clear central subject")
+  const characterPrompt = buildCharacterContinuityPrompt(prompt, characters);\n  const base = String(characterPrompt || "A cinematic scene with a clear central subject")
     .replace(/\\b(photorealistic|cinematic)\\b/gi, "")
     .trim();
   // FLUX.1 schnell accepts prompts up to 2048 characters.
@@ -94,10 +108,10 @@ export async function pexelsImage(query, destination) {
   return { provider: "pexels", sourceUrl: item.url, creator: item.photographer || null, fileName: path.basename(destination) };
 }
 
-export async function getSceneImage(scene, index, destinationDir = ASSETS_DIR) {
+export async function getSceneImage(scene, index, destinationDir = ASSETS_DIR, characters = []) {
   await fs.mkdir(destinationDir, { recursive: true });
   const stem = "scene-" + String(index + 1).padStart(3, "0");
-  const prompt = scene.visualPrompt || scene.narration || "Misty Indonesian forest at night";
+  const prompt = buildCharacterContinuityPrompt(scene.visualPrompt || scene.narration || "Misty Indonesian forest at night", characters);
   const query = scene.searchQuery || "Indonesian misty forest cinematic";
   const strictStyle = (process.env.HORROR_STRICT_VISUAL_STYLE || "").toLowerCase() === "true";
   const cloudflareProvider = () => cloudflareImage(prompt, path.join(destinationDir, stem + ".jpg"));
