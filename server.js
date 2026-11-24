@@ -347,17 +347,20 @@ export async function executePipeline(autoPushGit = true, visualStyle = 'cinemat
     Setiap scene harus memiliki teks, waktu, dan visual yang berasal dari bagian audio yang SAMA.
 
     TIMESTAMP:
-    - start dan end dalam detik berdasarkan posisi aktual di audio.
+    - start dan end wajib mengikuti posisi ucapan yang benar-benar terdengar pada audio, bukan perkiraan durasi membaca.
+    - Gunakan timestamp desimal dengan presisi minimal 0.1 detik, jangan membulatkan semua waktu ke detik bulat.
     - Jangan memperkirakan durasi secara merata dan jangan menggeser timestamp demi membuat scene sama panjang.
     - Scene harus berurutan, tidak tumpang tindih, dan tidak melompati narasi.
-    - Gunakan batas jeda alami dan pergantian kalimat.
-    - Jangan memotong satu frasa di tengah kata.
-    - Pastikan seluruh narasi sampai akhir audio tercakup.
+    - Awal scene dimulai tepat saat kata pertama diucapkan; akhir scene tepat setelah kata terakhir selesai diucapkan.
+    - Gunakan batas jeda alami. Jangan membuat gap jika narasi masih berlangsung.
+    - Pastikan seluruh narasi sampai kata terakhir tercakup.
 
     TEKS:
-    - text harus merupakan kata-kata yang benar-benar terdengar.
-    - Pertahankan bahasa asli, jangan parafrase.
-    - Pecah kalimat panjang menjadi scene yang nyaman dibaca, tanpa mengubah urutan kata.
+    - text harus merupakan kata-kata yang benar-benar terdengar, verbatim.
+    - Pertahankan bahasa asli, jangan parafrase atau menghilangkan kata.
+    - Pecah teks panjang menjadi potongan frasa yang nyaman dibaca (ideal 4-9 kata per scene).
+    - Jangan gabungkan dua kalimat panjang ke dalam satu scene.
+    - Jangan memotong frasa di tengah kata; setiap potongan harus tetap mudah dipahami.
 
     VISUAL STYLE PRESET (WAJIB DIIKUTI):
     ${styleInstructions}
@@ -529,6 +532,96 @@ export async function executePipeline(autoPushGit = true, visualStyle = 'cinemat
 
   if (!normalizedSegments.length) {
     throw new Error('Tidak ada scene valid setelah validasi timestamp.');
+  }
+
+  // ----------------------------------------------------------
+  // SECOND-PASS AUDIO ALIGNMENT
+  // Gemini diminta memeriksa ulang waktu setiap potongan terhadap audio
+  // dengan teks verbatim yang sudah dihasilkan. Jika pass ini gagal atau
+  // hasilnya tidak valid, timestamp awal tetap dipakai.
+  // ----------------------------------------------------------
+
+  if (audioDuration) {
+    try {
+      const alignmentInput = normalizedSegments.map((segment, index) => ({
+        index,
+        text: segment.text
+      }));
+
+      const alignmentPrompt = `
+        Tugas: lakukan forced timestamp alignment terhadap audio terlampir.
+        Daftar teks di bawah sudah merupakan transkrip verbatim dan TIDAK BOLEH diubah.
+        Cocokkan setiap teks dengan posisi ucapan yang benar-benar terdengar pada audio.
+        Kembalikan hanya JSON array valid dengan jumlah item dan urutan yang SAMA.
+        Setiap item wajib berisi index, start, end.
+        start dan end adalah detik desimal dengan presisi 0.1 detik.
+        start adalah saat kata pertama pada potongan mulai diucapkan.
+        end adalah saat kata terakhir pada potongan selesai diucapkan.
+        Jangan membagi, menggabungkan, menghapus, atau mengubah teks.
+        Jangan membuat timestamp merata atau membulatkan ke detik bulat.
+        Jangan membuat overlap. Pertahankan jeda alami yang benar-benar terdengar.
+        Durasi audio: ${audioDuration.toFixed(2)} detik.
+        Teks yang harus disejajarkan:
+        ${JSON.stringify(alignmentInput)}
+      `;
+
+      const alignmentResponse = await ai.models.generateContent({
+        model: successfulModel,
+        contents: [
+          {
+            inlineData: {
+              mimeType: 'audio/mp3',
+              data: audioBase64
+            }
+          },
+          alignmentPrompt
+        ]
+      });
+
+      let alignmentJson = String(alignmentResponse?.text || '').trim()
+        .replace(/^\`\`\`json\\s*/i, '')
+        .replace(/^\`\`\`\\s*/i, '')
+        .replace(/\\s*\`\`\`$/, '');
+      const alignedTimes = JSON.parse(alignmentJson);
+
+      if (!Array.isArray(alignedTimes) || alignedTimes.length !== normalizedSegments.length) {
+        throw new Error('Jumlah hasil alignment tidak sama dengan jumlah scene.');
+      }
+
+      let alignedPreviousEnd = 0;
+      const checkedTimes = alignedTimes.map((item, index) => {
+        const start = Number(item.start);
+        const end = Number(item.end);
+        if (
+          Number(item.index) !== index ||
+          !Number.isFinite(start) ||
+          !Number.isFinite(end) ||
+          start < 0 ||
+          end <= start ||
+          end > audioDuration + 0.2 ||
+          (index > 0 && start < alignedPreviousEnd - 0.08)
+        ) {
+          throw new Error(`Timestamp alignment scene ${index + 1} tidak valid.`);
+        }
+        alignedPreviousEnd = end;
+        return { start, end };
+      });
+
+      checkedTimes.forEach((time, index) => {
+        normalizedSegments[index].start = time.start;
+        normalizedSegments[index].end = time.end;
+      });
+
+      console.log(`[Audio Alignment] Berhasil memeriksa ulang ${checkedTimes.length} scene menggunakan ${successfulModel}.`);
+    } catch (alignmentError) {
+      console.warn('[Audio Alignment] Gagal; memakai timestamp awal Gemini:', alignmentError.message);
+    }
+
+    // Pastikan composition Remotion tidak memotong bagian akhir audio.
+    const lastSegment = normalizedSegments[normalizedSegments.length - 1];
+    if (lastSegment.end < audioDuration) {
+      lastSegment.end = audioDuration;
+    }
   }
 
   // ----------------------------------------------------------
