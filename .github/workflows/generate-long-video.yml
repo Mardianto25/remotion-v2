@@ -119,11 +119,13 @@ jobs:
           awk -v d="$D" 'BEGIN { if (d > 510.5) exit 1 }'
           echo "Landscape output: ${W}x${H}, ${D}s"
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: long-video-${{ inputs.mode }}-${{ github.run_id }}
           path: |
             horror/long-out/
             horror/data/long-video/
             horror/public/long-video/
-          if-no-files-found: error
+            horror/remotion/generatedLongStory.js
+          if-no-files-found: ignore
           retention-days: 30
