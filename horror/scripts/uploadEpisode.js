@@ -9,7 +9,7 @@ for (const key of ["YOUTUBE_CLIENT_ID_3N", "YOUTUBE_CLIENT_SECRET_3N", "YOUTUBE_
   if (!process.env[key]) throw new Error("GitHub Secret belum diatur: " + key);
 }
 const videoPath = path.join(OUT_DIR, "indonesian-horror.mp4");
-const thumbnailPath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
+const thumbnailPath = path.join(OUT_DIR, "shorts-cover.jpg");
 const metadataPath = path.join(DATA_DIR, "youtube-metadata.json");
 const statePath = process.env.EPISODE_UPLOAD_STATE ? path.resolve(process.env.EPISODE_UPLOAD_STATE) : path.join(DATA_DIR, "episode-youtube-upload.json");
 for (const file of [videoPath, thumbnailPath, metadataPath]) await fs.access(file);
@@ -36,20 +36,43 @@ if (state.channelId !== channel.id) throw new Error("State upload berasal dari c
 async function saveState() {
   await fs.writeFile(statePath, JSON.stringify(state, null, 2) + "\n");
 }
+async function waitForVideoProcessing() {
+  const maxAttempts = 80;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const { data } = await youtube.videos.list({ part: ["processingDetails", "status"], id: state.videoId });
+    const video = data.items?.[0];
+    if (!video) throw new Error("Video " + state.videoId + " tidak ditemukan saat memeriksa status processing.");
+    const processingStatus = video.processingDetails?.processingStatus || "unknown";
+    console.log("[youtube] Processing video: " + processingStatus + " (cek " + attempt + "/" + maxAttempts + ")");
+    if (processingStatus === "succeeded") return;
+    if (processingStatus === "failed") throw new Error("YouTube gagal memproses video: " + JSON.stringify(video.processingDetails));
+    await new Promise(resolve => setTimeout(resolve, 15000));
+  }
+  throw new Error("Video belum selesai diproses YouTube setelah 20 menit. Jalankan ulang workflow 07 dengan mode retry_thumbnail.");
+}
 async function setThumbnail() {
-  await youtube.thumbnails.set({
+  if (!state.videoId) throw new Error("Tidak ada videoId untuk pemasangan thumbnail.");
+  await waitForVideoProcessing();
+  const result = await youtube.thumbnails.set({
     videoId: state.videoId,
     media: { mimeType: "image/jpeg", body: createReadStream(thumbnailPath) }
   });
+  if (!result.data?.items?.length) throw new Error("YouTube tidak mengembalikan thumbnailSetResponse.items.");
+  const { data: videoData } = await youtube.videos.list({ part: ["snippet"], id: state.videoId });
+  const thumbnails = videoData.items?.[0]?.snippet?.thumbnails;
+  if (!thumbnails || !Object.keys(thumbnails).length) throw new Error("Daftar thumbnail video belum tersedia saat verifikasi.");
+  console.log("[youtube] Thumbnail API response: " + JSON.stringify(result.data.items));
+  console.log("[youtube] Thumbnail video setelah update: " + JSON.stringify(thumbnails));
   state.thumbnailUploaded = true;
   state.thumbnailUpdatedAt = new Date().toISOString();
+  state.thumbnailAspectRatio = "9:16";
   await saveState();
 }
 
 if (state.videoId && uploadMode === "retry_thumbnail") {
   // A rerun retries only the thumbnail; it never uploads a duplicate video.
   await setThumbnail();
-  console.log("Thumbnail 16:9 berhasil dikirim ulang untuk video: " + state.url);
+  console.log("Thumbnail Shorts 9:16 berhasil dipasang ulang untuk video: " + state.url);
   process.exit(0);
 }
 
@@ -86,10 +109,10 @@ state = {
 await saveState();
 try {
   await setThumbnail();
-  console.log("Thumbnail landscape 16:9 berhasil dipasang pada video baru.");
+  console.log("Thumbnail Shorts portrait 9:16 berhasil dipasang pada video baru.");
 } catch (error) {
   console.error("Video sudah berhasil di-upload, tetapi thumbnail gagal dikirim. Jalankan ulang workflow 07 untuk mencoba memasang thumbnail tanpa meng-upload video duplikat:", error.message);
   throw error;
 }
 console.log("Upload berhasil sebagai PRIVATE: " + state.url);
-console.log("Thumbnail YouTube landscape 16:9 berhasil dipasang.");
+console.log("Thumbnail YouTube Shorts portrait 9:16 berhasil dipasang dan diverifikasi melalui API.");
