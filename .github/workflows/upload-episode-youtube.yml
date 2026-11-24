@@ -127,7 +127,10 @@ jobs:
           EP=$(printf "%02d" "$EPISODE_NUMBER")
           DIR="data/seasons/$SEASON_ID/episodes/episode-$EP"
           mkdir -p out
-          cp "/tmp/episode-thumbnail/$DIR/shorts-cover.jpg" out/youtube-thumbnail.jpg 2>/dev/null || find /tmp/episode-thumbnail -name shorts-cover.jpg -exec cp {} out/youtube-thumbnail.jpg \;
+          find /tmp/episode-thumbnail -name youtube-thumbnail.jpg -type f -size +1k -exec cp {} out/youtube-thumbnail.jpg \; -quit
+          test -s out/youtube-thumbnail.jpg || { echo "Thumbnail landscape 16:9 tidak ditemukan di artifact episode."; exit 1; }
+          echo "Thumbnail siap dipasang:"
+          file out/youtube-thumbnail.jpg
           cp "$DIR/youtube-metadata.json" data/youtube-metadata.json
       - name: Upload privately to the 3N channel
         env:
