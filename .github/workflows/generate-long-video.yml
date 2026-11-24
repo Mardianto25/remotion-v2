@@ -66,9 +66,12 @@ jobs:
       - name: Validate Single Video topic
         if: inputs.mode == 'single'
         env:
-          TOPIC: ${{ inputs.topic }}\n          STORY_GENRE: ${{ inputs.genre }}
+          TOPIC: ${{ inputs.topic }}
+          STORY_GENRE: ${{ inputs.genre }}
         run: test -n "$TOPIC" || (echo "topic wajib diisi untuk Single Video" && exit 1)
-      - name: Ensure Remotion browser\n        run: npx remotion browser ensure\n      - name: Generate images, narration, thumbnail and 16:9 video
+      - name: Ensure Remotion browser
+        run: npx remotion browser ensure
+      - name: Generate images, narration, thumbnail and 16:9 video
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-3.8-flash
