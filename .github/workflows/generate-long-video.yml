@@ -94,7 +94,7 @@ jobs:
             EP=$(printf "%02d" "$EPISODE_NUMBER")
             node scripts/long-video.js --story-file "data/long-seasons/$SERIES_ID/episodes/episode-$EP/story.json" --duration "$DURATION" --output-id "$SERIES_ID-episode-$EP"
           fi
-      - name: Validate landscape output
+      - name: Ensure Remotion browser\n        run: npx remotion browser ensure\n      - name: Validate landscape output
         run: |
           VIDEO=$(find long-out -name long-video.mp4 -type f | head -n 1)
           test -n "$VIDEO"
@@ -109,7 +109,7 @@ jobs:
           name: long-video-${{ inputs.mode }}-${{ github.run_id }}
           path: |
             horror/long-out/
-            horror/long-video-data/
+            horror/data/long-video/
             horror/public/long-video/
           if-no-files-found: error
           retention-days: 30
