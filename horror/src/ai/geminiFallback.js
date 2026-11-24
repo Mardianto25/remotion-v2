@@ -142,14 +142,13 @@ export async function generateGeminiContent(ai, request, options = {}) {
     for (const model of models) {
       try {
         console.log("[gemini] Menggunakan model: " + model);
-        const response = await withRetry("gemini:" + model, () => ai.models.generateContent({ ...request, model }));
+        const response = await ai.models.generateContent({ ...request, model });
         return await validateCandidate(response, options.validateResponse, "Gemini " + model);
       } catch (error) {
         lastError = error;
         const details = errorDetails(error);
         console.error("[gemini] Model " + model + " gagal: " + details.message);
-        if (!error?.outputValidationError && !details.retryable) break;
-        console.warn("[gemini] Mencoba model Gemini berikutnya.");
+        console.warn("[gemini] Langsung mencoba model Gemini berikutnya tanpa retry.");
       }
     }
   } else {
