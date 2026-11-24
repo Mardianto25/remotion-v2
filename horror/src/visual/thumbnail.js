@@ -104,11 +104,11 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
     continuityInstruction,
     "One unmistakable focal subject that communicates the selected story genre, dramatic close or medium shot, strong silhouette, expressive emotion, cinematic lighting, rich contrast, detailed setting.",
     "Genre: " + genre + ". Depict the most compelling and emotionally clear moment from this story: " + subject,
-    "Do not render any text, letters, numbers, symbols, captions, signage, logos, channel names, watermarks, signatures, or typography anywhere in the image. No collage, no border.",
+    "BACKGROUND IMAGE ONLY: absolutely no generated text or typography of any kind. Do not invent words, labels, headings, titles, episode numbers, badges, logos, signs, subtitles, watermarks, UI elements, or decorative lettering. The only text that may appear in the FINAL thumbnail will be added separately by our code: series theme, episode title, and episode number. Leave the top theme area and lower title area visually clean for those overlays. No collage, no border.",
     style.avoid + ". Respect the selected genre; no horror elements unless the genre is horror."
   ].join(" ");
   const verticalPrompt = [
-    "Create a premium YouTube Shorts cover image, portrait 9:16 composition. Entire scene and all people must follow this selected visual style: " + style.visual + ". Generate a clean image only, absolutely no visible writing of any kind.",
+    "Create a clean background photograph/render for a YouTube Shorts cover, portrait 9:16. This is image artwork only, not a finished poster or thumbnail design. Entire scene and all people must follow this selected visual style: " + style.visual + ". Do not generate any words, letters, numbers, title, theme, episode label, badge, logo, watermark, signage, or typography. Theme, title, and episode number are added later by code.",
     common,
     "Compose exclusively for vertical mobile Shorts viewing (9:16). Match the serious photorealistic cinematic 3D visual language of the episode video, not a cartoon or animated family-film aesthetic. Show one clear emotional story moment with lifelike human characters; preserve realistic facial anatomy, skin texture, body proportions and signature outfits defined in the character bible. Keep faces unobstructed and readable on a phone. Leave safe space near the top for the EPS badge and the lower quarter for the theme title overlay."
   ].join(" ");
