@@ -199,7 +199,7 @@ if (stage === "images") {
   await fs.copyFile(musicBedPath,path.join(AUDIO_DIR,"music-bed.wav"));
   const captions = audioManifest.captions;
   const suspenseMusic = /horror|horor|mystery|misteri|thriller|suspense/i.test(String(story.genre || story.category || ""));
-  const musicBed = { asset: "music-bed.wav", volume: suspenseMusic ? 0.075 : 0.13 };
+  const musicBed = { asset: "music-bed.wav", volume: suspenseMusic ? 0.36 : 0.5 };
   const manifest = { title:story.title, description:story.description||"", disclaimer:story.disclaimer||"", durationInFrames:totalFrames, fps, scenes, captions, musicBed, soundEffects:[], soundBeds:[], soundAssets:[] };
   await fs.writeFile(path.join(ROOT,"remotion","generatedStory.js"),"export const generatedStory = "+JSON.stringify(manifest,null,2)+";\n");
   await run("npx",["remotion","render","remotion/index.jsx","HorrorVideo","out/indonesian-horror.mp4","--codec=h264","--crf=22"]);
