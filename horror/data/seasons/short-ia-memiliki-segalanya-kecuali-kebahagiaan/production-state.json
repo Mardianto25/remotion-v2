@@ -143,13 +143,15 @@
     {
       "episodeNumber": 8,
       "title": "Segalanya yang Berarti",
-      "status": "images_ready",
+      "status": "audio_ready",
       "wordCount": 171,
       "estimatedDurationSeconds": 79,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
-      "imageCount": 6
+      "imageCount": 6,
+      "durationSeconds": 86.8,
+      "productionStandard": "shorts-minimum-60s-v2"
     }
   ],
-  "updatedAt": "2026-11-25T06:21:10.753Z"
+  "updatedAt": "2026-11-25T06:24:31.543Z"
 }
