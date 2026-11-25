@@ -68,10 +68,24 @@ export async function generateMusicBed({ outputPath, durationSeconds, genre = ""
     }
   }
 
-  // Soft sustained chord pad underneath the plucked notes.
-  const padFrequencies = progression[0].slice(0, 3);
+  // Render plucked notes once each (rather than scanning every note for every sample).
   const left = new Float32Array(frameCount);
   const right = new Float32Array(frameCount);
+  for (const note of notes) {
+    const count = Math.min(Math.floor(note.decay * SAMPLE_RATE), frameCount - note.start);
+    for (let j = 0; j < count; j++) {
+      const seconds = j / SAMPLE_RATE;
+      const envelope = Math.exp(-seconds * (suspense ? 2.3 : 3.1)) * Math.min(1, seconds / 0.012);
+      const tone = Math.sin(TAU * note.frequency * seconds)
+        + Math.sin(TAU * note.frequency * 2.01 * seconds) * 0.22
+        + Math.sin(TAU * note.frequency * 3.98 * seconds) * 0.07;
+      const sample = tone * note.amplitude * envelope;
+      left[note.start + j] += sample;
+      right[note.start + j] += sample * 0.97;
+    }
+  }
+
+  // Soft sustained chord pad underneath the plucked notes.
   for (let i = 0; i < frameCount; i++) {
     const t = i / SAMPLE_RATE;
     const bar = Math.floor(t / barSeconds);
@@ -89,21 +103,9 @@ export async function generateMusicBed({ outputPath, durationSeconds, genre = ""
     const pulse = 0.92 + 0.08 * Math.sin(TAU * (suspense ? 0.12 : 0.07) * t);
     const base = pad * padGain * pulse;
 
-    let pluck = 0;
-    for (const note of notes) {
-      const elapsed = i - note.start;
-      if (elapsed < 0 || elapsed > note.decay * SAMPLE_RATE) continue;
-      const seconds = elapsed / SAMPLE_RATE;
-      const envelope = Math.exp(-seconds * (suspense ? 2.3 : 3.1)) * Math.min(1, seconds / 0.012);
-      const fundamental = Math.sin(TAU * note.frequency * seconds);
-      const harmonic = Math.sin(TAU * note.frequency * 2.01 * seconds) * 0.22;
-      const upper = Math.sin(TAU * note.frequency * 3.98 * seconds) * 0.07;
-      pluck += (fundamental + harmonic + upper) * note.amplitude * envelope;
-    }
-
     const fade = fadeIn * fadeOut;
-    left[i] = Math.tanh((base + pluck) * fade * 1.25) * 0.72;
-    right[i] = Math.tanh((base + pluck * 0.97) * fade * 1.25) * 0.72;
+    left[i] += base * fade;
+    right[i] += base * fade;
   }
 
   for (let i = 0; i < frameCount; i++) {
