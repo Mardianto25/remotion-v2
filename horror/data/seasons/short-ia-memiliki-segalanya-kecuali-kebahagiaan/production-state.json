@@ -126,12 +126,14 @@
     {
       "episodeNumber": 7,
       "title": "Waktu yang Tidak Bisa Dibeli",
-      "status": "images_ready",
+      "status": "audio_ready",
       "wordCount": 151,
       "estimatedDurationSeconds": 70,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
-      "imageCount": 6
+      "imageCount": 6,
+      "durationSeconds": 75.7,
+      "productionStandard": "shorts-minimum-60s-v2"
     },
     {
       "episodeNumber": 8,
@@ -141,5 +143,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T03:06:32.291Z"
+  "updatedAt": "2026-11-25T03:09:36.335Z"
 }
