@@ -24,6 +24,7 @@ if (!Array.isArray(bible.episodes) || !bible.episodes.some(item => Number(item.e
 const story = await readJson(storyPath);
 story.contentId = "short-" + seasonId + "-episode-" + String(episodeNumber).padStart(2, "0");
 story.format = "shorts";
+story.episodeNumber = episodeNumber; // Pastikan badge EPS selalu mengikuti episode yang sedang diproses.
 story.characters = Array.isArray(bible.characters) ? bible.characters : [];
 story.seriesTitle = String(bible.seriesTitle || story.seriesTitle || story.themeTitle || "").trim();
 story.themeTitle = story.seriesTitle;
