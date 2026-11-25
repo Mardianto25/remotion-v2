@@ -143,7 +143,7 @@
     {
       "episodeNumber": 8,
       "title": "Segalanya yang Berarti",
-      "status": "rendered",
+      "status": "thumbnail_ready",
       "wordCount": 171,
       "estimatedDurationSeconds": 79,
       "sceneCount": 6,
@@ -151,8 +151,9 @@
       "imageCount": 6,
       "durationSeconds": 86.8,
       "productionStandard": "shorts-minimum-60s-v2",
-      "videoPath": "episodes/episode-08/indonesian-horror.mp4"
+      "videoPath": "episodes/episode-08/indonesian-horror.mp4",
+      "thumbnailVisualStyle": "cinematic-3d"
     }
   ],
-  "updatedAt": "2026-11-25T06:27:34.008Z"
+  "updatedAt": "2026-11-25T06:28:51.118Z"
 }
