@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "fileName": "scene-001.jpg",
+    "visualPrompt": "Portrait 9:16 cinematic scene, Indonesian businessman alone in a luxurious modern home at night, realistic family drama."
+  },
+  {
+    "id": 2,
+    "fileName": "scene-002.jpg",
+    "visualPrompt": "Portrait 9:16 cinematic medium shot, Indonesian family at dinner table, emotional distance, natural warm lighting."
+  },
+  {
+    "id": 3,
+    "fileName": "scene-003.jpg",
+    "visualPrompt": "Portrait 9:16 cinematic close-up, father and daughter in a quiet emotional conversation, contemporary Indonesian home."
+  },
+  {
+    "id": 4,
+    "fileName": "scene-004.jpg",
+    "visualPrompt": "Portrait 9:16 cinematic scene, elderly Indonesian father in a modest home, old photographs and personal objects."
+  },
+  {
+    "id": 5,
+    "fileName": "scene-005.jpg",
+    "visualPrompt": "Portrait 9:16 cinematic close-up, handwritten family letter and old documents on a wooden table, emotional atmosphere."
+  },
+  {
+    "id": 6,
+    "fileName": "scene-006.jpg",
+    "visualPrompt": "Portrait 9:16 cinematic dramatic scene, consistent characters, specific cliffhanger action visible, realistic Indonesian setting."
+  }
+]
