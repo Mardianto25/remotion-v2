@@ -109,14 +109,15 @@
     {
       "episodeNumber": 6,
       "title": "Saat Semuanya Terasa Kosong",
-      "status": "audio_ready",
+      "status": "rendered",
       "wordCount": 150,
       "estimatedDurationSeconds": 70,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
       "durationSeconds": 75,
-      "productionStandard": "shorts-minimum-60s-v2"
+      "productionStandard": "shorts-minimum-60s-v2",
+      "videoPath": "episodes/episode-06/indonesian-horror.mp4"
     },
     {
       "episodeNumber": 7,
@@ -133,5 +134,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T02:47:05.105Z"
+  "updatedAt": "2026-11-25T02:51:50.647Z"
 }
