@@ -5,6 +5,7 @@ import { spawn } from "node:child_process";
 import { DATA_DIR, ROOT, OUT_DIR, AUDIO_DIR, ASSETS_DIR } from "../src/config.js";
 import { getSceneImage } from "../src/visual/providers.js";
 import { generateNarration } from "../src/audio/edgeTts.js";
+import { generateMusicBed } from "../src/audio/musicBed.js";
 import { generateSoundAssets } from "../src/audio/soundAssets.js";
 import { generateSeo } from "../src/ai/seoGenerator.js";
 import { generateThumbnail } from "../src/visual/thumbnail.js";
@@ -174,8 +175,32 @@ if (stage === "images") {
   for (const item of imageManifest) await fs.copyFile(path.join(assetsDir,item.fileName),path.join(ASSETS_DIR,item.fileName));
   await fs.mkdir(AUDIO_DIR,{recursive:true});
   await fs.copyFile(path.join(audioDir,"narration.mp3"),path.join(AUDIO_DIR,"narration.mp3"));
+
+  // Generate a local, royalty-free instrumental bed from the saved story metadata.
+  // This stage reuses the existing script, images, and TTS; it does not call image/TTS generation.
+  const musicBedPath = path.join(audioDir,"music-bed.wav");
+  let musicBedInfo;
+  try {
+    const stat = await fs.stat(musicBedPath);
+    if (stat.size > 1024) {
+      musicBedInfo = { file: "music-bed.wav", durationSeconds: duration, style: "cached" };
+      console.log("[music] Reusing existing instrumental bed.");
+    }
+  } catch {}
+  if (!musicBedInfo) {
+    musicBedInfo = await generateMusicBed({
+      outputPath: musicBedPath,
+      durationSeconds: duration,
+      genre: story.genre || story.category || "",
+      scenes: story.scenes
+    });
+    console.log("[music] Generated " + musicBedInfo.style + " soundtrack (" + duration.toFixed(1) + "s).");
+  }
+  await fs.copyFile(musicBedPath,path.join(AUDIO_DIR,"music-bed.wav"));
   const captions = audioManifest.captions;
-  const manifest = { title:story.title, description:story.description||"", disclaimer:story.disclaimer||"", durationInFrames:totalFrames, fps, scenes, captions, soundEffects:[], soundBeds:[], soundAssets:[] };
+  const suspenseMusic = /horror|horor|mystery|misteri|thriller|suspense/i.test(String(story.genre || story.category || ""));
+  const musicBed = { asset: "music-bed.wav", volume: suspenseMusic ? 0.075 : 0.13 };
+  const manifest = { title:story.title, description:story.description||"", disclaimer:story.disclaimer||"", durationInFrames:totalFrames, fps, scenes, captions, musicBed, soundEffects:[], soundBeds:[], soundAssets:[] };
   await fs.writeFile(path.join(ROOT,"remotion","generatedStory.js"),"export const generatedStory = "+JSON.stringify(manifest,null,2)+";\n");
   await run("npx",["remotion","render","remotion/index.jsx","HorrorVideo","out/indonesian-horror.mp4","--codec=h264","--crf=22"]);
   const video=path.join(OUT_DIR,"indonesian-horror.mp4");
