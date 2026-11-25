@@ -92,12 +92,14 @@
     {
       "episodeNumber": 5,
       "title": "Surat yang Tak Pernah Dibaca",
-      "status": "images_ready",
+      "status": "audio_ready",
       "wordCount": 157,
       "estimatedDurationSeconds": 73,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
-      "imageCount": 6
+      "imageCount": 6,
+      "durationSeconds": 77.8,
+      "productionStandard": "shorts-minimum-60s-v2"
     },
     {
       "episodeNumber": 6,
@@ -121,5 +123,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T02:29:31.624Z"
+  "updatedAt": "2026-11-25T02:31:26.246Z"
 }
