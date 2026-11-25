@@ -121,7 +121,7 @@ function makeOverlay(width, height, text, episodeNumber, labelOverride = "", the
     '<rect x="30" y="' + shadeRectY + '" width="' + (width - 60) + '" height="' + Math.round(height * (1 - shadeStart) - 24) + '" rx="22" fill="#050505" fill-opacity=".24"/>' +
     badge + themeLabel + title + '</svg>');
 }
-export async function generateThumbnail(story, seo, topic, metadataPath = path.join(DATA_DIR, "youtube-metadata.json")) {
+export async function generateThumbnail(story, seo, topic, metadataPath = path.join(DATA_DIR, "youtube-metadata.json"), options = {}) {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const style = selectedStyle();
   const subject = String(seo.thumbnailPrompt || story.scenes?.[0]?.visualPrompt || story.title + ". " + topic);
@@ -145,7 +145,27 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
     "Compose exclusively for vertical mobile Shorts viewing (9:16). Match the serious photorealistic cinematic 3D visual language of the episode video, not a cartoon or animated family-film aesthetic. Show one clear emotional story moment with lifelike human characters; preserve realistic facial anatomy, skin texture, body proportions and signature outfits defined in the character bible. Keep faces unobstructed and readable on a phone. Leave safe space near the top for the EPS badge and the lower quarter for the theme title overlay."
   ].join(" ");
   // Shorts only: generate one portrait image. Do not spend a second API call on 16:9.
-  const verticalBuffer = await generateBackground(verticalPrompt, "Shorts 9:16");
+  // Satu master artwork dipakai oleh semua thumbnail dalam season ini.
+  // Hanya overlay judul episode dan nomor EPS yang berubah.
+  const masterImagePath = options.masterImagePath;
+  let verticalBuffer;
+  if (masterImagePath) {
+    try {
+      const masterStat = await fs.stat(masterImagePath);
+      if (masterStat.size > 1024) {
+        verticalBuffer = await fs.readFile(masterImagePath);
+        console.log("[thumbnail] Menggunakan master artwork season: " + masterImagePath);
+      }
+    } catch {}
+  }
+  if (!verticalBuffer) {
+    verticalBuffer = await generateBackground(verticalPrompt, "Season master artwork 9:16");
+    if (masterImagePath) {
+      await fs.mkdir(path.dirname(masterImagePath), { recursive: true });
+      await fs.writeFile(masterImagePath, verticalBuffer);
+      console.log("[thumbnail] Master artwork season disimpan: " + masterImagePath);
+    }
+  }
   const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
   const episodeNumber = story.episodeNumber;
   const themeTitle = story.seriesTitle || story.themeTitle || story.theme || "";
@@ -159,7 +179,7 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v11-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", visualStyle: style.id, characterContinuity: "series-bible" }
+    thumbnail: { version: "episode-ctr-v12-season-master-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", masterArtwork: "season-thumbnail-master.jpg", visualStyle: style.id, characterContinuity: "same-season-master-artwork" }
   }, null, 2));
   return { verticalPath, compatibilityPath };
 }
