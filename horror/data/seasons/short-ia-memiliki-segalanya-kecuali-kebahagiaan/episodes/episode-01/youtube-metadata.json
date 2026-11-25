@@ -32,12 +32,13 @@
   "thumbnailText": "Kaya Tapi Hampa?",
   "thumbnailPrompt": "9:16 vertical composition, cinematic realistic digital art. A wealthy Asian businessman in a tailored suit sitting alone in a dim, cold, luxury modern mansion living room at night. He stares at his glowing smartphone screen with a shocked, pained facial expression. Dramatic high-contrast lighting with cold blue room atmosphere and warm glow on his face from the phone. Cinematic depth of field, sharp focus on his emotional expression, highly evocative.",
   "thumbnail": {
-    "version": "episode-ctr-v10-cinematic-3d-portrait",
+    "version": "episode-ctr-v12-season-master-cinematic-3d-portrait",
     "format": "9:16",
     "youtube": "shorts-cover.jpg",
     "shorts": "shorts-cover.jpg",
     "compatibilityFile": "youtube-thumbnail.jpg",
+    "masterArtwork": "season-thumbnail-master.jpg",
     "visualStyle": "cinematic-3d",
-    "characterContinuity": "series-bible"
+    "characterContinuity": "same-season-master-artwork"
   }
 }
