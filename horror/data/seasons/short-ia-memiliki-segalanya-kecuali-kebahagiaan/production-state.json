@@ -92,7 +92,7 @@
     {
       "episodeNumber": 5,
       "title": "Surat yang Tak Pernah Dibaca",
-      "status": "rendered",
+      "status": "thumbnail_ready",
       "wordCount": 157,
       "estimatedDurationSeconds": 73,
       "sceneCount": 6,
@@ -100,7 +100,8 @@
       "imageCount": 6,
       "durationSeconds": 77.8,
       "productionStandard": "shorts-minimum-60s-v2",
-      "videoPath": "episodes/episode-05/indonesian-horror.mp4"
+      "videoPath": "episodes/episode-05/indonesian-horror.mp4",
+      "thumbnailVisualStyle": "cinematic-3d"
     },
     {
       "episodeNumber": 6,
@@ -124,5 +125,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T02:34:29.122Z"
+  "updatedAt": "2026-11-25T02:35:37.982Z"
 }
