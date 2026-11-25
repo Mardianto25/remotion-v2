@@ -1,0 +1,87 @@
+{
+  "durationSeconds": 75,
+  "captions": [
+    {
+      "start": 0.1,
+      "end": 3.376,
+      "text": "Arga tidak dapat menyangkal tanda tangannya."
+    },
+    {
+      "start": 3.326,
+      "end": 8.53,
+      "text": "Bertahun-tahun lalu ia menandatangani banyak dokumen tanpa membaca rinciannya."
+    },
+    {
+      "start": 8.53,
+      "end": 13.082,
+      "text": "Kelalaian itu kini menjadi bagian dari masalah yang menimpa ayahnya."
+    },
+    {
+      "start": 13.082,
+      "end": 19.019,
+      "text": "Beberapa eksekutif menyarankan penyelesaian diam-diam agar nama perusahaan tidak tercoreng."
+    },
+    {
+      "start": 19.019,
+      "end": 21.041,
+      "text": "Arga menolak."
+    },
+    {
+      "start": 21.041,
+      "end": 25.826,
+      "text": "Ia tidak ingin menyelamatkan citra dengan mengorbankan kebenaran sekali lagi."
+    },
+    {
+      "start": 25.826,
+      "end": 30.622,
+      "text": "Di rumah, Lila menemukan Arga duduk tanpa laptop dan telepon."
+    },
+    {
+      "start": 30.622,
+      "end": 37.499,
+      "text": "Ia mengaku takut kehilangan perusahaan, tetapi lebih takut kehilangan keluarga yang selama ini selalu menunggunya."
+    },
+    {
+      "start": 37.499,
+      "end": 41.274,
+      "text": "Nara meletakkan gambar keluarga di pangkuan ayahnya."
+    },
+    {
+      "start": 41.274,
+      "end": 44.617,
+      "text": "Kali ini ada empat orang bergandengan tangan."
+    },
+    {
+      "start": 44.617,
+      "end": 49.673,
+      "text": "Ia berkata ingin ayahnya ikut mengunjungi kakek, bukan hanya mengirim uang."
+    },
+    {
+      "start": 49.673,
+      "end": 54.821,
+      "text": "Arga mengantar Pak Seno ke kantor kreditur untuk mengonfirmasi bukti pembayaran."
+    },
+    {
+      "start": 54.821,
+      "end": 61.195,
+      "text": "Petugas bersedia menunda proses penjualan, tetapi meminta dokumen asli yang menjadi bukti terakhir."
+    },
+    {
+      "start": 61.195,
+      "end": 64.97,
+      "text": "Petugas kembali dari ruang arsip dengan wajah cemas."
+    },
+    {
+      "start": 64.97,
+      "end": 68.34,
+      "text": "Dokumen pembayaran asli tidak ada di map."
+    },
+    {
+      "start": 68.34,
+      "end": 74.945,
+      "text": "Seseorang telah mengambilnya sebelum pemeriksaan, dan tanpa dokumen itu rumah Pak Seno kembali terancam."
+    }
+  ],
+  "audio": "audio/narration.mp3",
+  "subtitles": "audio/narration.vtt"
+}
