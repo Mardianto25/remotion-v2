@@ -126,7 +126,7 @@
     {
       "episodeNumber": 7,
       "title": "Waktu yang Tidak Bisa Dibeli",
-      "status": "rendered",
+      "status": "thumbnail_ready",
       "wordCount": 151,
       "estimatedDurationSeconds": 70,
       "sceneCount": 6,
@@ -134,7 +134,8 @@
       "imageCount": 6,
       "durationSeconds": 75.8,
       "productionStandard": "shorts-minimum-60s-v2",
-      "videoPath": "episodes/episode-07/indonesian-horror.mp4"
+      "videoPath": "episodes/episode-07/indonesian-horror.mp4",
+      "thumbnailVisualStyle": "cinematic-3d"
     },
     {
       "episodeNumber": 8,
@@ -144,5 +145,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T05:48:10.240Z"
+  "updatedAt": "2026-11-25T06:07:42.209Z"
 }
