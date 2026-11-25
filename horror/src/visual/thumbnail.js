@@ -63,7 +63,7 @@ async function generateBackground(prompt, label = "thumbnail") {
     }
   }
 }
-function makeOverlay(width, height, text, episodeNumber, labelOverride = "", themeTitle = "") {
+function makeOverlay(width, height, text, episodeNumber, labelOverride = "", themeTitle = "", isFinalEpisode = false) {
   const isLandscape = width > height;
   const maxChars = isLandscape ? 24 : 18;
   const words = String(text || "").trim().toUpperCase().split(/\s+/).filter(Boolean);
@@ -92,6 +92,10 @@ function makeOverlay(width, height, text, episodeNumber, labelOverride = "", the
   const badgeY = isLandscape ? 48 : 70;
   const badge = '<rect x="' + badgeX + '" y="' + badgeY + '" width="' + badgeWidth + '" height="' + badgeHeight + '" rx="14" fill="#b91c1c"/>' +
     '<text x="' + (badgeX + badgeWidth / 2) + '" y="' + (badgeY + badgeHeight * 0.68) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 40 : 48) + '" font-weight="900" letter-spacing="2">' + episodeLabel + '</text>';
+  const endingBadge = isFinalEpisode
+    ? '<rect x="' + (width - (isLandscape ? 270 : 310) - (isLandscape ? 56 : 64)) + '" y="' + badgeY + '" width="' + (isLandscape ? 270 : 310) + '" height="' + badgeHeight + '" rx="14" fill="#166534"/>' +
+      '<text x="' + (width - (isLandscape ? 270 : 310) / 2 - (isLandscape ? 56 : 64)) + '" y="' + (badgeY + badgeHeight * 0.68) + '" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="' + (isLandscape ? 38 : 44) + '" font-weight="900" letter-spacing="2">TAMAT</text>'
+    : "";
   const theme = String(themeTitle || "").trim().toUpperCase();
   const themeMaxChars = isLandscape ? 34 : 27;
   const themeWords = theme.split(/\s+/).filter(Boolean);
@@ -119,7 +123,7 @@ function makeOverlay(width, height, text, episodeNumber, labelOverride = "", the
     '<defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".94"/></linearGradient></defs>' +
     '<rect width="100%" height="100%" fill="url(#shade)"/>' +
     '<rect x="30" y="' + shadeRectY + '" width="' + (width - 60) + '" height="' + Math.round(height * (1 - shadeStart) - 24) + '" rx="22" fill="#050505" fill-opacity=".24"/>' +
-    badge + themeLabel + title + '</svg>');
+    badge + endingBadge + themeLabel + title + '</svg>');
 }
 export async function generateThumbnail(story, seo, topic, metadataPath = path.join(DATA_DIR, "youtube-metadata.json"), options = {}) {
   await fs.mkdir(OUT_DIR, { recursive: true });
@@ -166,20 +170,20 @@ export async function generateThumbnail(story, seo, topic, metadataPath = path.j
       console.log("[thumbnail] Master artwork season disimpan: " + masterImagePath);
     }
   }
-  const label = String(seo.thumbnailText || story.title || topic).trim().split(/\s+/).slice(0, 4).join(" ").slice(0, 28);
+  const label = cleanThumbnailLabel(seo.thumbnailText, story.title || topic);
   const episodeNumber = story.episodeNumber;
   const themeTitle = story.seriesTitle || story.themeTitle || story.theme || "";
   const verticalPath = path.join(OUT_DIR, "shorts-cover.jpg");
   const compatibilityPath = path.join(OUT_DIR, "youtube-thumbnail.jpg");
   await sharp(verticalBuffer).resize(1080, 1920, { fit: "cover", position: "attention" })
-    .composite([{ input: makeOverlay(1080, 1920, label, episodeNumber, "", themeTitle) }])
+    .composite([{ input: makeOverlay(1080, 1920, label, episodeNumber, "", themeTitle, story.isFinalEpisode === true) }])
     .jpeg({ quality: 90, mozjpeg: true }).toFile(verticalPath);
   // Keep the legacy filename for existing workflow consumers, but its content is also 9:16.
   await fs.copyFile(verticalPath, compatibilityPath);
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(metadataPath, JSON.stringify({
     ...seo,
-    thumbnail: { version: "episode-ctr-v12-season-master-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", masterArtwork: "season-thumbnail-master.jpg", visualStyle: style.id, characterContinuity: "same-season-master-artwork" }
+    thumbnail: { version: "episode-ctr-v12-season-master-" + style.id + "-portrait", format: "9:16", youtube: "shorts-cover.jpg", shorts: "shorts-cover.jpg", compatibilityFile: "youtube-thumbnail.jpg", masterArtwork: "season-thumbnail-master.jpg", visualStyle: style.id, characterContinuity: "same-season-master-artwork", isFinalEpisode: story.isFinalEpisode === true, endingLabel: story.isFinalEpisode === true ? "TAMAT" : null }
   }, null, 2));
   return { verticalPath, compatibilityPath };
 }
