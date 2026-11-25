@@ -109,10 +109,12 @@
     {
       "episodeNumber": 6,
       "title": "Saat Semuanya Terasa Kosong",
-      "status": "script_ready",
+      "status": "images_ready",
       "wordCount": 150,
       "estimatedDurationSeconds": 70,
-      "sceneCount": 6
+      "sceneCount": 6,
+      "visualStyle": "cinematic-3d",
+      "imageCount": 6
     },
     {
       "episodeNumber": 7,
@@ -129,5 +131,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T02:43:50.646Z"
+  "updatedAt": "2026-11-25T02:45:12.192Z"
 }
