@@ -24,7 +24,7 @@
     {
       "episodeNumber": 1,
       "title": "Rumah yang Terlalu Sunyi",
-      "status": "thumbnail_ready",
+      "status": "uploaded",
       "wordCount": 177,
       "estimatedDurationSeconds": 82,
       "sceneCount": 6,
@@ -118,5 +118,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T02:15:03.222Z"
+  "updatedAt": "2026-11-25T02:16:16.521Z"
 }
