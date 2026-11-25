@@ -109,9 +109,13 @@ export async function generateMusicBed({ outputPath, durationSeconds, genre = ""
   }
 
   for (let i = 0; i < frameCount; i++) {
+    const t = i / SAMPLE_RATE;
+    const fade = Math.min(1, t / 2.2) * Math.min(1, Math.max(0, (duration - t) / 3.5));
     const offset = 44 + i * 4;
-    wav.writeInt16LE(Math.max(-32768, Math.min(32767, Math.round(left[i] * 32767))), offset);
-    wav.writeInt16LE(Math.max(-32768, Math.min(32767, Math.round(right[i] * 32767))), offset + 2);
+    const l = Math.tanh(left[i] * fade * 1.3) * 0.72;
+    const r = Math.tanh(right[i] * fade * 1.3) * 0.72;
+    wav.writeInt16LE(Math.max(-32768, Math.min(32767, Math.round(l * 32767))), offset);
+    wav.writeInt16LE(Math.max(-32768, Math.min(32767, Math.round(r * 32767))), offset + 2);
   }
 
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
