@@ -188,7 +188,7 @@ if (stage === "images") {
   const thumbnailStyle = String(process.env.HORROR_THUMBNAIL_STYLE || currentEpisode.thumbnailVisualStyle || currentEpisode.visualStyle || "cinematic-3d").toLowerCase();
   process.env.HORROR_THUMBNAIL_STYLE = thumbnailStyle;
   const styleKey = thumbnailStyle === "2d" || thumbnailStyle === "2d-animation" ? "2d-animation" : "cinematic-3d";
-  const expectedThumbnailVersion = "episode-ctr-v11-" + styleKey + "-portrait";
+  const expectedThumbnailVersion = "episode-ctr-v12-season-master-" + styleKey + "-portrait";
   console.log("[thumbnail] Menggunakan visual style thumbnail: " + styleKey);
   const verticalExisting = path.join(episodeDir,"shorts-cover.jpg");
   try {
@@ -216,7 +216,7 @@ if (stage === "images") {
     seo=await generateSeo(story,story.title,{ format: "shorts" });
     await writeJson(seoPath,seo);
   }
-  await generateThumbnail(story,seo,story.title,seoPath);
+  await generateThumbnail(story,seo,story.title,seoPath,{ masterImagePath: path.join(seasonDir,"season-thumbnail-master.jpg") });
   await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"shorts-cover.jpg"));
   // Legacy filename remains available as a copy of the same portrait Shorts cover.
   await fs.copyFile(path.join(OUT_DIR,"shorts-cover.jpg"),path.join(episodeDir,"youtube-thumbnail.jpg"));
