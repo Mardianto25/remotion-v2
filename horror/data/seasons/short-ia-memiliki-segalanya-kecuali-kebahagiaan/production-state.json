@@ -58,9 +58,10 @@
     {
       "episodeNumber": 3,
       "title": "Harga Sebuah Kesibukan",
-      "status": "not_started",
+      "status": "script_ready",
       "wordCount": 158,
-      "estimatedDurationSeconds": 73
+      "estimatedDurationSeconds": 73,
+      "sceneCount": 6
     },
     {
       "episodeNumber": 4,
@@ -98,5 +99,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-24T23:11:40.754Z"
+  "updatedAt": "2026-11-25T01:14:47.688Z"
 }

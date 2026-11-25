@@ -1,46 +1,46 @@
 {
-  "episodeNumber": 2,
+  "episodeNumber": 3,
   "seriesTitle": "Ia Memiliki Segalanya, Kecuali Kebahagiaan",
-  "title": "Janji yang Selalu Ditunda",
-  "description": "Episode 2 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
+  "title": "Harga Sebuah Kesibukan",
+  "description": "Episode 3 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
   "genre": "inspirational",
   "category": "inspirational",
   "disclaimer": "Cerita fiksi inspiratif. Kemiripan dengan tokoh atau peristiwa nyata tidak disengaja.",
-  "hook": "Arga membaca pesan itu berkali-kali, tetapi tetap berangkat ke kantor. Pertemuan investor dianggapnya lebih mendesak. Ia meyakinkan diri bahwa urusan ayah bisa diselesaikan setelah target perusahaan tercapai.",
+  "hook": "Arga sedang mempresentasikan rencana ekspansi ketika teleponnya bergetar berkali-kali. Ia menolak panggilan Lila di depan investor. Baginya, satu rapat penting terasa lebih mudah dihadapi daripada percakapan keluarga.",
   "mainConflict": "Arga harus memilih antara ambisi pribadi dan tanggung jawab terhadap keluarga.",
-  "revelation": "Di kantor, investor meminta keputusan final. Arga memilih perjalanan dinas dan meminta asistennya mengatur jadwal. Undangan Nara tertinggal di meja, sementara anak itu menunggu jawaban yang tidak kunjung pasti.",
-  "cliffhanger": "Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
+  "revelation": "Ketika mereka berdua, Pak Seno berkata ia tidak membutuhkan uang. Ia hanya ingin sesekali mendengar suara anaknya. Arga menjawab hidupnya penuh tanggung jawab, lalu menunduk.",
+  "cliffhanger": "Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
   "endingType": "cliffhanger",
   "nextEpisodeQuestion": "Apa yang akan dilakukan Arga setelah kejadian ini?",
   "continuityFromPrevious": {
-    "previousEpisodeEnding": "Pak Seno terjatuh dan dibawa ke klinik; panggilan Lila kepada Arga tidak terjawab.",
-    "openingContinuation": "Pagi berikutnya Arga masih menerima kabar tersebut dan harus memilih antara rapat investor atau keluarga.",
-    "timeAndLocation": "Pagi di rumah Arga, lalu kantor dan klinik pada hari yang sama.",
+    "previousEpisodeEnding": "Dokumen klinik menunjukkan rumah Pak Seno terancam dijual oleh kreditur perusahaan Arga.",
+    "openingContinuation": "Arga memeriksa dokumen tersebut dan menelusuri asal kewajiban lama.",
+    "timeAndLocation": "Pagi di kantor Arga, lalu klinik.",
     "characterStatesAtOpening": [
-      "Arga gelisah tetapi mengutamakan pekerjaan.",
-      "Lila menunggu kabar kondisi Pak Seno.",
-      "Nara berharap ayahnya datang."
+      "Arga curiga ada hubungan perusahaan dengan rumah ayahnya.",
+      "Pak Seno sedang pulih.",
+      "Lila dan Nara mendampingi keluarga."
     ],
     "carriedElements": [
-      "Pesan tentang kondisi Pak Seno",
-      "Undangan ulang tahun Nara"
+      "Map pemberitahuan penjualan",
+      "Nama perusahaan pada dokumen"
     ],
-    "unresolvedQuestion": "Apakah Arga akan menemui ayahnya?"
+    "unresolvedQuestion": "Mengapa rumah Pak Seno menjadi jaminan?"
   },
-  "episodePayoff": "Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
+  "episodePayoff": "Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
   "seasonTeaser": "",
-  "storySummary": "Arga membaca pesan itu berkali-kali, tetapi tetap berangkat ke kantor. Pertemuan investor dianggapnya lebih mendesak. Ia meyakinkan diri bahwa urusan ayah bisa diselesaikan setelah target perusahaan tercapai. Nara menunjukkan foto lama dirinya bersama Pak Seno. Ia bertanya mengapa ayah tidak pernah bercerita tentang masa kecil. Arga menjawab singkat bahwa banyak hal sudah berubah. Lila mengaku masih menghubungi Pak Seno untuk memastikan lelaki tua itu makan dan minum obat. Arga merasa dikhianati. Lila menjelaskan bahwa ia hanya tidak ingin Nara kehilangan kesempatan mengenal kakeknya. Nara memberikan undangan ulang tahun sederhana untuk Pak Seno. Ia berharap seluruh keluarga datang. Arga berjanji hadir, tetapi tidak berani menentukan waktu. Lila tahu janji itu mungkin kembali ditunda. Di kantor, investor meminta keputusan final. Arga memilih perjalanan dinas dan meminta asistennya mengatur jadwal. Undangan Nara tertinggal di meja, sementara anak itu menunggu jawaban yang tidak kunjung pasti. Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
-  "narration": "Arga membaca pesan itu berkali-kali, tetapi tetap berangkat ke kantor. Pertemuan investor dianggapnya lebih mendesak. Ia meyakinkan diri bahwa urusan ayah bisa diselesaikan setelah target perusahaan tercapai. Nara menunjukkan foto lama dirinya bersama Pak Seno. Ia bertanya mengapa ayah tidak pernah bercerita tentang masa kecil. Arga menjawab singkat bahwa banyak hal sudah berubah. Lila mengaku masih menghubungi Pak Seno untuk memastikan lelaki tua itu makan dan minum obat. Arga merasa dikhianati. Lila menjelaskan bahwa ia hanya tidak ingin Nara kehilangan kesempatan mengenal kakeknya. Nara memberikan undangan ulang tahun sederhana untuk Pak Seno. Ia berharap seluruh keluarga datang. Arga berjanji hadir, tetapi tidak berani menentukan waktu. Lila tahu janji itu mungkin kembali ditunda. Di kantor, investor meminta keputusan final. Arga memilih perjalanan dinas dan meminta asistennya mengatur jadwal. Undangan Nara tertinggal di meja, sementara anak itu menunggu jawaban yang tidak kunjung pasti. Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
-  "wordCount": 169,
+  "storySummary": "Arga sedang mempresentasikan rencana ekspansi ketika teleponnya bergetar berkali-kali. Ia menolak panggilan Lila di depan investor. Baginya, satu rapat penting terasa lebih mudah dihadapi daripada percakapan keluarga. Setelah rapat, Arga menelepon kembali. Lila mengatakan Pak Seno sudah sadar, tetapi sempat memanggil nama anaknya saat dibawa ke klinik. Tidak ada kemarahan dalam suaranya, hanya kekecewaan. Arga akhirnya menuju klinik bersama Nara. Di lorong, Nara menggenggam album keluarga dan bertanya apakah kakek akan baik-baik saja. Arga tidak tahu harus menjawab apa. Pak Seno terbaring dengan pergelangan kaki terbalut. Ia tersenyum melihat cucunya dan meminta maaf karena merepotkan. Arga berdiri kaku di dekat pintu, tidak tahu bagaimana memulai percakapan. Ketika mereka berdua, Pak Seno berkata ia tidak membutuhkan uang. Ia hanya ingin sesekali mendengar suara anaknya. Arga menjawab hidupnya penuh tanggung jawab, lalu menunduk. Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
+  "narration": "Arga sedang mempresentasikan rencana ekspansi ketika teleponnya bergetar berkali-kali. Ia menolak panggilan Lila di depan investor. Baginya, satu rapat penting terasa lebih mudah dihadapi daripada percakapan keluarga. Setelah rapat, Arga menelepon kembali. Lila mengatakan Pak Seno sudah sadar, tetapi sempat memanggil nama anaknya saat dibawa ke klinik. Tidak ada kemarahan dalam suaranya, hanya kekecewaan. Arga akhirnya menuju klinik bersama Nara. Di lorong, Nara menggenggam album keluarga dan bertanya apakah kakek akan baik-baik saja. Arga tidak tahu harus menjawab apa. Pak Seno terbaring dengan pergelangan kaki terbalut. Ia tersenyum melihat cucunya dan meminta maaf karena merepotkan. Arga berdiri kaku di dekat pintu, tidak tahu bagaimana memulai percakapan. Ketika mereka berdua, Pak Seno berkata ia tidak membutuhkan uang. Ia hanya ingin sesekali mendengar suara anaknya. Arga menjawab hidupnya penuh tanggung jawab, lalu menunduk. Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
+  "wordCount": 158,
   "targetDurationSeconds": {
     "min": 60,
-    "estimated": 78
+    "estimated": 73
   },
   "scenes": [
     {
       "id": 1,
       "heading": "Pembuka",
-      "narration": "Arga membaca pesan itu berkali-kali, tetapi tetap berangkat ke kantor. Pertemuan investor dianggapnya lebih mendesak. Ia meyakinkan diri bahwa urusan ayah bisa diselesaikan setelah target perusahaan tercapai.",
+      "narration": "Arga sedang mempresentasikan rencana ekspansi ketika teleponnya bergetar berkali-kali. Ia menolak panggilan Lila di depan investor. Baginya, satu rapat penting terasa lebih mudah dihadapi daripada percakapan keluarga.",
       "visualPrompt": "Portrait 9:16 cinematic scene, Indonesian businessman alone in a luxurious modern home at night, realistic family drama.",
       "searchQuery": "Indonesian family drama cinematic",
       "mood": "reflective"
@@ -48,7 +48,7 @@
     {
       "id": 2,
       "heading": "Percakapan keluarga",
-      "narration": "Nara menunjukkan foto lama dirinya bersama Pak Seno. Ia bertanya mengapa ayah tidak pernah bercerita tentang masa kecil. Arga menjawab singkat bahwa banyak hal sudah berubah.",
+      "narration": "Setelah rapat, Arga menelepon kembali. Lila mengatakan Pak Seno sudah sadar, tetapi sempat memanggil nama anaknya saat dibawa ke klinik. Tidak ada kemarahan dalam suaranya, hanya kekecewaan.",
       "visualPrompt": "Portrait 9:16 cinematic medium shot, Indonesian family at dinner table, emotional distance, natural warm lighting.",
       "searchQuery": "successful businessman lonely home",
       "mood": "melancholic"
@@ -56,7 +56,7 @@
     {
       "id": 3,
       "heading": "Konflik",
-      "narration": "Lila mengaku masih menghubungi Pak Seno untuk memastikan lelaki tua itu makan dan minum obat. Arga merasa dikhianati. Lila menjelaskan bahwa ia hanya tidak ingin Nara kehilangan kesempatan mengenal kakeknya.",
+      "narration": "Arga akhirnya menuju klinik bersama Nara. Di lorong, Nara menggenggam album keluarga dan bertanya apakah kakek akan baik-baik saja. Arga tidak tahu harus menjawab apa.",
       "visualPrompt": "Portrait 9:16 cinematic close-up, father and daughter in a quiet emotional conversation, contemporary Indonesian home.",
       "searchQuery": "elderly father son emotional reunion",
       "mood": "tense"
@@ -64,7 +64,7 @@
     {
       "id": 4,
       "heading": "Pilihan",
-      "narration": "Nara memberikan undangan ulang tahun sederhana untuk Pak Seno. Ia berharap seluruh keluarga datang. Arga berjanji hadir, tetapi tidak berani menentukan waktu. Lila tahu janji itu mungkin kembali ditunda.",
+      "narration": "Pak Seno terbaring dengan pergelangan kaki terbalut. Ia tersenyum melihat cucunya dan meminta maaf karena merepotkan. Arga berdiri kaku di dekat pintu, tidak tahu bagaimana memulai percakapan.",
       "visualPrompt": "Portrait 9:16 cinematic scene, elderly Indonesian father in a modest home, old photographs and personal objects.",
       "searchQuery": "Indonesian family drama cinematic",
       "mood": "emotional"
@@ -72,7 +72,7 @@
     {
       "id": 5,
       "heading": "Perubahan",
-      "narration": "Di kantor, investor meminta keputusan final. Arga memilih perjalanan dinas dan meminta asistennya mengatur jadwal. Undangan Nara tertinggal di meja, sementara anak itu menunggu jawaban yang tidak kunjung pasti.",
+      "narration": "Ketika mereka berdua, Pak Seno berkata ia tidak membutuhkan uang. Ia hanya ingin sesekali mendengar suara anaknya. Arga menjawab hidupnya penuh tanggung jawab, lalu menunduk.",
       "visualPrompt": "Portrait 9:16 cinematic close-up, handwritten family letter and old documents on a wooden table, emotional atmosphere.",
       "searchQuery": "successful businessman lonely home",
       "mood": "hopeful"
@@ -80,7 +80,7 @@
     {
       "id": 6,
       "heading": "Akhir episode",
-      "narration": "Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara.",
+      "narration": "Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
       "visualPrompt": "Portrait 9:16 cinematic dramatic scene, consistent characters, specific cliffhanger action visible, realistic Indonesian setting.",
       "searchQuery": "elderly father son emotional reunion",
       "mood": "suspenseful"
@@ -126,24 +126,24 @@
   ],
   "continuityUpdate": {
     "canonEvents": [
-      "Episode 2: Sore itu Lila menerima telepon tetangga. Pak Seno terjatuh di depan rumah dan dibawa ke klinik. Ia segera menghubungi Arga, tetapi panggilan itu hanya masuk ke pesan suara."
+      "Episode 3: Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan."
     ],
     "characterStates": [
       {
         "characterId": "char-01",
-        "state": "Menghadapi perkembangan konflik episode 2."
+        "state": "Menghadapi perkembangan konflik episode 3."
       },
       {
         "characterId": "char-02",
-        "state": "Menghadapi perkembangan konflik episode 2."
+        "state": "Menghadapi perkembangan konflik episode 3."
       },
       {
         "characterId": "char-03",
-        "state": "Menghadapi perkembangan konflik episode 2."
+        "state": "Menghadapi perkembangan konflik episode 3."
       },
       {
         "characterId": "char-04",
-        "state": "Menghadapi perkembangan konflik episode 2."
+        "state": "Menghadapi perkembangan konflik episode 3."
       }
     ],
     "unresolvedThreads": [
