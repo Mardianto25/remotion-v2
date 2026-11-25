@@ -1,46 +1,47 @@
 {
-  "episodeNumber": 3,
+  "episodeNumber": 4,
   "seriesTitle": "Ia Memiliki Segalanya, Kecuali Kebahagiaan",
-  "title": "Harga Sebuah Kesibukan",
-  "description": "Episode 3 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
+  "title": "Kunci dari Masa Lalu",
+  "description": "Episode 4 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
   "genre": "inspirational",
   "category": "inspirational",
   "disclaimer": "Cerita fiksi inspiratif. Kemiripan dengan tokoh atau peristiwa nyata tidak disengaja.",
-  "hook": "Arga sedang mempresentasikan rencana ekspansi ketika teleponnya bergetar berkali-kali. Ia menolak panggilan Lila di depan investor. Baginya, satu rapat penting terasa lebih mudah dihadapi daripada percakapan keluarga.",
+  "hook": "Arga membawa map ke kantor dan memeriksa nomor perjanjian. Rumah ayahnya ternyata menjadi jaminan pinjaman usaha lama. Namun catatan pembayaran menunjukkan ada pelunasan besar yang tidak pernah tercatat.",
   "mainConflict": "Arga harus memilih antara ambisi pribadi dan tanggung jawab terhadap keluarga.",
-  "revelation": "Ketika mereka berdua, Pak Seno berkata ia tidak membutuhkan uang. Ia hanya ingin sesekali mendengar suara anaknya. Arga menjawab hidupnya penuh tanggung jawab, lalu menunduk.",
-  "cliffhanger": "Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
+  "revelation": "Di rumah Pak Seno, Nara menemukan kotak besi berisi kunci bengkel, foto keluarga, dan surat berpita biru. Salah satu amplop bertuliskan nama Arga dengan tulisan tangan ayahnya.",
+  "cliffhanger": "Saat Arga hendak membuka surat, petugas datang membawa pemberitahuan terakhir. Rumah akan diproses untuk dijual esok pagi kecuali bukti pelunasan ditemukan dan diverifikasi.",
   "endingType": "cliffhanger",
   "nextEpisodeQuestion": "Apa yang akan dilakukan Arga setelah kejadian ini?",
   "continuityFromPrevious": {
-    "previousEpisodeEnding": "Dokumen klinik menunjukkan rumah Pak Seno terancam dijual oleh kreditur perusahaan Arga.",
-    "openingContinuation": "Arga memeriksa dokumen tersebut dan menelusuri asal kewajiban lama.",
-    "timeAndLocation": "Pagi di kantor Arga, lalu klinik.",
+    "previousEpisodeEnding": "Arga menemukan Pak Seno pernah menjual bengkel untuk menyelamatkan usaha Arga.",
+    "openingContinuation": "Arga dan keluarganya mencari surat serta bukti asli di rumah Pak Seno.",
+    "timeAndLocation": "Sore di rumah Pak Seno.",
     "characterStatesAtOpening": [
-      "Arga curiga ada hubungan perusahaan dengan rumah ayahnya.",
-      "Pak Seno sedang pulih.",
-      "Lila dan Nara mendampingi keluarga."
+      "Arga terguncang oleh pengorbanan ayahnya.",
+      "Pak Seno belum menceritakan masa lalu.",
+      "Lila membantu mencari dokumen.",
+      "Nara menemukan kotak besi."
     ],
     "carriedElements": [
-      "Map pemberitahuan penjualan",
-      "Nama perusahaan pada dokumen"
+      "Kotak besi dan kunci bengkel",
+      "Map penjualan rumah"
     ],
-    "unresolvedQuestion": "Mengapa rumah Pak Seno menjadi jaminan?"
+    "unresolvedQuestion": "Apakah surat lama membuktikan kewajiban telah dibayar?"
   },
-  "episodePayoff": "Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
+  "episodePayoff": "Saat Arga hendak membuka surat, petugas datang membawa pemberitahuan terakhir. Rumah akan diproses untuk dijual esok pagi kecuali bukti pelunasan ditemukan dan diverifikasi.",
   "seasonTeaser": "",
-  "storySummary": "Arga sedang mempresentasikan rencana ekspansi ketika teleponnya bergetar berkali-kali. Ia menolak panggilan Lila di depan investor. Baginya, satu rapat penting terasa lebih mudah dihadapi daripada percakapan keluarga. Setelah rapat, Arga menelepon kembali. Lila mengatakan Pak Seno sudah sadar, tetapi sempat memanggil nama anaknya saat dibawa ke klinik. Tidak ada kemarahan dalam suaranya, hanya kekecewaan. Arga akhirnya menuju klinik bersama Nara. Di lorong, Nara menggenggam album keluarga dan bertanya apakah kakek akan baik-baik saja. Arga tidak tahu harus menjawab apa. Pak Seno terbaring dengan pergelangan kaki terbalut. Ia tersenyum melihat cucunya dan meminta maaf karena merepotkan. Arga berdiri kaku di dekat pintu, tidak tahu bagaimana memulai percakapan. Ketika mereka berdua, Pak Seno berkata ia tidak membutuhkan uang. Ia hanya ingin sesekali mendengar suara anaknya. Arga menjawab hidupnya penuh tanggung jawab, lalu menunduk. Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
-  "narration": "Arga sedang mempresentasikan rencana ekspansi ketika teleponnya bergetar berkali-kali. Ia menolak panggilan Lila di depan investor. Baginya, satu rapat penting terasa lebih mudah dihadapi daripada percakapan keluarga. Setelah rapat, Arga menelepon kembali. Lila mengatakan Pak Seno sudah sadar, tetapi sempat memanggil nama anaknya saat dibawa ke klinik. Tidak ada kemarahan dalam suaranya, hanya kekecewaan. Arga akhirnya menuju klinik bersama Nara. Di lorong, Nara menggenggam album keluarga dan bertanya apakah kakek akan baik-baik saja. Arga tidak tahu harus menjawab apa. Pak Seno terbaring dengan pergelangan kaki terbalut. Ia tersenyum melihat cucunya dan meminta maaf karena merepotkan. Arga berdiri kaku di dekat pintu, tidak tahu bagaimana memulai percakapan. Ketika mereka berdua, Pak Seno berkata ia tidak membutuhkan uang. Ia hanya ingin sesekali mendengar suara anaknya. Arga menjawab hidupnya penuh tanggung jawab, lalu menunduk. Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
-  "wordCount": 158,
+  "storySummary": "Arga membawa map ke kantor dan memeriksa nomor perjanjian. Rumah ayahnya ternyata menjadi jaminan pinjaman usaha lama. Namun catatan pembayaran menunjukkan ada pelunasan besar yang tidak pernah tercatat. Pegawai senior menemukan arsip berdebu berisi kuitansi dan surat kuasa. Nama Pak Seno tercantum sebagai pihak yang menjual bengkel kecilnya untuk membantu usaha Arga bertahan. Arga terpukul. Selama ini ia mengingat masa awal perusahaan sebagai perjuangan seorang diri. Ternyata ayahnya mengorbankan satu-satunya sumber penghasilan agar para pekerja tetap menerima upah. Lila menjelaskan Pak Seno tidak pernah menceritakan pengorbanan itu karena tidak ingin Arga merasa berutang. Arga mulai memahami bahwa ia telah membangun keberhasilan dengan melupakan orang yang membantunya. Di rumah Pak Seno, Nara menemukan kotak besi berisi kunci bengkel, foto keluarga, dan surat berpita biru. Salah satu amplop bertuliskan nama Arga dengan tulisan tangan ayahnya. Saat Arga hendak membuka surat, petugas datang membawa pemberitahuan terakhir. Rumah akan diproses untuk dijual esok pagi kecuali bukti pelunasan ditemukan dan diverifikasi.",
+  "narration": "Arga membawa map ke kantor dan memeriksa nomor perjanjian. Rumah ayahnya ternyata menjadi jaminan pinjaman usaha lama. Namun catatan pembayaran menunjukkan ada pelunasan besar yang tidak pernah tercatat. Pegawai senior menemukan arsip berdebu berisi kuitansi dan surat kuasa. Nama Pak Seno tercantum sebagai pihak yang menjual bengkel kecilnya untuk membantu usaha Arga bertahan. Arga terpukul. Selama ini ia mengingat masa awal perusahaan sebagai perjuangan seorang diri. Ternyata ayahnya mengorbankan satu-satunya sumber penghasilan agar para pekerja tetap menerima upah. Lila menjelaskan Pak Seno tidak pernah menceritakan pengorbanan itu karena tidak ingin Arga merasa berutang. Arga mulai memahami bahwa ia telah membangun keberhasilan dengan melupakan orang yang membantunya. Di rumah Pak Seno, Nara menemukan kotak besi berisi kunci bengkel, foto keluarga, dan surat berpita biru. Salah satu amplop bertuliskan nama Arga dengan tulisan tangan ayahnya. Saat Arga hendak membuka surat, petugas datang membawa pemberitahuan terakhir. Rumah akan diproses untuk dijual esok pagi kecuali bukti pelunasan ditemukan dan diverifikasi.",
+  "wordCount": 156,
   "targetDurationSeconds": {
     "min": 60,
-    "estimated": 73
+    "estimated": 72
   },
   "scenes": [
     {
       "id": 1,
       "heading": "Pembuka",
-      "narration": "Arga sedang mempresentasikan rencana ekspansi ketika teleponnya bergetar berkali-kali. Ia menolak panggilan Lila di depan investor. Baginya, satu rapat penting terasa lebih mudah dihadapi daripada percakapan keluarga.",
+      "narration": "Arga membawa map ke kantor dan memeriksa nomor perjanjian. Rumah ayahnya ternyata menjadi jaminan pinjaman usaha lama. Namun catatan pembayaran menunjukkan ada pelunasan besar yang tidak pernah tercatat.",
       "visualPrompt": "Portrait 9:16 cinematic scene, Indonesian businessman alone in a luxurious modern home at night, realistic family drama.",
       "searchQuery": "Indonesian family drama cinematic",
       "mood": "reflective"
@@ -48,7 +49,7 @@
     {
       "id": 2,
       "heading": "Percakapan keluarga",
-      "narration": "Setelah rapat, Arga menelepon kembali. Lila mengatakan Pak Seno sudah sadar, tetapi sempat memanggil nama anaknya saat dibawa ke klinik. Tidak ada kemarahan dalam suaranya, hanya kekecewaan.",
+      "narration": "Pegawai senior menemukan arsip berdebu berisi kuitansi dan surat kuasa. Nama Pak Seno tercantum sebagai pihak yang menjual bengkel kecilnya untuk membantu usaha Arga bertahan.",
       "visualPrompt": "Portrait 9:16 cinematic medium shot, Indonesian family at dinner table, emotional distance, natural warm lighting.",
       "searchQuery": "successful businessman lonely home",
       "mood": "melancholic"
@@ -56,7 +57,7 @@
     {
       "id": 3,
       "heading": "Konflik",
-      "narration": "Arga akhirnya menuju klinik bersama Nara. Di lorong, Nara menggenggam album keluarga dan bertanya apakah kakek akan baik-baik saja. Arga tidak tahu harus menjawab apa.",
+      "narration": "Arga terpukul. Selama ini ia mengingat masa awal perusahaan sebagai perjuangan seorang diri. Ternyata ayahnya mengorbankan satu-satunya sumber penghasilan agar para pekerja tetap menerima upah.",
       "visualPrompt": "Portrait 9:16 cinematic close-up, father and daughter in a quiet emotional conversation, contemporary Indonesian home.",
       "searchQuery": "elderly father son emotional reunion",
       "mood": "tense"
@@ -64,7 +65,7 @@
     {
       "id": 4,
       "heading": "Pilihan",
-      "narration": "Pak Seno terbaring dengan pergelangan kaki terbalut. Ia tersenyum melihat cucunya dan meminta maaf karena merepotkan. Arga berdiri kaku di dekat pintu, tidak tahu bagaimana memulai percakapan.",
+      "narration": "Lila menjelaskan Pak Seno tidak pernah menceritakan pengorbanan itu karena tidak ingin Arga merasa berutang. Arga mulai memahami bahwa ia telah membangun keberhasilan dengan melupakan orang yang membantunya.",
       "visualPrompt": "Portrait 9:16 cinematic scene, elderly Indonesian father in a modest home, old photographs and personal objects.",
       "searchQuery": "Indonesian family drama cinematic",
       "mood": "emotional"
@@ -72,7 +73,7 @@
     {
       "id": 5,
       "heading": "Perubahan",
-      "narration": "Ketika mereka berdua, Pak Seno berkata ia tidak membutuhkan uang. Ia hanya ingin sesekali mendengar suara anaknya. Arga menjawab hidupnya penuh tanggung jawab, lalu menunduk.",
+      "narration": "Di rumah Pak Seno, Nara menemukan kotak besi berisi kunci bengkel, foto keluarga, dan surat berpita biru. Salah satu amplop bertuliskan nama Arga dengan tulisan tangan ayahnya.",
       "visualPrompt": "Portrait 9:16 cinematic close-up, handwritten family letter and old documents on a wooden table, emotional atmosphere.",
       "searchQuery": "successful businessman lonely home",
       "mood": "hopeful"
@@ -80,7 +81,7 @@
     {
       "id": 6,
       "heading": "Akhir episode",
-      "narration": "Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan.",
+      "narration": "Saat Arga hendak membuka surat, petugas datang membawa pemberitahuan terakhir. Rumah akan diproses untuk dijual esok pagi kecuali bukti pelunasan ditemukan dan diverifikasi.",
       "visualPrompt": "Portrait 9:16 cinematic dramatic scene, consistent characters, specific cliffhanger action visible, realistic Indonesian setting.",
       "searchQuery": "elderly father son emotional reunion",
       "mood": "suspenseful"
@@ -126,24 +127,24 @@
   ],
   "continuityUpdate": {
     "canonEvents": [
-      "Episode 3: Petugas klinik menyerahkan map dokumen rumah Pak Seno. Ada pemberitahuan penjualan untuk melunasi kewajiban lama. Arga mengenali nama kreditur pada dokumen itu: perusahaan yang dulu ia dirikan."
+      "Episode 4: Saat Arga hendak membuka surat, petugas datang membawa pemberitahuan terakhir. Rumah akan diproses untuk dijual esok pagi kecuali bukti pelunasan ditemukan dan diverifikasi."
     ],
     "characterStates": [
       {
         "characterId": "char-01",
-        "state": "Menghadapi perkembangan konflik episode 3."
+        "state": "Menghadapi perkembangan konflik episode 4."
       },
       {
         "characterId": "char-02",
-        "state": "Menghadapi perkembangan konflik episode 3."
+        "state": "Menghadapi perkembangan konflik episode 4."
       },
       {
         "characterId": "char-03",
-        "state": "Menghadapi perkembangan konflik episode 3."
+        "state": "Menghadapi perkembangan konflik episode 4."
       },
       {
         "characterId": "char-04",
-        "state": "Menghadapi perkembangan konflik episode 3."
+        "state": "Menghadapi perkembangan konflik episode 4."
       }
     ],
     "unresolvedThreads": [
