@@ -1,0 +1,154 @@
+{
+  "episodeNumber": 8,
+  "seriesTitle": "Ia Memiliki Segalanya, Kecuali Kebahagiaan",
+  "title": "Segalanya yang Berarti",
+  "description": "Episode 8 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
+  "genre": "inspirational",
+  "category": "inspirational",
+  "disclaimer": "Cerita fiksi inspiratif. Kemiripan dengan tokoh atau peristiwa nyata tidak disengaja.",
+  "hook": "Pak Seno berkata ia bangga melihat anaknya berhasil, tetapi kebanggaan itu tidak menghapus kerinduan. Ia tidak meminta Arga mengubah masa lalu, hanya berharap sisa waktu mereka tidak diisi alasan.",
+  "mainConflict": "Arga harus memilih antara ambisi pribadi dan tanggung jawab terhadap keluarga.",
+  "revelation": "Arga membantu Pak Seno membuka bengkel kecil kembali. Bukan untuk menebus rasa bersalah dengan hadiah, melainkan menghormati hal yang pernah dicintai ayahnya. Nara belajar mengenali perkakas.",
+  "cliffhanger": "Arga menyadari keberhasilan tidak berarti tanpa keluarga untuk berbagi.",
+  "endingType": "finale_resolution",
+  "nextEpisodeQuestion": "",
+  "continuityFromPrevious": {
+    "previousEpisodeEnding": "Dokumen asli kembali dan proses penjualan rumah dihentikan; Pak Seno ingin menyampaikan sesuatu.",
+    "openingContinuation": "Arga duduk bersama ayahnya setelah makan malam untuk mendengarkan.",
+    "timeAndLocation": "Malam hari di rumah Pak Seno.",
+    "characterStatesAtOpening": [
+      "Arga ingin memperbaiki hubungan.",
+      "Pak Seno lega tetapi masih rindu.",
+      "Lila dan Nara merasa lebih tenang."
+    ],
+    "carriedElements": [
+      "Dokumen pembayaran terverifikasi",
+      "Janji Arga untuk hadir"
+    ],
+    "unresolvedQuestion": "Bisakah ayah dan anak memulihkan kedekatan?"
+  },
+  "episodePayoff": "Pada suatu senja, Arga memandang rumah sederhana itu. Ia masih memiliki perusahaan, jabatan, dan harta. Kini ia juga memiliki kesempatan hadir. Ia akhirnya mengerti bahwa keberhasilan tidak berarti tanpa keluarga untuk berbagi.",
+  "seasonTeaser": "Keluarga mulai membangun kebiasaan baru untuk saling hadir.",
+  "storySummary": "Pak Seno berkata ia bangga melihat anaknya berhasil, tetapi kebanggaan itu tidak menghapus kerinduan. Ia tidak meminta Arga mengubah masa lalu, hanya berharap sisa waktu mereka tidak diisi alasan. Arga meminta maaf tanpa menyalahkan pekerjaan atau keadaan. Ia mengaku menjauh karena malu dan takut dianggap gagal. Pak Seno memeluknya. Luka lama belum hilang, tetapi keduanya berhenti berpura-pura. Lila dan Nara bergabung dalam pelukan. Nara menyerahkan album keluarga yang kini berisi foto terbaru. Di halaman terakhir ia menulis bahwa rumah adalah tempat orang-orang saling menunggu dan pulang. Beberapa minggu kemudian, Arga mendelegasikan sebagian pekerjaan dan menetapkan waktu untuk keluarga. Ia tidak meninggalkan tanggung jawab, tetapi mulai memahami bahwa kesibukan tidak boleh menghabiskan seluruh hidup. Arga membantu Pak Seno membuka bengkel kecil kembali. Bukan untuk menebus rasa bersalah dengan hadiah, melainkan menghormati hal yang pernah dicintai ayahnya. Nara belajar mengenali perkakas. Pada suatu senja, Arga memandang rumah sederhana itu. Ia masih memiliki perusahaan, jabatan, dan harta. Kini ia juga memiliki kesempatan hadir. Ia akhirnya mengerti bahwa keberhasilan tidak berarti tanpa keluarga untuk berbagi.",
+  "narration": "Pak Seno berkata ia bangga melihat anaknya berhasil, tetapi kebanggaan itu tidak menghapus kerinduan. Ia tidak meminta Arga mengubah masa lalu, hanya berharap sisa waktu mereka tidak diisi alasan. Arga meminta maaf tanpa menyalahkan pekerjaan atau keadaan. Ia mengaku menjauh karena malu dan takut dianggap gagal. Pak Seno memeluknya. Luka lama belum hilang, tetapi keduanya berhenti berpura-pura. Lila dan Nara bergabung dalam pelukan. Nara menyerahkan album keluarga yang kini berisi foto terbaru. Di halaman terakhir ia menulis bahwa rumah adalah tempat orang-orang saling menunggu dan pulang. Beberapa minggu kemudian, Arga mendelegasikan sebagian pekerjaan dan menetapkan waktu untuk keluarga. Ia tidak meninggalkan tanggung jawab, tetapi mulai memahami bahwa kesibukan tidak boleh menghabiskan seluruh hidup. Arga membantu Pak Seno membuka bengkel kecil kembali. Bukan untuk menebus rasa bersalah dengan hadiah, melainkan menghormati hal yang pernah dicintai ayahnya. Nara belajar mengenali perkakas. Pada suatu senja, Arga memandang rumah sederhana itu. Ia masih memiliki perusahaan, jabatan, dan harta. Kini ia juga memiliki kesempatan hadir. Ia akhirnya mengerti bahwa keberhasilan tidak berarti tanpa keluarga untuk berbagi.",
+  "wordCount": 171,
+  "targetDurationSeconds": {
+    "min": 60,
+    "estimated": 79
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "heading": "Pembuka",
+      "narration": "Pak Seno berkata ia bangga melihat anaknya berhasil, tetapi kebanggaan itu tidak menghapus kerinduan. Ia tidak meminta Arga mengubah masa lalu, hanya berharap sisa waktu mereka tidak diisi alasan.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, Indonesian businessman alone in a luxurious modern home at night, realistic family drama.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "reflective"
+    },
+    {
+      "id": 2,
+      "heading": "Percakapan keluarga",
+      "narration": "Arga meminta maaf tanpa menyalahkan pekerjaan atau keadaan. Ia mengaku menjauh karena malu dan takut dianggap gagal. Pak Seno memeluknya. Luka lama belum hilang, tetapi keduanya berhenti berpura-pura.",
+      "visualPrompt": "Portrait 9:16 cinematic medium shot, Indonesian family at dinner table, emotional distance, natural warm lighting.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "melancholic"
+    },
+    {
+      "id": 3,
+      "heading": "Konflik",
+      "narration": "Lila dan Nara bergabung dalam pelukan. Nara menyerahkan album keluarga yang kini berisi foto terbaru. Di halaman terakhir ia menulis bahwa rumah adalah tempat orang-orang saling menunggu dan pulang.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, father and daughter in a quiet emotional conversation, contemporary Indonesian home.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "tense"
+    },
+    {
+      "id": 4,
+      "heading": "Pilihan",
+      "narration": "Beberapa minggu kemudian, Arga mendelegasikan sebagian pekerjaan dan menetapkan waktu untuk keluarga. Ia tidak meninggalkan tanggung jawab, tetapi mulai memahami bahwa kesibukan tidak boleh menghabiskan seluruh hidup.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, elderly Indonesian father in a modest home, old photographs and personal objects.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "emotional"
+    },
+    {
+      "id": 5,
+      "heading": "Perubahan",
+      "narration": "Arga membantu Pak Seno membuka bengkel kecil kembali. Bukan untuk menebus rasa bersalah dengan hadiah, melainkan menghormati hal yang pernah dicintai ayahnya. Nara belajar mengenali perkakas.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, handwritten family letter and old documents on a wooden table, emotional atmosphere.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "hopeful"
+    },
+    {
+      "id": 6,
+      "heading": "Akhir episode",
+      "narration": "Pada suatu senja, Arga memandang rumah sederhana itu. Ia masih memiliki perusahaan, jabatan, dan harta. Kini ia juga memiliki kesempatan hadir. Ia akhirnya mengerti bahwa keberhasilan tidak berarti tanpa keluarga untuk berbagi.",
+      "visualPrompt": "Portrait 9:16 cinematic dramatic scene, consistent characters, specific cliffhanger action visible, realistic Indonesian setting.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "suspenseful"
+    }
+  ],
+  "characters": [
+    {
+      "id": "char-01",
+      "name": "Arga Pratama",
+      "role": "Pengusaha sukses, 42 tahun; tokoh utama",
+      "motivation": "Membangun perusahaan dan membuktikan keberhasilannya",
+      "personality": "Ambisius, tertutup, perfeksionis",
+      "secret": "Ayahnya pernah menjual bengkel untuk menyelamatkan usaha pertamanya",
+      "visualBible": "Indonesian man, 42, short neatly combed black hair with slight gray temples, angular face, charcoal suit, white shirt, silver watch."
+    },
+    {
+      "id": "char-02",
+      "name": "Pak Seno",
+      "role": "Ayah Arga, pensiunan mekanik berusia 70 tahun",
+      "motivation": "Melihat keluarganya kembali dekat",
+      "personality": "Sabar, sederhana, hangat",
+      "secret": "Menyimpan surat dan bukti pengorbanan untuk usaha Arga",
+      "visualBible": "Indonesian elderly man, 70, gentle lined face, short silver hair, faded olive shirt, brown trousers, worn sandals."
+    },
+    {
+      "id": "char-03",
+      "name": "Lila",
+      "role": "Istri Arga, 39 tahun",
+      "motivation": "Menjaga keluarga dan mendekatkan Nara dengan kakeknya",
+      "personality": "Empatik, tenang, tegas",
+      "secret": "Diam-diam tetap menghubungi Pak Seno",
+      "visualBible": "Indonesian woman, 39, shoulder-length dark hair, beige blouse or muted blue dress, minimal jewelry, expressive eyes."
+    },
+    {
+      "id": "char-04",
+      "name": "Nara",
+      "role": "Putri Arga, 10 tahun",
+      "motivation": "Membuat ayah dan kakeknya kembali akrab",
+      "personality": "Peka, jujur, ingin tahu",
+      "secret": "Menyusun album foto keluarga",
+      "visualBible": "Indonesian girl, 10, straight dark hair in low ponytail, yellow cardigan, denim skirt, small sketchbook."
+    }
+  ],
+  "continuityUpdate": {
+    "canonEvents": [
+      "Episode 8: Pada suatu senja, Arga memandang rumah sederhana itu. Ia masih memiliki perusahaan, jabatan, dan harta. Kini ia juga memiliki kesempatan hadir. Ia akhirnya mengerti bahwa keberhasilan tidak berarti tanpa keluarga untuk berbagi."
+    ],
+    "characterStates": [
+      {
+        "characterId": "char-01",
+        "state": "Mulai memulihkan hubungan keluarga."
+      },
+      {
+        "characterId": "char-02",
+        "state": "Mulai memulihkan hubungan keluarga."
+      },
+      {
+        "characterId": "char-03",
+        "state": "Mulai memulihkan hubungan keluarga."
+      },
+      {
+        "characterId": "char-04",
+        "state": "Mulai memulihkan hubungan keluarga."
+      }
+    ],
+    "unresolvedThreads": [],
+    "resolvedThreads": [
+      "Ancaman penjualan rumah dihentikan dan keluarga mulai berdamai."
+    ]
+  }
+}
