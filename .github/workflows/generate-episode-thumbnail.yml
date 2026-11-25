@@ -38,6 +38,9 @@ on:
         options: [v2, v3, v4]
 permissions:
   contents: write
+concurrency:
+  group: short-thumbnail-${{ inputs.series_id }}
+  cancel-in-progress: false
 jobs:
   thumbnail:
     runs-on: ubuntu-latest
@@ -131,7 +134,7 @@ jobs:
 
           git -C .. config user.name "github-actions[bot]"
           git -C .. config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C .. add -A "horror/data/seasons/$SEASON_ID/episodes/episode-$EP" "horror/data/seasons/$SEASON_ID/production-state.json" "public/episodes/$SEASON_ID/episode-$EP"
+          git -C .. add -A "horror/data/seasons/$SEASON_ID/season-thumbnail-master.jpg" "horror/data/seasons/$SEASON_ID/episodes/episode-$EP" "horror/data/seasons/$SEASON_ID/production-state.json" "public/episodes/$SEASON_ID/episode-$EP"
 
           if ! git -C .. diff --cached --quiet; then
             git -C .. commit -m "chore(thumbnail): publish $SEASON_ID episode $EP covers"
