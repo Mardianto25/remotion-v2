@@ -75,12 +75,14 @@
     {
       "episodeNumber": 4,
       "title": "Kunci dari Masa Lalu",
-      "status": "images_ready",
+      "status": "audio_ready",
       "wordCount": 156,
       "estimatedDurationSeconds": 72,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
-      "imageCount": 6
+      "imageCount": 6,
+      "durationSeconds": 75,
+      "productionStandard": "shorts-minimum-60s-v2"
     },
     {
       "episodeNumber": 5,
@@ -111,5 +113,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T01:50:08.515Z"
+  "updatedAt": "2026-11-25T01:52:45.187Z"
 }
