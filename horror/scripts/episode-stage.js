@@ -25,6 +25,9 @@ const story = await readJson(storyPath);
 story.contentId = "short-" + seasonId + "-episode-" + String(episodeNumber).padStart(2, "0");
 story.format = "shorts";
 story.episodeNumber = episodeNumber; // Pastikan badge EPS selalu mengikuti episode yang sedang diproses.
+const finalEpisodeNumber = Math.max(...bible.episodes.map(item => Number(item.episodeNumber) || 0));
+story.isFinalEpisode = episodeNumber === finalEpisodeNumber;
+console.log(story.isFinalEpisode ? "[thumbnail] Episode terakhir season: label TAMAT akan ditampilkan." : "[thumbnail] Bukan episode terakhir season.");
 story.characters = Array.isArray(bible.characters) ? bible.characters : [];
 story.seriesTitle = String(bible.seriesTitle || story.seriesTitle || story.themeTitle || "").trim();
 story.themeTitle = story.seriesTitle;
@@ -196,7 +199,8 @@ if (stage === "images") {
     const v = await fs.stat(verticalExisting);
     const cachedMetadata = await readJson(path.join(episodeDir,"youtube-metadata.json"));
     const forceRegenerate = String(process.env.FORCE_THUMBNAIL_REGENERATE || "no").toLowerCase() === "yes";
-    if (v.size > 1024 && cachedMetadata.thumbnail?.version === expectedThumbnailVersion && !forceRegenerate) {
+    const finalLabelReady = !story.isFinalEpisode || cachedMetadata.thumbnail?.endingLabel === "TAMAT";
+    if (v.size > 1024 && cachedMetadata.thumbnail?.version === expectedThumbnailVersion && finalLabelReady && !forceRegenerate) {
       console.log("[thumbnail] Shorts cover 9:16 " + styleKey + " sudah tersedia; tidak generate ulang.");
       await setEpisodeState("thumbnail_ready", { thumbnailVisualStyle: styleKey });
       process.exit(0);
