@@ -1,90 +1,74 @@
 [
   {
     "start": 0,
-    "end": 3,
-    "text": "Atau dhuha disebut apa?",
-    "keyword": "Sunlight rays through a window",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. Golden sunlight streaming softly through a traditional wooden arched window into a quiet, peaceful room, dust motes dancing in the warm beams, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-001-1795485809224-4856.png"
+    "end": 1.8,
+    "text": "Allah punya rencana.",
+    "keyword": "dawn sky clouds",
+    "imagePrompt": "Photorealistic live-action cinema still. Majestic dawn sky with sunlight breaking through thick cloud layers over distant mountain silhouettes. Vertical 9:16, atmospheric lighting, volumetric rays, cinematic depth of field, no people.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-001-1795605200676-2240.png"
   },
   {
-    "start": 3,
-    "end": 4,
-    "text": "Syu'ruk.",
-    "keyword": "Sunrise horizon",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. A serene and glowing sunrise peeking over a calm horizon with soft golden clouds and gentle morning light, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-002-1795485825203-7270.png"
+    "start": 1.8,
+    "end": 3.9,
+    "text": "Yang berjalan itu bukan rencana kita.",
+    "keyword": "diverging misty road",
+    "imagePrompt": "Photorealistic live-action cinema still. An ancient winding stone pathway branching into misty woods at twilight. Vertical 9:16, soft moody lighting, damp ground, shallow depth of field, no people.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-002-1795605202886-3641.png"
   },
   {
-    "start": 4,
-    "end": 8,
-    "text": "Pertengahan dhuha, sekitar jam 9 jam 10.",
-    "keyword": "Wall clock morning time",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. An ornate classical wall clock hanging on a textured plastered wall, clock hands pointing to mid-morning hours, warm ambient lighting, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-003-1795485828421-5597.png"
+    "start": 3.9,
+    "end": 5.8,
+    "text": "Kita boleh aja dalam hidup membuat rencana.",
+    "keyword": "architect blueprints notebook",
+    "imagePrompt": "Photorealistic live-action cinema still. Close-up of open blank vintage sketchbooks, compasses, and drafting rulers on a rustic wooden desk. Warm lamplight, vertical 9:16, natural textures, no people.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-003-1795605205760-9929.png"
   },
   {
-    "start": 8,
-    "end": 10,
-    "text": "Jumlahnya dua sampai empat rakaat.",
-    "keyword": "Prayer beads and mat",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. A neatly folded velvet prayer mat on a polished wooden floor with a glowing set of prayer beads resting gently on top, warm soft lighting, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-004-1795485835302-6491.png"
+    "start": 5.8,
+    "end": 8.5,
+    "text": "Orang membuat rencana, semua orang bikin rencana,",
+    "keyword": "scattered sketches drafts",
+    "imagePrompt": "Photorealistic live-action cinema still. Overhead view of many paper notes and structural sketches scattered across a large wooden work table. Natural morning window light, vertical 9:16, selective focus, no people.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-004-1795605212256-3027.png"
   },
   {
-    "start": 10,
-    "end": 16,
-    "text": "Apa fungsinya? Satu mengganti seluruh zikir yang ada dalam tubuh kita.",
-    "keyword": "Glowing spiritual light symbol",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. An ethereal glowing orb of warm golden light hovering above an open traditional book on a wooden stand, surrounded by soft mystical particles, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-005-1795485839936-1494.png"
+    "start": 8.5,
+    "end": 12.3,
+    "text": "tapi yang berjalan cuma satu, rencana Allah.",
+    "keyword": "epic sunrise valley",
+    "imagePrompt": "Photorealistic live-action cinema still. Vast green valley lit by a singular powerful beam of sunlight piercing dramatic storm clouds. Vertical 9:16, golden morning glow, wide atmospheric scale, no people.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-005-1795605214514-7370.png"
   },
   {
-    "start": 16,
-    "end": 20,
-    "text": "Mata berzikir, telinga berzikir, lisan berzikir, berzikir bisa diganti dengan dua rakaat dhuha.",
-    "keyword": "Tasbih prayer beads",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. A detailed close-up of polished wooden tasbih prayer beads resting on a soft woven fabric, illuminated by gentle morning light, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-006-1795485843080-6211.png"
+    "start": 12.3,
+    "end": 17.9,
+    "text": "Kita hanya memilih mau menjalani rencana itu dengan cara yang baik atau cara yang buruk.",
+    "keyword": "fork in the road",
+    "imagePrompt": "Photorealistic live-action cinema still. A sharp fork in a gravel path, one side bathed in warm golden light, the other shadowed under dense trees. Vertical 9:16, cinematic contrast, no people.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-006-1795605216689-1157.png"
   },
   {
-    "start": 20,
-    "end": 25,
-    "text": "Itu waktunya pertengahan dhuha, kurang lebih dari jam 08.00 09.10 lah kurang lebih 3 jam itu, ya.",
-    "keyword": "Morning sunbeams architecture",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. Beautiful architectural pillars casting long, elegant shadows as bright morning sunlight floods a peaceful hallway, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-007-1795485846252-4149.png"
+    "start": 17.9,
+    "end": 22.2,
+    "text": "Kalau cara baik nanti ada hasil yang baik, kalau cara buruk ada hasil yang buruk.",
+    "keyword": "blooming tree withered branch",
+    "imagePrompt": "Photorealistic live-action cinema still. Contrast of lush blooming white blossoms on one branch against dry, barren twigs on an adjacent branch. Soft natural light, vertical 9:16, shallow depth of field, no people.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-007-1795605219264-4516.png"
   },
   {
-    "start": 26,
-    "end": 31,
-    "text": "Yang kedua, bisa menghambat atau menghentikan menahan satu musibah umum.",
-    "keyword": "Shield light concept",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. A protective aura of golden light and shimmering geometric ripples forming a tranquil barrier against dark swirling mists, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-008-1795485852398-6882.png"
+    "start": 22.2,
+    "end": 24.4,
+    "text": "Tapi rencananya dari Allah,",
+    "keyword": "calm ocean horizon sunrise",
+    "imagePrompt": "Photorealistic live-action cinema still. Serene ocean horizon under an immense, glowing dawn sky with pastel clouds. Vertical 9:16, golden hour reflection, calm water surface, no people.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-008-1795605221394-9967.png"
   },
   {
-    "start": 31,
-    "end": 36,
-    "text": "Yang terakhir adalah akhir dhuha, sekitar jam 10 sampai jam 11 menjelang zuhur.",
-    "keyword": "Late morning sun high sky",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. A bright late-morning sky with radiant sunbeams breaking through soft, high-altitude clouds over a peaceful countryside landscape, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-009-1795485855358-6773.png"
-  },
-  {
-    "start": 36,
-    "end": 39,
-    "text": "Ya, akhir dhuha itu jumlahnya dari dua bisa empat sampai delapan rakaat.",
-    "keyword": "Stack of holy books",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. An elegant stack of leather-bound traditional books with subtle gold foil accents resting on a carved wooden table, warm illumination, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-010-1795485858804-2957.png"
-  },
-  {
-    "start": 40,
-    "end": 45,
-    "text": "Di antara manfaatnya bisa mempermudah datangnya rezeki dengan izin Allah Subhanahu wa taala ketika ikhtiar, itu dhuha.",
-    "keyword": "Open antique door with light",
-    "imagePrompt": "Premium stylized 3D animated feature-film look, carefully crafted 3D characters and environments, expressive but natural proportions, realistic fabric and material textures, cinematic volumetric lighting, rich depth, polished high-end 3D render. A grand wooden antique door slightly ajar, revealing a burst of warm, luminous golden light pouring out into a quiet, orderly room, vertical 9:16.",
-    "image": "images/video-2026-11-24_02-03-29-181Z/scene-011-1795485862822-1465.png"
+    "start": 24.4,
+    "end": 27.609932,
+    "text": "bagaimana menjalaninya dari kita.",
+    "keyword": "footsteps on path",
+    "imagePrompt": "Photorealistic live-action cinema still. Low-angle close-up of a person's boots walking forward along a sunlit gravel trail. Vertical 9:16, warm morning backlight, shallow depth of field, face not visible.",
+    "image": "images/video-2026-11-25_11-13-20-668Z/scene-009-1795605223642-7015.png"
   }
 ]
