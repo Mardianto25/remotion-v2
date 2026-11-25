@@ -31,12 +31,13 @@
   "thumbnailText": "Terlanjur Terlambat?",
   "thumbnailPrompt": "A vertical 9:16 dramatic scene of a businessman in a suit standing in a dim modern office, looking down at a glowing smartphone in his hand displaying a voicemail screen. In the sharp foreground focus on the wooden desk lies a small handwritten birthday invitation card. High visual contrast, dramatic side lighting, emotional tension, cinematic moody color grading, focused subject portrait composition.",
   "thumbnail": {
-    "version": "episode-ctr-v11-cinematic-3d-portrait",
+    "version": "episode-ctr-v12-season-master-cinematic-3d-portrait",
     "format": "9:16",
     "youtube": "shorts-cover.jpg",
     "shorts": "shorts-cover.jpg",
     "compatibilityFile": "youtube-thumbnail.jpg",
+    "masterArtwork": "season-thumbnail-master.jpg",
     "visualStyle": "cinematic-3d",
-    "characterContinuity": "series-bible"
+    "characterContinuity": "same-season-master-artwork"
   }
 }
