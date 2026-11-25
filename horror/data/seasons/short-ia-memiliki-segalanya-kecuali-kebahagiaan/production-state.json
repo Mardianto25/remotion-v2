@@ -75,14 +75,15 @@
     {
       "episodeNumber": 4,
       "title": "Kunci dari Masa Lalu",
-      "status": "audio_ready",
+      "status": "rendered",
       "wordCount": 156,
       "estimatedDurationSeconds": 72,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
       "durationSeconds": 75,
-      "productionStandard": "shorts-minimum-60s-v2"
+      "productionStandard": "shorts-minimum-60s-v2",
+      "videoPath": "episodes/episode-04/indonesian-horror.mp4"
     },
     {
       "episodeNumber": 5,
@@ -113,5 +114,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T01:52:45.187Z"
+  "updatedAt": "2026-11-25T01:56:10.864Z"
 }
