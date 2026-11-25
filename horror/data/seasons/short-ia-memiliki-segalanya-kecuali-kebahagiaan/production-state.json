@@ -58,14 +58,15 @@
     {
       "episodeNumber": 3,
       "title": "Harga Sebuah Kesibukan",
-      "status": "audio_ready",
+      "status": "rendered",
       "wordCount": 158,
       "estimatedDurationSeconds": 73,
       "sceneCount": 6,
       "visualStyle": "cinematic-3d",
       "imageCount": 6,
-      "durationSeconds": 81.6,
-      "productionStandard": "shorts-minimum-60s-v2"
+      "durationSeconds": 81.7,
+      "productionStandard": "shorts-minimum-60s-v2",
+      "videoPath": "episodes/episode-03/indonesian-horror.mp4"
     },
     {
       "episodeNumber": 4,
@@ -103,5 +104,5 @@
       "estimatedDurationSeconds": 79
     }
   ],
-  "updatedAt": "2026-11-25T01:18:55.077Z"
+  "updatedAt": "2026-11-25T01:21:55.518Z"
 }
