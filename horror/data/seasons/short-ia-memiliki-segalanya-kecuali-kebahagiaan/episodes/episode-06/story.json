@@ -1,0 +1,155 @@
+{
+  "episodeNumber": 6,
+  "seriesTitle": "Ia Memiliki Segalanya, Kecuali Kebahagiaan",
+  "title": "Saat Semuanya Terasa Kosong",
+  "description": "Episode 6 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
+  "genre": "inspirational",
+  "category": "inspirational",
+  "disclaimer": "Cerita fiksi inspiratif. Kemiripan dengan tokoh atau peristiwa nyata tidak disengaja.",
+  "hook": "Arga tidak dapat menyangkal tanda tangannya. Bertahun-tahun lalu ia menandatangani banyak dokumen tanpa membaca rinciannya. Kelalaian itu kini menjadi bagian dari masalah yang menimpa ayahnya.",
+  "mainConflict": "Arga harus memilih antara ambisi pribadi dan tanggung jawab terhadap keluarga.",
+  "revelation": "Arga mengantar Pak Seno ke kantor kreditur untuk mengonfirmasi bukti pembayaran. Petugas bersedia menunda proses penjualan, tetapi meminta dokumen asli yang menjadi bukti terakhir.",
+  "cliffhanger": "Petugas kembali dari ruang arsip dengan wajah cemas. Dokumen pembayaran asli tidak ada di map. Seseorang telah mengambilnya sebelum pemeriksaan, dan tanpa dokumen itu rumah Pak Seno kembali terancam.",
+  "endingType": "cliffhanger",
+  "nextEpisodeQuestion": "Apa yang akan dilakukan Arga setelah kejadian ini?",
+  "continuityFromPrevious": {
+    "previousEpisodeEnding": "Tim hukum menemukan tanda tangan Arga pada dokumen pengajuan penjualan rumah.",
+    "openingContinuation": "Arga mengakui kelalaiannya dan mengumpulkan tim hukum untuk menyelesaikan masalah.",
+    "timeAndLocation": "Pagi berikutnya di kantor Arga.",
+    "characterStatesAtOpening": [
+      "Arga merasa bersalah dan bersedia bertanggung jawab.",
+      "Lila mendukung keterbukaan.",
+      "Pak Seno tidak ingin saling menyalahkan.",
+      "Nara berharap ayahnya hadir."
+    ],
+    "carriedElements": [
+      "Dokumen bertanda tangan Arga",
+      "Bukti pembayaran Pak Seno"
+    ],
+    "unresolvedQuestion": "Dapatkah rumah diselamatkan dan siapa yang bertanggung jawab?"
+  },
+  "episodePayoff": "Petugas kembali dari ruang arsip dengan wajah cemas. Dokumen pembayaran asli tidak ada di map. Seseorang telah mengambilnya sebelum pemeriksaan, dan tanpa dokumen itu rumah Pak Seno kembali terancam.",
+  "seasonTeaser": "",
+  "storySummary": "Arga tidak dapat menyangkal tanda tangannya. Bertahun-tahun lalu ia menandatangani banyak dokumen tanpa membaca rinciannya. Kelalaian itu kini menjadi bagian dari masalah yang menimpa ayahnya. Beberapa eksekutif menyarankan penyelesaian diam-diam agar nama perusahaan tidak tercoreng. Arga menolak. Ia tidak ingin menyelamatkan citra dengan mengorbankan kebenaran sekali lagi. Di rumah, Lila menemukan Arga duduk tanpa laptop dan telepon. Ia mengaku takut kehilangan perusahaan, tetapi lebih takut kehilangan keluarga yang selama ini selalu menunggunya. Nara meletakkan gambar keluarga di pangkuan ayahnya. Kali ini ada empat orang bergandengan tangan. Ia berkata ingin ayahnya ikut mengunjungi kakek, bukan hanya mengirim uang. Arga mengantar Pak Seno ke kantor kreditur untuk mengonfirmasi bukti pembayaran. Petugas bersedia menunda proses penjualan, tetapi meminta dokumen asli yang menjadi bukti terakhir. Petugas kembali dari ruang arsip dengan wajah cemas. Dokumen pembayaran asli tidak ada di map. Seseorang telah mengambilnya sebelum pemeriksaan, dan tanpa dokumen itu rumah Pak Seno kembali terancam.",
+  "narration": "Arga tidak dapat menyangkal tanda tangannya. Bertahun-tahun lalu ia menandatangani banyak dokumen tanpa membaca rinciannya. Kelalaian itu kini menjadi bagian dari masalah yang menimpa ayahnya. Beberapa eksekutif menyarankan penyelesaian diam-diam agar nama perusahaan tidak tercoreng. Arga menolak. Ia tidak ingin menyelamatkan citra dengan mengorbankan kebenaran sekali lagi. Di rumah, Lila menemukan Arga duduk tanpa laptop dan telepon. Ia mengaku takut kehilangan perusahaan, tetapi lebih takut kehilangan keluarga yang selama ini selalu menunggunya. Nara meletakkan gambar keluarga di pangkuan ayahnya. Kali ini ada empat orang bergandengan tangan. Ia berkata ingin ayahnya ikut mengunjungi kakek, bukan hanya mengirim uang. Arga mengantar Pak Seno ke kantor kreditur untuk mengonfirmasi bukti pembayaran. Petugas bersedia menunda proses penjualan, tetapi meminta dokumen asli yang menjadi bukti terakhir. Petugas kembali dari ruang arsip dengan wajah cemas. Dokumen pembayaran asli tidak ada di map. Seseorang telah mengambilnya sebelum pemeriksaan, dan tanpa dokumen itu rumah Pak Seno kembali terancam.",
+  "wordCount": 150,
+  "targetDurationSeconds": {
+    "min": 60,
+    "estimated": 70
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "heading": "Pembuka",
+      "narration": "Arga tidak dapat menyangkal tanda tangannya. Bertahun-tahun lalu ia menandatangani banyak dokumen tanpa membaca rinciannya. Kelalaian itu kini menjadi bagian dari masalah yang menimpa ayahnya.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, Indonesian businessman alone in a luxurious modern home at night, realistic family drama.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "reflective"
+    },
+    {
+      "id": 2,
+      "heading": "Percakapan keluarga",
+      "narration": "Beberapa eksekutif menyarankan penyelesaian diam-diam agar nama perusahaan tidak tercoreng. Arga menolak. Ia tidak ingin menyelamatkan citra dengan mengorbankan kebenaran sekali lagi.",
+      "visualPrompt": "Portrait 9:16 cinematic medium shot, Indonesian family at dinner table, emotional distance, natural warm lighting.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "melancholic"
+    },
+    {
+      "id": 3,
+      "heading": "Konflik",
+      "narration": "Di rumah, Lila menemukan Arga duduk tanpa laptop dan telepon. Ia mengaku takut kehilangan perusahaan, tetapi lebih takut kehilangan keluarga yang selama ini selalu menunggunya.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, father and daughter in a quiet emotional conversation, contemporary Indonesian home.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "tense"
+    },
+    {
+      "id": 4,
+      "heading": "Pilihan",
+      "narration": "Nara meletakkan gambar keluarga di pangkuan ayahnya. Kali ini ada empat orang bergandengan tangan. Ia berkata ingin ayahnya ikut mengunjungi kakek, bukan hanya mengirim uang.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, elderly Indonesian father in a modest home, old photographs and personal objects.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "emotional"
+    },
+    {
+      "id": 5,
+      "heading": "Perubahan",
+      "narration": "Arga mengantar Pak Seno ke kantor kreditur untuk mengonfirmasi bukti pembayaran. Petugas bersedia menunda proses penjualan, tetapi meminta dokumen asli yang menjadi bukti terakhir.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, handwritten family letter and old documents on a wooden table, emotional atmosphere.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "hopeful"
+    },
+    {
+      "id": 6,
+      "heading": "Akhir episode",
+      "narration": "Petugas kembali dari ruang arsip dengan wajah cemas. Dokumen pembayaran asli tidak ada di map. Seseorang telah mengambilnya sebelum pemeriksaan, dan tanpa dokumen itu rumah Pak Seno kembali terancam.",
+      "visualPrompt": "Portrait 9:16 cinematic dramatic scene, consistent characters, specific cliffhanger action visible, realistic Indonesian setting.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "suspenseful"
+    }
+  ],
+  "characters": [
+    {
+      "id": "char-01",
+      "name": "Arga Pratama",
+      "role": "Pengusaha sukses, 42 tahun; tokoh utama",
+      "motivation": "Membangun perusahaan dan membuktikan keberhasilannya",
+      "personality": "Ambisius, tertutup, perfeksionis",
+      "secret": "Ayahnya pernah menjual bengkel untuk menyelamatkan usaha pertamanya",
+      "visualBible": "Indonesian man, 42, short neatly combed black hair with slight gray temples, angular face, charcoal suit, white shirt, silver watch."
+    },
+    {
+      "id": "char-02",
+      "name": "Pak Seno",
+      "role": "Ayah Arga, pensiunan mekanik berusia 70 tahun",
+      "motivation": "Melihat keluarganya kembali dekat",
+      "personality": "Sabar, sederhana, hangat",
+      "secret": "Menyimpan surat dan bukti pengorbanan untuk usaha Arga",
+      "visualBible": "Indonesian elderly man, 70, gentle lined face, short silver hair, faded olive shirt, brown trousers, worn sandals."
+    },
+    {
+      "id": "char-03",
+      "name": "Lila",
+      "role": "Istri Arga, 39 tahun",
+      "motivation": "Menjaga keluarga dan mendekatkan Nara dengan kakeknya",
+      "personality": "Empatik, tenang, tegas",
+      "secret": "Diam-diam tetap menghubungi Pak Seno",
+      "visualBible": "Indonesian woman, 39, shoulder-length dark hair, beige blouse or muted blue dress, minimal jewelry, expressive eyes."
+    },
+    {
+      "id": "char-04",
+      "name": "Nara",
+      "role": "Putri Arga, 10 tahun",
+      "motivation": "Membuat ayah dan kakeknya kembali akrab",
+      "personality": "Peka, jujur, ingin tahu",
+      "secret": "Menyusun album foto keluarga",
+      "visualBible": "Indonesian girl, 10, straight dark hair in low ponytail, yellow cardigan, denim skirt, small sketchbook."
+    }
+  ],
+  "continuityUpdate": {
+    "canonEvents": [
+      "Episode 6: Petugas kembali dari ruang arsip dengan wajah cemas. Dokumen pembayaran asli tidak ada di map. Seseorang telah mengambilnya sebelum pemeriksaan, dan tanpa dokumen itu rumah Pak Seno kembali terancam."
+    ],
+    "characterStates": [
+      {
+        "characterId": "char-01",
+        "state": "Menghadapi perkembangan konflik episode 6."
+      },
+      {
+        "characterId": "char-02",
+        "state": "Menghadapi perkembangan konflik episode 6."
+      },
+      {
+        "characterId": "char-03",
+        "state": "Menghadapi perkembangan konflik episode 6."
+      },
+      {
+        "characterId": "char-04",
+        "state": "Menghadapi perkembangan konflik episode 6."
+      }
+    ],
+    "unresolvedThreads": [
+      "Pemulihan hubungan keluarga."
+    ],
+    "resolvedThreads": []
+  }
+}
