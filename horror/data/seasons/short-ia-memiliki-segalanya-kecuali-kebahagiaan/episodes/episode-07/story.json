@@ -1,0 +1,154 @@
+{
+  "episodeNumber": 7,
+  "seriesTitle": "Ia Memiliki Segalanya, Kecuali Kebahagiaan",
+  "title": "Waktu yang Tidak Bisa Dibeli",
+  "description": "Episode 7 dari Ia Memiliki Segalanya, Kecuali Kebahagiaan.",
+  "genre": "inspirational",
+  "category": "inspirational",
+  "disclaimer": "Cerita fiksi inspiratif. Kemiripan dengan tokoh atau peristiwa nyata tidak disengaja.",
+  "hook": "Arga meminta rekaman akses ruang arsip diperiksa. Ia tidak ingin menuduh siapa pun tanpa bukti. Pak Seno menunggu di ruang tamu kreditur bersama Lila dan Nara.",
+  "mainConflict": "Arga harus memilih antara ambisi pribadi dan tanggung jawab terhadap keluarga.",
+  "revelation": "Dokumen asli dikembalikan dan diverifikasi. Proses penjualan rumah dihentikan, lalu catatan kewajiban diperbaiki. Arga mengantar ayahnya pulang dan menawarkan bantuan tanpa memaksakan uang.",
+  "cliffhanger": "Di depan rumah, Pak Seno menggenggam tangan Arga. Ia berkata masih ada satu hal yang ingin disampaikan sebelum terlambat. Arga duduk di samping ayahnya, siap mendengarkan.",
+  "endingType": "cliffhanger",
+  "nextEpisodeQuestion": "Apa yang akan dilakukan Arga setelah kejadian ini?",
+  "continuityFromPrevious": {
+    "previousEpisodeEnding": "Dokumen pembayaran asli hilang dari map saat kreditur hendak memverifikasi bukti.",
+    "openingContinuation": "Arga meminta pemeriksaan rekaman akses ruang arsip.",
+    "timeAndLocation": "Siang di kantor kreditur, lalu kantor perusahaan.",
+    "characterStatesAtOpening": [
+      "Arga mencari bukti tanpa menuduh sembarangan.",
+      "Pak Seno menunggu kepastian.",
+      "Lila dan Nara mendampingi."
+    ],
+    "carriedElements": [
+      "Kabar dokumen hilang",
+      "Salinan bukti pembayaran"
+    ],
+    "unresolvedQuestion": "Siapa yang mengambil dokumen asli?"
+  },
+  "episodePayoff": "Di depan rumah, Pak Seno menggenggam tangan Arga. Ia berkata masih ada satu hal yang ingin disampaikan sebelum terlambat. Arga duduk di samping ayahnya, siap mendengarkan.",
+  "seasonTeaser": "",
+  "storySummary": "Arga meminta rekaman akses ruang arsip diperiksa. Ia tidak ingin menuduh siapa pun tanpa bukti. Pak Seno menunggu di ruang tamu kreditur bersama Lila dan Nara. Rekaman menunjukkan mantan manajer keuangan masuk ke ruang arsip beberapa hari sebelumnya. Orang itu telah mengundurkan diri setelah restrukturisasi dan pernah menangani dokumen pinjaman lama. Tim hukum menghubungi mantan manajer tersebut. Ia mengaku membawa dokumen karena takut kesalahan administrasi masa lalu terbongkar. Ia bersedia mengembalikannya jika Arga tidak melaporkan tindakannya. Arga menolak kesepakatan di luar hukum. Ia mengatakan dokumen itu menyangkut hak ayahnya dan harus diserahkan secara resmi. Pak Seno melihat anaknya akhirnya memilih bertanggung jawab. Dokumen asli dikembalikan dan diverifikasi. Proses penjualan rumah dihentikan, lalu catatan kewajiban diperbaiki. Arga mengantar ayahnya pulang dan menawarkan bantuan tanpa memaksakan uang. Di depan rumah, Pak Seno menggenggam tangan Arga. Ia berkata masih ada satu hal yang ingin disampaikan sebelum terlambat. Arga duduk di samping ayahnya, siap mendengarkan.",
+  "narration": "Arga meminta rekaman akses ruang arsip diperiksa. Ia tidak ingin menuduh siapa pun tanpa bukti. Pak Seno menunggu di ruang tamu kreditur bersama Lila dan Nara. Rekaman menunjukkan mantan manajer keuangan masuk ke ruang arsip beberapa hari sebelumnya. Orang itu telah mengundurkan diri setelah restrukturisasi dan pernah menangani dokumen pinjaman lama. Tim hukum menghubungi mantan manajer tersebut. Ia mengaku membawa dokumen karena takut kesalahan administrasi masa lalu terbongkar. Ia bersedia mengembalikannya jika Arga tidak melaporkan tindakannya. Arga menolak kesepakatan di luar hukum. Ia mengatakan dokumen itu menyangkut hak ayahnya dan harus diserahkan secara resmi. Pak Seno melihat anaknya akhirnya memilih bertanggung jawab. Dokumen asli dikembalikan dan diverifikasi. Proses penjualan rumah dihentikan, lalu catatan kewajiban diperbaiki. Arga mengantar ayahnya pulang dan menawarkan bantuan tanpa memaksakan uang. Di depan rumah, Pak Seno menggenggam tangan Arga. Ia berkata masih ada satu hal yang ingin disampaikan sebelum terlambat. Arga duduk di samping ayahnya, siap mendengarkan.",
+  "wordCount": 151,
+  "targetDurationSeconds": {
+    "min": 60,
+    "estimated": 70
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "heading": "Pembuka",
+      "narration": "Arga meminta rekaman akses ruang arsip diperiksa. Ia tidak ingin menuduh siapa pun tanpa bukti. Pak Seno menunggu di ruang tamu kreditur bersama Lila dan Nara.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, Indonesian businessman alone in a luxurious modern home at night, realistic family drama.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "reflective"
+    },
+    {
+      "id": 2,
+      "heading": "Percakapan keluarga",
+      "narration": "Rekaman menunjukkan mantan manajer keuangan masuk ke ruang arsip beberapa hari sebelumnya. Orang itu telah mengundurkan diri setelah restrukturisasi dan pernah menangani dokumen pinjaman lama.",
+      "visualPrompt": "Portrait 9:16 cinematic medium shot, Indonesian family at dinner table, emotional distance, natural warm lighting.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "melancholic"
+    },
+    {
+      "id": 3,
+      "heading": "Konflik",
+      "narration": "Tim hukum menghubungi mantan manajer tersebut. Ia mengaku membawa dokumen karena takut kesalahan administrasi masa lalu terbongkar. Ia bersedia mengembalikannya jika Arga tidak melaporkan tindakannya.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, father and daughter in a quiet emotional conversation, contemporary Indonesian home.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "tense"
+    },
+    {
+      "id": 4,
+      "heading": "Pilihan",
+      "narration": "Arga menolak kesepakatan di luar hukum. Ia mengatakan dokumen itu menyangkut hak ayahnya dan harus diserahkan secara resmi. Pak Seno melihat anaknya akhirnya memilih bertanggung jawab.",
+      "visualPrompt": "Portrait 9:16 cinematic scene, elderly Indonesian father in a modest home, old photographs and personal objects.",
+      "searchQuery": "Indonesian family drama cinematic",
+      "mood": "emotional"
+    },
+    {
+      "id": 5,
+      "heading": "Perubahan",
+      "narration": "Dokumen asli dikembalikan dan diverifikasi. Proses penjualan rumah dihentikan, lalu catatan kewajiban diperbaiki. Arga mengantar ayahnya pulang dan menawarkan bantuan tanpa memaksakan uang.",
+      "visualPrompt": "Portrait 9:16 cinematic close-up, handwritten family letter and old documents on a wooden table, emotional atmosphere.",
+      "searchQuery": "successful businessman lonely home",
+      "mood": "hopeful"
+    },
+    {
+      "id": 6,
+      "heading": "Akhir episode",
+      "narration": "Di depan rumah, Pak Seno menggenggam tangan Arga. Ia berkata masih ada satu hal yang ingin disampaikan sebelum terlambat. Arga duduk di samping ayahnya, siap mendengarkan.",
+      "visualPrompt": "Portrait 9:16 cinematic dramatic scene, consistent characters, specific cliffhanger action visible, realistic Indonesian setting.",
+      "searchQuery": "elderly father son emotional reunion",
+      "mood": "suspenseful"
+    }
+  ],
+  "characters": [
+    {
+      "id": "char-01",
+      "name": "Arga Pratama",
+      "role": "Pengusaha sukses, 42 tahun; tokoh utama",
+      "motivation": "Membangun perusahaan dan membuktikan keberhasilannya",
+      "personality": "Ambisius, tertutup, perfeksionis",
+      "secret": "Ayahnya pernah menjual bengkel untuk menyelamatkan usaha pertamanya",
+      "visualBible": "Indonesian man, 42, short neatly combed black hair with slight gray temples, angular face, charcoal suit, white shirt, silver watch."
+    },
+    {
+      "id": "char-02",
+      "name": "Pak Seno",
+      "role": "Ayah Arga, pensiunan mekanik berusia 70 tahun",
+      "motivation": "Melihat keluarganya kembali dekat",
+      "personality": "Sabar, sederhana, hangat",
+      "secret": "Menyimpan surat dan bukti pengorbanan untuk usaha Arga",
+      "visualBible": "Indonesian elderly man, 70, gentle lined face, short silver hair, faded olive shirt, brown trousers, worn sandals."
+    },
+    {
+      "id": "char-03",
+      "name": "Lila",
+      "role": "Istri Arga, 39 tahun",
+      "motivation": "Menjaga keluarga dan mendekatkan Nara dengan kakeknya",
+      "personality": "Empatik, tenang, tegas",
+      "secret": "Diam-diam tetap menghubungi Pak Seno",
+      "visualBible": "Indonesian woman, 39, shoulder-length dark hair, beige blouse or muted blue dress, minimal jewelry, expressive eyes."
+    },
+    {
+      "id": "char-04",
+      "name": "Nara",
+      "role": "Putri Arga, 10 tahun",
+      "motivation": "Membuat ayah dan kakeknya kembali akrab",
+      "personality": "Peka, jujur, ingin tahu",
+      "secret": "Menyusun album foto keluarga",
+      "visualBible": "Indonesian girl, 10, straight dark hair in low ponytail, yellow cardigan, denim skirt, small sketchbook."
+    }
+  ],
+  "continuityUpdate": {
+    "canonEvents": [
+      "Episode 7: Di depan rumah, Pak Seno menggenggam tangan Arga. Ia berkata masih ada satu hal yang ingin disampaikan sebelum terlambat. Arga duduk di samping ayahnya, siap mendengarkan."
+    ],
+    "characterStates": [
+      {
+        "characterId": "char-01",
+        "state": "Menghadapi perkembangan konflik episode 7."
+      },
+      {
+        "characterId": "char-02",
+        "state": "Menghadapi perkembangan konflik episode 7."
+      },
+      {
+        "characterId": "char-03",
+        "state": "Menghadapi perkembangan konflik episode 7."
+      },
+      {
+        "characterId": "char-04",
+        "state": "Menghadapi perkembangan konflik episode 7."
+      }
+    ],
+    "unresolvedThreads": [
+      "Pemulihan hubungan keluarga."
+    ],
+    "resolvedThreads": []
+  }
+}
