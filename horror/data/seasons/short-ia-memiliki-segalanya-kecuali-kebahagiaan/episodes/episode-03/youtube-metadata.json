@@ -30,12 +30,13 @@
   "thumbnailText": "Rahasia di Map Rumah",
   "thumbnailPrompt": "A highly emotional cinematic 9:16 vertical shot. An Indonesian businessman in a tailored suit stands in a dimly lit clinic corridor, staring at an official paper document in shock and deep guilt. In the blurred background through a glass window, an elderly Indonesian father sits on a clinic bed with a young girl. Dramatic chiaroscuro lighting, strong color contrast, intense emotional atmosphere, realistic photography style.",
   "thumbnail": {
-    "version": "episode-ctr-v11-cinematic-3d-portrait",
+    "version": "episode-ctr-v12-season-master-cinematic-3d-portrait",
     "format": "9:16",
     "youtube": "shorts-cover.jpg",
     "shorts": "shorts-cover.jpg",
     "compatibilityFile": "youtube-thumbnail.jpg",
+    "masterArtwork": "season-thumbnail-master.jpg",
     "visualStyle": "cinematic-3d",
-    "characterContinuity": "series-bible"
+    "characterContinuity": "same-season-master-artwork"
   }
 }
