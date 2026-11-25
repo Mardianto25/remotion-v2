@@ -32,12 +32,13 @@
   "thumbnailText": "Pengorbanan Yang Terlupakan",
   "thumbnailPrompt": "Vertical 9:16 portrait scene. Close-up of an Indonesian man in a suit with emotional tears in his eyes, holding an open dusty vintage iron box containing an old brass key, family photos, and a blue-ribboned envelope. Strong contrast between warm spotlight on his hands and a dark blurry office background. Dramatic emotion of realization and deep regret, highly detailed visual, photorealistic, cinematic lighting, 8k resolution.",
   "thumbnail": {
-    "version": "episode-ctr-v11-cinematic-3d-portrait",
+    "version": "episode-ctr-v12-season-master-cinematic-3d-portrait",
     "format": "9:16",
     "youtube": "shorts-cover.jpg",
     "shorts": "shorts-cover.jpg",
     "compatibilityFile": "youtube-thumbnail.jpg",
+    "masterArtwork": "season-thumbnail-master.jpg",
     "visualStyle": "cinematic-3d",
-    "characterContinuity": "series-bible"
+    "characterContinuity": "same-season-master-artwork"
   }
 }
