@@ -4,8 +4,8 @@ import { execFileSync } from "node:child_process";
 
 const VIDEO = path.resolve("out/facebook-reels/video.mp4");
 const API = process.env.FACEBOOK_GRAPH_API_VERSION || "v27.0";
-const PAGE_ID = process.env.FB_PAGE_ID;
-const TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
+const PAGE_ID = process.env.FACEBOOK_PAGE_ID;
+const TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 
 async function post(url, params) {
   const response = await fetch(url, {
@@ -19,7 +19,7 @@ async function post(url, params) {
 }
 
 async function main() {
-  if (!PAGE_ID || !TOKEN) throw new Error("FB_PAGE_ID dan FB_PAGE_ACCESS_TOKEN wajib diatur.");
+  if (!PAGE_ID || !TOKEN) throw new Error("FACEBOOK_PAGE_ID dan FACEBOOK_PAGE_ACCESS_TOKEN wajib diatur.");
   const duration = Number(execFileSync("ffprobe", [
     "-v", "error", "-show_entries", "format=duration",
     "-of", "default=noprint_wrappers=1:nokey=1", VIDEO
