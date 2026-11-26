@@ -19,7 +19,7 @@ concurrency:
 jobs:
   generate-render-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -35,16 +35,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2t64 ffmpeg
 
-      - name: Restore recurring character master
-        uses: actions/cache@v4
-        with:
-          path: facebook-reels/assets/character-master.png
-          key: facebook-reels-character-master-v1
-
       - name: Install dependencies
         run: npm install
 
-      - name: Generate original Islamic reflection script
+      - name: Generate original Islamic reflection script and 3D storyboard
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_CONTENT_MODEL: gemini-2.5-flash
@@ -58,16 +52,13 @@ jobs:
           GEMINI_TTS_VOICE: Algenib
         run: node facebook-reels/generate-audio.js
 
-      - name: Generate consistent 3D cinematic scenes
-        env:
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        run: node facebook-reels/generate-scenes.js
+      - name: Build Three.js animation timeline
+        run: node facebook-reels/generate-animation-data.js
 
-      - name: Render standalone Facebook Reel
+      - name: Render 3D animated Facebook Reel
         run: |
           mkdir -p out/facebook-reels
-          npx remotion render facebook-reels/src/index.jsx FacebookReel out/facebook-reels/video.mp4 --public-dir=out/facebook-reels/public --codec=h264
+          npx remotion render facebook-reels/src/animated-index.jsx FacebookAnimatedReel out/facebook-reels/video.mp4 --public-dir=out/facebook-reels/public --codec=h264 --gl=swangle
 
       - name: Validate rendered Reel
         run: |
@@ -92,12 +83,15 @@ jobs:
         run: node facebook-reels/upload-reel.js
 
       - name: Save generated Reel package
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: independent-facebook-reel
           path: |
             out/facebook-reels/video.mp4
             out/facebook-reels/content.json
+            out/facebook-reels/animation-story.json
             out/facebook-reels/facebook-metadata.json
             out/facebook-reels/transcript.txt
+          if-no-files-found: ignore
           retention-days: 14
