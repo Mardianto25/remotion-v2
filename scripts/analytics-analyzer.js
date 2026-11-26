@@ -12,7 +12,15 @@ async function main() {
     current: video.youtube.current, day1: video.youtube.day1, day7: video.youtube.day7, facebook: video.facebook
   }));
   let recommendations;
-  if (!process.env.GEMINI_API_KEY) {
+  if (!usable.length) {
+    recommendations = {
+      generatedAt: new Date().toISOString(), mode: "waiting_for_metrics",
+      summary: "Belum ada data YouTube Analytics yang dapat dianalisis. Periksa izin OAuth yt-analytics.readonly dan jalankan collector kembali.",
+      dataLimitations: ["Belum ada metrik video yang berhasil diambil."],
+      recommendations: ["Tambahkan scope https://www.googleapis.com/auth/yt-analytics.readonly pada OAuth consent dan buat refresh token analytics.", "Pastikan video sudah terdaftar dan telah dipublikasikan.", "Jalankan ulang workflow analytics setelah secret diperbarui."],
+      topPerformers: [], nextTopics: []
+    };
+  } else if (!process.env.GEMINI_API_KEY) {
     recommendations = {
       generatedAt: new Date().toISOString(), mode: "fallback",
       summary: "Analisis AI belum dijalankan karena GEMINI_API_KEY tidak tersedia.",
