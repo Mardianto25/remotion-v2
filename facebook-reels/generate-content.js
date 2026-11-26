@@ -39,7 +39,7 @@ Batasan:
   action: "walking", "standing", "dua", "looking_up", "sitting"
   camera: "wide", "medium", "close", "orbit", "low"
   mood: "reflective", "sad", "hopeful", "peaceful", "night"
-- Setting, action, dan mood harus membantu menceritakan bagian narasi scene.
+- Setting, action, dan mood harus membantu menceritakan bagian narasi scene.\n- Variasikan lokasi sesuai topik; jangan memaksakan masjid pada cerita yang tidak membahas ibadah.\n- Setiap scene harus menggambarkan satu momen konkret, bukan pose karakter tanpa konteks.\n- Beri kesinambungan waktu, tempat, pakaian, dan karakter antarscene bila ceritanya berlangsung dalam satu rangkaian.\n- Pilih angle kamera yang memperkuat emosi; gunakan close untuk ekspresi/detail, wide untuk memperlihatkan lokasi, dan tracking/orbit hanya bila sesuai.
 - Jangan menggambarkan Allah atau nabi.
 - Buat metadata judul, caption, hashtag yang relevan untuk Facebook Page Reels.
 
