@@ -35,8 +35,8 @@ publishes to Facebook Page Reels using the existing Facebook secrets.
 
 ## What remains to be improved
 
-- Character geometry is a lightweight first version, not a rigged 3D model.
-- Environment variants are procedural and currently limited to a small set of settings.
+- The recurring character currently uses an articulated procedural rig with frame-driven limb, head, breathing, blink and gesture animation. It is not yet a skinned GLB character with motion-capture clips.
+- Scene actions and camera directions are selected per scene (walking, sitting, dua, looking up; wide, medium, close, orbit and low angles). Environment variants remain procedural and limited to a small set of settings.
 - Subtitle timing is estimated by scene word count, not aligned word-by-word to the TTS waveform.
 - The full 2K look, advanced ink outlines, depth-of-field and sound-effect synthesis from
   the reference skill are not yet implemented.
