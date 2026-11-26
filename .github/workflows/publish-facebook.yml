@@ -1,0 +1,58 @@
+name: Publish Video to Facebook
+
+on:
+  workflow_run:
+    workflows:
+      - Render Remotion Shorts & Upload to YouTube
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Run ID workflow YouTube yang memiliki artifact rendered-shorts-and-capcut-package
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: facebook-publish-${{ github.event.workflow_run.id || inputs.source_run_id }}
+  cancel-in-progress: false
+
+jobs:
+  publish-facebook:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Download rendered video artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: rendered-shorts-and-capcut-package
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id || inputs.source_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: out
+
+      - name: Validate video
+        run: |
+          test -s out/video.mp4 || {
+            echo "Artifact tidak berisi out/video.mp4"
+            find out -maxdepth 3 -type f -print || true
+            exit 1
+          }
+
+      - name: Publish Facebook Feed and Reels
+        env:
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+          FACEBOOK_GRAPH_API_VERSION: v27.0
+        run: node scripts/facebook-upload.js
