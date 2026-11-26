@@ -63,7 +63,11 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
   const walk = action === 'walking';
   const dua = action === 'dua';
   const lookUp = action === 'looking_up';
-  const sitting = action === 'sitting';
+  const sitting = action === 'sitting' || action === 'reading' || action === 'working';
+  const washing = action === 'washing';
+  const kneeling = action === 'kneeling';
+  const crying = action === 'crying';
+  const embracing = action === 'embracing';
 
   const gait = walk ? Math.sin(t * 7.2) : 0;
   const idle = Math.sin(t * 2.1);
@@ -71,10 +75,10 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
   const bob = walk ? Math.abs(Math.sin(t * 7.2)) * 0.075 : Math.sin(t * 2.4) * 0.018;
   const torsoLean = walk ? Math.sin(t * 7.2) * 0.035 : dua ? -0.08 : sitting ? 0.12 : 0;
   const armSwing = walk ? 0.62 : 0.06 * idle;
-  const armRaise = dua ? -2.25 : lookUp ? -0.45 : 0;
-  const headTilt = mood === 'sad' ? 0.13 : mood === 'hopeful' || lookUp ? -0.12 : 0;
+  const armRaise = dua ? -2.25 : lookUp ? -0.45 : washing ? -0.85 : crying ? -0.35 : 0;
+  const headTilt = crying || mood === 'sad' ? 0.24 : mood === 'hopeful' || lookUp ? -0.12 : 0;
   const blink = Math.pow(Math.max(0, Math.cos(t * 1.7 + 0.4)), 36);
-  const legPose = sitting ? -0.9 : 0;
+  const legPose = sitting ? -0.9 : kneeling ? -1.35 : 0;
 
   return (
     <group position={[0, bob + (sitting ? -0.18 : 0), 1.5]} rotation={[0, torsoLean, 0]}>
@@ -192,11 +196,66 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
   );
 };
 
+
+const Mosque = () => (
+  <group position={[0, 0, -5]}>
+    <mesh position={[0, 2.1, 0]}><boxGeometry args={[10, 4.2, 3]} /><meshStandardMaterial color="#d8c8a8" /></mesh>
+    <mesh position={[0, 4.4, 0]}><sphereGeometry args={[2.15, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2]} /><meshStandardMaterial color="#3e806f" metalness={0.15} roughness={0.55} /></mesh>
+    {[-3.7, 3.7].map(x => <group key={x} position={[x, 0, 0]}>
+      <mesh position={[0, 3.1, 0]}><cylinderGeometry args={[0.34, 0.48, 6.2, 12]} /><meshStandardMaterial color="#e5d7bd" /></mesh>
+      <mesh position={[0, 6.45, 0]}><coneGeometry args={[0.5, 1.1, 12]} /><meshStandardMaterial color="#b99452" /></mesh>
+    </group>)}
+    {[-2.2, 0, 2.2].map(x => <mesh key={x} position={[x, 1.7, 1.53]}><planeGeometry args={[1.05, 2.2]} /><meshBasicMaterial color="#345c62" /></mesh>)}
+  </group>
+);
+
+const SceneEnvironment = ({ setting, frame }) => {
+  if (setting === 'mosque' || setting === 'mosque_interior') return <Mosque />;
+  if (setting === 'wudu') return <group position={[0, 0, -3]}>
+    <mesh position={[0, 0.55, 0]}><boxGeometry args={[5, 1.1, 2]} /><meshStandardMaterial color="#b8c8c4" /></mesh>
+    {[-1.7, 0, 1.7].map(x => <mesh key={x} position={[x, 1.2, 0]}><cylinderGeometry args={[0.07, 0.07, 0.8, 8]} /><meshStandardMaterial color="#a8b8c2" metalness={0.8} /></mesh>)}
+  </group>;
+  if (setting === 'home' || setting === 'kitchen') return <group position={[0, 0, -4]}>
+    <mesh position={[0, 2.2, 0]}><boxGeometry args={[10, 4.4, 0.35]} /><meshStandardMaterial color="#d9c6aa" /></mesh>
+    <mesh position={[0, 1.2, 0.5]}><boxGeometry args={[3.5, 0.18, 1.1]} /><meshStandardMaterial color="#795b48" /></mesh>
+    <mesh position={[-3, 2.5, 0.22]}><planeGeometry args={[1.7, 2]} /><meshBasicMaterial color="#9fc8d6" /></mesh>
+    {setting === 'kitchen' && <mesh position={[2.4, 0.8, 0.3]}><boxGeometry args={[1.8, 1.6, 0.9]} /><meshStandardMaterial color="#78868a" metalness={0.25} /></mesh>}
+  </group>;
+  if (setting === 'office') return <group position={[0, 0, -3]}>
+    <mesh position={[0, 1.15, -0.4]}><boxGeometry args={[4.5, 0.18, 1.6]} /><meshStandardMaterial color="#684b38" /></mesh>
+    <mesh position={[0, 2.1, -1.1]}><boxGeometry args={[2.3, 1.45, 0.12]} /><meshStandardMaterial color="#202c39" /></mesh>
+    <mesh position={[0, 1.65, -0.98]}><planeGeometry args={[2.05, 1.1]} /><meshBasicMaterial color="#4e8192" /></mesh>
+  </group>;
+  if (setting === 'hospital') return <group position={[0, 0, -3]}>
+    <mesh position={[0, 0.85, -0.5]}><boxGeometry args={[4.2, 0.3, 1.7]} /><meshStandardMaterial color="#e6e9e7" /></mesh>
+    <mesh position={[0, 1.1, -1.15]}><boxGeometry args={[4.2, 0.65, 0.15]} /><meshStandardMaterial color="#c7d4d5" /></mesh>
+    <mesh position={[-2.4, 1.5, -0.5]}><boxGeometry args={[0.12, 2.5, 0.12]} /><meshStandardMaterial color="#aab8bb" /></mesh>
+  </group>;
+  if (setting === 'school' || setting === 'market') return <group position={[0, 0, -5]}>
+    <mesh position={[0, 2.1, 0]}><boxGeometry args={[10, 4.2, 2]} /><meshStandardMaterial color={setting === 'school' ? '#e7d2a8' : '#b8a28a'} /></mesh>
+    {[-3, 0, 3].map(x => <mesh key={x} position={[x, 2.2, 1.03]}><planeGeometry args={[1.5, 1.6]} /><meshBasicMaterial color="#52778a" /></mesh>)}
+  </group>;
+  if (setting === 'beach') return <group position={[0, 0, -5]}>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, -2]}><planeGeometry args={[80, 25]} /><meshStandardMaterial color="#d7c08d" /></mesh>
+    <mesh position={[0, 0.35, -8]}><boxGeometry args={[80, 0.5, 5]} /><meshStandardMaterial color="#4f91a5" roughness={0.25} /></mesh>
+  </group>;
+  if (setting === 'mountain' || setting === 'nature' || setting === 'cemetery' || setting === 'garden' || setting === 'courtyard') return <group>
+    {[[-8, 5, -12], [-3, 7, -15], [5, 6, -13], [10, 4, -11]].map(([x,y,z],i) => <mesh key={i} position={[x,y,z]}><coneGeometry args={[4, y*1.7, 5]} /><meshStandardMaterial color={setting === 'cemetery' ? '#596b60' : '#647d70'} /></mesh>)}
+    {setting === 'cemetery' && [-2, 0, 2].map(x => <mesh key={x} position={[x, 0.45, -1]}><boxGeometry args={[0.45, 0.9, 0.18]} /><meshStandardMaterial color="#b7b5a9" /></mesh>)}
+  </group>;
+  if (setting === 'vehicle') return <group position={[0, 0, -3]}>
+    <mesh position={[0, 0.85, -1]}><boxGeometry args={[4.5, 1.2, 2]} /><meshStandardMaterial color="#526b7d" metalness={0.35} /></mesh>
+    <mesh position={[0, 1.55, -1]}><boxGeometry args={[2.4, 0.65, 1.7]} /><meshStandardMaterial color="#7eabb8" roughness={0.25} /></mesh>
+    {[-1.4, 1.4].map(x => <mesh key={x} position={[x, 0.3, 0.05]} rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[0.42,0.42,0.22,16]} /><meshStandardMaterial color="#24272b" /></mesh>)}
+  </group>;
+  return null;
+};
+
 export const AnimatedWorld = ({ frame = 0, segment = {} }) => {
   const mood = MOODS[segment.mood] || MOODS.peaceful;
   const setting = segment.setting || 'street';
-  const showBuildings = setting !== 'garden';
-  const showTrees = setting === 'garden' || setting === 'courtyard' || setting === 'street';
+  const showBuildings = ['street', 'courtyard', 'market', 'school'].includes(setting);
+  const showTrees = ['garden', 'courtyard', 'street', 'nature', 'mountain', 'cemetery'].includes(setting);
   const night = segment.mood === 'night';
 
   return (
@@ -217,6 +276,7 @@ export const AnimatedWorld = ({ frame = 0, segment = {} }) => {
           <meshStandardMaterial color="#827c75" roughness={1} />
         </mesh>
       )}
+      <SceneEnvironment setting={setting} frame={frame} />
       {showBuildings && (
         <>
           <Building x={-5.5} z={-3} height={5.4} width={3.2} color="#c88f70" roofColor="#754d46" />
