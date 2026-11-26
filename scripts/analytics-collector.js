@@ -64,7 +64,13 @@ async function fetchFacebookPostInsights(postId, token) {
 async function main() {
   const registry = await readJson(REGISTRY, { videos: [] });
   if (!Array.isArray(registry.videos) || !registry.videos.length) throw new Error("Belum ada video di data/analytics/videos.json. Jalankan publish-facebook setelah perubahan ini.");
-  const googleToken = await refreshGoogleToken();
+  let googleToken = null;
+  let googleAuthError = null;
+  try { googleToken = await refreshGoogleToken(); }
+  catch (error) {
+    googleAuthError = error.message;
+    console.warn("[Analytics] YouTube OAuth belum siap: " + googleAuthError);
+  }
   const facebookToken = process.env.FB_PAGE_ACCESS_TOKEN || process.env.FACEBOOK_PAGE_ACCESS_TOKEN || "";
   const now = new Date();
   const snapshot = { collectedAt: now.toISOString(), videos: [] };
@@ -76,13 +82,18 @@ async function main() {
     const sevenDayEnd = dateOnly(new Date(published.getTime() + 6 * 24 * 3600000));
     const today = dateOnly(now);
     const youtube = { status: "not_available", error: null, day1: null, day7: null };
-    try {
-      const day1 = ageHours >= 24 ? await fetchYouTubeAnalytics(googleToken, video.youtubeVideoId, start, firstDayEnd) : null;
-      const day7 = ageHours >= 168 ? await fetchYouTubeAnalytics(googleToken, video.youtubeVideoId, start, sevenDayEnd) : null;
-      const current = await fetchYouTubeAnalytics(googleToken, video.youtubeVideoId, start, today);
-      youtube.status = "ok"; youtube.current = current.totals;
-      youtube.day1 = day1?.totals || null; youtube.day7 = day7?.totals || null; youtube.daily = current.rows;
-    } catch (error) { youtube.status = "error"; youtube.error = error.message; }
+    if (!googleToken) {
+      youtube.status = "error";
+      youtube.error = googleAuthError;
+    } else {
+      try {
+        const day1 = ageHours >= 24 ? await fetchYouTubeAnalytics(googleToken, video.youtubeVideoId, start, firstDayEnd) : null;
+        const day7 = ageHours >= 168 ? await fetchYouTubeAnalytics(googleToken, video.youtubeVideoId, start, sevenDayEnd) : null;
+        const current = await fetchYouTubeAnalytics(googleToken, video.youtubeVideoId, start, today);
+        youtube.status = "ok"; youtube.current = current.totals;
+        youtube.day1 = day1?.totals || null; youtube.day7 = day7?.totals || null; youtube.daily = current.rows;
+      } catch (error) { youtube.status = "error"; youtube.error = error.message; }
+    }
     const facebook = { status: "not_configured", posts: [] };
     if (facebookToken && Array.isArray(video.facebookPostIds) && video.facebookPostIds.length) {
       facebook.status = "partial";
