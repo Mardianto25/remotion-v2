@@ -198,7 +198,7 @@ console.log('Upload video dan thumbnail selesai!');
       scheduledPublishAt: publishDate,
       publishedAt: publishDate,
       uploadedAt: new Date().toISOString()
-    }, null, 2) + '\\n',
+    }, null, 2) + '\n',
     'utf8'
   );
   console.log('[Analytics] Metadata video tersimpan di out/published-video.json');
