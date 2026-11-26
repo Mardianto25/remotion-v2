@@ -98,7 +98,7 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
   const legPose = sitting ? -0.9 : kneeling || sujud || prayerSitting ? -1.35 : 0;
 
   return (
-    <group position={[0, bob + (sitting ? -0.18 : 0), 1.5]} rotation={[0, torsoLean, 0]}>
+    <group position={[0, bob + (sitting ? -0.18 : sujud ? -0.65 : 0), 1.5]} rotation={[torsoLean, walk ? Math.sin(t * 7.2) * 0.035 : 0, 0]}>
       {/* Legs pivot at the hips, with matching trousers and shoes. */}
       <group position={[-0.22, 0.82, 0]} rotation={[sitting ? legPose : walk ? gait * 0.62 : 0, 0, 0]}>
         <mesh position={[0, -0.38, 0]} castShadow>
