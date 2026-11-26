@@ -72,7 +72,7 @@ async function main() {
     const published = new Date(video.publishedAt || video.scheduledPublishAt || video.registeredAt);
     const ageHours = Math.max(0, (now.getTime() - published.getTime()) / 3600000);
     const start = dateOnly(published);
-    const firstDayEnd = dateOnly(new Date(published.getTime() + 24 * 3600000));
+    const firstDayEnd = start; // First calendar-day cohort; day-1 is only reported after 24 hours.
     const sevenDayEnd = dateOnly(new Date(published.getTime() + 6 * 24 * 3600000));
     const today = dateOnly(now);
     const youtube = { status: "not_available", error: null, day1: null, day7: null };
