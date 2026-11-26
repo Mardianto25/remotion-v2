@@ -38,9 +38,9 @@ publishes to Facebook Page Reels using the existing Facebook secrets.
 ## What remains to be improved
 
 - The recurring character currently uses an articulated procedural rig with frame-driven limb, head, breathing, blink and gesture animation. It is not yet a skinned GLB character with motion-capture clips.
-- Scene actions and camera directions are selected per scene (walking, sitting, dua, looking up, working, reading, crying, embracing, washing and kneeling; wide, medium, close, orbit and low angles). These are still procedural pose states, not motion-capture performances.
+- Scene actions and camera directions are selected per scene (walking, sitting, dua, looking up, working, reading, crying, embracing, washing, kneeling, ruku, sujud and prayer sitting; wide, medium, close, orbit and low angles). These are still procedural pose states, not motion-capture performances.
 - Environment modules are reusable starting points, not finished photorealistic assets. Some scene types still need dedicated props, detailed materials, character interactions and visual QA.
-- Subtitle timing is estimated by scene word count, not aligned word-by-word to the TTS waveform.
+- Prayer poses are visual approximations, not validated religious or biomechanical motion. Review them before using a scene that depicts salah.\n- Subtitle timing is estimated by scene word count, not aligned word-by-word to the TTS waveform.
 - The full 2K look, advanced ink outlines, depth-of-field and sound-effect synthesis from
   the reference skill are not yet implemented.
 - GitHub Actions render duration and WebGL stability still need an end-to-end run.
