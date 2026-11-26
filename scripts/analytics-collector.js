@@ -29,7 +29,7 @@ async function refreshGoogleToken() {
   return data.access_token;
 }
 async function fetchYouTubeAnalytics(accessToken, videoId, startDate, endDate) {
-  const url = new URL(API + "/youtube/analytics/v2/reports");
+  const url = new URL(API + "/v2/reports");
   url.search = new URLSearchParams({
     ids: "channel==MINE", startDate, endDate,
     metrics: "views,estimatedMinutesWatched,averageViewDuration,likes,comments,shares,subscribersGained",
