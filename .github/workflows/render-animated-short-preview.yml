@@ -1,0 +1,40 @@
+name: Render Animated Story Short Preview
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: animated-story-short-preview
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install Remotion system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2t64 ffmpeg
+      - name: Install dependencies
+        run: npm install
+      - name: Render 3D animated preview
+        run: npm run render:animated
+      - name: Validate output
+        run: |
+          test -s out/animated-story-short.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 out/animated-story-short.mp4
+      - name: Upload preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: animated-story-short-preview
+          path: out/animated-story-short.mp4
+          retention-days: 7
