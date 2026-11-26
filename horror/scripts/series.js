@@ -108,7 +108,8 @@ if (command === "episode") {
   if (scenes.some(scene => !scene.narration || !scene.visualPrompt)) throw new Error("Season plan memiliki scene tanpa narration atau visualPrompt.");
   const narration = String(episodePlan.narration).trim();
   const wordCount = narration.split(/\s+/).filter(Boolean).length;
-  if (format === "shorts" && (wordCount < 65 || wordCount > 100)) throw new Error("Episode " + episodeNumber + " memiliki " + wordCount + " kata. Standar Shorts membutuhkan 65-100 kata untuk durasi 30-45 detik.");
+  const shortsStandard = bible.productionStandard || { minWordsPerEpisode: 100, maxWordsPerEpisode: 1000, minDurationSeconds: 60, maxDurationSeconds: null };
+  if (format === "shorts" && (wordCount < shortsStandard.minWordsPerEpisode || wordCount > shortsStandard.maxWordsPerEpisode)) throw new Error("Episode " + episodeNumber + " memiliki " + wordCount + " kata. Standar Shorts genre ini membutuhkan " + shortsStandard.minWordsPerEpisode + "-" + shortsStandard.maxWordsPerEpisode + " kata.");
   if (format === "shorts" && (scenes.length < 6 || scenes.length > 8)) throw new Error("Standar Shorts baru wajib 6-8 scene; ditemukan " + scenes.length + ".");
   if (scenes.map(scene => scene.narration).join(" ").replace(/\s+/g, " ").trim() !== narration.replace(/\s+/g, " ").trim()) {
     throw new Error("Naskah utama tidak sama dengan gabungan narration setiap scene. Perbaiki season plan sebelum produksi.");
@@ -131,7 +132,7 @@ if (command === "episode") {
     episodePayoff: String(episodePlan.episodePayoff || ""),
     seasonTeaser: String(episodePlan.seasonTeaser || ""),
     storySummary: String(episodePlan.storySummary || episodePlan.logline || ""),
-    narration, wordCount, targetDurationSeconds: format === "shorts" ? { min: 30, max: 45, estimated: Math.ceil((wordCount / 130) * 60) } : null,
+    narration, wordCount, targetDurationSeconds: format === "shorts" ? { min: shortsStandard.minDurationSeconds, max: shortsStandard.maxDurationSeconds, estimated: Math.ceil((wordCount / 130) * 60) } : null,
     scenes, characters: bible.characters || [], continuityUpdate: episodePlan.continuityUpdate || { canonEvents: [], characterStates: [], unresolvedThreads: [], resolvedThreads: [] }
   };
   await writeJson(storyPath, story);
