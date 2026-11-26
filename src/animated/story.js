@@ -19,7 +19,7 @@ export const defaultAnimatedSegments = [
   {
     start: 24, end: 34,
     text: 'Ada waktu yang tepat untuk setiap ketetapan-Nya.',
-    setting: 'garden', action: 'dua', mood: 'peaceful', camera: 'orbit'
+    setting: 'mosque_interior', action: 'dua', mood: 'peaceful', camera: 'orbit'
   },
   {
     start: 34, end: 54,
