@@ -1,0 +1,6 @@
+{
+  "id": "reels-main-character-v1",
+  "description": "A fictional Indonesian Muslim man in his early 30s, medium warm tan skin, calm thoughtful dark-brown eyes, short neat black hair, a very subtle trimmed beard, average build, wearing a simple charcoal-gray modest tunic with no logos or patterns. Keep the same facial structure, hairstyle, age, skin tone, body proportions, and outfit identity in every scene. Express emotion through posture and subtle facial expression. This is an ordinary fictional person, not a religious figure.",
+  "visualStyle": "high-end stylized 3D cinematic animation, expressive but realistic proportions, detailed fabric and environments, cinematic volumetric lighting, rich depth, polished feature-film render, vertical 9:16 composition",
+  "rules": ["The main character must remain visually consistent across scenes.","Do not depict Allah, prophets, or sacred figures.","Do not render words, captions, logos, watermarks, or readable text in images.","Do not add unrelated people or decorative religious symbols.","Use respectful, modest clothing and emotionally grounded body language."]
+}
