@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { staticFile } from 'remotion';
-import { AnimationMixer, LoopRepeat } from 'three';
+import { AnimationMixer, LoopOnce, LoopRepeat } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
@@ -45,7 +45,12 @@ export const RiggedCharacter = ({ frame = 0, action = 'standing' }) => {
     const animation = mixer.clipAction(clip);
     animation.reset();
     animation.enabled = true;
-    animation.setLoop(LoopRepeat, Infinity);
+    if (clipName === 'Bow') {
+      animation.setLoop(LoopOnce, 1);
+      animation.clampWhenFinished = true;
+    } else {
+      animation.setLoop(LoopRepeat, Infinity);
+    }
     animation.play();
     return () => mixer.stopAllAction();
   }, [mixer, clip]);
