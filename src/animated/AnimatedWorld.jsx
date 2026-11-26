@@ -1,5 +1,4 @@
-import React, { Suspense } from 'react';
-import { RiggedCharacter } from './RiggedCharacter.jsx';
+import React from 'react';
 
 const MOODS = {
   reflective: { sky: '#899eb5', ground: '#687a66', light: '#dce6f2' },
@@ -348,9 +347,7 @@ export const AnimatedWorld = ({ frame = 0, segment = {} }) => {
           <Tree x={4.7} z={5.2} scale={1.05} frame={frame} />
         </>
       )}
-      <Suspense fallback={<Character frame={frame} action={segment.action} mood={segment.mood} />}>
-        <RiggedCharacter frame={frame} action={segment.action} />
-      </Suspense>
+      <Character frame={frame} action={segment.action} mood={segment.mood} />
     </>
   );
 };
