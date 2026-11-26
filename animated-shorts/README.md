@@ -1,40 +1,45 @@
 # Three.js + Remotion Animated Shorts Engine
 
-This branch adds an optional animated composition to the existing Remotion project.
-The current image-based `ShortsVideo` composition remains unchanged.
+This branch integrates the core rendering approach from Claude Animated Shorts into
+the existing `remotion-v2` project while preserving the image-based YouTube pipeline.
 
-## Technology
+## What is integrated
 
-- `three` + `@react-three/fiber`: 3D world and characters.
+- `three` + `@react-three/fiber`: procedural 3D world, props and character animation.
 - `@remotion/three`: `ThreeCanvas`, synchronized to Remotion frames.
-- Remotion: vertical video composition, subtitles, audio, and final MP4 render.
+- Remotion: vertical video composition, subtitles, narration audio and MP4 rendering.
+- Gemini: Indonesian Islamic reflection script, structured scene storyboard and TTS.
+
+The new Facebook Reels workflow now uses this animated renderer instead of generating
+a separate FLUX image for every scene. Gemini supplies controlled scene attributes:
+setting, character action and mood. The recurring character is built from procedural
+geometry and uses a fixed visual design.
 
 ## Preview render
 
-Install dependencies with `npm install`, then run:
+The repository also registers an optional composition named `AnimatedStoryShort`:
 
 ```bash
+npm install
 npm run render:animated
 ```
 
-The renderer uses `--gl=swangle`, which is suitable for GitHub Actions runners without a dedicated GPU.
+The command uses `--gl=swangle`, which is the recommended fallback for machines
+without a dedicated GPU, including standard GitHub Actions runners.
 
-## Current scope
+## Facebook Reels workflow
 
-The first implementation is an isolated proof-of-integration composition named
-`AnimatedStoryShort`. It demonstrates a 3D storybook environment, a simple
-animated character, camera movement, Indonesian subtitle segments, and an
-optional audio track.
+Run **Actions → Generate and Publish Independent Facebook Reels** on this branch.
+It generates the script, Gemini narration, 3D storyboard, animation, metadata and
+publishes to Facebook Page Reels using the existing Facebook secrets.
 
-It does not replace the existing image-based pipeline or publish automatically.
-The next integration stage is to make the content generator output a structured
-storyboard (characters, locations, actions, camera cues, and subtitle timings),
-then feed that JSON into this composition. Existing YouTube/Facebook upload
-workflows remain separate and unchanged.
+## What remains to be improved
 
-## Important rendering note
+- Character geometry is a lightweight first version, not a rigged 3D model.
+- Environment variants are procedural and currently limited to a small set of settings.
+- Subtitle timing is estimated by scene word count, not aligned word-by-word to the TTS waveform.
+- The full 2K look, advanced ink outlines, depth-of-field and sound-effect synthesis from
+  the reference skill are not yet implemented.
+- GitHub Actions render duration and WebGL stability still need an end-to-end run.
 
-The original Claude skill documents large render temp usage and slow 2K renders.
-This implementation starts at 1080x1920 and uses a lightweight procedural scene.
-Quality checks and GitHub Actions render time should be measured before scaling
-to 1440x2560 or adding detailed post-processing.
+The existing image-based YouTube composition and upload workflow are not replaced.
