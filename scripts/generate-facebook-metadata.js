@@ -55,14 +55,15 @@ async function main() {
     .split(",").map(value => value.trim()).filter(Boolean);
 
   const prompt = `
-Buat metadata berbahasa Indonesia untuk video renungan/motivasi Islami berdasarkan transkrip berikut.
-Jangan menambah klaim agama, kutipan ayat/hadis, atau janji hasil yang tidak ada di transkrip.
+Buat metadata berbahasa Indonesia untuk Facebook Reels berdurasi target 30-45 detik, dengan gaya cerita emosional dan pesan Islami berdasarkan transkrip berikut.
+Jangan menambah klaim agama, kutipan ayat/hadis, dalil, atau janji hasil yang tidak ada di transkrip. Jangan memelintir makna agama demi engagement.
 Jangan menyebut AI, aplikasi, proses otomatis, atau nama platform lain.
-Gunakan bahasa natural, hangat, tidak clickbait berlebihan.
+Gunakan bahasa natural, hangat, menyentuh, tidak menggurui, tidak clickbait berlebihan, dan tidak meminta engagement secara paksa.
+Judul harus singkat dan memancing rasa ingin tahu tanpa menipu isi video. Caption harus memperkuat emosi dan pesan utama, bukan mengulang seluruh narasi.
 Buat dua versi yang berbeda namun tetap sesuai isi:
-1) facebook_page: gaya halaman kreator, hook ringkas, ajak interaksi dengan wajar.
-2) facebook_personal: gaya berbagi pribadi, lebih conversational dan terasa seperti status pribadi.
-Untuk masing-masing, buat judul singkat, caption 1-3 kalimat, dan 2-4 hashtag relevan.
+1) facebook_page: gaya halaman kreator, hook emosional yang kuat dan caption ringkas.
+2) facebook_personal: gaya berbagi pribadi, conversational, terasa seperti refleksi yang benar-benar ingin dibagikan.
+Untuk masing-masing, buat judul singkat, caption 1-3 kalimat, dan 2-4 hashtag spesifik yang relevan.
 Jangan memakai hashtag generik yang tidak relevan.
 Kembalikan JSON murni dengan bentuk:
 {
