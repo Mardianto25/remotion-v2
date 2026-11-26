@@ -36,7 +36,7 @@ Batasan:
 - Buat tepat 5 scene. Teks scene harus berurutan dan bila digabung menjadi narasi lengkap.
 - Untuk setiap scene, pilih setting, action, dan mood dari enum berikut:
   setting: "street", "home", "garden", "courtyard", "mosque", "mosque_interior", "wudu", "office", "hospital", "school", "market", "beach", "mountain", "nature", "cemetery", "kitchen", "vehicle"
-  action: "walking", "standing", "dua", "looking_up", "sitting", "working", "reading", "crying", "embracing", "washing", "kneeling"
+  action: "walking", "standing", "dua", "looking_up", "sitting", "working", "reading", "crying", "embracing", "washing", "kneeling", "ruku", "sujud", "prayer_sitting"
   camera: "wide", "medium", "close", "orbit", "low"
   mood: "reflective", "sad", "hopeful", "peaceful", "night"
 - Setting, action, dan mood harus membantu menceritakan bagian narasi scene.
