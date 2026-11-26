@@ -26,6 +26,7 @@ async function main() {
       text: scene.text,
       setting: scene.setting,
       action: scene.action,
+      camera: scene.camera,
       mood: scene.mood
     };
   });
