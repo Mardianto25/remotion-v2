@@ -49,8 +49,15 @@ async function main() {
   if (!base64) throw new Error("Gemini TTS tidak mengembalikan audio.");
   const pcm = Buffer.from(base64, "base64");
   if (!pcm.length) throw new Error("Audio Gemini kosong.");
+  const durationSeconds = pcm.length / (24000 * 2);
+  if (durationSeconds < 25 || durationSeconds > 50) {
+    throw new Error(`Durasi audio ${durationSeconds.toFixed(2)} detik di luar target Reels 30-45 detik (toleransi 25-50).`);
+  }
   await fs.mkdir(path.join(OUT, "public"), { recursive: true });
   await fs.writeFile(path.join(OUT, "public", "narration.wav"), pcmToWav(pcm));
-  console.log(`Audio WAV dibuat dengan model ${MODEL}, voice ${VOICE}.`);
+  await fs.writeFile(path.join(OUT, "audio-meta.json"), JSON.stringify({
+    durationSeconds, sampleRate: 24000, voice: VOICE, model: MODEL
+  }, null, 2) + "\n");
+  console.log(`Audio ${durationSeconds.toFixed(2)} detik dibuat dengan ${MODEL}, voice ${VOICE}.`);
 }
 main().catch(error => { console.error(error); process.exit(1); });
