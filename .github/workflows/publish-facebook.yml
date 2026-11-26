@@ -17,7 +17,7 @@ on:
 
 permissions:
   actions: read
-  contents: read
+  contents: write
 
 concurrency:
   group: facebook-publish-${{ github.event.workflow_run.id || inputs.source_run_id }}
@@ -71,6 +71,13 @@ jobs:
           FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           FACEBOOK_GRAPH_API_VERSION: v27.0
         run: node scripts/facebook-upload.js
+
+      - name: Register published video for analytics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ANALYTICS_REGISTRY_BRANCH: main
+        run: node scripts/register-published-video.js
 
       - name: Save personal-profile posting package
         uses: actions/upload-artifact@v4
