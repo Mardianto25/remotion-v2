@@ -46,3 +46,6 @@ publishes to Facebook Page Reels using the existing Facebook secrets.
 - GitHub Actions render duration and WebGL stability still need an end-to-end run.
 
 The existing image-based YouTube composition and upload workflow are not replaced.
+
+
+Character rig status: procedural shoulder, elbow, hip and knee pivots with deterministic frame-based movement, blinking and simple mood cues. A skinned GLB model and motion-capture animation are still future work.
