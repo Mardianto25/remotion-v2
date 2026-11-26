@@ -49,6 +49,13 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
+      - name: Check JavaScript syntax
+        run: |
+          node --check facebook-reels/scripts/generate-content.js
+          node --check facebook-reels/scripts/generate-voice.js
+          node --check facebook-reels/scripts/generate-scenes.js
+          node --check facebook-reels/scripts/generate-metadata.js
+          node --check facebook-reels/scripts/upload-reels.js
       - name: Generate original Islamic reflection script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
