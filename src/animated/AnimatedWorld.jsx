@@ -74,22 +74,22 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
   const armRaise = dua ? -2.25 : lookUp ? -0.45 : 0;
   const headTilt = mood === 'sad' ? 0.13 : mood === 'hopeful' || lookUp ? -0.12 : 0;
   const blink = Math.pow(Math.max(0, Math.cos(t * 1.7 + 0.4)), 36);
-  const legBase = sitting ? 1.15 : 0;
+  const legPose = sitting ? -0.9 : 0;
 
   return (
-    <group position={[0, bob, 1.5]} rotation={[0, torsoLean, 0]}>
+    <group position={[0, bob + (sitting ? -0.18 : 0), 1.5]} rotation={[0, torsoLean, 0]}>
       {/* Legs pivot at the hips, with matching trousers and shoes. */}
-      <group position={[-0.22, 0.82, 0]} rotation={[walk ? gait * 0.62 : 0, 0, 0]}>
-        <mesh position={[0, -0.38 + legBase * 0.1, 0]} castShadow>
+      <group position={[-0.22, 0.82, 0]} rotation={[sitting ? legPose : walk ? gait * 0.62 : 0, 0, 0]}>
+        <mesh position={[0, -0.38, 0]} castShadow>
           <capsuleGeometry args={[0.145, 0.66, 4, 8]} />
           <meshStandardMaterial color="#354b5b" roughness={0.95} />
         </mesh>
-        <mesh position={[0, -0.78 + legBase * 0.1, 0.13]} castShadow>
+        <mesh position={[0, -0.78, 0.13]} castShadow>
           <boxGeometry args={[0.29, 0.16, 0.48]} />
           <meshStandardMaterial color="#252a30" roughness={0.9} />
         </mesh>
       </group>
-      <group position={[0.22, 0.82, 0]} rotation={[walk ? -gait * 0.62 : 0, 0, 0]}>
+      <group position={[0.22, 0.82, 0]} rotation={[sitting ? legPose : walk ? -gait * 0.62 : 0, 0, 0]}>
         <mesh position={[0, -0.38 + legBase * 0.1, 0]} castShadow>
           <capsuleGeometry args={[0.145, 0.66, 4, 8]} />
           <meshStandardMaterial color="#354b5b" roughness={0.95} />
