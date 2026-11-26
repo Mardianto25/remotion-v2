@@ -117,12 +117,6 @@ export const AnimatedWorld = ({ frame, progress }) => {
       <Tree x={4.7} z={5.2} scale={1.05} />
 
       <Character frame={frame} />
-      <perspectiveCamera
-        makeDefault
-        fov={38}
-        position={[cameraX, cameraY, cameraZ]}
-        rotation={[-0.12, cameraX * -0.025, 0]}
-      />
     </>
   );
 };
