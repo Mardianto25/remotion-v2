@@ -51,26 +51,26 @@ jobs:
 
       - name: Generate original Islamic reflection script
         env:
-          GEMINI_API_KEY: \${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_TEXT_MODEL: gemini-2.5-flash
-          REELS_TOPIC: \${{ inputs.topic }}
+          REELS_TOPIC: ${{ inputs.topic }}
         run: node facebook-reels/scripts/generate-content.js
 
       - name: Generate emotional male narration with Gemini TTS
         env:
-          GEMINI_API_KEY: \${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_TTS_MODELS: gemini-3.8-flash-tts,gemini-2.5-flash-preview-tts
         run: node facebook-reels/scripts/generate-voice.js
 
       - name: Generate consistent cinematic 3D scenes
         env:
-          CF_ACCOUNT_ID: \${{ secrets.CF_ACCOUNT_ID }}
-          CF_API_TOKEN: \${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
         run: node facebook-reels/scripts/generate-scenes.js
 
       - name: Generate Facebook distribution metadata
         env:
-          GEMINI_API_KEY: \${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_TEXT_MODEL: gemini-2.5-flash
         run: node facebook-reels/scripts/generate-metadata.js
 
@@ -87,10 +87,10 @@ jobs:
           awk -v d="$DURATION" 'BEGIN { if (d < 25 || d > 50) exit 1 }'
 
       - name: Publish Reels to Facebook Page
-        if: \${{ inputs.publish }}
+        if: ${{ inputs.publish }}
         env:
-          FB_PAGE_ID: \${{ secrets.FB_PAGE_ID }}
-          FB_PAGE_ACCESS_TOKEN: \${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           FACEBOOK_GRAPH_API_VERSION: v27.0
         run: node facebook-reels/scripts/upload-reels.js
 
