@@ -81,7 +81,8 @@ if (command === "episode") {
         const existingWords = existingNarration.split(/\s+/).filter(Boolean).length;
         const existingScenes = Array.isArray(existingStory.scenes) ? existingStory.scenes : [];
         const existingSceneNarration = existingScenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\s+/g, " ").trim();
-        if (existingWords < 65 || existingWords > 100 || existingScenes.length < 6 || existingScenes.length > 8 || existingSceneNarration !== existingNarration.replace(/\s+/g, " ").trim()) {
+        const existingStandard = bible.productionStandard || { minWordsPerEpisode: 100, maxWordsPerEpisode: 1000 };
+        if (existingWords < existingStandard.minWordsPerEpisode || existingWords > existingStandard.maxWordsPerEpisode || existingScenes.length < 6 || existingScenes.length > 8 || existingSceneNarration !== existingNarration.replace(/\s+/g, " ").trim()) {
           throw new Error("story.json lama belum memenuhi standar Shorts (65-100 kata, 6-8 scene, dan narasi scene harus identik). Jalankan ulang workflow dengan regenerate_script=yes setelah Season Plan diperbarui.");
         }
       }
