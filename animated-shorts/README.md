@@ -1,51 +1,67 @@
 # Three.js + Remotion Animated Shorts Engine
 
-This branch integrates the core rendering approach from Claude Animated Shorts into
-the existing `remotion-v2` project while preserving the image-based YouTube pipeline.
+This branch integrates the 3D animated storytelling renderer into the existing
+`remotion-v2` project while preserving the image-based YouTube pipeline.
 
-## What is integrated
+## Character and animation
 
-- `three` + `@react-three/fiber`: procedural 3D world, props and character animation.
-- `@remotion/three`: `ThreeCanvas`, synchronized to Remotion frames.
-- Remotion: vertical video composition, subtitles, narration audio and MP4 rendering.
-- Gemini: Indonesian Islamic reflection script, structured scene storyboard and TTS.
+- The main animated scene now loads a skinned humanoid GLB with a 65-bone
+  Mixamo-compatible skeleton and 36 embedded animation clips.
+- `src/animated/RiggedCharacter.jsx` clones the skinned model, selects a clip
+  from the Gemini storyboard action, and drives its AnimationMixer from the
+  Remotion frame number for deterministic rendering.
+- The previous procedural character remains only as a Suspense loading fallback.
+- Current action mapping: walking → Walk; standing → Idle; looking_up → Look
+  Around; sitting/reading/prayer_sitting → sitting clips; ruku → Bow;
+  kneeling/sujud → Kneeling; dua/working → Thinking. Several story actions are
+  approximated by the closest available clip because the asset does not contain
+  dedicated washing, embracing, dua, ruku or sujud performances. Do not treat
+  the approximations as validated salah movements.
 
-The new Facebook Reels workflow now uses this animated renderer instead of generating
-a separate FLUX image for every scene. Gemini supplies controlled scene attributes:
-setting, character action and mood. The recurring character is built from procedural
-geometry and uses a fixed visual design. The environment layer now has reusable scene
-modules for mosque/interior, wudu, home/kitchen, office, hospital, school/market,
-beach, mountain/nature, cemetery, vehicle and outdoor locations.
+### Character asset and attribution
+
+The rigged model is the Mannequin Man GLB by vinish.dev:
+https://vinish.dev/free-3d-models/character-animations
+
+Licence: Creative Commons Attribution 4.0 (CC BY 4.0). Required credit:
+"Mannequin Man" by vinish.dev (https://vinish.dev/free-3d-models/), CC BY 4.0.
+
+The GLB is downloaded during the preview and Facebook Reels workflows to
+`public/models/mannequin-man.glb` or the Facebook workflow's custom public
+directory. It is intentionally not checked into Git because it is a binary asset.
 
 ## Preview render
 
-The repository also registers an optional composition named `AnimatedStoryShort`:
-
 ```bash
 npm install
+mkdir -p public/models
+curl -fL https://models.vinish.dev/animations/mannequin-man.glb -o public/models/mannequin-man.glb
 npm run render:animated
 ```
 
-The command uses `--gl=swangle`, which is the recommended fallback for machines
-without a dedicated GPU, including standard GitHub Actions runners.
+The preview uses `--gl=swangle`, suitable for standard GitHub Actions runners.
 
 ## Facebook Reels workflow
 
-Run **Actions → Generate and Publish Independent Facebook Reels** on this branch.
-It generates the script, Gemini narration, 3D storyboard, animation, metadata and
-publishes to Facebook Page Reels using the existing Facebook secrets.
+Run **Actions → Generate and Publish Independent Facebook Reels**. It downloads
+the rigged model, generates the script and Gemini narration, builds the 3D
+storyboard, renders the Reel and publishes to Facebook Page Reels using the
+existing Facebook secrets.
 
-## What remains to be improved
+## Remaining work
 
-- The recurring character currently uses an articulated procedural rig with frame-driven limb, head, breathing, blink and gesture animation. It is not yet a skinned GLB character with motion-capture clips.
-- Scene actions and camera directions are selected per scene (walking, sitting, dua, looking up, working, reading, crying, embracing, washing, kneeling, ruku, sujud and prayer sitting; wide, medium, close, orbit and low angles). These are still procedural pose states, not motion-capture performances.
-- Environment modules are reusable starting points, not finished photorealistic assets. Some scene types still need dedicated props, detailed materials, character interactions and visual QA.
-- Prayer poses are visual approximations, not validated religious or biomechanical motion. Review them before using a scene that depicts salah.\n- Subtitle timing is estimated by scene word count, not aligned word-by-word to the TTS waveform.
-- The full 2K look, advanced ink outlines, depth-of-field and sound-effect synthesis from
-  the reference skill are not yet implemented.
-- GitHub Actions render duration and WebGL stability still need an end-to-end run.
+- The selected source character is a segmented mannequin, not yet the final
+  clothed recurring Muslim character. Replace it with a custom, consistently
+  styled skinned character when that asset is ready.
+- The available animation pack does not provide authentic prayer or all
+  narrative gestures. Dedicated clips or carefully reviewed custom animation
+  are needed for wudu, dua, ruku and sujud.
+- Environment modules are reusable starting points, not finished photorealistic
+  assets. Scene props, materials, interactions and visual QA still need work.
+- Subtitle timing is estimated by scene word count, not aligned word-by-word to
+  the TTS waveform.
+- End-to-end render duration and WebGL stability must be verified in Actions.
 
-The existing image-based YouTube composition and upload workflow are not replaced.
-
-
-Character rig status: procedural shoulder, elbow, hip and knee pivots with deterministic frame-based movement, blinking and simple mood cues. A skinned GLB model and motion-capture animation are still future work.
+The existing image-based YouTube composition and upload workflow are not
+replaced. The animated model is currently used by the dedicated Facebook Reels
+workflow and the optional animated preview composition.
