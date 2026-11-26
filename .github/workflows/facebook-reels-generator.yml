@@ -19,7 +19,7 @@ concurrency:
 jobs:
   generate-render-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -36,9 +36,9 @@ jobs:
           sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2t64 ffmpeg
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Generate original Islamic reflection script and 3D storyboard
+      - name: Generate original Islamic reflection script and dynamic 3D cast
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_CONTENT_MODEL: gemini-2.5-flash
@@ -52,13 +52,11 @@ jobs:
           GEMINI_TTS_VOICE: Algenib
         run: node facebook-reels/generate-audio.js
 
-      - name: Build Three.js animation timeline
+      - name: Build dynamic character animation timeline
         run: node facebook-reels/generate-animation-data.js
 
-      - name: Render 3D animated Facebook Reel
-        run: |
-          mkdir -p out/facebook-reels
-          npx remotion render facebook-reels/src/animated-index.jsx FacebookAnimatedReel out/facebook-reels/video.mp4 --public-dir=out/facebook-reels/public --codec=h264 --gl=swangle
+      - name: Render 3D plate separately and composite with Remotion
+        run: node facebook-reels/render-hybrid.js
 
       - name: Validate rendered Reel
         run: |
@@ -89,6 +87,7 @@ jobs:
           name: independent-facebook-reel
           path: |
             out/facebook-reels/video.mp4
+            out/facebook-reels/public/3d-plate.mp4
             out/facebook-reels/content.json
             out/facebook-reels/animation-story.json
             out/facebook-reels/facebook-metadata.json

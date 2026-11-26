@@ -6,6 +6,7 @@
     "start": "node server.js",
     "render": "remotion render src/index.js ShortsVideo out/video.mp4",
     "render:animated": "remotion render src/index.js AnimatedStoryShort out/animated-story-short.mp4 --gl=swangle",
+    "render:facebook:hybrid": "node facebook-reels/render-hybrid.js",
     "upload": "node scripts/youtube-upload.js",
     "dispatch": "node scripts/auto-dispatch.js",
     "generate:thumbnail": "node scripts/thumbnail.js",
