@@ -1,42 +1,60 @@
-# Independent Facebook Reels — Three.js Animated Edition
+# Independent Facebook Reels — Dynamic 3D Character + Hybrid Render
 
 Workflow ini berdiri sendiri dan menghasilkan Reels dari topik hingga video animasi.
-Tidak memakai URL Instagram, aset YouTube, Cloudflare image generation, atau file bersama dari pipeline lama.
+Workflow Shorts YouTube, image-based renderer, audio, subtitles, dan publishing yang lama tidak diganti.
 
-## Alur produksi
+## Pipeline
 
-1. Gemini menulis renungan Islami dan storyboard lima scene.
-2. Setiap scene mendapat setting, aksi karakter, dan mood dari enum terkontrol.
-3. Gemini TTS membuat narasi laki-laki Indonesia.
-4. Storyboard diubah menjadi timeline sesuai durasi audio.
-5. Three.js + React Three Fiber membangun dunia 3D dan karakter animasi.
-6. Remotion merender video vertikal 1080x1920, subtitle, dan audio.
-7. Generator metadata menyiapkan judul, caption, dan hashtag.
-8. Graph API menerbitkan video ke Facebook Page Reels.
+1. Gemini membuat naskah, metadata, cast karakter dinamis, dan storyboard 5 scene.
+2. Gemini TTS membuat narasi Indonesia.
+3. Storyboard dikonversi menjadi timeline yang mengikuti durasi audio.
+4. Three.js + React Three Fiber merender dunia dan gerakan karakter menjadi 3D plate terpisah.
+5. Remotion menggabungkan 3D plate dengan audio TTS, subtitle, gradient, dan transisi menjadi MP4 final.
+6. Metadata disiapkan dan video dipublikasikan ke Facebook Page Reels.
 
-## Menjalankan
+## Dynamic character system
 
-Buka **Actions → Generate and Publish Independent Facebook Reels** lalu pilih **Run workflow** dan isi topik.
+Profil karakter disimpan terpisah dari aksi scene. ID karakter yang sama menjaga identitas visual sepanjang cerita.
 
-## Secrets
+Atribut yang dikendalikan storyboard Gemini:
+- gender dan kelompok usia
+- skin tone
+- outfit dan headwear (karakter perempuan otomatis memakai hijab)
+- beard style
+- aksi: walking, sitting, dua, looking up, crying, serta pose salat qiyam/ruku/sujud/jalsa
+- emosi dan posisi karakter dalam frame
 
-- `GEMINI_API_KEY`
-- `FB_PAGE_ID`
-- `FB_PAGE_ACCESS_TOKEN`
+facebook-reels/src/CharacterRig.jsx berisi articulated hierarchy rig dengan pivot bahu, siku, pinggul, dan lutut. Pose dihitung deterministik dari frame Remotion, sehingga hasil render dapat diulang.
 
-Facebook secrets yang sudah dipakai workflow lama tetap digunakan. Tidak perlu secret Cloudflare untuk renderer animasi ini.
+## Hybrid rendering
 
-## Teknologi
+- Facebook3DPlate: hanya dunia 3D dan karakter, dirender ke out/facebook-reels/public/3d-plate.mp4.
+- FacebookHybridReel: membaca 3D plate melalui OffthreadVideo, lalu menambahkan narration WAV dan subtitle.
+- Orkestrasi: facebook-reels/render-hybrid.js.
+- Composition root: facebook-reels/src/AnimatedRoot.jsx.
 
-- `three` + `@react-three/fiber`: dunia 3D, properti, karakter dan aksi.
-- `@remotion/three`: canvas Three.js yang sinkron dengan frame Remotion.
-- Remotion: timeline, subtitle, audio, dan render MP4.
-- Gemini: naskah, metadata, dan TTS.
+Menjalankan render setelah content, audio, dan animation story tersedia:
+
+npm ci
+node facebook-reels/generate-content.js
+node facebook-reels/generate-audio.js
+node facebook-reels/generate-animation-data.js
+npm run render:facebook:hybrid
+
+## GitHub Actions
+
+Buka Actions → Generate and Publish Independent Facebook Reels. Pilih Run workflow dan isi topik.
+
+Workflow menggunakan secrets yang sudah ada:
+- GEMINI_API_KEY
+- FB_PAGE_ID
+- FB_PAGE_ACCESS_TOKEN
+
+Tidak membutuhkan secret Cloudflare tambahan. Render menggunakan --gl=swangle untuk runner GitHub Actions.
 
 ## Catatan kualitas
 
-- Karakter dibuat dari geometri prosedural, bukan model manusia fotorealistis. Bentuk, pakaian, dan identitas visual dikunci dalam kode agar konsisten antarscene.
-- Setting dan mood scene saat ini berupa variasi lingkungan prosedural; bukan model 3D bebas yang dihasilkan AI.
-- Timing subtitle dibagi berdasarkan jumlah kata per scene terhadap durasi TTS. Ini estimasi, bukan word-level alignment, sehingga perlu QA audio/video.
-- Render menggunakan `--gl=swangle` untuk runner GitHub Actions tanpa GPU dedicated. Render 3D lebih berat daripada slideshow gambar, jadi waktu dan stabilitas perlu diuji.
-- Workflow lama YouTube dan komposisi image-based tidak diubah.
+- Karakter saat ini merupakan rig prosedural articulated, bukan model GLB hasil motion capture. Ini membuat pipeline tidak bergantung pada asset berbayar dan mudah diuji.
+- Pose salat dibuat sebagai pose animasi dasar; tetap perlu review visual untuk memastikan gerakan dan orientasi sesuai.
+- Subtitle memakai pembagian durasi berdasarkan jumlah kata per scene, belum forced alignment per kata.
+- Render hybrid terdiri dari dua tahap: 3D plate lalu compositing. Hasil final tetap satu MP4 untuk upload Facebook.
