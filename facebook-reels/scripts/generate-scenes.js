@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import sharp from "sharp";
 
 const contentPath = path.resolve("out/facebook-reels/content.json");
 const audioPath = path.resolve("public/facebook-reels/audio.wav");
@@ -17,7 +18,7 @@ async function generateFlux(prompt, targetPath) {
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt, width: 1024, height: 1792, steps: 4 }),
+    body: JSON.stringify({ prompt, steps: 4 }),
     signal: AbortSignal.timeout(120000)
   });
   const data = await response.json().catch(() => ({}));
@@ -27,7 +28,11 @@ async function generateFlux(prompt, targetPath) {
   }
   const image = Buffer.from(data.result.image, "base64");
   if (!image.length) throw new Error("Hasil gambar kosong.");
-  await fs.writeFile(targetPath, image);
+  // FLUX.1 Schnell returns square output; crop/resize to a 9:16 frame for Reels.
+  await sharp(image).resize(768, 1365, {
+    fit: "cover",
+    position: "attention"
+  }).png().toFile(targetPath);
 }
 
 async function main() {
@@ -38,8 +43,8 @@ async function main() {
   if (!(await fs.stat(masterPath).catch(() => null))) {
     console.log("[Visual] Membuat master character untuk pertama kali.");
     await generateFlux(
-      "Full-body character reference sheet, one fictional Indonesian Muslim man in early 30s, medium warm tan skin, calm thoughtful dark-brown eyes, short neat black hair, subtle trimmed beard, average build, simple charcoal-gray modest tunic, neutral standing pose, plain softly lit studio background. " +
-      character.visualStyle + ". Single character only, no text, no logo, no watermark.",
+      "Full-body character reference sheet, one fictional Indonesian Muslim man in early 30s, medium warm tan skin, calm thoughtful dark-brown eyes, short neat black hair, subtle trimmed beard, average build, simple charcoal-gray modest tunic, neutral standing pose, centered full body, plain softly lit studio background. " +
+      character.visualStyle + ". Vertical portrait composition, single character only, no text, no logo, no watermark.",
       masterPath
     );
   } else {
@@ -72,7 +77,7 @@ async function main() {
       "MAIN CHARACTER IDENTITY (keep exactly consistent): " + character.description,
       "SCENE ACTION AND SETTING: " + segment.visualPrompt,
       "The same main character must retain the same face, hair, beard, skin tone, age, body proportions and charcoal-gray tunic. Change only pose, expression, lighting and environment as required by this scene.",
-      "Emotion must feel sincere and restrained, not exaggerated. Composition should be clear on a phone screen.",
+      "Keep the character centered and fully visible within a vertical portrait frame. Emotion must feel sincere and restrained, not exaggerated.",
       "No text, letters, captions, calligraphy, logos, watermarks, prophets, sacred figures, or unrelated people."
     ].join(" ");
     console.log("[Visual] Generate scene " + (index + 1) + "/" + content.segments.length);
