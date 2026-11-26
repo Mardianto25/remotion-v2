@@ -42,7 +42,7 @@ const Tree = ({ x, z, scale = 1 }) => (
       <meshStandardMaterial color="#557b4d" roughness={1} />
     </mesh>
   </group>
-};
+);
 
 const Character = ({ frame, action = 'standing' }) => {
   const walking = action === 'walking';
