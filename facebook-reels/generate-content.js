@@ -36,8 +36,8 @@ Batasan:
 - Buat tepat 5 scene. Teks scene harus berurutan dan bila digabung menjadi narasi lengkap.
 - Untuk setiap scene, pilih setting, action, dan mood dari enum berikut:
   setting: "street", "home", "garden", "courtyard"
-  action: "walking", "standing", "dua", "looking_up"
-  mood: "reflective", "sad", "hopeful", "peaceful", "night"
+  action: "walking", "standing", "dua", "looking_up", "sitting"
+  camera: "wide", "medium", "close", "orbit", "low"\n  mood: "reflective", "sad", "hopeful", "peaceful", "night"
 - Setting, action, dan mood harus membantu menceritakan bagian narasi scene.
 - Jangan menggambarkan Allah atau nabi.
 - Buat metadata judul, caption, hashtag yang relevan untuk Facebook Page Reels.
@@ -67,7 +67,7 @@ Jangan sertakan markdown atau penjelasan.
   if (words < 65 || words > 110) throw new Error(`Panjang narasi di luar batas: ${words} kata.`);
   const allowed = {
     setting: ["street", "home", "garden", "courtyard"],
-    action: ["walking", "standing", "dua", "looking_up"],
+    action: ["walking", "standing", "dua", "looking_up", "sitting"],\n    camera: ["wide", "medium", "close", "orbit", "low"],
     mood: ["reflective", "sad", "hopeful", "peaceful", "night"]
   };
   data.scenes = data.scenes.map((scene, index) => {
