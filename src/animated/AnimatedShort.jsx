@@ -22,7 +22,10 @@ export const AnimatedShort = ({ segments = [], audioSrc = null }) => {
   const active = segments.find((segment, index) => (
     seconds >= segment.start &&
     (seconds < segment.end || index === segments.length - 1)
-  ));
+  )) || segments[0];
+
+  const segmentIndex = Math.max(0, segments.indexOf(active));
+  const cameraOffset = segmentIndex * 0.12;
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#a9c8df' }}>
@@ -31,14 +34,18 @@ export const AnimatedShort = ({ segments = [], audioSrc = null }) => {
         height={height}
         camera={{
           fov: 38,
-          position: [Math.sin(progress * Math.PI * 1.2) * 0.7, 5.1 - progress * 0.55, 14 - progress * 3.2]
+          position: [
+            Math.sin(progress * Math.PI * 1.2 + cameraOffset) * 0.7,
+            5.1 - progress * 0.55,
+            14 - progress * 3.2
+          ]
         }}
         dpr={1}
         shadows
         gl={{ antialias: true, alpha: false }}
         style={{ width: '100%', height: '100%' }}
       >
-        <AnimatedWorld frame={frame} progress={progress} />
+        <AnimatedWorld frame={frame} segment={active || {}} />
       </ThreeCanvas>
 
       <AbsoluteFill
