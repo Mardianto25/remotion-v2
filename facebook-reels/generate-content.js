@@ -72,7 +72,7 @@ Jangan sertakan markdown atau penjelasan.
   if (words < 65 || words > 110) throw new Error(`Panjang narasi di luar batas: ${words} kata.`);
   const allowed = {
     setting: ["street", "home", "garden", "courtyard", "mosque", "mosque_interior", "wudu", "office", "hospital", "school", "market", "beach", "mountain", "nature", "cemetery", "kitchen", "vehicle"],
-    action: ["walking", "standing", "dua", "looking_up", "sitting", "working", "reading", "crying", "embracing", "washing", "kneeling"],
+    action: ["walking", "standing", "dua", "looking_up", "sitting", "working", "reading", "crying", "embracing", "washing", "kneeling", "ruku", "sujud", "prayer_sitting"],
     camera: ["wide", "medium", "close", "orbit", "low"],
     mood: ["reflective", "sad", "hopeful", "peaceful", "night"]
   };
