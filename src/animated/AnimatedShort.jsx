@@ -29,7 +29,10 @@ export const AnimatedShort = ({ segments = [], audioSrc = null }) => {
       <ThreeCanvas
         width={width}
         height={height}
-        camera={{ fov: 38, position: [0, 5, 14] }}
+        camera={{
+          fov: 38,
+          position: [Math.sin(progress * Math.PI * 1.2) * 0.7, 5.1 - progress * 0.55, 14 - progress * 3.2]
+        }}
         dpr={1}
         shadows
         gl={{ antialias: true, alpha: false }}
