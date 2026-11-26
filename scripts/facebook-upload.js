@@ -6,9 +6,12 @@ const ACCESS_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 const API_VERSION = process.env.FACEBOOK_GRAPH_API_VERSION || "v27.0";
 const VIDEO_PATH = path.resolve("out/video.mp4");
 const TRANSCRIPT_PATH = path.resolve("public/transcript.txt");
+const TIME_ZONE = "Asia/Jakarta";
+const PUBLISH_SLOTS = ["05:00", "11:30", "18:30"];
+const SCHEDULE_BUFFER_MINUTES = 15;
 
 if (!PAGE_ID || !ACCESS_TOKEN) {
-  throw new Error("GitHub Secrets FACEBOOK_PAGE_ID dan FACEBOOK_PAGE_ACCESS_TOKEN wajib diatur.");
+  throw new Error("GitHub Secrets FB_PAGE_ID dan FB_PAGE_ACCESS_TOKEN wajib diatur.");
 }
 
 async function graphPost(url, params) {
@@ -24,13 +27,89 @@ async function graphPost(url, params) {
   return data;
 }
 
-async function uploadFeedVideo(videoBuffer, title, caption) {
-  console.log("[Facebook Feed] Mengunggah video...");
+function getJakartaParts(date) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(date);
+
+  return Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+}
+
+function getNextPublishSchedule(now = new Date()) {
+  const jakarta = getJakartaParts(now);
+  const localDate = new Date(Date.UTC(
+    Number(jakarta.year),
+    Number(jakarta.month) - 1,
+    Number(jakarta.day)
+  ));
+  const earliestAllowed = now.getTime() + SCHEDULE_BUFFER_MINUTES * 60_000;
+
+  for (let dayOffset = 0; dayOffset < 3; dayOffset += 1) {
+    const date = new Date(localDate);
+    date.setUTCDate(date.getUTCDate() + dayOffset);
+
+    for (const slot of PUBLISH_SLOTS) {
+      const [hour, minute] = slot.split(":").map(Number);
+      // Jakarta uses UTC+7. Build the scheduled instant from the local wall clock.
+      const scheduledAt = Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        hour - 7,
+        minute
+      );
+
+      if (scheduledAt >= earliestAllowed) {
+        return {
+          timestamp: Math.floor(scheduledAt / 1000),
+          iso: new Date(scheduledAt).toISOString(),
+          local: new Intl.DateTimeFormat("id-ID", {
+            timeZone: TIME_ZONE,
+            dateStyle: "full",
+            timeStyle: "short"
+          }).format(new Date(scheduledAt))
+        };
+      }
+    }
+  }
+
+  throw new Error("Tidak berhasil menentukan jadwal publikasi Facebook.");
+}
+
+function buildMetadata(transcript) {
+  const cleanTranscript = transcript.replace(/\s+/g, " ").trim();
+  const sentences = cleanTranscript.split(/(?<=[.!?])\s+/).filter(Boolean);
+  const title = (sentences[0] || "Cerita Inspiratif").slice(0, 90);
+
+  const hashtags = [
+    "#RuangCeritaIndonesia",
+    "#CeritaInspiratif",
+    "#MotivasiHarian",
+    "#RenunganHarian"
+  ];
+
+  const description = [
+    cleanTranscript || "Simak cerita dan renungan inspiratif hari ini.",
+    "",
+    "Jangan lupa like, bagikan, dan ikuti halaman ini untuk konten inspiratif lainnya.",
+    "",
+    hashtags.join(" ")
+  ].join("\n").slice(0, 4900);
+
+  return { title, description };
+}
+
+async function uploadFeedVideo(videoBuffer, title, description, scheduledAt) {
+  console.log("[Facebook Feed] Mengunggah video untuk dijadwalkan...");
   const form = new FormData();
   form.set("access_token", ACCESS_TOKEN);
   form.set("title", title);
-  form.set("description", caption);
-  form.set("published", "true");
+  form.set("description", description);
+  form.set("published", "false");
+  form.set("scheduled_publish_time", String(scheduledAt));
   form.set("source", new Blob([videoBuffer], { type: "video/mp4" }), "video.mp4");
 
   const response = await fetch(
@@ -39,13 +118,13 @@ async function uploadFeedVideo(videoBuffer, title, caption) {
   );
   const data = await response.json().catch(() => ({}));
   if (!response.ok || data.error || !data.id) {
-    throw new Error("Facebook Feed gagal: " + JSON.stringify(data));
+    throw new Error("Facebook Feed gagal dijadwalkan: " + JSON.stringify(data));
   }
-  console.log("[Facebook Feed] Berhasil. Video ID: " + data.id);
+  console.log("[Facebook Feed] Berhasil dijadwalkan. Video ID: " + data.id);
   return data.id;
 }
 
-async function uploadReel(videoBuffer, title, caption) {
+async function uploadReel(videoBuffer, title, description, scheduledAt) {
   console.log("[Facebook Reels] Memulai sesi upload...");
   const start = await graphPost(
     `https://graph.facebook.com/${API_VERSION}/${PAGE_ID}/video_reels`,
@@ -75,21 +154,22 @@ async function uploadReel(videoBuffer, title, caption) {
     throw new Error("Upload file Reels gagal: " + JSON.stringify(uploadData));
   }
 
-  console.log("[Facebook Reels] Menyelesaikan publikasi...");
+  console.log("[Facebook Reels] Menyimpan jadwal publikasi...");
   const finish = await graphPost(
     `https://graph.facebook.com/${API_VERSION}/${PAGE_ID}/video_reels`,
     {
       access_token: ACCESS_TOKEN,
       video_id: start.video_id,
       upload_phase: "finish",
-      video_state: "PUBLISHED",
+      video_state: "SCHEDULED",
+      scheduled_publish_time: String(scheduledAt),
       title,
-      description: caption,
+      description,
       is_ai_generated: "true"
     }
   );
 
-  console.log("[Facebook Reels] Permintaan publikasi berhasil: " + JSON.stringify(finish));
+  console.log("[Facebook Reels] Berhasil dijadwalkan: " + JSON.stringify(finish));
   return finish.post_id || start.video_id;
 }
 
@@ -104,28 +184,24 @@ async function main() {
     console.warn("[Metadata] transcript.txt tidak ditemukan; memakai caption default.");
   }
 
-  const cleanTranscript = transcript.replace(/\s+/g, " ").trim();
-  const firstSentence = cleanTranscript.split(/(?<=[.!?])\s+/)[0] || "Cerita inspiratif";
-  const title = firstSentence.slice(0, 90) || "Cerita Inspiratif";
-  const caption = [
-    cleanTranscript.slice(0, 4500),
-    "",
-    "#RuangCeritaIndonesia #CeritaInspiratif"
-  ].filter(Boolean).join("\n");
+  const { title, description } = buildMetadata(transcript);
+  const schedule = getNextPublishSchedule();
 
   console.log(`Video siap: ${(videoBuffer.length / 1024 / 1024).toFixed(2)} MB`);
   console.log("Judul Facebook: " + title);
+  console.log("Caption dan hashtag disiapkan dari transcript.");
+  console.log("Jadwal Feed dan Reels: " + schedule.local + " WIB");
 
   const results = await Promise.allSettled([
-    uploadFeedVideo(videoBuffer, title, caption),
-    uploadReel(videoBuffer, title, caption)
+    uploadFeedVideo(videoBuffer, title, description, schedule.timestamp),
+    uploadReel(videoBuffer, title, description, schedule.timestamp)
   ]);
 
   const labels = ["Facebook Feed", "Facebook Reels"];
   const failures = [];
   results.forEach((result, index) => {
     if (result.status === "fulfilled") {
-      console.log(`[${labels[index]}] Selesai: ${result.value}`);
+      console.log(`[${labels[index]}] Terjadwal: ${result.value}`);
     } else {
       console.error(`[${labels[index]}] Gagal: ${result.reason?.message || result.reason}`);
       failures.push(labels[index]);
@@ -133,12 +209,12 @@ async function main() {
   });
 
   if (failures.length) {
-    throw new Error("Publikasi gagal pada: " + failures.join(", "));
+    throw new Error("Penjadwalan gagal pada: " + failures.join(", "));
   }
-  console.log("Publikasi Facebook Feed dan Reels selesai.");
+  console.log("Facebook Feed dan Reels berhasil dimasukkan ke jadwal Meta.");
 }
 
 main().catch(error => {
-  console.error("[Facebook Publish Error]", error);
+  console.error("[Facebook Schedule Error]", error);
   process.exit(1);
 });
