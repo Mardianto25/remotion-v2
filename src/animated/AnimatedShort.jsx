@@ -10,47 +10,69 @@ import {
 } from 'remotion';
 import { AnimatedWorld } from './AnimatedWorld.jsx';
 
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
 export const AnimatedShort = ({ segments = [], audioSrc = null }) => {
   const frame = useCurrentFrame();
   const { fps, width, height, durationInFrames } = useVideoConfig();
   const seconds = frame / fps;
-  const progress = interpolate(frame, [0, durationInFrames], [0, 1], {
+  const activeIndex = Math.max(0, segments.findIndex((segment, index) => (
+    seconds >= segment.start &&
+    (seconds < segment.end || index === segments.length - 1)
+  )));
+  const active = segments[activeIndex] || segments[0] || {};
+  const segmentDuration = Math.max(0.1, (active.end || 1) - (active.start || 0));
+  const localProgress = clamp((seconds - (active.start || 0)) / segmentDuration, 0, 1);
+  const segmentFrame = Math.max(0, frame - Math.round((active.start || 0) * fps));
+  const cameraStyle = active.camera || ['wide', 'medium', 'close', 'orbit', 'wide'][activeIndex % 5];
+
+  const camera = (() => {
+    const drift = Math.sin(localProgress * Math.PI) * 0.35;
+    switch (cameraStyle) {
+      case 'close':
+        return { position: [drift * 0.35, 4.0, 10.3], fov: 34 };
+      case 'orbit':
+        return {
+          position: [Math.sin(localProgress * Math.PI * 1.2) * 2.0, 4.8, 12.2],
+          fov: 37
+        };
+      case 'low':
+        return { position: [drift, 3.0, 13.0], fov: 39 };
+      case 'wide':
+        return { position: [drift, 5.3, 16.2], fov: 40 };
+      case 'medium':
+      default:
+        return { position: [drift * 0.7, 4.6, 13.2], fov: 37 };
+    }
+  })();
+
+  const fadeIn = interpolate(localProgress, [0, 0.12], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp'
   });
-
-  const active = segments.find((segment, index) => (
-    seconds >= segment.start &&
-    (seconds < segment.end || index === segments.length - 1)
-  )) || segments[0];
-
-  const segmentIndex = Math.max(0, segments.indexOf(active));
-  const cameraOffset = segmentIndex * 0.12;
+  const fadeOut = interpolate(localProgress, [0.86, 1], [1, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp'
+  });
+  const subtitleOpacity = Math.min(fadeIn, fadeOut);
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#a9c8df' }}>
       <ThreeCanvas
         width={width}
         height={height}
-        camera={{
-          fov: 38,
-          position: [
-            Math.sin(progress * Math.PI * 1.2 + cameraOffset) * 0.7,
-            5.1 - progress * 0.55,
-            14 - progress * 3.2
-          ]
-        }}
+        camera={camera}
         dpr={1}
         shadows
         gl={{ antialias: true, alpha: false }}
         style={{ width: '100%', height: '100%' }}
       >
-        <AnimatedWorld frame={frame} segment={active || {}} />
+        <AnimatedWorld frame={segmentFrame} segment={active} />
       </ThreeCanvas>
 
       <AbsoluteFill
         style={{
-          background: 'linear-gradient(180deg, rgba(12,18,24,0.02) 45%, rgba(8,12,18,0.72) 100%)',
+          background: 'linear-gradient(180deg, rgba(12,18,24,0.02) 38%, rgba(8,12,18,0.18) 58%, rgba(8,12,18,0.82) 100%)',
           pointerEvents: 'none'
         }}
       />
@@ -62,7 +84,8 @@ export const AnimatedShort = ({ segments = [], audioSrc = null }) => {
             alignItems: 'center',
             padding: '0 82px 250px',
             textAlign: 'center',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            opacity: subtitleOpacity
           }}
         >
           <div
