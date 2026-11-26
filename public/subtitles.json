@@ -1,74 +1,58 @@
 [
   {
     "start": 0,
-    "end": 1.8,
-    "text": "Allah punya rencana.",
-    "keyword": "dawn sky clouds",
-    "imagePrompt": "Photorealistic live-action cinema still. Majestic dawn sky with sunlight breaking through thick cloud layers over distant mountain silhouettes. Vertical 9:16, atmospheric lighting, volumetric rays, cinematic depth of field, no people.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-001-1795605200676-2240.png"
+    "end": 2.8,
+    "text": "Agar kita dijaga dari hal yang tidak baik,",
+    "keyword": "protective light courtyard",
+    "imagePrompt": "Vertical 9:16 cinema still. A warm celestial glow illuminating an ornate stone Islamic archway, shielding a serene interior courtyard from stormy dark clouds outside, cinematic depth of field.",
+    "image": "images/video-2026-11-26_03-42-05-127Z/scene-001-1795664525130-7766.png"
   },
   {
-    "start": 1.8,
-    "end": 3.9,
-    "text": "Yang berjalan itu bukan rencana kita.",
-    "keyword": "diverging misty road",
-    "imagePrompt": "Photorealistic live-action cinema still. An ancient winding stone pathway branching into misty woods at twilight. Vertical 9:16, soft moody lighting, damp ground, shallow depth of field, no people.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-002-1795605202886-3641.png"
+    "start": 2.8,
+    "end": 6.7,
+    "text": "jangan pernah lepas baca ayat Kursi setiap hari.",
+    "keyword": "open quran rehal",
+    "imagePrompt": "Vertical 9:16 cinema still. Close-up shot of an open Holy Quran resting on an intricately carved wooden bookstand, illuminated by soft golden morning sun, shallow depth of field.",
+    "image": "images/video-2026-11-26_03-42-05-127Z/scene-002-1795664527510-7659.png"
   },
   {
-    "start": 3.9,
-    "end": 5.8,
-    "text": "Kita boleh aja dalam hidup membuat rencana.",
-    "keyword": "architect blueprints notebook",
-    "imagePrompt": "Photorealistic live-action cinema still. Close-up of open blank vintage sketchbooks, compasses, and drafting rulers on a rustic wooden desk. Warm lamplight, vertical 9:16, natural textures, no people.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-003-1795605205760-9929.png"
+    "start": 7,
+    "end": 11.8,
+    "text": "Ya, di antara amalan dan fadhilah dari ayat Kursi itu,",
+    "keyword": "tasbih and quran",
+    "imagePrompt": "Vertical 9:16 cinema still. Wooden prayer beads resting across open scripture pages on a rustic wooden surface, gentle ambient lantern lighting, cinematic composition.",
+    "image": "images/video-2026-11-26_03-42-05-127Z/scene-003-1795664529946-1002.png"
   },
   {
-    "start": 5.8,
-    "end": 8.5,
-    "text": "Orang membuat rencana, semua orang bikin rencana,",
-    "keyword": "scattered sketches drafts",
-    "imagePrompt": "Photorealistic live-action cinema still. Overhead view of many paper notes and structural sketches scattered across a large wooden work table. Natural morning window light, vertical 9:16, selective focus, no people.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-004-1795605212256-3027.png"
+    "start": 11.8,
+    "end": 16.7,
+    "text": "akan dijaga dari setiap keburukan yang datang kepada kita.",
+    "keyword": "mosque interior sanctuary",
+    "imagePrompt": "Vertical 9:16 cinema still. Sunlit peaceful sanctuary inside an ancient mosque, bright shafts of light streaming through arched windows, contrasting ominous shadows outside.",
+    "image": "images/video-2026-11-26_03-42-05-127Z/scene-004-1795664532271-7011.png"
   },
   {
-    "start": 8.5,
-    "end": 12.3,
-    "text": "tapi yang berjalan cuma satu, rencana Allah.",
-    "keyword": "epic sunrise valley",
-    "imagePrompt": "Photorealistic live-action cinema still. Vast green valley lit by a singular powerful beam of sunlight piercing dramatic storm clouds. Vertical 9:16, golden morning glow, wide atmospheric scale, no people.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-005-1795605214514-7370.png"
+    "start": 16.8,
+    "end": 19.8,
+    "text": "Maka, di pagi hari baca ayat Kursi,",
+    "keyword": "morning dawn quran",
+    "imagePrompt": "Vertical 9:16 cinema still. Golden sunrise shining through a classic window onto an open holy book on a windowsill, mist rising over morning landscape outside.",
+    "image": "images/video-2026-11-26_03-42-05-127Z/scene-005-1795664535277-5889.png"
   },
   {
-    "start": 12.3,
-    "end": 17.9,
-    "text": "Kita hanya memilih mau menjalani rencana itu dengan cara yang baik atau cara yang buruk.",
-    "keyword": "fork in the road",
-    "imagePrompt": "Photorealistic live-action cinema still. A sharp fork in a gravel path, one side bathed in warm golden light, the other shadowed under dense trees. Vertical 9:16, cinematic contrast, no people.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-006-1795605216689-1157.png"
+    "start": 19.8,
+    "end": 22.3,
+    "text": "di malam hari baca ayat Kursi,",
+    "keyword": "night lantern scripture",
+    "imagePrompt": "Vertical 9:16 cinema still. A glowing traditional brass lantern beside an open book at night, casting intricate patterns, starry night sky outside the window.",
+    "image": "images/video-2026-11-26_03-42-05-127Z/scene-006-1795664537346-6932.png"
   },
   {
-    "start": 17.9,
-    "end": 22.2,
-    "text": "Kalau cara baik nanti ada hasil yang baik, kalau cara buruk ada hasil yang buruk.",
-    "keyword": "blooming tree withered branch",
-    "imagePrompt": "Photorealistic live-action cinema still. Contrast of lush blooming white blossoms on one branch against dry, barren twigs on an adjacent branch. Soft natural light, vertical 9:16, shallow depth of field, no people.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-007-1795605219264-4516.png"
-  },
-  {
-    "start": 22.2,
-    "end": 24.4,
-    "text": "Tapi rencananya dari Allah,",
-    "keyword": "calm ocean horizon sunrise",
-    "imagePrompt": "Photorealistic live-action cinema still. Serene ocean horizon under an immense, glowing dawn sky with pastel clouds. Vertical 9:16, golden hour reflection, calm water surface, no people.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-008-1795605221394-9967.png"
-  },
-  {
-    "start": 24.4,
-    "end": 27.609932,
-    "text": "bagaimana menjalaninya dari kita.",
-    "keyword": "footsteps on path",
-    "imagePrompt": "Photorealistic live-action cinema still. Low-angle close-up of a person's boots walking forward along a sunlit gravel trail. Vertical 9:16, warm morning backlight, shallow depth of field, face not visible.",
-    "image": "images/video-2026-11-25_11-13-20-668Z/scene-009-1795605223642-7015.png"
+    "start": 22.3,
+    "end": 30.303447,
+    "text": "syukur-syukur setiap selesai salat lima waktu baca ayat Kursi.",
+    "keyword": "prayer mat tasbih",
+    "imagePrompt": "Vertical 9:16 cinema still. An ornate prayer mat laid on a polished marble mosque floor with wooden prayer beads lying on it, soft sacred ambient illumination.",
+    "image": "images/video-2026-11-26_03-42-05-127Z/scene-007-1795664539373-1431.png"
   }
 ]
