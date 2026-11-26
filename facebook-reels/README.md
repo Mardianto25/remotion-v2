@@ -1,38 +1,42 @@
-# Independent Facebook Reels workflow
+# Independent Facebook Reels — Three.js Animated Edition
 
-Workflow ini berdiri sendiri dan tidak menggunakan URL Instagram, aset YouTube, atau file bersama pada pipeline lama.
+Workflow ini berdiri sendiri dan menghasilkan Reels dari topik hingga video animasi.
+Tidak memakai URL Instagram, aset YouTube, Cloudflare image generation, atau file bersama dari pipeline lama.
 
-## Cara menjalankan
+## Alur produksi
 
-1. Buka **Actions → Generate and Publish Independent Facebook Reels**.
-2. Pilih **Run workflow** dan isi topik renungan.
-3. Workflow membuat naskah, audio Gemini TTS, visual 3D cinematic, render 9:16, metadata, lalu menerbitkan Reels ke Facebook Page.
+1. Gemini menulis renungan Islami dan storyboard lima scene.
+2. Setiap scene mendapat setting, aksi karakter, dan mood dari enum terkontrol.
+3. Gemini TTS membuat narasi laki-laki Indonesia.
+4. Storyboard diubah menjadi timeline sesuai durasi audio.
+5. Three.js + React Three Fiber membangun dunia 3D dan karakter animasi.
+6. Remotion merender video vertikal 1080x1920, subtitle, dan audio.
+7. Generator metadata menyiapkan judul, caption, dan hashtag.
+8. Graph API menerbitkan video ke Facebook Page Reels.
 
-## Secrets yang dibutuhkan
+## Menjalankan
 
-Workflow memakai konfigurasi Facebook yang sama dengan workflow `publish-facebook.yml`, tanpa membuat variable Facebook baru:
+Buka **Actions → Generate and Publish Independent Facebook Reels** lalu pilih **Run workflow** dan isi topik.
 
-- `FB_PAGE_ID` (GitHub Secret, dipetakan ke `FACEBOOK_PAGE_ID`)
-- `FB_PAGE_ACCESS_TOKEN` (GitHub Secret, dipetakan ke `FACEBOOK_PAGE_ACCESS_TOKEN`)
-- `FACEBOOK_GRAPH_API_VERSION` (mengikuti versi yang dipakai workflow existing; default `v27.0`)
-
-Secret tambahan khusus generator:
+## Secrets
 
 - `GEMINI_API_KEY`
-- `CF_ACCOUNT_ID`
-- `CF_API_TOKEN`
+- `FB_PAGE_ID`
+- `FB_PAGE_ACCESS_TOKEN`
 
-## Karakter dan TTS
+Facebook secrets yang sudah dipakai workflow lama tetap digunakan. Tidak perlu secret Cloudflare untuk renderer animasi ini.
 
-- TTS: `gemini-2.5-flash-preview-tts`
-- Voice preset: `Algenib`; prompt mengarahkan pembacaan narator laki-laki dewasa yang emosional, hangat, dan tenang.
-- Visual: Cloudflare FLUX 3D cinematic, 1080x1920.
-- Character master dibuat sekali dan disimpan dalam GitHub Actions cache. Deskripsi identitas karakter dikunci untuk seluruh scene.
+## Teknologi
 
-**Catatan konsistensi:** FLUX Schnell yang digunakan di workflow ini menghasilkan gambar dari prompt teks dan tidak menerima gambar master sebagai image-reference. Karena itu master disimpan untuk referensi aset, sedangkan konsistensi wajah dijaga melalui deskripsi karakter yang sama; kemiripan wajah antarscene belum bisa dijamin sempurna.
+- `three` + `@react-three/fiber`: dunia 3D, properti, karakter dan aksi.
+- `@remotion/three`: canvas Three.js yang sinkron dengan frame Remotion.
+- Remotion: timeline, subtitle, audio, dan render MP4.
+- Gemini: naskah, metadata, dan TTS.
 
-## Batasan
+## Catatan kualitas
 
-Workflow memublikasikan ke Facebook Page Reels saja. Posting ke profil pribadi tidak dilakukan melalui Graph API.
-
-Output disimpan di `out/facebook-reels/`, tidak menyentuh `public/audio.mp3`, `public/subtitles.json`, `public/transcript.txt`, `public/images/`, maupun workflow lama.
+- Karakter dibuat dari geometri prosedural, bukan model manusia fotorealistis. Bentuk, pakaian, dan identitas visual dikunci dalam kode agar konsisten antarscene.
+- Setting dan mood scene saat ini berupa variasi lingkungan prosedural; bukan model 3D bebas yang dihasilkan AI.
+- Timing subtitle dibagi berdasarkan jumlah kata per scene terhadap durasi TTS. Ini estimasi, bukan word-level alignment, sehingga perlu QA audio/video.
+- Render menggunakan `--gl=swangle` untuk runner GitHub Actions tanpa GPU dedicated. Render 3D lebih berat daripada slideshow gambar, jadi waktu dan stabilitas perlu diuji.
+- Workflow lama YouTube dan komposisi image-based tidak diubah.
