@@ -6,7 +6,7 @@ import { FacebookReel } from "./Video.jsx";
 
 const dataPath = path.resolve("out/facebook-reels/scenes.json");
 const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
-const durationInFrames = 45 * 30;
+const durationInFrames = Math.ceil(data.durationSeconds * (data.fps || 30));
 
 export const RemotionRoot = () => (
   <Composition
