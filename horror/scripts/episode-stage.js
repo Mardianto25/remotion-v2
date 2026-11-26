@@ -37,7 +37,7 @@ story.themeTitle = story.seriesTitle;
 const SHORTS_STANDARD = { minWords: 65, maxWords: 100, minScenes: 6, maxScenes: 8, minDurationSeconds: 30, maxDurationSeconds: 45 };
 const narrationWordCount = String(story.narration || "").trim().split(/\s+/).filter(Boolean).length;
 if (!Array.isArray(story.scenes) || story.scenes.length < SHORTS_STANDARD.minScenes || story.scenes.length > SHORTS_STANDARD.maxScenes) throw new Error("[standard] Episode " + episodeNumber + " memiliki " + (story.scenes || []).length + " scene. Standar Shorts wajib 6-8 scene.");
-if (narrationWordCount < SHORTS_STANDARD.minWords || narrationWordCount > SHORTS_STANDARD.maxWords) throw new Error("[standard] Episode " + episodeNumber + " memiliki " + narrationWordCount + " kata. Standar Shorts menggunakan jumlah kata fleksibel (minimal 100 kata sebagai batas validasi awal; tidak ada batas 240-270 kata). Regenerate/perbaiki Season Plan jika narasi terlalu pendek atau terlalu panjang.");
+if (narrationWordCount < SHORTS_STANDARD.minWords || narrationWordCount > SHORTS_STANDARD.maxWords) throw new Error("[standard] Episode " + episodeNumber + " memiliki " + narrationWordCount + " kata. Standar Shorts membutuhkan 65-100 kata untuk durasi 30-45 detik. Regenerate/perbaiki Season Plan.");
 const sceneNarration = story.scenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\s+/g, " ").trim();
 if (sceneNarration !== String(story.narration).replace(/\s+/g, " ").trim()) throw new Error("[standard] Gabungan narasi scene tidak sama persis dengan narasi utama.");
 console.log("[standard] Lolos: " + narrationWordCount + " kata, " + story.scenes.length + " scene. Durasi audio/video wajib 30-45 detik.");
