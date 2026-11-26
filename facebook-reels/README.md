@@ -10,11 +10,17 @@ Workflow ini berdiri sendiri dan tidak menggunakan URL Instagram, aset YouTube, 
 
 ## Secrets yang dibutuhkan
 
+Workflow memakai konfigurasi Facebook yang sama dengan workflow `publish-facebook.yml`, tanpa membuat variable Facebook baru:
+
+- `FB_PAGE_ID` (GitHub Secret, dipetakan ke `FACEBOOK_PAGE_ID`)
+- `FB_PAGE_ACCESS_TOKEN` (GitHub Secret, dipetakan ke `FACEBOOK_PAGE_ACCESS_TOKEN`)
+- `FACEBOOK_GRAPH_API_VERSION` (mengikuti versi yang dipakai workflow existing; default `v27.0`)
+
+Secret tambahan khusus generator:
+
 - `GEMINI_API_KEY`
 - `CF_ACCOUNT_ID`
 - `CF_API_TOKEN`
-- `FB_PAGE_ID`
-- `FB_PAGE_ACCESS_TOKEN`
 
 ## Karakter dan TTS
 
