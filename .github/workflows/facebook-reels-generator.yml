@@ -42,7 +42,7 @@ jobs:
           key: facebook-reels-character-master-v1
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Generate original Islamic reflection script
         env:
