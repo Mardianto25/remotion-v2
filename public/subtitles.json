@@ -1,58 +1,90 @@
 [
   {
     "start": 0,
-    "end": 2.8,
-    "text": "Agar kita dijaga dari hal yang tidak baik,",
-    "keyword": "protective light courtyard",
-    "imagePrompt": "Vertical 9:16 cinema still. A warm celestial glow illuminating an ornate stone Islamic archway, shielding a serene interior courtyard from stormy dark clouds outside, cinematic depth of field.",
-    "image": "images/video-2026-11-26_03-42-05-127Z/scene-001-1795664525130-7766.png"
+    "end": 0.2,
+    "text": "Hei,",
+    "keyword": "dust particles in light",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, dust motes floating in a beam of warm light inside an empty room",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-001-1795703555650-1270.png"
   },
   {
-    "start": 2.8,
-    "end": 6.7,
-    "text": "jangan pernah lepas baca ayat Kursi setiap hari.",
-    "keyword": "open quran rehal",
-    "imagePrompt": "Vertical 9:16 cinema still. Close-up shot of an open Holy Quran resting on an intricately carved wooden bookstand, illuminated by soft golden morning sun, shallow depth of field.",
-    "image": "images/video-2026-11-26_03-42-05-127Z/scene-002-1795664527510-7659.png"
+    "start": 0.8,
+    "end": 5.5,
+    "text": "masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
+    "keyword": "heavy burden stone",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, a heavy cracked stone on a dark weathered table under dim shadows",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-002-1795703558682-6711.png"
   },
   {
-    "start": 7,
+    "start": 5.5,
+    "end": 8,
+    "text": "Bukankah dulu banyak ribuan masalah yang telah aku selesaikan?",
+    "keyword": "old crossed out notes",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, weathered vintage ledger pages filled with faded ink and checkmarks",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-003-1795703561240-8508.png"
+  },
+  {
+    "start": 9.4,
     "end": 11.8,
-    "text": "Ya, di antara amalan dan fadhilah dari ayat Kursi itu,",
-    "keyword": "tasbih and quran",
-    "imagePrompt": "Vertical 9:16 cinema still. Wooden prayer beads resting across open scripture pages on a rustic wooden surface, gentle ambient lantern lighting, cinematic composition.",
-    "image": "images/video-2026-11-26_03-42-05-127Z/scene-003-1795664529946-1002.png"
+    "text": "Jangan lampelarut bersedih dengan masalah yang sekarang.",
+    "keyword": "dripping water drop",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, a single water droplet hitting a calm dark puddle creating ripples",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-004-1795703563556-616.png"
   },
   {
     "start": 11.8,
-    "end": 16.7,
-    "text": "akan dijaga dari setiap keburukan yang datang kepada kita.",
-    "keyword": "mosque interior sanctuary",
-    "imagePrompt": "Vertical 9:16 cinema still. Sunlit peaceful sanctuary inside an ancient mosque, bright shafts of light streaming through arched windows, contrasting ominous shadows outside.",
-    "image": "images/video-2026-11-26_03-42-05-127Z/scene-004-1795664532271-7011.png"
+    "end": 14.4,
+    "text": "Yakin dulu pun banyak masalah selesai juga.",
+    "keyword": "ray of hope light",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, a warm ray of sunlight piercing through dark heavy clouds",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-005-1795703566497-5928.png"
   },
   {
-    "start": 16.8,
-    "end": 19.8,
-    "text": "Maka, di pagi hari baca ayat Kursi,",
-    "keyword": "morning dawn quran",
-    "imagePrompt": "Vertical 9:16 cinema still. Golden sunrise shining through a classic window onto an open holy book on a windowsill, mist rising over morning landscape outside.",
-    "image": "images/video-2026-11-26_03-42-05-127Z/scene-005-1795664535277-5889.png"
+    "start": 15.3,
+    "end": 16.6,
+    "text": "Lalu apa yang harus dilakukan?",
+    "keyword": "open empty pathway",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, an empty winding dirt path leading into a misty horizon",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-006-1795703568602-4066.png"
   },
   {
-    "start": 19.8,
-    "end": 22.3,
-    "text": "di malam hari baca ayat Kursi,",
-    "keyword": "night lantern scripture",
-    "imagePrompt": "Vertical 9:16 cinema still. A glowing traditional brass lantern beside an open book at night, casting intricate patterns, starry night sky outside the window.",
-    "image": "images/video-2026-11-26_03-42-05-127Z/scene-006-1795664537346-6932.png"
+    "start": 17.1,
+    "end": 21.1,
+    "text": "Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu.",
+    "keyword": "strong tree roots",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, deep thick tree roots gripping firmly onto dark fertile soil",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-007-1795703570635-2411.png"
   },
   {
-    "start": 22.3,
-    "end": 30.303447,
-    "text": "syukur-syukur setiap selesai salat lima waktu baca ayat Kursi.",
-    "keyword": "prayer mat tasbih",
-    "imagePrompt": "Vertical 9:16 cinema still. An ornate prayer mat laid on a polished marble mosque floor with wooden prayer beads lying on it, soft sacred ambient illumination.",
-    "image": "images/video-2026-11-26_03-42-05-127Z/scene-007-1795664539373-1431.png"
+    "start": 21.1,
+    "end": 23,
+    "text": "Innallaa ma'al 'usri",
+    "keyword": "quran page arabic text",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, close-up of traditional textured paper with fine Arabic calligraphy in dark brown ink",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-008-1795703573301-7867.png"
+  },
+  {
+    "start": 24.3,
+    "end": 25.6,
+    "text": "Semua ini pasti selesai.",
+    "keyword": "sunrise horizon",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, a soft glowing sunrise breaking over a calm dark ocean horizon",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-009-1795703575693-7401.png"
+  },
+  {
+    "start": 26.6,
+    "end": 27.8,
+    "text": "Pasti ada solusinya.",
+    "keyword": "key on old wood",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, an old antique iron key resting on a rustic wooden surface",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-010-1795703578254-7623.png"
+  },
+  {
+    "start": 28.3,
+    "end": 29.003129,
+    "text": "Pasti selesai.",
+    "keyword": "clear blue sky",
+    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, clear open sky after a storm with soft receding clouds",
+    "image": "images/video-2026-11-26_14-32-35-647Z/scene-011-1795703580597-8292.png"
   }
 ]
