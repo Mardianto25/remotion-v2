@@ -1,0 +1,73 @@
+name: AI Content Performance Analyzer
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-content-performance-analyzer
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect YouTube and Facebook metrics
+        env:
+          YOUTUBE_CLIENT_ID_3N: \${{ secrets.YOUTUBE_CLIENT_ID_3N }}
+          YOUTUBE_CLIENT_SECRET_3N: \${{ secrets.YOUTUBE_CLIENT_SECRET_3N }}
+          YOUTUBE_REFRESH_TOKEN_3N: \${{ secrets.YOUTUBE_REFRESH_TOKEN_3N }}
+          YOUTUBE_ANALYTICS_REFRESH_TOKEN: \${{ secrets.YOUTUBE_ANALYTICS_REFRESH_TOKEN }}
+          FB_PAGE_ACCESS_TOKEN: \${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          FACEBOOK_GRAPH_API_VERSION: v27.0
+        run: npm run analytics:collect
+
+      - name: Generate AI recommendations
+        env:
+          GEMINI_API_KEY: \${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODELS: gemini-2.5-flash,gemini-flash
+        run: npm run analytics:analyze
+
+      - name: Add report to workflow summary
+        run: cat out/analytics/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Persist analytics history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/analytics/snapshots.json
+          if git diff --cached --quiet; then
+            echo "No analytics history changes."
+            exit 0
+          fi
+          git commit -m "chore(analytics): update performance snapshots"
+          git push origin HEAD:main
+
+      - name: Upload analytics report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-content-performance-report
+          path: |
+            out/analytics/latest-snapshot.json
+            out/analytics/recommendations.json
+            out/analytics/report.md
+          if-no-files-found: error
+          retention-days: 30

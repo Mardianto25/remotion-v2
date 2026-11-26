@@ -220,6 +220,17 @@ async function main() {
   if (failures.length) {
     throw new Error("Penjadwalan gagal pada: " + failures.join(", "));
   }
+
+  const facebookPosts = results.flatMap((result, index) =>
+    result.status === "fulfilled" ? [{ platform: labels[index], id: result.value }] : []
+  );
+  await fs.mkdir(path.resolve("out"), { recursive: true });
+  await fs.writeFile(
+    path.resolve("out/facebook-published.json"),
+    JSON.stringify({ scheduledAt: schedule.iso, posts: facebookPosts }, null, 2) + "\n",
+    "utf8"
+  );
+  console.log("[Analytics] Metadata Facebook tersimpan di out/facebook-published.json");
   console.log("Facebook Feed dan Reels berhasil dimasukkan ke jadwal Meta.");
 }
 

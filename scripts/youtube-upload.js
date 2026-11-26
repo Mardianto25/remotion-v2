@@ -183,6 +183,25 @@ console.log('Upload video dan thumbnail selesai!');
   console.log(`📌 Judul          : ${result.snippet.title}`);
   console.log(`📌 Tags           : ${result.snippet.tags?.join(', ')}`);
   console.log(`📌 Jadwal Tayang  : ${result.status.publishAt}`);
+
+  const transcriptPath = path.join(process.cwd(), 'public', 'transcript.txt');
+  const transcript = fs.existsSync(transcriptPath)
+    ? fs.readFileSync(transcriptPath, 'utf8').trim()
+    : '';
+  fs.mkdirSync(path.join(process.cwd(), 'out'), { recursive: true });
+  fs.writeFileSync(
+    path.join(process.cwd(), 'out', 'published-video.json'),
+    JSON.stringify({
+      videoId,
+      title: result.snippet?.title || title,
+      transcript,
+      scheduledPublishAt: publishDate,
+      publishedAt: publishDate,
+      uploadedAt: new Date().toISOString()
+    }, null, 2) + '\n',
+    'utf8'
+  );
+  console.log('[Analytics] Metadata video tersimpan di out/published-video.json');
 }
 
 async function getNextUploadSlot() {
