@@ -100,26 +100,29 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
   return (
     <group position={[0, bob + (sitting ? -0.18 : sujud ? -0.65 : 0), 1.5]} rotation={[torsoLean, walk ? Math.sin(t * 7.2) * 0.035 : 0, 0]}>
       {/* Legs pivot at the hips, with matching trousers and shoes. */}
-      <group position={[-0.22, 0.82, 0]} rotation={[sitting ? legPose : walk ? gait * 0.62 : 0, 0, 0]}>
-        <mesh position={[0, -0.38, 0]} castShadow>
-          <capsuleGeometry args={[0.145, 0.66, 4, 8]} />
-          <meshStandardMaterial color="#354b5b" roughness={0.95} />
-        </mesh>
-        <mesh position={[0, -0.78, 0.13]} castShadow>
-          <boxGeometry args={[0.29, 0.16, 0.48]} />
-          <meshStandardMaterial color="#252a30" roughness={0.9} />
-        </mesh>
-      </group>
-      <group position={[0.22, 0.82, 0]} rotation={[sitting ? legPose : walk ? -gait * 0.62 : 0, 0, 0]}>
-        <mesh position={[0, -0.38, 0]} castShadow>
-          <capsuleGeometry args={[0.145, 0.66, 4, 8]} />
-          <meshStandardMaterial color="#354b5b" roughness={0.95} />
-        </mesh>
-        <mesh position={[0, -0.78, 0.13]} castShadow>
-          <boxGeometry args={[0.29, 0.16, 0.48]} />
-          <meshStandardMaterial color="#252a30" roughness={0.9} />
-        </mesh>
-      </group>
+      {[-0.22, 0.22].map((x, index) => {
+        const swing = index === 0 ? gait : -gait;
+        const hip = sitting ? legPose : walk ? swing * 0.62 : kneeling || sujud ? 0.55 : 0;
+        const knee = sitting ? 1.05 : walk ? Math.max(0, swing) * 0.72 : kneeling ? 1.35 : sujud ? 0.8 : 0;
+        return (
+          <group key={x} position={[x, 0.82, 0]} rotation={[hip, 0, 0]}>
+            <mesh position={[0, -0.25, 0]} castShadow>
+              <capsuleGeometry args={[0.155, 0.48, 5, 10]} />
+              <meshStandardMaterial color="#354b5b" roughness={0.95} />
+            </mesh>
+            <group position={[0, -0.52, 0]} rotation={[knee, 0, 0]}>
+              <mesh position={[0, -0.25, 0]} castShadow>
+                <capsuleGeometry args={[0.125, 0.48, 5, 10]} />
+                <meshStandardMaterial color="#354b5b" roughness={0.95} />
+              </mesh>
+              <mesh position={[0, -0.53, 0.13]} castShadow>
+                <boxGeometry args={[0.3, 0.15, 0.5]} />
+                <meshStandardMaterial color="#252a30" roughness={0.9} />
+              </mesh>
+            </group>
+          </group>
+        );
+      })}
 
       {/* Torso and neck. */}
       <group position={[0, 1.25, 0]} scale={[1, 1 + breath, 1]}>
@@ -198,12 +201,18 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
               <sphereGeometry args={[0.052, 10, 8]} />
               <meshBasicMaterial color="#211c1c" />
             </mesh>
-            <mesh position={[0, 0.105, 0]} rotation={[0, 0, x < 0 ? 0.08 : -0.08]}>
-              <boxGeometry args={[0.13, 0.025, 0.025]} />
+            <mesh position={[0, 0.105, 0]} rotation={[0, 0, (crying || mood === 'sad' ? (x < 0 ? -0.24 : 0.24) : x < 0 ? 0.08 : -0.08)]}>
+              <boxGeometry args={[0.15, 0.032, 0.03]} />
               <meshStandardMaterial color="#49332e" />
             </mesh>
           </group>
         ))}
+        {(crying || mood === 'sad') && (
+          <mesh position={[-0.19, -0.19, 0.505]}>
+            <sphereGeometry args={[0.035, 8, 8]} />
+            <meshBasicMaterial color="#8ec8e8" transparent opacity={0.82} />
+          </mesh>
+        )}
         <mesh position={[0, -0.29, 0.49]}>
           <sphereGeometry args={[0.18, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.55]} />
           <meshStandardMaterial color="#342629" roughness={1} />
