@@ -116,8 +116,25 @@ async function main() {
   console.log(`Video siap: ${(videoBuffer.length / 1024 / 1024).toFixed(2)} MB`);
   console.log("Judul Facebook: " + title);
 
-  await uploadFeedVideo(videoBuffer, title, caption);
-  await uploadReel(videoBuffer, title, caption);
+  const results = await Promise.allSettled([
+    uploadFeedVideo(videoBuffer, title, caption),
+    uploadReel(videoBuffer, title, caption)
+  ]);
+
+  const labels = ["Facebook Feed", "Facebook Reels"];
+  const failures = [];
+  results.forEach((result, index) => {
+    if (result.status === "fulfilled") {
+      console.log(`[${labels[index]}] Selesai: ${result.value}`);
+    } else {
+      console.error(`[${labels[index]}] Gagal: ${result.reason?.message || result.reason}`);
+      failures.push(labels[index]);
+    }
+  });
+
+  if (failures.length) {
+    throw new Error("Publikasi gagal pada: " + failures.join(", "));
+  }
   console.log("Publikasi Facebook Feed dan Reels selesai.");
 }
 
