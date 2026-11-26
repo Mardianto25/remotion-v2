@@ -31,6 +31,7 @@ async function flux(prompt, outputPath) {
 async function main() {
   await fs.mkdir(SCENES_DIR, { recursive: true });
   const content = JSON.parse(await fs.readFile(path.join(OUT, "content.json"), "utf8"));
+  const audioMeta = JSON.parse(await fs.readFile(path.join(OUT, "audio-meta.json"), "utf8"));
   const masterPath = path.resolve("facebook-reels/assets/character-master.png");
   await fs.mkdir(path.dirname(masterPath), { recursive: true });
   try {
@@ -38,15 +39,24 @@ async function main() {
     console.log("Menggunakan character master yang sudah tersedia.");
   } catch {
     await flux(MASTER_PROMPT, masterPath);
-    console.log("Character master berhasil dibuat.");
+    console.log("Character master berhasil dibuat dan akan disimpan dalam GitHub Actions cache.");
   }
 
-  const timed = content.scenes.map((scene, index) => ({
-    ...scene,
-    start: index * 8,
-    end: (index + 1) * 8,
-    image: `scenes/scene-${String(index + 1).padStart(2, "0")}.png`
-  }));
+  const totalWords = content.scenes.reduce((sum, scene) => sum + String(scene.text).trim().split(/\s+/).length, 0);
+  let elapsed = 0;
+  const timed = content.scenes.map((scene, index) => {
+    const words = String(scene.text).trim().split(/\s+/).length;
+    const start = elapsed;
+    elapsed += index === content.scenes.length - 1
+      ? audioMeta.durationSeconds - elapsed
+      : audioMeta.durationSeconds * words / totalWords;
+    return {
+      ...scene,
+      start: Number(start.toFixed(3)),
+      end: Number(elapsed.toFixed(3)),
+      image: `scenes/scene-${String(index + 1).padStart(2, "0")}.png`
+    };
+  });
   for (let i = 0; i < timed.length; i++) {
     const scene = timed[i];
     const prompt = `${CHARACTER}. Scene action and environment: ${scene.imagePrompt}. The character must retain the same face, hairstyle, skin tone, beard, age, and cream koko shirt as the recurring character. ${STYLE}`;
@@ -57,6 +67,7 @@ async function main() {
     fps: 30,
     width: 1080,
     height: 1920,
+    durationSeconds: audioMeta.durationSeconds,
     scenes: timed
   }, null, 2) + "\n");
 }
