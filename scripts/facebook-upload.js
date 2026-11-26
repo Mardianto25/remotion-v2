@@ -227,7 +227,7 @@ async function main() {
   await fs.mkdir(path.resolve("out"), { recursive: true });
   await fs.writeFile(
     path.resolve("out/facebook-published.json"),
-    JSON.stringify({ scheduledAt: schedule.iso, posts: facebookPosts }, null, 2) + "\\n",
+    JSON.stringify({ scheduledAt: schedule.iso, posts: facebookPosts }, null, 2) + "\n",
     "utf8"
   );
   console.log("[Analytics] Metadata Facebook tersimpan di out/facebook-published.json");
