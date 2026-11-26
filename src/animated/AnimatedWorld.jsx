@@ -90,11 +90,11 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
         </mesh>
       </group>
       <group position={[0.22, 0.82, 0]} rotation={[sitting ? legPose : walk ? -gait * 0.62 : 0, 0, 0]}>
-        <mesh position={[0, -0.38 + legBase * 0.1, 0]} castShadow>
+        <mesh position={[0, -0.38, 0]} castShadow>
           <capsuleGeometry args={[0.145, 0.66, 4, 8]} />
           <meshStandardMaterial color="#354b5b" roughness={0.95} />
         </mesh>
-        <mesh position={[0, -0.78 + legBase * 0.1, 0.13]} castShadow>
+        <mesh position={[0, -0.78, 0.13]} castShadow>
           <boxGeometry args={[0.29, 0.16, 0.48]} />
           <meshStandardMaterial color="#252a30" roughness={0.9} />
         </mesh>
