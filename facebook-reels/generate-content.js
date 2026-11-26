@@ -49,7 +49,7 @@ Kembalikan JSON murni:
  "hashtags":["#RenunganIslami","#...","#..."],
  "narration":"narasi lengkap",
  "scenes":[
-  {"text":"bagian narasi scene","setting":"street","action":"walking","mood":"reflective"}
+  {"text":"bagian narasi scene","setting":"street","action":"walking","camera":"wide","mood":"reflective"}
  ]
 }
 Jangan sertakan markdown atau penjelasan.
