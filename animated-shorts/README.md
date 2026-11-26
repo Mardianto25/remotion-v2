@@ -13,7 +13,9 @@ the existing `remotion-v2` project while preserving the image-based YouTube pipe
 The new Facebook Reels workflow now uses this animated renderer instead of generating
 a separate FLUX image for every scene. Gemini supplies controlled scene attributes:
 setting, character action and mood. The recurring character is built from procedural
-geometry and uses a fixed visual design.
+geometry and uses a fixed visual design. The environment layer now has reusable scene
+modules for mosque/interior, wudu, home/kitchen, office, hospital, school/market,
+beach, mountain/nature, cemetery, vehicle and outdoor locations.
 
 ## Preview render
 
@@ -36,7 +38,8 @@ publishes to Facebook Page Reels using the existing Facebook secrets.
 ## What remains to be improved
 
 - The recurring character currently uses an articulated procedural rig with frame-driven limb, head, breathing, blink and gesture animation. It is not yet a skinned GLB character with motion-capture clips.
-- Scene actions and camera directions are selected per scene (walking, sitting, dua, looking up; wide, medium, close, orbit and low angles). Environment variants remain procedural and limited to a small set of settings.
+- Scene actions and camera directions are selected per scene (walking, sitting, dua, looking up, working, reading, crying, embracing, washing and kneeling; wide, medium, close, orbit and low angles). These are still procedural pose states, not motion-capture performances.
+- Environment modules are reusable starting points, not finished photorealistic assets. Some scene types still need dedicated props, detailed materials, character interactions and visual QA.
 - Subtitle timing is estimated by scene word count, not aligned word-by-word to the TTS waveform.
 - The full 2K look, advanced ink outlines, depth-of-field and sound-effect synthesis from
   the reference skill are not yet implemented.
