@@ -61,9 +61,12 @@ const Tree = ({ x, z, scale = 1, frame = 0 }) => {
 const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
   const t = frame / 30;
   const walk = action === 'walking';
+  const ruku = action === 'ruku';
+  const sujud = action === 'sujud';
+  const prayerSitting = action === 'prayer_sitting';
   const dua = action === 'dua';
   const lookUp = action === 'looking_up';
-  const sitting = action === 'sitting' || action === 'reading' || action === 'working';
+  const sitting = action === 'sitting' || action === 'reading' || action === 'working' || prayerSitting;
   const washing = action === 'washing';
   const kneeling = action === 'kneeling';
   const crying = action === 'crying';
@@ -73,7 +76,7 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
   const idle = Math.sin(t * 2.1);
   const breath = Math.sin(t * 2.4) * 0.025;
   const bob = walk ? Math.abs(Math.sin(t * 7.2)) * 0.075 : Math.sin(t * 2.4) * 0.018;
-  const torsoLean = walk ? Math.sin(t * 7.2) * 0.035 : dua ? -0.08 : sitting ? 0.12 : 0;
+  const torsoLean = walk ? Math.sin(t * 7.2) * 0.035 : ruku ? 0.78 : sujud ? 1.25 : dua ? -0.04 : sitting ? 0.1 : 0;
   const armSwing = walk ? 0.62 : 0.06 * idle;
   const armRaise = dua ? -2.25 : lookUp ? -0.45 : washing ? -0.85 : crying ? -0.35 : 0;
   const leftArmAngle = action === 'working' ? -1.05
@@ -92,7 +95,7 @@ const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
       : action === 'crying' ? -0.35 : washing ? 0.6 : dua ? 0.45 : 0;
   const headTilt = crying || mood === 'sad' ? 0.24 : mood === 'hopeful' || lookUp ? -0.12 : 0;
   const blink = Math.pow(Math.max(0, Math.cos(t * 1.7 + 0.4)), 36);
-  const legPose = sitting ? -0.9 : kneeling ? -1.35 : 0;
+  const legPose = sitting ? -0.9 : kneeling || sujud || prayerSitting ? -1.35 : 0;
 
   return (
     <group position={[0, bob + (sitting ? -0.18 : 0), 1.5]} rotation={[0, torsoLean, 0]}>
@@ -247,19 +250,6 @@ const SceneProps = ({ setting, frame }) => {
       <mesh position={[0, 0.83, 0.08]}><torusGeometry args={[0.13, 0.035, 8, 16, Math.PI]} /><meshStandardMaterial color="#8da7b0" metalness={0.8} /></mesh>
     </group>)}
     <mesh position={[0, 0.06, 1.5]} rotation={[-Math.PI / 2, 0, 0]}><planeGeometry args={[6, 1.2]} /><meshStandardMaterial color="#91b8c4" transparent opacity={0.55} roughness={0.1} /></mesh>
-  </group>;
-  if (setting === 'office') return <group position={[0, 0, -3]}>
-    <mesh position={[0, 1.15, -0.4]}><boxGeometry args={[4.5, 0.18, 1.6]} /><meshStandardMaterial color="#684b38" /></mesh>
-    <mesh position={[0, 2.1, -1.1]}><boxGeometry args={[2.3, 1.45, 0.12]} /><meshStandardMaterial color="#202c39" /></mesh>
-    <mesh position={[0, 1.65, -0.98]}><planeGeometry args={[2.05, 1.1]} /><meshBasicMaterial color="#4e8192" /></mesh>
-    <mesh position={[-0.7, 1.29, 0.05]} rotation={[-0.1, 0, 0]}><boxGeometry args={[0.85, 0.04, 0.58]} /><meshStandardMaterial color="#e8dfc9" /></mesh>
-    <mesh position={[0.85, 1.29, -0.1]}><cylinderGeometry args={[0.16, 0.16, 0.12, 16]} /><meshStandardMaterial color="#222b35" /></mesh>
-  </group>;
-  if (setting === 'home') return <group position={[0, 0, -4]}>
-    <mesh position={[0, 0.75, -0.2]}><boxGeometry args={[4.2, 1.35, 1.35]} /><meshStandardMaterial color="#80695a" roughness={0.95} /></mesh>
-    <mesh position={[0, 1.45, -0.2]}><boxGeometry args={[4.2, 0.22, 1.35]} /><meshStandardMaterial color="#a58a76" /></mesh>
-    <mesh position={[-3, 2.5, 0.22]}><planeGeometry args={[1.7, 2]} /><meshBasicMaterial color="#9fc8d6" /></mesh>
-    <mesh position={[3.2, 1.7, -0.6]}><boxGeometry args={[0.9, 3.2, 0.7]} /><meshStandardMaterial color="#705b49" /></mesh>
   </group>;
   return null;
 };
