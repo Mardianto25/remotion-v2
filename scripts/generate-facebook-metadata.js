@@ -8,7 +8,7 @@ const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 function cleanHashtags(value, max = 4) {
   const tags = String(value || "")
-    .match(/#[\\p{L}\\p{N}_]+/gu) || [];
+    .match(/#[\p{L}\p{N}_]+/gu) || [];
   return [...new Set(tags)].slice(0, max);
 }
 
@@ -32,13 +32,13 @@ function normalize(data) {
       title,
       caption: pageCaption,
       hashtags: pageHashtags,
-      description: [pageCaption, "", pageHashtags.join(" ")].join("\\n")
+      description: [pageCaption, "", pageHashtags.join(" ")].join("\n")
     },
     facebook_personal: {
       title: String(personal.title || title).trim().slice(0, 100),
       caption: personalCaption,
       hashtags: personalHashtags,
-      readyToPost: [personalCaption, "", personalHashtags.join(" ")].join("\\n")
+      readyToPost: [personalCaption, "", personalHashtags.join(" ")].join("\n")
     }
   };
 }
@@ -47,7 +47,7 @@ async function main() {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY belum tersedia untuk membuat metadata Facebook.");
 
-  const transcript = (await fs.readFile(transcriptPath, "utf8")).replace(/\\s+/g, " ").trim();
+  const transcript = (await fs.readFile(transcriptPath, "utf8")).replace(/\s+/g, " ").trim();
   if (!transcript) throw new Error("transcript.txt kosong; metadata tidak dapat dibuat.");
 
   const ai = new GoogleGenAI({ apiKey });
@@ -78,12 +78,12 @@ ${transcript.slice(0, 12000)}
     try {
       const response = await ai.models.generateContent({ model, contents: prompt });
       const raw = String(response.text || "").trim()
-        .replace(/^\`\`\`json\\s*/i, "")
-        .replace(/^\`\`\`\\s*/i, "")
-        .replace(/\\s*\`\`\`$/, "");
+        .replace(/^\`\`\`json\s*/i, "")
+        .replace(/^\`\`\`\s*/i, "")
+        .replace(/\s*\`\`\`$/, "");
       const metadata = normalize(JSON.parse(raw));
       await fs.mkdir(path.dirname(outputPath), { recursive: true });
-      await fs.writeFile(outputPath, JSON.stringify(metadata, null, 2) + "\\n", "utf8");
+      await fs.writeFile(outputPath, JSON.stringify(metadata, null, 2) + "\n", "utf8");
 
       if (summaryPath) {
         const summary = [
@@ -100,8 +100,8 @@ ${transcript.slice(0, 12000)}
           metadata.facebook_personal.readyToPost,
           "",
           "> Video yang sama dapat dibagikan ke Page dan profil milik sendiri jika kamu memiliki hak atas seluruh materi di dalamnya."
-        ].join("\\n");
-        await fs.appendFile(summaryPath, summary + "\\n", "utf8");
+        ].join("\n");
+        await fs.appendFile(summaryPath, summary + "\n", "utf8");
       }
 
       console.log("[Metadata] facebook-metadata.json berhasil dibuat.");
