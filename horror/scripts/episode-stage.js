@@ -40,7 +40,7 @@ const SHORTS_STANDARD = isReflectiveShort
   : { minWords: 100, maxWords: 1000, minScenes: 6, maxScenes: 8, minDurationSeconds: 60, maxDurationSeconds: null };
 const narrationWordCount = String(story.narration || "").trim().split(/\s+/).filter(Boolean).length;
 if (!Array.isArray(story.scenes) || story.scenes.length < SHORTS_STANDARD.minScenes || story.scenes.length > SHORTS_STANDARD.maxScenes) throw new Error("[standard] Episode " + episodeNumber + " memiliki " + (story.scenes || []).length + " scene. Standar Shorts wajib 6-8 scene.");
-if (narrationWordCount < SHORTS_STANDARD.minWords || narrationWordCount > SHORTS_STANDARD.maxWords) throw new Error("[standard] Episode " + episodeNumber + " memiliki " + narrationWordCount + " kata. Standar Shorts membutuhkan 65-100 kata untuk durasi 30-45 detik. Regenerate/perbaiki Season Plan.");
+if (narrationWordCount < SHORTS_STANDARD.minWords || narrationWordCount > SHORTS_STANDARD.maxWords) throw new Error("[standard] Episode " + episodeNumber + " memiliki " + narrationWordCount + " kata. Standar Shorts genre ini membutuhkan " + SHORTS_STANDARD.minWords + "-" + SHORTS_STANDARD.maxWords + " kata. Regenerate/perbaiki Season Plan.");
 const sceneNarration = story.scenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\s+/g, " ").trim();
 if (sceneNarration !== String(story.narration).replace(/\s+/g, " ").trim()) throw new Error("[standard] Gabungan narasi scene tidak sama persis dengan narasi utama.");
 console.log("[standard] Lolos: " + narrationWordCount + " kata, " + story.scenes.length + " scene. Durasi audio/video mengikuti standar genre yang dipilih.");
