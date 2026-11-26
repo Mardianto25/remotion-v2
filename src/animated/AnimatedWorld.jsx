@@ -8,6 +8,12 @@ const MOODS = {
   night: { sky: '#25354f', ground: '#34483f', light: '#c3d7ff' }
 };
 
+const clamp01 = (value) => Math.max(0, Math.min(1, value));
+const smooth = (value) => {
+  const x = clamp01(value);
+  return x * x * (3 - 2 * x);
+};
+
 const Building = ({ x, z, height, width, color, roofColor }) => (
   <group position={[x, 0, z]}>
     <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
@@ -31,89 +37,175 @@ const Building = ({ x, z, height, width, color, roofColor }) => (
   </group>
 );
 
-const Tree = ({ x, z, scale = 1 }) => (
-  <group position={[x, 0, z]} scale={scale}>
-    <mesh position={[0, 0.8, 0]}>
-      <cylinderGeometry args={[0.12, 0.18, 1.6, 7]} />
-      <meshStandardMaterial color="#75513a" />
-    </mesh>
-    <mesh position={[0, 2, 0]}>
-      <sphereGeometry args={[0.85, 8, 7]} />
-      <meshStandardMaterial color="#557b4d" roughness={1} />
-    </mesh>
-  </group>
-);
-
-const Character = ({ frame, action = 'standing' }) => {
-  const walking = action === 'walking';
-  const praying = action === 'dua';
-  const lookingUp = action === 'looking_up';
-  const walk = walking ? Math.sin(frame / 5) * 0.22 : 0;
-  const bob = walking ? Math.abs(Math.sin(frame / 5)) * 0.08 : 0;
-  const armPose = praying ? -1.15 : lookingUp ? -0.35 : walk;
-
+const Tree = ({ x, z, scale = 1, frame = 0 }) => {
+  const sway = Math.sin(frame / 42 + x) * 0.035;
   return (
-    <group position={[0, bob, 1.5]}>
-      {/* Original recurring story character: Indonesian Muslim adult, cream koko and black peci. */}
-      <mesh position={[0, 1.35, 0]} castShadow>
-        <capsuleGeometry args={[0.43, 0.82, 5, 10]} />
-        <meshStandardMaterial color="#e8ddc9" roughness={1} />
+    <group position={[x, 0, z]} scale={scale} rotation={[0, 0, sway]}>
+      <mesh position={[0, 0.8, 0]}>
+        <cylinderGeometry args={[0.12, 0.18, 1.6, 7]} />
+        <meshStandardMaterial color="#75513a" />
       </mesh>
-      <mesh position={[0, 2.25, 0.02]} castShadow>
-        <sphereGeometry args={[0.58, 16, 12]} />
-        <meshStandardMaterial color="#a96f4e" roughness={1} />
-      </mesh>
-      <mesh position={[0, 2.55, 0.04]}>
-        <sphereGeometry args={[0.56, 14, 8, 0, Math.PI * 2, 0, Math.PI * 0.52]} />
-        <meshStandardMaterial color="#211d20" roughness={1} />
-      </mesh>
-      <mesh position={[0, 2.79, 0.02]}>
-        <cylinderGeometry args={[0.38, 0.4, 0.22, 12]} />
-        <meshStandardMaterial color="#20232b" roughness={1} />
-      </mesh>
-      {[-0.19, 0.19].map((x) => (
-        <mesh key={x} position={[x, 2.28, 0.53]}>
-          <circleGeometry args={[0.045, 10]} />
-          <meshBasicMaterial color="#211c1c" />
-        </mesh>
-      ))}
-      <mesh position={[0, 2.04, 0.55]}>
-        <sphereGeometry args={[0.2, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.55]} />
-        <meshStandardMaterial color="#342629" roughness={1} />
-      </mesh>
-      <mesh position={[-0.48, 1.48, 0]} rotation={[0, 0, armPose]}>
-        <capsuleGeometry args={[0.12, 0.72, 3, 6]} />
-        <meshStandardMaterial color="#e8ddc9" />
-      </mesh>
-      <mesh position={[0.48, 1.48, 0]} rotation={[0, 0, -armPose]}>
-        <capsuleGeometry args={[0.12, 0.72, 3, 6]} />
-        <meshStandardMaterial color="#e8ddc9" />
-      </mesh>
-      <mesh position={[-0.2, 0.42, 0]} rotation={[walking ? walk : 0, 0, 0]}>
-        <capsuleGeometry args={[0.13, 0.65, 3, 6]} />
-        <meshStandardMaterial color="#354b5b" />
-      </mesh>
-      <mesh position={[0.2, 0.42, 0]} rotation={[walking ? -walk : 0, 0, 0]}>
-        <capsuleGeometry args={[0.13, 0.65, 3, 6]} />
-        <meshStandardMaterial color="#354b5b" />
+      <mesh position={[0, 2, 0]}>
+        <sphereGeometry args={[0.85, 8, 7]} />
+        <meshStandardMaterial color="#557b4d" roughness={1} />
       </mesh>
     </group>
   );
 };
 
-export const AnimatedWorld = ({ frame, segment = {} }) => {
+/**
+ * Articulated procedural character rig. Each limb rotates around a shoulder/hip
+ * pivot so motion reads as body acting instead of moving disconnected primitives.
+ * Frame-driven animation keeps the scene deterministic during Remotion rendering.
+ */
+const Character = ({ frame, action = 'standing', mood = 'peaceful' }) => {
+  const t = frame / 30;
+  const walk = action === 'walking';
+  const dua = action === 'dua';
+  const lookUp = action === 'looking_up';
+  const sitting = action === 'sitting';
+
+  const gait = walk ? Math.sin(t * 7.2) : 0;
+  const idle = Math.sin(t * 2.1);
+  const breath = Math.sin(t * 2.4) * 0.025;
+  const bob = walk ? Math.abs(Math.sin(t * 7.2)) * 0.075 : Math.sin(t * 2.4) * 0.018;
+  const torsoLean = walk ? Math.sin(t * 7.2) * 0.035 : dua ? -0.08 : sitting ? 0.12 : 0;
+  const armSwing = walk ? 0.62 : 0.06 * idle;
+  const armRaise = dua ? -2.25 : lookUp ? -0.45 : 0;
+  const headTilt = mood === 'sad' ? 0.13 : mood === 'hopeful' || lookUp ? -0.12 : 0;
+  const blink = Math.pow(Math.max(0, Math.cos(t * 1.7 + 0.4)), 36);
+  const legBase = sitting ? 1.15 : 0;
+
+  return (
+    <group position={[0, bob, 1.5]} rotation={[0, torsoLean, 0]}>
+      {/* Legs pivot at the hips, with matching trousers and shoes. */}
+      <group position={[-0.22, 0.82, 0]} rotation={[walk ? gait * 0.62 : 0, 0, 0]}>
+        <mesh position={[0, -0.38 + legBase * 0.1, 0]} castShadow>
+          <capsuleGeometry args={[0.145, 0.66, 4, 8]} />
+          <meshStandardMaterial color="#354b5b" roughness={0.95} />
+        </mesh>
+        <mesh position={[0, -0.78 + legBase * 0.1, 0.13]} castShadow>
+          <boxGeometry args={[0.29, 0.16, 0.48]} />
+          <meshStandardMaterial color="#252a30" roughness={0.9} />
+        </mesh>
+      </group>
+      <group position={[0.22, 0.82, 0]} rotation={[walk ? -gait * 0.62 : 0, 0, 0]}>
+        <mesh position={[0, -0.38 + legBase * 0.1, 0]} castShadow>
+          <capsuleGeometry args={[0.145, 0.66, 4, 8]} />
+          <meshStandardMaterial color="#354b5b" roughness={0.95} />
+        </mesh>
+        <mesh position={[0, -0.78 + legBase * 0.1, 0.13]} castShadow>
+          <boxGeometry args={[0.29, 0.16, 0.48]} />
+          <meshStandardMaterial color="#252a30" roughness={0.9} />
+        </mesh>
+      </group>
+
+      {/* Torso and neck. */}
+      <group position={[0, 1.25, 0]} scale={[1, 1 + breath, 1]}>
+        <mesh castShadow>
+          <capsuleGeometry args={[0.43, 0.82, 6, 12]} />
+          <meshStandardMaterial color="#e8ddc9" roughness={0.96} />
+        </mesh>
+        <mesh position={[0, 0.53, 0]}>
+          <cylinderGeometry args={[0.14, 0.17, 0.28, 10]} />
+          <meshStandardMaterial color="#a96f4e" roughness={1} />
+        </mesh>
+        {/* Shirt placket and buttons add readable clothing detail. */}
+        <mesh position={[0, 0.08, 0.426]}>
+          <boxGeometry args={[0.035, 0.58, 0.018]} />
+          <meshStandardMaterial color="#b8a88f" />
+        </mesh>
+        {[0.22, 0.08, -0.06].map((y) => (
+          <mesh key={y} position={[0, y, 0.445]}>
+            <sphereGeometry args={[0.025, 8, 6]} />
+            <meshStandardMaterial color="#9e907b" />
+          </mesh>
+        ))}
+      </group>
+
+      {/* Arms rotate from shoulder joints; dua pose raises both forearms. */}
+      <group position={[-0.43, 1.72, 0]} rotation={[0, 0, (walk ? armSwing * gait : 0.08 * idle) + armRaise]}>
+        <mesh position={[0, -0.36, 0]} castShadow>
+          <capsuleGeometry args={[0.125, 0.58, 4, 8]} />
+          <meshStandardMaterial color="#e8ddc9" roughness={0.96} />
+        </mesh>
+        <group position={[0, -0.68, 0]} rotation={[0, 0, dua ? -0.45 : 0]}>
+          <mesh position={[0, -0.18, 0]} castShadow>
+            <capsuleGeometry args={[0.105, 0.34, 4, 8]} />
+            <meshStandardMaterial color="#e8ddc9" roughness={0.96} />
+          </mesh>
+          <mesh position={[0, -0.4, 0.02]}>
+            <sphereGeometry args={[0.105, 10, 8]} />
+            <meshStandardMaterial color="#a96f4e" roughness={1} />
+          </mesh>
+        </group>
+      </group>
+      <group position={[0.43, 1.72, 0]} rotation={[0, 0, -(walk ? armSwing * gait : 0.08 * idle) - armRaise]}>
+        <mesh position={[0, -0.36, 0]} castShadow>
+          <capsuleGeometry args={[0.125, 0.58, 4, 8]} />
+          <meshStandardMaterial color="#e8ddc9" roughness={0.96} />
+        </mesh>
+        <group position={[0, -0.68, 0]} rotation={[0, 0, dua ? 0.45 : 0]}>
+          <mesh position={[0, -0.18, 0]} castShadow>
+            <capsuleGeometry args={[0.105, 0.34, 4, 8]} />
+            <meshStandardMaterial color="#e8ddc9" roughness={0.96} />
+          </mesh>
+          <mesh position={[0, -0.4, 0.02]}>
+            <sphereGeometry args={[0.105, 10, 8]} />
+            <meshStandardMaterial color="#a96f4e" roughness={1} />
+          </mesh>
+        </group>
+      </group>
+
+      {/* Head, peci, eyes and brows. */}
+      <group position={[0, 2.28, 0.02]} rotation={[lookUp ? -0.25 : headTilt, 0, Math.sin(t * 0.8) * 0.025]}>
+        <mesh castShadow>
+          <sphereGeometry args={[0.55, 20, 16]} />
+          <meshStandardMaterial color="#a96f4e" roughness={0.98} />
+        </mesh>
+        <mesh position={[0, 0.29, -0.01]}>
+          <sphereGeometry args={[0.55, 18, 12, 0, Math.PI * 2, 0, Math.PI * 0.52]} />
+          <meshStandardMaterial color="#211d20" roughness={1} />
+        </mesh>
+        <mesh position={[0, 0.51, -0.01]}>
+          <cylinderGeometry args={[0.38, 0.4, 0.22, 14]} />
+          <meshStandardMaterial color="#20232b" roughness={1} />
+        </mesh>
+        {[-0.19, 0.19].map((x) => (
+          <group key={x} position={[x, -0.04, 0.49]}>
+            <mesh scale={[1, Math.max(0.08, 1 - blink * 0.92), 1]}>
+              <sphereGeometry args={[0.052, 10, 8]} />
+              <meshBasicMaterial color="#211c1c" />
+            </mesh>
+            <mesh position={[0, 0.105, 0]} rotation={[0, 0, x < 0 ? 0.08 : -0.08]}>
+              <boxGeometry args={[0.13, 0.025, 0.025]} />
+              <meshStandardMaterial color="#49332e" />
+            </mesh>
+          </group>
+        ))}
+        <mesh position={[0, -0.29, 0.49]}>
+          <sphereGeometry args={[0.18, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.55]} />
+          <meshStandardMaterial color="#342629" roughness={1} />
+        </mesh>
+      </group>
+    </group>
+  );
+};
+
+export const AnimatedWorld = ({ frame = 0, segment = {} }) => {
   const mood = MOODS[segment.mood] || MOODS.peaceful;
   const setting = segment.setting || 'street';
   const showBuildings = setting !== 'garden';
   const showTrees = setting === 'garden' || setting === 'courtyard' || setting === 'street';
+  const night = segment.mood === 'night';
 
   return (
     <>
       <color attach="background" args={[mood.sky]} />
       <fog attach="fog" args={[mood.sky, 18, 42]} />
-      <ambientLight intensity={segment.mood === 'night' ? 0.7 : 1.35} color={mood.light} />
-      <directionalLight position={[-5, 10, 7]} intensity={segment.mood === 'night' ? 0.8 : 2.2} castShadow />
-      <pointLight position={[4, 6, 1]} intensity={0.45} color="#ffd9a1" />
+      <ambientLight intensity={night ? 0.55 : 1.15} color={mood.light} />
+      <directionalLight position={[-5, 10, 7]} intensity={night ? 0.75 : 2.1} castShadow />
+      <pointLight position={[4, 6, 1]} intensity={night ? 0.8 : 0.45} color="#ffd9a1" />
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.08, 0]} receiveShadow>
         <planeGeometry args={[80, 80]} />
@@ -134,13 +226,13 @@ export const AnimatedWorld = ({ frame, segment = {} }) => {
       )}
       {showTrees && (
         <>
-          <Tree x={-3.8} z={-1.5} scale={1.1} />
-          <Tree x={4.0} z={-2.8} scale={0.9} />
-          <Tree x={-4.4} z={4.2} scale={0.85} />
-          <Tree x={4.7} z={5.2} scale={1.05} />
+          <Tree x={-3.8} z={-1.5} scale={1.1} frame={frame} />
+          <Tree x={4.0} z={-2.8} scale={0.9} frame={frame} />
+          <Tree x={-4.4} z={4.2} scale={0.85} frame={frame} />
+          <Tree x={4.7} z={5.2} scale={1.05} frame={frame} />
         </>
       )}
-      <Character frame={frame} action={segment.action} />
+      <Character frame={frame} action={segment.action} mood={segment.mood} />
     </>
   );
 };
