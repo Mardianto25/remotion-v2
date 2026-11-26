@@ -128,7 +128,7 @@ export async function planSeason(concept, options = {}) {
   for (const [index, episode] of plan.episodes.entries()) {
     if (!String(episode.narration || "").trim() || !Array.isArray(episode.scenes) || episode.scenes.length < minScenes || episode.scenes.length > maxScenes) throw new Error("Episode " + (index + 1) + " belum memiliki naskah final dan " + minScenes + "-" + maxScenes + " scene.");
     const wordCount = String(episode.narration).trim().split(/\s+/).filter(Boolean).length;
-    if (format === "shorts" && (wordCount < minWords || wordCount > maxWords)) throw new Error("Episode " + (index + 1) + " memiliki " + wordCount + " kata; narasi Shorts minimal 100 kata sebagai batas validasi awal.");
+    if (format === "shorts" && (wordCount < minWords || wordCount > maxWords)) throw new Error("Episode " + (index + 1) + " memiliki " + wordCount + " kata; narasi Shorts harus berada pada rentang " + minWords + "-" + maxWords + " kata.");
     const combined = episode.scenes.map(scene => String(scene.narration || "").trim()).join(" ").replace(/\s+/g, " ").trim();
     if (combined !== String(episode.narration).replace(/\s+/g, " ").trim()) throw new Error("Naskah episode " + (index + 1) + " tidak sama dengan gabungan narration scene.");
     if (episode.scenes.some(scene => !scene.heading || !scene.visualPrompt)) throw new Error("Setiap scene wajib memiliki heading dan visualPrompt.");
