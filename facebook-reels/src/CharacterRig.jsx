@@ -22,12 +22,12 @@ function Limb({ color, length = 0.68, radius = 0.12 }) {
 
 function Arm({ side, skin, sleeve, pose, elbowPose = 0 }) {
   return (
-    <group position={[side * 0.43, 1.93, 0]} rotation={[0, 0, pose]}>
+    <group name={`shoulder-${side}`} position={[side * 0.43, 1.93, 0]} rotation={[0, 0, pose]}>
       <mesh position={[0, -0.34, 0]} castShadow>
         <capsuleGeometry args={CAPSULE} />
         <meshStandardMaterial color={sleeve} roughness={0.9} />
       </mesh>
-      <group position={[0, -0.68, 0]} rotation={[0, 0, elbowPose]}>
+      <group name={`elbow-${side}`} position={[0, -0.68, 0]} rotation={[0, 0, elbowPose]}>
         <Limb color={sleeve} length={0.56} radius={0.105} />
         <mesh position={[0, -0.62, 0.015]} castShadow>
           <sphereGeometry args={[0.115, 10, 8]} />
@@ -40,12 +40,12 @@ function Arm({ side, skin, sleeve, pose, elbowPose = 0 }) {
 
 function Leg({ side, skin, trousers, pose, kneePose = 0 }) {
   return (
-    <group position={[side * 0.2, 0.95, 0]} rotation={[pose, 0, 0]}>
+    <group name={`hip-${side}`} position={[side * 0.2, 0.95, 0]} rotation={[pose, 0, 0]}>
       <mesh position={[0, -0.35, 0]} castShadow>
         <capsuleGeometry args={[0.145, 0.55, 5, 8]} />
         <meshStandardMaterial color={trousers} roughness={0.92} />
       </mesh>
-      <group position={[0, -0.67, 0]} rotation={[kneePose, 0, 0]}>
+      <group name={`knee-${side}`} position={[0, -0.67, 0]} rotation={[kneePose, 0, 0]}>
         <Limb color={trousers} length={0.55} radius={0.125} />
         <mesh position={[0, -0.62, 0.11]} castShadow>
           <boxGeometry args={[0.25, 0.12, 0.42]} />
@@ -122,8 +122,8 @@ export const CharacterRig = ({
   const kneeRight = sitting ? 1.35 : sujud ? 1.7 : 0;
 
   return (
-    <group position={[position[0], position[1] + bob, position[2]]} rotation={[0, rotation, 0]} scale={scale}>
-      <group rotation={[torsoTilt, 0, 0]}>
+    <group name={`character-${profile.id || "dynamic"}`} position={[position[0], position[1] + bob, position[2]]} rotation={[0, rotation, 0]} scale={scale}>
+      <group name="spine" rotation={[torsoTilt, 0, 0]}>
         <mesh position={[0, 1.43, 0]} castShadow receiveShadow>
           <capsuleGeometry args={[0.39, 0.76, 7, 12]} />
           <meshStandardMaterial color={outfit} roughness={0.92} />
@@ -132,7 +132,7 @@ export const CharacterRig = ({
           <cylinderGeometry args={[0.16, 0.17, 0.2, 10]} />
           <meshStandardMaterial color={skin} roughness={0.9} />
         </mesh>
-        <group position={[0, headTilt, 0]}>
+        <group name="neck-head" position={[0, headTilt, 0]}>
           <mesh position={[0, 2.36, 0.02]} castShadow>
             <sphereGeometry args={[0.39, 18, 14]} />
             <meshStandardMaterial color={skin} roughness={0.88} />
