@@ -8,9 +8,9 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 function parseJson(text) {
   const clean = String(text || "").trim()
-    .replace(/^```json\s*/i, "")
-    .replace(/^```\s*/i, "")
-    .replace(/\s*```$/, "");
+    .replace(/^\`\`\`json\s*/i, "")
+    .replace(/^\`\`\`\s*/i, "")
+    .replace(/\s*\`\`\`$/, "");
   return JSON.parse(clean);
 }
 
@@ -34,8 +34,11 @@ Batasan:
 - Jangan membuat janji bahwa doa pasti terkabul sesuai waktu/keinginan manusia.
 - Hindari pembuka klise "Pernahkah kamu".
 - Buat tepat 5 scene. Teks scene harus berurutan dan bila digabung menjadi narasi lengkap.
-- Image prompt harus spesifik, sinematik 3D, vertikal 9:16, tanpa tulisan.
-- Gunakan karakter utama yang sama: seorang pria Muslim Indonesia dewasa usia sekitar 30 tahun, wajah oval, kulit sawo matang, rambut hitam pendek rapi, janggut tipis, memakai baju koko krem sederhana. Pertahankan identitas dan ciri wajah ini di semua scene; variasikan ekspresi, pose, dan lingkungan sesuai narasi.
+- Untuk setiap scene, pilih setting, action, dan mood dari enum berikut:
+  setting: "street", "home", "garden", "courtyard"
+  action: "walking", "standing", "dua", "looking_up"
+  mood: "reflective", "sad", "hopeful", "peaceful", "night"
+- Setting, action, dan mood harus membantu menceritakan bagian narasi scene.
 - Jangan menggambarkan Allah atau nabi.
 - Buat metadata judul, caption, hashtag yang relevan untuk Facebook Page Reels.
 
@@ -46,7 +49,7 @@ Kembalikan JSON murni:
  "hashtags":["#RenunganIslami","#...","#..."],
  "narration":"narasi lengkap",
  "scenes":[
-  {"text":"bagian narasi scene","imagePrompt":"deskripsi visual scene tanpa teks"}
+  {"text":"bagian narasi scene","setting":"street","action":"walking","mood":"reflective"}
  ]
 }
 Jangan sertakan markdown atau penjelasan.
@@ -62,12 +65,29 @@ Jangan sertakan markdown atau penjelasan.
   }
   const words = data.narration.trim().split(/\s+/).length;
   if (words < 65 || words > 110) throw new Error(`Panjang narasi di luar batas: ${words} kata.`);
+  const allowed = {
+    setting: ["street", "home", "garden", "courtyard"],
+    action: ["walking", "standing", "dua", "looking_up"],
+    mood: ["reflective", "sad", "hopeful", "peaceful", "night"]
+  };
+  data.scenes = data.scenes.map((scene, index) => {
+    const normalized = {};
+    for (const key of Object.keys(allowed)) {
+      const value = String(scene[key] || "");
+      if (!allowed[key].includes(value)) {
+        throw new Error(`Scene ${index + 1}: nilai ${key} tidak valid: ${value}`);
+      }
+      normalized[key] = value;
+    }
+    return { text: String(scene.text || "").trim(), ...normalized };
+  });
+  if (data.scenes.some(scene => !scene.text)) throw new Error("Teks scene tidak boleh kosong.");
   data.title = String(data.title || "Renungan Islami").slice(0, 80);
   data.caption = String(data.caption || data.title).slice(0, 1800);
   data.hashtags = [...new Set((data.hashtags || []).map(x => String(x).startsWith("#") ? String(x) : `#${x}`))].slice(0, 5);
   await fs.mkdir(OUT, { recursive: true });
   await fs.writeFile(path.join(OUT, "content.json"), JSON.stringify(data, null, 2) + "\n");
   await fs.writeFile(path.join(OUT, "transcript.txt"), data.narration.trim() + "\n");
-  console.log(`Konten dibuat: ${words} kata, ${data.scenes.length} scene.`);
+  console.log(`Konten dibuat: ${words} kata, ${data.scenes.length} scene storyboard.`);
 }
 main().catch(error => { console.error(error); process.exit(1); });
