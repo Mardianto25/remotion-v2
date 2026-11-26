@@ -38,6 +38,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Download rigged humanoid GLB model
+        run: |
+          mkdir -p out/facebook-reels/public/models
+          curl -fL --retry 3 --retry-delay 2 https://models.vinish.dev/animations/mannequin-man.glb -o out/facebook-reels/public/models/mannequin-man.glb
+          test $(stat -c%s out/facebook-reels/public/models/mannequin-man.glb) -gt 1000000
+
       - name: Generate original Islamic reflection script and 3D storyboard
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
