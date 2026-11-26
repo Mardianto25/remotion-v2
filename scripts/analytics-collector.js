@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-const API = "https://www.googleapis.com";
+const API = "https://youtubeanalytics.googleapis.com";
 const GRAPH = "https://graph.facebook.com";
 const VERSION = process.env.FACEBOOK_GRAPH_API_VERSION || "v27.0";
 const REGISTRY = path.resolve("data/analytics/videos.json");
