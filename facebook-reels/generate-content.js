@@ -35,11 +35,15 @@ Batasan:
 - Hindari pembuka klise "Pernahkah kamu".
 - Buat tepat 5 scene. Teks scene harus berurutan dan bila digabung menjadi narasi lengkap.
 - Untuk setiap scene, pilih setting, action, dan mood dari enum berikut:
-  setting: "street", "home", "garden", "courtyard"
-  action: "walking", "standing", "dua", "looking_up", "sitting"
+  setting: "street", "home", "garden", "courtyard", "mosque", "mosque_interior", "wudu", "office", "hospital", "school", "market", "beach", "mountain", "nature", "cemetery", "kitchen", "vehicle"
+  action: "walking", "standing", "dua", "looking_up", "sitting", "working", "reading", "crying", "embracing", "washing", "kneeling"
   camera: "wide", "medium", "close", "orbit", "low"
   mood: "reflective", "sad", "hopeful", "peaceful", "night"
-- Setting, action, dan mood harus membantu menceritakan bagian narasi scene.\n- Variasikan lokasi sesuai topik; jangan memaksakan masjid pada cerita yang tidak membahas ibadah.\n- Setiap scene harus menggambarkan satu momen konkret, bukan pose karakter tanpa konteks.\n- Beri kesinambungan waktu, tempat, pakaian, dan karakter antarscene bila ceritanya berlangsung dalam satu rangkaian.\n- Pilih angle kamera yang memperkuat emosi; gunakan close untuk ekspresi/detail, wide untuk memperlihatkan lokasi, dan tracking/orbit hanya bila sesuai.
+- Setting, action, dan mood harus membantu menceritakan bagian narasi scene.
+- Variasikan lokasi sesuai topik; jangan memaksakan masjid pada cerita yang tidak membahas ibadah.
+- Setiap scene harus menggambarkan satu momen konkret, bukan pose karakter tanpa konteks.
+- Beri kesinambungan waktu, tempat, pakaian, dan karakter antarscene bila ceritanya berlangsung dalam satu rangkaian.
+- Pilih angle kamera yang memperkuat emosi; gunakan close untuk ekspresi/detail, wide untuk memperlihatkan lokasi, dan tracking/orbit hanya bila sesuai.
 - Jangan menggambarkan Allah atau nabi.
 - Buat metadata judul, caption, hashtag yang relevan untuk Facebook Page Reels.
 
@@ -67,8 +71,8 @@ Jangan sertakan markdown atau penjelasan.
   const words = data.narration.trim().split(/\s+/).length;
   if (words < 65 || words > 110) throw new Error(`Panjang narasi di luar batas: ${words} kata.`);
   const allowed = {
-    setting: ["street", "home", "garden", "courtyard"],
-    action: ["walking", "standing", "dua", "looking_up", "sitting"],
+    setting: ["street", "home", "garden", "courtyard", "mosque", "mosque_interior", "wudu", "office", "hospital", "school", "market", "beach", "mountain", "nature", "cemetery", "kitchen", "vehicle"],
+    action: ["walking", "standing", "dua", "looking_up", "sitting", "working", "reading", "crying", "embracing", "washing", "kneeling"],
     camera: ["wide", "medium", "close", "orbit", "low"],
     mood: ["reflective", "sad", "hopeful", "peaceful", "night"]
   };
