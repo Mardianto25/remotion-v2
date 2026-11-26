@@ -19,13 +19,13 @@ Workflow ini berdiri sendiri dan tidak menggunakan URL Instagram, aset YouTube, 
 ## Karakter dan TTS
 
 - TTS: `gemini-2.5-flash-preview-tts`
-- Voice preset: `Algenib` (karakter suara laki-laki); prompt mengarahkan pembacaan emosional, hangat, dan tenang.
+- Voice preset: `Algenib`; prompt mengarahkan pembacaan narator laki-laki dewasa yang emosional, hangat, dan tenang.
 - Visual: Cloudflare FLUX 3D cinematic, 1080x1920.
-- Character master disimpan dalam GitHub Actions cache agar workflow rerun dapat menggunakan aset master yang sama. Prompt identitas karakter juga dikunci untuk semua scene.
+- Character master dibuat sekali dan disimpan dalam GitHub Actions cache. Deskripsi identitas karakter dikunci untuk seluruh scene.
+
+**Catatan konsistensi:** FLUX Schnell yang digunakan di workflow ini menghasilkan gambar dari prompt teks dan tidak menerima gambar master sebagai image-reference. Karena itu master disimpan untuk referensi aset, sedangkan konsistensi wajah dijaga melalui deskripsi karakter yang sama; kemiripan wajah antarscene belum bisa dijamin sempurna.
 
 ## Batasan
-
-Character master dipakai sebagai acuan deskripsi prompt; FLUX Schnell pada implementasi ini tidak melakukan image-reference conditioning, sehingga kesamaan wajah antarscene belum dapat dijamin sempurna.
 
 Workflow memublikasikan ke Facebook Page Reels saja. Posting ke profil pribadi tidak dilakukan melalui Graph API.
 
