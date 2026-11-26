@@ -104,14 +104,14 @@ async function main() {
     console.warn("[Metadata] transcript.txt tidak ditemukan; memakai caption default.");
   }
 
-  const cleanTranscript = transcript.replace(/\\s+/g, " ").trim();
-  const firstSentence = cleanTranscript.split(/(?<=[.!?])\\s+/)[0] || "Cerita inspiratif";
+  const cleanTranscript = transcript.replace(/\s+/g, " ").trim();
+  const firstSentence = cleanTranscript.split(/(?<=[.!?])\s+/)[0] || "Cerita inspiratif";
   const title = firstSentence.slice(0, 90) || "Cerita Inspiratif";
   const caption = [
     cleanTranscript.slice(0, 4500),
     "",
     "#RuangCeritaIndonesia #CeritaInspiratif"
-  ].filter(Boolean).join("\\n");
+  ].filter(Boolean).join("\n");
 
   console.log(`Video siap: ${(videoBuffer.length / 1024 / 1024).toFixed(2)} MB`);
   console.log("Judul Facebook: " + title);
