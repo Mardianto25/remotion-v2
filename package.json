@@ -8,7 +8,9 @@
     "upload": "node scripts/youtube-upload.js",
     "dispatch": "node scripts/auto-dispatch.js",
     "generate:thumbnail": "node scripts/thumbnail.js",
-    "export:capcut": "node scripts/export-capcut.js"
+    "export:capcut": "node scripts/export-capcut.js",
+    "analytics:collect": "node scripts/analytics-collector.js",
+    "analytics:analyze": "node scripts/analytics-analyzer.js"
   },
   "dependencies": {
     "@composio/core": "^0.29.0",
