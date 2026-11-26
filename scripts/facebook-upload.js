@@ -184,7 +184,16 @@ async function main() {
     console.warn("[Metadata] transcript.txt tidak ditemukan; memakai caption default.");
   }
 
-  const { title, description } = buildMetadata(transcript);
+  let metadata;
+  try {
+    metadata = JSON.parse(await fs.readFile(path.resolve("out/facebook-metadata.json"), "utf8"));
+  } catch (error) {
+    console.warn("[Metadata] Metadata AI tidak tersedia; memakai fallback dari transcript:", error.message);
+  }
+
+  const fallback = buildMetadata(transcript);
+  const title = metadata?.facebook_page?.title || fallback.title;
+  const description = metadata?.facebook_page?.description || fallback.description;
   const schedule = getNextPublishSchedule();
 
   console.log(`Video siap: ${(videoBuffer.length / 1024 / 1024).toFixed(2)} MB`);
