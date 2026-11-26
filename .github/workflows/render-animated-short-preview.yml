@@ -2,6 +2,13 @@ name: Render Animated Story Short Preview
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/animated/**"
+      - "facebook-reels/generate-content.js"
+      - "package.json"
+      - ".github/workflows/render-animated-short-preview.yml"
 
 permissions:
   contents: read
