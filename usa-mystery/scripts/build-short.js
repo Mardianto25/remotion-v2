@@ -17,8 +17,17 @@ for(let i=0;i<story.scenes.length;i++){
  console.log("[visual] Scene "+(i+1)+"/"+story.scenes.length);
  const response=await fetch("https://api.cloudflare.com/client/v4/accounts/"+process.env.CF_ACCOUNT_ID+"/ai/run/"+imageModel,{method:"POST",headers:{Authorization:"Bearer "+process.env.CF_API_TOKEN,"Content-Type":"application/json"},body:JSON.stringify({prompt:scene.visualPrompt+". Maintain identical recurring character face, age, hair, skin tone, proportions and clothing. Premium cinematic 3D CGI, atmospheric mystery, volumetric lighting, detailed environment, vertical portrait 9:16, no text, no watermark.",steps:4})});
  if(!response.ok) throw new Error("FLUX scene "+(i+1)+" failed HTTP "+response.status+": "+(await response.text()).slice(0,500));
- const payload=await response.json(); if(!payload?.result?.image) throw new Error("No image returned for scene "+(i+1));
- await fs.writeFile(path.join(assetsDir,fileName),Buffer.from(payload.result.image,"base64")); assets.push(fileName);
+ const contentType=response.headers.get("content-type")||"";
+ if(contentType.includes("application/json")){
+  const payload=await response.json();
+  if(!payload?.result?.image) throw new Error("No image returned for scene "+(i+1));
+  await fs.writeFile(path.join(assetsDir,fileName),Buffer.from(payload.result.image,"base64"));
+ }else{
+  const bytes=Buffer.from(await response.arrayBuffer());
+  if(bytes.length<1024) throw new Error("Image response too small for scene "+(i+1));
+  await fs.writeFile(path.join(assetsDir,fileName),bytes);
+ }
+ assets.push(fileName);
 }
 const audioPath=path.join(audioDir,"narration.mp3"), subtitlePath=path.join(audioDir,"narration.vtt");
 await run(process.env.PYTHON_BIN||"python",["-m","edge_tts","--voice",process.env.EDGE_TTS_VOICE||"en-US-GuyNeural","--rate=-4%","--pitch=+0Hz","--text",story.narration,"--write-media",audioPath,"--write-subtitles",subtitlePath]);
