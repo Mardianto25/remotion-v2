@@ -1,0 +1,6 @@
+.env
+node_modules/
+data/
+out/
+public/assets/
+public/audio/

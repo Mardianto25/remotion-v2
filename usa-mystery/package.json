@@ -1,0 +1,19 @@
+{
+  "name": "usa-animated-mystery",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate:story": "node scripts/generate-story.js",
+    "build:short": "node scripts/build-short.js",
+    "render": "remotion render remotion/index.jsx USAMysteryShort out/usa-mystery-short.mp4 --codec=h264 --crf=20"
+  },
+  "dependencies": {
+    "@google/genai": "^2.32.0",
+    "@remotion/cli": "^4.0.539",
+    "dotenv": "^16.6.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.539"
+  }
+}
