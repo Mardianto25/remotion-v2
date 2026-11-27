@@ -1,90 +1,114 @@
 [
   {
     "start": 0,
-    "end": 0.2,
-    "text": "Hei,",
-    "keyword": "dust particles in light",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, dust motes floating in a beam of warm light inside an empty room",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-001-1795703555650-1270.png"
+    "end": 2.5,
+    "text": "Ada empat ciri istri yang baik.",
+    "keyword": "islamic home interior",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. A serene, warmly lit living room in a modest modern Muslim home, morning sunlight filtering through sheer curtains onto a neat wooden table with a closed Quran and wooden prayer beads, peaceful atmosphere, cinematic lens and depth of field, authentic real-world materials.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-001-1795745881695-1398.png"
   },
   {
-    "start": 0.8,
-    "end": 5.5,
-    "text": "masa engkau merasa cemas, gelisah, dan berlebihan hanya karena masalah yang sekarang kau hadapi?",
-    "keyword": "heavy burden stone",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, a heavy cracked stone on a dark weathered table under dim shadows",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-002-1795703558682-6711.png"
+    "start": 2.5,
+    "end": 9.5,
+    "text": "Satu, seorang istri yang apabila ditatap, menenangkan hati suaminya.",
+    "keyword": "warm tea domestic scene",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. Warm cozy home ambiance, a woman's hands wearing a soft long-sleeve modest pastel dress gently placing a steaming ceramic cup of tea on a wooden saucer next to a warm glowing table lamp, soft focus background, quiet domestic tranquility, cinematic depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-002-1795745883453-305.png"
   },
   {
-    "start": 5.5,
-    "end": 8,
-    "text": "Bukankah dulu banyak ribuan masalah yang telah aku selesaikan?",
-    "keyword": "old crossed out notes",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, weathered vintage ledger pages filled with faded ink and checkmarks",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-003-1795703561240-8508.png"
+    "start": 9.5,
+    "end": 14.3,
+    "text": "Bunda sayang, kalau suami Bunda lihat wajah Bunda,",
+    "keyword": "modest silhouette by window",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. Back view silhouette of a Muslim woman wearing a flowing hijab standing calmly near a bright window looking out toward a gentle garden, soft morning light illuminating dust motes in the air, peaceful atmosphere, cinematic lighting.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-003-1795745884903-5396.png"
   },
   {
-    "start": 9.4,
-    "end": 11.8,
-    "text": "Jangan lampelarut bersedih dengan masalah yang sekarang.",
-    "keyword": "dripping water drop",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, a single water droplet hitting a calm dark puddle creating ripples",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-004-1795703563556-616.png"
+    "start": 14.3,
+    "end": 19,
+    "text": "suami Bunda lagi ada masalah, lihat wajah Bunda, hilang masalah atau tambah masalah?",
+    "keyword": "contemplative hands on desk",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. Close-up of a tired man's hands resting heavily on a rustic wooden desk beside paperwork and an old wrist watch, moody evening window light casting long shadows, conveying stress and contemplation, cinematic lens and depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-004-1795745886434-9225.png"
   },
   {
-    "start": 11.8,
-    "end": 14.4,
-    "text": "Yakin dulu pun banyak masalah selesai juga.",
-    "keyword": "ray of hope light",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, a warm ray of sunlight piercing through dark heavy clouds",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-005-1795703566497-5928.png"
-  },
-  {
-    "start": 15.3,
-    "end": 16.6,
-    "text": "Lalu apa yang harus dilakukan?",
-    "keyword": "open empty pathway",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, an empty winding dirt path leading into a misty horizon",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-006-1795703568602-4066.png"
-  },
-  {
-    "start": 17.1,
-    "end": 21.1,
-    "text": "Kata Allah, seberat-beratnya beban, tanamkan keyakinan pada jiwamu.",
-    "keyword": "strong tree roots",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, deep thick tree roots gripping firmly onto dark fertile soil",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-007-1795703570635-2411.png"
-  },
-  {
-    "start": 21.1,
-    "end": 23,
-    "text": "Innallaa ma'al 'usri",
-    "keyword": "quran page arabic text",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, close-up of traditional textured paper with fine Arabic calligraphy in dark brown ink",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-008-1795703573301-7867.png"
-  },
-  {
-    "start": 24.3,
-    "end": 25.6,
-    "text": "Semua ini pasti selesai.",
-    "keyword": "sunrise horizon",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, a soft glowing sunrise breaking over a calm dark ocean horizon",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-009-1795703575693-7401.png"
+    "start": 19,
+    "end": 26.6,
+    "text": "Berarti kita belum menjaga amanah menjadi istri yang baik, betul?",
+    "keyword": "reflective mirror interior",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. A quiet, contemplative corner of a bedroom with a vintage wooden vanity mirror reflecting a gentle warm lamp light, an untouched prayer rug neatly folded nearby on a chair, evocative and reflective mood, cinematic depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-005-1795745888973-8850.png"
   },
   {
     "start": 26.6,
-    "end": 27.8,
-    "text": "Pasti ada solusinya.",
-    "keyword": "key on old wood",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, an old antique iron key resting on a rustic wooden surface",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-010-1795703578254-7623.png"
+    "end": 33.5,
+    "text": "Ciri yang kedua, istri yang baik itu istri yang kalau diperintah, taat sama suaminya.",
+    "keyword": "orderly home hallway",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. An organized home hallway, neatly placed leather shoes by the entrance door, warm ambient lighting from the ceiling, showing an orderly and peaceful household atmosphere, cinematic lens and depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-006-1795745890298-9786.png"
   },
   {
-    "start": 28.3,
-    "end": 29.003129,
-    "text": "Pasti selesai.",
-    "keyword": "clear blue sky",
-    "imagePrompt": "Photorealistic live-action cinema still, natural human proportions, authentic real-world materials, physically plausible lighting, cinematic lens and depth of field, clear open sky after a storm with soft receding clouds",
-    "image": "images/video-2026-11-26_14-32-35-647Z/scene-011-1795703580597-8292.png"
+    "start": 33.5,
+    "end": 40.5,
+    "text": "Tolong jawab, selama ini Bunda lebih banyak bersyukurnya atau mengeluhnya?",
+    "keyword": "rain on window glass",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. Raindrops running down a clean window pane with a blurred warm interior living room visible through the glass, a cozy armchair and an open notebook, contemplative and introspective mood, cinematic lighting.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-007-1795745892504-1093.png"
+  },
+  {
+    "start": 40.5,
+    "end": 48,
+    "text": "Berarti belum bisa menjaga amanah dengan baik.",
+    "keyword": "vintage brass hourglass",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. An antique brass hourglass sitting on a dark polished wooden surface, fine sand trickling down continuously, soft warm sidelight emphasizing textures, representing fleeting time and responsibility, cinematic depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-008-1795745894005-2460.png"
+  },
+  {
+    "start": 48,
+    "end": 55.8,
+    "text": "Yang ketiga, istri yang baik, istri yang kalau diberi, pandai berterima kasih kepada suaminya.",
+    "keyword": "giving gift hands",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. A man's hand handing a simple wrapped gift box tied with natural twine ribbon to a woman's hands wearing long modest sleeves, shot in warm natural light, genuine gesture of gratitude and care, cinematic lens and depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-009-1795745895403-3365.png"
+  },
+  {
+    "start": 55.8,
+    "end": 62.2,
+    "text": "Selama ini Bunda lebih pintar melihat kebaikan suami atau kekurangan suami?",
+    "keyword": "open journal glasses",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. A pair of reading glasses resting on top of an open leather-bound journal with handwritten notes, next to a blooming small white flower in a glass vase, soft sunlight, thoughtful atmosphere, cinematic lighting.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-010-1795745897017-106.png"
+  },
+  {
+    "start": 62.2,
+    "end": 69.2,
+    "text": "Masya Allah. Berarti belum amanah Bunda teh.",
+    "keyword": "velvet prayer mat",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. A beautifully patterned velvet prayer mat folded neatly over the edge of a carved wooden bench, soft afternoon light streaming through patterned lattice windows, peaceful atmosphere of humility and reflection, cinematic depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-011-1795745898518-1538.png"
+  },
+  {
+    "start": 69.2,
+    "end": 76.8,
+    "text": "Atau yang keempat, istri yang baik, istri yang pandai menjaga dirinya saat dia ditinggal oleh suaminya.",
+    "keyword": "departure front door",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. A half-open wooden front door showing a man in casual work attire walking away into a sunlit quiet neighborhood street, seen from inside the calm entryway of the home, cinematic perspective and depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-012-1795745900270-4553.png"
+  },
+  {
+    "start": 76.8,
+    "end": 83,
+    "text": "Pertanyaannya, selama ini Bunda bisa jaga diri atau belum?",
+    "keyword": "locking front door",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. Close-up on the inside of a solid wooden house door, a woman's hand gently turning the brass deadbolt lock securely, warm interior lighting creating a sense of safety and dignity, authentic real-world materials, cinematic lens.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-013-1795745901901-7892.png"
+  },
+  {
+    "start": 83,
+    "end": 91.232608,
+    "text": "Alhamdulillah, ada yang sudah di situ ya.",
+    "keyword": "peaceful sunlit living room",
+    "imagePrompt": "Photorealistic live-action cinema still, vertical 9:16 framing. Golden hour sunlight bathing a warm, tidy family room, potted green plants on a wooden sill, gentle warm breeze moving the sheer white curtains, atmosphere of relief, peace, and gratitude, cinematic depth of field.",
+    "image": "images/video-2026-11-27_02-18-01-685Z/scene-014-1795745905135-3618.png"
   }
 ]
