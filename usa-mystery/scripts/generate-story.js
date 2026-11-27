@@ -49,7 +49,7 @@ catch { throw new Error("Gemini returned invalid JSON: " + raw.slice(0, 500)); }
 if (!story.title || !story.narration || !Array.isArray(story.scenes) || story.scenes.length < 5) {
   throw new Error("Generated story failed schema validation.");
 }
-const words = story.narration.trim().split(/\\s+/).length;
+const words = story.narration.trim().split(/\s+/).length;
 if (words < 90 || words > 170) {
   throw new Error(`Narration word count ${words} is outside the 90-170 word safety range.`);
 }
