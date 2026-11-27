@@ -323,7 +323,8 @@ async function fetchVerticalNatureImage(imagePrompt, keyword, index, targetDir =
 // GEMINI AUDIO ANALYSIS
 // ============================================================
 
-export async function executePipeline(autoPushGit = true, visualStyle = 'cinematic-3d') {
+export async function executePipeline(autoPushGit = true, visualStyle = 'cinematic-3d', options = {}) {
+  const recoverTimestampOutOfRange = options?.recoverTimestampOutOfRange === true;
   visualStyle = Object.hasOwn(STYLE_PRESETS, visualStyle) ? visualStyle : 'cinematic-3d';
   const styleInstructions = STYLE_PRESETS[visualStyle];
   console.log(`[Visual Style] ${visualStyle}`);
@@ -499,7 +500,7 @@ export async function executePipeline(autoPushGit = true, visualStyle = 'cinemat
   let previousStart = -1;
   let previousEnd = 0;
   const normalizedSegments = parsedSegments.map((segment, index) => {
-    const start = Number(segment.start);
+    let start = Number(segment.start);
     let end = Number(segment.end);
     const text = String(segment.text || '').trim();
 
@@ -513,7 +514,17 @@ export async function executePipeline(autoPushGit = true, visualStyle = 'cinemat
       throw new Error(`Urutan timestamp mundur pada scene ${index + 1}; render dibatalkan agar tidak salah sinkron.`);
     }
     if (audioDuration && start >= audioDuration) {
-      throw new Error(`Scene ${index + 1} dimulai setelah audio berakhir.`);
+      if (!recoverTimestampOutOfRange) {
+        throw new Error(`Scene ${index + 1} dimulai setelah audio berakhir.`);
+      }
+
+      // Khusus input URL Instagram: timestamp awal Gemini bisa meleset.
+      // Beri rentang sementara berdasarkan urutan scene agar second-pass
+      // alignment tetap dapat mencocokkan teks ke audio asli.
+      const slot = audioDuration / parsedSegments.length;
+      start = index * slot;
+      end = (index + 1) * slot;
+      console.warn(`[IG URL] Timestamp awal scene ${index + 1} di luar audio; memakai rentang sementara untuk alignment.`);
     }
 
     if (audioDuration) end = Math.min(end, audioDuration);
@@ -849,7 +860,7 @@ async function processInstagram(igUrl, autoPushGit = true, visualStyle = 'cinema
 
     console.log('[IG URL] Audio berhasil diunduh.');
 
-    return await executePipeline(autoPushGit, visualStyle);
+    return await executePipeline(autoPushGit, visualStyle, { recoverTimestampOutOfRange: true });
 
   } catch (error) {
     console.error('[Process Instagram Error]:', error);
