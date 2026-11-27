@@ -8,20 +8,22 @@ if (!apiKey) throw new Error("GEMINI_API_KEY is required.");
 const ai = new GoogleGenAI({ apiKey });
 const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 const topic = process.argv.slice(2).join(" ").trim() || "The Last Train Had One Extra Passenger";
-const duration = Number(process.env.USA_STORY_DURATION_SECONDS || 55);
+const duration = Number(process.env.USA_STORY_DURATION_SECONDS || 52);
 
 const prompt = `
 Create an original, advertiser-friendly YouTube Short story for a US audience.
 Genre: animated mystery with atmospheric horror, suspense, and a clever twist.
 Topic: ${topic}
 Language: natural contemporary American English.
-Target narration duration: ${duration} seconds (roughly 115-145 spoken words).
+Target narration duration: ${duration} seconds (90-110 spoken words; hard maximum 115 words).
 Rules:
 - Fully fictional; do not present it as a true story.
 - No graphic violence, gore, hate, or real-person allegations.
 - Strong curiosity hook in the first sentence; escalate every few seconds.
+- Use short, natural sentences that sound compelling when spoken aloud.
 - End with a memorable twist and a short question that invites comments.
 - Create 6-8 visually coherent scenes. Keep character appearance consistent.
+- Divide the complete narration across the scene narration fields without adding or omitting words.
 Return ONLY valid JSON with this shape:
 {
  "title": "short clickable title",
@@ -47,12 +49,12 @@ let story;
 try { story = JSON.parse(raw); }
 catch { throw new Error("Gemini returned invalid JSON: " + raw.slice(0, 500)); }
 
-if (!story.title || !story.narration || !Array.isArray(story.scenes) || story.scenes.length < 5) {
-  throw new Error("Generated story failed schema validation.");
+if (!story.title || !story.narration || !Array.isArray(story.scenes) || story.scenes.length < 6 || story.scenes.length > 8) {
+  throw new Error("Generated story failed schema validation: expected 6-8 scenes.");
 }
 const words = story.narration.trim().split(/\s+/).length;
-if (words < 90 || words > 170) {
-  throw new Error(`Narration word count ${words} is outside the 90-170 word safety range.`);
+if (words < 80 || words > 115) {
+  throw new Error(`Narration word count ${words} is outside the 80-115 word target. Regenerate the story.`);
 }
 const outDir = path.resolve("data");
 await fs.mkdir(outDir, { recursive: true });
