@@ -1,4 +1,4 @@
-name: USA Mystery - Generate Story
+name: USA Mystery - Generate Video
 
 on:
   workflow_dispatch:
@@ -13,9 +13,9 @@ permissions:
   contents: read
 
 jobs:
-  generate-story:
+  generate-video:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: usa-mystery
@@ -28,18 +28,35 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: usa-mystery/package.json
-      - name: Install dependencies
+      - name: Install system tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install --upgrade edge-tts
+      - name: Install Node dependencies
         run: npm install
-      - name: Generate English story package
+      - name: Generate English story
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.USA_GEMINI_MODEL || 'gemini-2.5-flash' }}
           USA_STORY_DURATION_SECONDS: "55"
         run: npm run generate:story -- "${{ inputs.topic }}"
-      - name: Upload story artifact
+      - name: Generate cinematic visuals and English narration
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID_V2 }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN_V2 }}
+          CF_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell"
+          EDGE_TTS_VOICE: "en-US-GuyNeural"
+        run: npm run build:short
+      - name: Render vertical YouTube Short
+        run: npm run render
+      - name: Upload video and production data
         uses: actions/upload-artifact@v4
         with:
-          name: usa-mystery-story
-          path: usa-mystery/data/story.json
+          name: usa-mystery-short
+          path: |
+            usa-mystery/out/usa-mystery-short.mp4
+            usa-mystery/data/story.json
+            usa-mystery/data/render-manifest.json
           if-no-files-found: error
           retention-days: 7
